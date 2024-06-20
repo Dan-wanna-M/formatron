@@ -1,0 +1,22 @@
+[project]
+name = "formatron"
+version = "0.1.0"
+authors = [
+  {name = "Xintong Sun", email = "xs28@rice.edu"},
+]
+description = "Formatron empowers everyone to control language models' output format with negligible overhead."
+readme = "README.md"
+dependencies = ["pydantic","kbnf"]
+license = {file = "LICENSE"}
+keywords = ["deep learning", "language model", "guided generation", "structured generation","constrained decoding"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+[project.urls]
+Repository = "https://github.com/Dan-wanna-M/formatron"
