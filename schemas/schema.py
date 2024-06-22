@@ -5,7 +5,12 @@ import typing
 class FieldInfo(abc.ABC):
     @property
     @abc.abstractmethod
-    def annotation(self) -> typing.Type[typing.Any]|None:
+    def annotation(self) -> typing.Type[typing.Any] | None:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def required(self) -> bool:
         pass
 
 
