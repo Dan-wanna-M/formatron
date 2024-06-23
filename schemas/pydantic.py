@@ -2,13 +2,12 @@ import inspect
 import typing
 
 import pydantic.fields
-from pydantic_core._pydantic_core import PydanticUndefined
 
-import schemas.schema
+from schemas import schema
 from pydantic import BaseModel, validate_call, ConfigDict, Field
 
 
-class FieldInfo(schemas.schema.FieldInfo):
+class FieldInfo(schema.FieldInfo):
     __slots__ = ("_field",)
 
     def __init__(self, field: pydantic.fields.FieldInfo):
@@ -29,7 +28,7 @@ class FieldInfo(schemas.schema.FieldInfo):
         return str(self._field)
 
 
-class ClassSchema(BaseModel, schemas.schema.Schema):
+class ClassSchema(BaseModel, schema.Schema):
     __cached_fields__ = None
 
     @classmethod
@@ -48,14 +47,13 @@ def callable_schema(func: CallableT, /, *, config: ConfigDict = None, validate_r
     signature = inspect.signature(func, eval_str=True)
     fields = {}
     for k, p in signature.parameters.items():
-        if isinstance(p.default, pydantic.fields.FieldInfo):
-            fields[k] = p.default
-            continue
-        default = PydanticUndefined
+        default = None
         if p.default is not inspect.Signature.empty:
             default = p.default
         actual_type = p.annotation
         metadata = []
+        if isinstance(p.default, pydantic.fields.FieldInfo):
+            fields[k] = p.default
         if typing.get_origin(p.annotation) is typing.Annotated:
             actual_type, *meta = typing.get_args(p.annotation)
             fieldinfo = None
@@ -66,18 +64,22 @@ def callable_schema(func: CallableT, /, *, config: ConfigDict = None, validate_r
                     metadata.append(i)
             if fieldinfo is not None:
                 fields[k] = fieldinfo
+            if k in fields:
                 fields[k].default = default
                 fields[k].annotation = actual_type
                 fields[k].metadata.extend(metadata)
                 continue
-        fields[k] = Field(default)
+        if default is not None:
+            fields[k] = Field(default)
+        else:
+            fields[k] = Field()
         fields[k].annotation = actual_type
         fields[k].metadata.extend(metadata)
     for k in fields:
         fields[k] = FieldInfo(fields[k])
     _class = type(
-        f'{func.__qualname__}PydanticSchema',
-        (schemas.schema.Schema,),
+        f'{func.__qualname__}_PydanticSchema_{id(func)}',
+        (schema.Schema,),
         {
             "_func": pydantic_wrapper,
             'fields': lambda: fields,
