@@ -1,3 +1,4 @@
+import decimal
 import ipaddress
 import typing
 import ipaddress
@@ -11,14 +12,19 @@ class IPv4Address:
     pass
 
 
+new_int = typing.NewType("new_int", int)
+vector = list[int]
+
+
 class Test(schemas.pydantic.ClassSchema):
     a: typing.Annotated[str, Field("OK"), "114":514, Field("OK2")]
     b: int = 1
-    c: bool
-    e: typing.List[int]
+    c: typing.Literal["114'\"", "514", True, typing.Literal["1919", "810"]]
+    e: tuple[typing.List[float], decimal.Decimal, typing.Dict, dict[str, typing.Any]]
+    f: typing.Union[bool, int, typing.Any, new_int, vector]
 
 
-print(Test.fields()['e'].annotation)
+print(Test.fields()['f'])
 print(JsonAsKbnf().generate(Test))
 
 
