@@ -2,6 +2,8 @@ import decimal
 import ipaddress
 import typing
 import ipaddress
+import kbnf
+
 import schemas.pydantic
 from pydantic import BaseModel, Field, PositiveInt
 
@@ -24,14 +26,22 @@ class Test(schemas.pydantic.ClassSchema):
     f: typing.Union[bool, int, typing.Any, new_int, vector]
 
 
+class XiaolJSON(schemas.pydantic.ClassSchema):
+    mode: str
+    title: str
+    queries: list[str]
+    related_queries: list[str]
+    concepts: list[str]
+    urls: list[str]
+
+
 print(Test.fields()['f'])
-print(JsonAsKbnf().generate(Test))
+print(JsonAsKbnf().generate(XiaolJSON))
 
 
 @schemas.pydantic.callable_schema
 def foo(a: int, b: typing.Annotated[int, Field(gt=10), "1124"] = 2):
     return a + b
-
 
 print(foo(1))
 print(foo.fields()['a'])
