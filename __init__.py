@@ -1,13 +1,12 @@
 import decimal
-import ipaddress
 import typing
-import ipaddress
-import kbnf
+import rwkv.model
+import rwkv.utils
+from pydantic import Field
 
 import schemas.pydantic
-from pydantic import BaseModel, Field, PositiveInt
-
-from grammar_generators.json_generator import JsonAsKbnf
+import grammar_generators.json_generator
+from integrations.RWKV import PIPELINE
 
 
 class IPv4Address:
@@ -36,13 +35,25 @@ class XiaolJSON(schemas.pydantic.ClassSchema):
 
 
 print(Test.fields()['f'])
-print(JsonAsKbnf().generate(XiaolJSON))
+print(grammar_generators.json_generator.generate(XiaolJSON))
 
 
 @schemas.pydantic.callable_schema
 def foo(a: int, b: typing.Annotated[int, Field(gt=10), "1124"] = 2):
     return a + b
 
+
 print(foo(1))
 print(foo.fields()['a'])
 assert typing.get_origin(typing.List[int]) is list
+
+model = rwkv.model.RWKV("assets/RWKV-5-World-0.4B-v2-20231113-ctx4096.pth", 'cuda fp16')
+out, state = model.forward([187, 510, 1563, 310, 247], None)  # use 20B_tokenizer.json
+print(out.detach().cpu().numpy())  # get logits
+out, state = model.forward([187, 510], None)
+out, state = model.forward([1563], state)  # RNN has state (use deepcopy if you want to clone it)
+out, state = model.forward([310, 247], state)
+print(out.detach().cpu().numpy())  # same result as above
+pipeline = PIPELINE(model, "rwkv_vocab_v20230424", grammar_str="start ::= '一个' start|'\\n\\n';")
+print(pipeline.generate("你是一个一个一个一个一个"))
+print(pipeline.generate("你是一个一个一个一个一个"))

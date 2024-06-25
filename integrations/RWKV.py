@@ -3,7 +3,7 @@ import numpy as np
 import rwkv.utils
 import rwkv.rwkv_tokenizer
 import torch
-from kbnf import AcceptTokenResult
+from kbnf import AcceptTokenResult, Token
 from torch.nn import functional as F
 import schemas.schema
 from config import EngineGenerationConfig
@@ -12,7 +12,7 @@ from config import EngineGenerationConfig
 class PIPELINE_ARGS(rwkv.utils.PIPELINE_ARGS):
     def __init__(self,
                  temperature=1.0,
-                 top_p=0.85,
+                 top_p=0.2,
                  top_k=0,
                  alpha_frequency=0.2,
                  alpha_presence=0.2,
@@ -29,10 +29,11 @@ class PIPELINE_ARGS(rwkv.utils.PIPELINE_ARGS):
 class PIPELINE(rwkv.utils.PIPELINE):
     def __init__(self, model, WORD_NAME, grammar_str=None):
         super().__init__(model, WORD_NAME)
-        assert isinstance(self.tokenizer, rwkv.rwkv_tokenizer.TRIE_TOKENIZER), "Only world vocabulary is supported!"
+        assert WORD_NAME == 'rwkv_vocab_v20230424', "Only world vocabulary is supported!"
         if grammar_str is not None:
-            vocabulary = kbnf.Vocabulary(self.tokenizer.idx2token,
-                                         {k: v.decode("UTF-8", errors="replace") for k, v in self.tokenizer.idx2token})
+            vocabulary = kbnf.Vocabulary({k: Token(v) for k, v in self.tokenizer.idx2token.items()},
+                                         {k: v.decode("UTF-8", errors="replace") for k, v in
+                                          self.tokenizer.idx2token.items()})
             self.engine = kbnf.Engine(grammar_str, vocabulary)
         else:
             self.engine = None
@@ -62,7 +63,10 @@ class PIPELINE(rwkv.utils.PIPELINE):
                 out[n] -= (args.alpha_presence + occurrence[n] * args.alpha_frequency)
             if self.engine is not None:
                 engine = self.engine
+                engine.compute_allowed_token_ids()
+                out = out[:len(self.tokenizer.idx2token) + 1]  # account for the padding `0` token
                 out = engine.mask_logits(out)
+                # out = torch.where(out == float('-inf'), torch.tensor(-1e38), out)
             # sampler
             token = self.sample_logits(out, temperature=args.temperature, top_p=args.top_p, top_k=args.top_k)
             if self.engine is not None:
