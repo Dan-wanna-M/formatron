@@ -2,7 +2,6 @@ import collections
 import decimal
 import types
 import typing
-from collections.abc import Sequence
 
 import schemas.schema
 
@@ -27,9 +26,9 @@ _type_to_nonterminals = []
 
 
 def register_generate_nonterminal_def(
-                                      generate_nonterminal_def: typing.Callable[[typing.Type, str],
-                                      typing.Union[tuple[
-                                          str, typing.Iterable[tuple[typing.Type, str]]], None]]):
+        generate_nonterminal_def: typing.Callable[[typing.Type, str],
+        typing.Union[tuple[
+            str, typing.Iterable[tuple[typing.Type, str]]], None]]):
     _type_to_nonterminals.append(generate_nonterminal_def)
 
 
@@ -61,7 +60,7 @@ def _register_all_predefined_types():
     def builtin_list(current: typing.Type, nonterminal: str):
         original = typing.get_origin(current)
         if original is typing.Sequence or isinstance(original, type) \
-                and issubclass(original, Sequence):
+                and issubclass(original, collections.abc.Sequence):
             new_nonterminal = f"{nonterminal}_value"
             annotation = typing.get_args(current)
             if not annotation:
@@ -145,6 +144,7 @@ def _register_all_predefined_types():
         elif type(current) is typing.NewType:
             return "", [(current.__supertype__, nonterminal)]
 
+    register_generate_nonterminal_def(builtin_simple_types)
     register_generate_nonterminal_def(schema)
     register_generate_nonterminal_def(field_info)
     register_generate_nonterminal_def(builtin_tuple)
@@ -152,7 +152,6 @@ def _register_all_predefined_types():
     register_generate_nonterminal_def(builtin_union)
     register_generate_nonterminal_def(builtin_list)
     register_generate_nonterminal_def(builtin_dict)
-    register_generate_nonterminal_def(builtin_simple_types)
 
 
 def generate(schema: typing.Type[schemas.schema.Schema]) -> str:
@@ -170,7 +169,7 @@ def generate(schema: typing.Type[schemas.schema.Schema]) -> str:
                 nonterminals.add(nonterminal)
                 break
         else:
-            raise TypeError(f"{type(current)} from {nonterminal} is not supported in JsonToKbnf!")
+            raise TypeError(f"{type(current)} from {nonterminal} is not supported in json_generators!")
     return "".join(result)
 
 

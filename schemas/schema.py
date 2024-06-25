@@ -18,5 +18,5 @@ class Schema(abc.ABC):
 
     @classmethod
     @abc.abstractmethod
-    def fields(cls) -> typing.Dict[str, FieldInfo]:
+    def fields(cls) -> dict[str, FieldInfo]:
         pass

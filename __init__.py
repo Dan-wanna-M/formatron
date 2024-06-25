@@ -1,4 +1,5 @@
 import decimal
+import json
 import typing
 import rwkv.model
 import rwkv.utils
@@ -7,6 +8,7 @@ from pydantic import Field
 import schemas.pydantic
 import grammar_generators.json_generator
 from integrations.RWKV import PIPELINE
+from schemas.dict_inference import infer_mapping
 
 
 class IPv4Address:
@@ -21,7 +23,7 @@ class Test(schemas.pydantic.ClassSchema):
     a: typing.Annotated[str, Field("OK"), "114":514, Field("OK2")]
     b: int = 1
     c: typing.Literal["114'\"", "514", True, typing.Literal["1919", "810"]]
-    e: tuple[typing.List[float], decimal.Decimal, typing.Dict, dict[str, typing.Any]]
+    e: tuple[typing.List[float],str, decimal.Decimal, typing.Dict, dict[str, typing.Any]]
     f: typing.Union[bool, int, typing.Any, new_int, vector]
 
 
@@ -34,8 +36,17 @@ class XiaolJSON(schemas.pydantic.ClassSchema):
     urls: list[str]
 
 
-print(Test.fields()['f'])
 print(grammar_generators.json_generator.generate(XiaolJSON))
+print(grammar_generators.json_generator.generate(infer_mapping(json.loads("""
+{
+  "mode": "xx",
+  "title": "xx",
+  "queries": ["xx", "xx", "xx"],
+  "related_queries": ["xx", "xx", "xx"],
+  "concepts": ["xx", "xx", "xx"],
+  "urls": ["xx", "xx", "xx"]
+}
+"""))))
 
 
 @schemas.pydantic.callable_schema
