@@ -1,10 +1,15 @@
 import abc
+import typing
 
-import formatter
+import matcher
 import schemas.schema
 
 
-class GrammarGenerator(formatter.Matcher, abc.ABC):
+class GrammarGenerator(abc.ABC):
     @abc.abstractmethod
-    def generate(self, schema: schemas.schema.Schema, start_nonterminal:str) -> str:
+    def generate(self, schema: typing.Type, start_nonterminal: str) -> str:
+        pass
+
+    @abc.abstractmethod
+    def get_matcher(self, nonterminal:str, capture_name: typing.Optional[str]) -> matcher.Matcher:
         pass

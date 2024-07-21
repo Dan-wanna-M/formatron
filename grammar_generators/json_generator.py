@@ -4,6 +4,7 @@ import json
 import types
 import typing
 
+import matcher
 import schemas.schema
 from grammar_generators.grammar_generator import GrammarGenerator
 
@@ -12,21 +13,21 @@ class JsonGenerator(GrammarGenerator):
     _space_nonterminal = r"(\u0020|\u000A|\u000D|\u0009)*"
 
     _grammar_header = rf"""
-    integer ::= #"-?(0|[1-9]\d*)";
-    number ::= #"-?(0|[1-9]\d*)(\.\d+)?([eE][+-]?\d+)?";
-    string ::= #'"([^\\\\"\x00-\x1f]|\\\\["\\\\bfnrt/]|\\\\u[0-9A-Fa-f]{{4}})*"';
-    boolean ::= "true"|"false";
-    null ::= "null";
-    array ::= array_begin (json_value (comma json_value)*)? array_end;
-    object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
-    json_value ::= number|string|boolean|null|array|object;
-    comma ::= #"{_space_nonterminal},{_space_nonterminal}";
-    colon ::= #"{_space_nonterminal}:{_space_nonterminal}";
-    object_begin ::= #"{{{_space_nonterminal}";
-    object_end ::= #"{_space_nonterminal}}}";
-    array_begin ::= #"[{_space_nonterminal}";
-    array_end ::= #"{_space_nonterminal}]";
-    """
+integer ::= #"-?(0|[1-9]\d*)";
+number ::= #"-?(0|[1-9]\d*)(\.\d+)?([eE][+-]?\d+)?";
+string ::= #'"([^\\\\"\x00-\x1f]|\\\\["\\\\bfnrt/]|\\\\u[0-9A-Fa-f]{{4}})*"';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"{_space_nonterminal},{_space_nonterminal}";
+colon ::= #"{_space_nonterminal}:{_space_nonterminal}";
+object_begin ::= #"{{{_space_nonterminal}";
+object_end ::= #"{_space_nonterminal}}}";
+array_begin ::= #"[{_space_nonterminal}";
+array_end ::= #"{_space_nonterminal}]";
+"""
     _type_to_nonterminals = []
 
     @classmethod
@@ -61,6 +62,8 @@ class JsonGenerator(GrammarGenerator):
 
         def builtin_list(current: typing.Type, nonterminal: str):
             original = typing.get_origin(current)
+            if original is None:
+                original = current
             if original is typing.Sequence or isinstance(original, type) \
                     and issubclass(original, collections.abc.Sequence):
                 new_nonterminal = f"{nonterminal}_value"
@@ -75,6 +78,8 @@ class JsonGenerator(GrammarGenerator):
 
         def builtin_dict(current: typing.Type, nonterminal: str):
             original = typing.get_origin(current)
+            if original is None:
+                original = current
             if original is typing.Mapping or isinstance(original, type) and issubclass(original,
                                                                                        collections.abc.Mapping):
                 new_nonterminal = f"{nonterminal}_value"
@@ -174,8 +179,20 @@ class JsonGenerator(GrammarGenerator):
                     nonterminals.add(nonterminal)
                     break
             else:
-                raise TypeError(f"{type(current)} from {nonterminal} is not supported in json_generators!")
+                raise TypeError(f"{current} from {nonterminal} is not supported in json_generators!")
         return "".join(result)
+
+    def get_matcher(self, nonterminal: str, capture_name: typing.Optional[str]) -> matcher.Matcher:
+        return JsonMatcher(nonterminal,capture_name)
+
+
+class JsonMatcher(matcher.Matcher):
+    def __init__(self, nonterminal: str, capture_name: typing.Optional[str]):
+        super().__init__(capture_name)
+        self.nonterminal = nonterminal
+
+    def _to_str(self)->str:
+        return self.nonterminal
 
     def match(self, input_str: str) -> tuple[str, typing.Any]:
         # Ensure the input string starts with '{' after stripping leading whitespace
@@ -203,7 +220,8 @@ class JsonGenerator(GrammarGenerator):
         # The position now points to the character after the last '}', so we slice to position
         json_str = input_str[:position]
         remaining_str = input_str[position:]
-        # Use Python's json library to parse the JSON string
-        decoded_json = json.loads(json_str)
         # Return the unparsed remainder of the string and the decoded JSON object
-        return remaining_str, decoded_json
+        return remaining_str, json_str
+
+
+JsonGenerator._register_all_predefined_types()
