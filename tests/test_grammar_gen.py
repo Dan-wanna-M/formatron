@@ -21,8 +21,15 @@ class Test(schemas.pydantic.ClassSchema):
 
 
 def test_pydantic_class(snapshot):
-    """Testing the API for /me"""
     result = grammar_generators.json_generator.JsonGenerator().generate(Test)
+    snapshot.assert_match(result)
+
+
+def test_pydantic_callable(snapshot):
+    @schemas.pydantic.callable_schema
+    def foo(a: int, b: typing.Annotated[int, Field(gt=10), "1124"] = 2):
+        return a + b
+    result = grammar_generators.json_generator.JsonGenerator().generate(foo)
     snapshot.assert_match(result)
 
 

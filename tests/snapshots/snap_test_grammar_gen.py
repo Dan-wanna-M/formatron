@@ -41,6 +41,27 @@ start_title ::= string;
 start_mode ::= string;
 '''
 
+snapshots['test_pydantic_callable 1'] = '''
+integer ::= #"-?(0|[1-9]\\d*)";
+number ::= #"-?(0|[1-9]\\d*)(\\.\\d+)?([eE][+-]?\\d+)?";
+string ::= #\'"([^\\\\\\\\"\\x00-\\x1f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"(\\u0020|\\u000A|\\u000D|\\u0009)*,(\\u0020|\\u000A|\\u000D|\\u0009)*";
+colon ::= #"(\\u0020|\\u000A|\\u000D|\\u0009)*:(\\u0020|\\u000A|\\u000D|\\u0009)*";
+object_begin ::= #"{(\\u0020|\\u000A|\\u000D|\\u0009)*";
+object_end ::= #"(\\u0020|\\u000A|\\u000D|\\u0009)*}";
+array_begin ::= #"[(\\u0020|\\u000A|\\u000D|\\u0009)*";
+array_end ::= #"(\\u0020|\\u000A|\\u000D|\\u0009)*]";
+start ::= object_begin 'a' colon start_a comma 'b' colon start_b object_end;
+start_b ::= start_b_required?;
+start_b_required ::= integer;
+start_a ::= integer;
+'''
+
 snapshots['test_pydantic_class 1'] = '''
 integer ::= #"-?(0|[1-9]\\d*)";
 number ::= #"-?(0|[1-9]\\d*)(\\.\\d+)?([eE][+-]?\\d+)?";
