@@ -26,15 +26,18 @@ class PIPELINE_ARGS(rwkv.utils.PIPELINE_ARGS):
         self.engine_gen_config = engine_gen_config
 
 
+def create_engine_vocabulary(WORD_NAME, tokenizer):
+    assert WORD_NAME == 'rwkv_vocab_v20230424', "Only world vocabulary is supported!"
+    return kbnf.Vocabulary({k: Token(v) for k, v in tokenizer.idx2token.items()},
+                           {k: v.decode("UTF-8", errors="replace") for k, v in
+                            tokenizer.idx2token.items()})
+
+
 class PIPELINE(rwkv.utils.PIPELINE):
     def __init__(self, model, WORD_NAME, grammar_str=None):
         super().__init__(model, WORD_NAME)
-        assert WORD_NAME == 'rwkv_vocab_v20230424', "Only world vocabulary is supported!"
         if grammar_str is not None:
-            vocabulary = kbnf.Vocabulary({k: Token(v) for k, v in self.tokenizer.idx2token.items()},
-                                         {k: v.decode("UTF-8", errors="replace") for k, v in
-                                          self.tokenizer.idx2token.items()})
-            self.engine = kbnf.Engine(grammar_str, vocabulary)
+            self.engine = kbnf.Engine(grammar_str, create_engine_vocabulary(WORD_NAME, self.tokenizer))
         else:
             self.engine = None
 

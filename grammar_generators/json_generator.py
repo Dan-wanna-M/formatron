@@ -10,12 +10,12 @@ from grammar_generators.grammar_generator import GrammarGenerator
 
 
 class JsonGenerator(GrammarGenerator):
-    _space_nonterminal = r"(\u0020|\u000A|\u000D|\u0009)*"
+    _space_nonterminal = "(\\u0020|\\u000A|\\u000D|\\u0009)*"
 
     _grammar_header = rf"""
-integer ::= #"-?(0|[1-9]\d*)";
-number ::= #"-?(0|[1-9]\d*)(\.\d+)?([eE][+-]?\d+)?";
-string ::= #'"([^\\\\"\x00-\x1f]|\\\\["\\\\bfnrt/]|\\\\u[0-9A-Fa-f]{{4}})*"';
+integer ::= #"-?(0|[1-9]\\d*)";
+number ::= #"-?(0|[1-9]\\d*)(\\.\\d+)?([eE][+-]?\\d+)?";
+string ::= #'"([^\\\\"\u0000-\u001f]|\\\\["\\\\bfnrt/]|\\\\u[0-9A-Fa-f]{{4}})*"';
 boolean ::= "true"|"false";
 null ::= "null";
 array ::= array_begin (json_value (comma json_value)*)? array_end;
@@ -23,11 +23,11 @@ object ::= object_begin (string colon json_value (comma string colon json_value)
 json_value ::= number|string|boolean|null|array|object;
 comma ::= #"{_space_nonterminal},{_space_nonterminal}";
 colon ::= #"{_space_nonterminal}:{_space_nonterminal}";
-object_begin ::= #"{{{_space_nonterminal}";
-object_end ::= #"{_space_nonterminal}}}";
-array_begin ::= #"[{_space_nonterminal}";
-array_end ::= #"{_space_nonterminal}]";
-"""
+object_begin ::= #"\\{{{_space_nonterminal}";
+object_end ::= #"{_space_nonterminal}\\}}";
+array_begin ::= #"\\[{_space_nonterminal}";
+array_end ::= #"{_space_nonterminal}\\]";
+""".strip()
     _type_to_nonterminals = []
 
     @classmethod
