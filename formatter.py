@@ -37,6 +37,7 @@ class FormatterBase(abc.ABC):
 
 
 class Formatter(FormatterBase):
+
     def __init__(self, matchers: list[Matcher], engine: kbnf.Engine,
                  decode_callback: typing.Callable[[list[int]], str], grammar_str: str):
         self._matchers = matchers
@@ -73,6 +74,8 @@ class Formatter(FormatterBase):
 
 
 class FormatterBuilder:
+    _formatter_builder_counter = 0
+
     def __init__(self):
         self._counter = 0
         self._main_rule = []
@@ -80,6 +83,8 @@ class FormatterBuilder:
         self._capture_names = set()
         self._nonterminal_to_matcher = {}
         self._matchers = []
+        self.instance_id = self._formatter_builder_counter
+        self.__class__._formatter_builder_counter += 1
 
     def _assert_capture_name_valid(self, capture_name: str):
         assert capture_name.isidentifier(), f"capture_name {capture_name} should only contains alphanumeric characters, " \
@@ -96,6 +101,12 @@ class FormatterBuilder:
     def append_str(self, string: str):
         state = "normal"
         last = 0
+
+        def append_literal(end):
+            if last < end:
+                literal = string[last:end]
+                self._main_rule.append(repr(literal))
+                self._matchers.append(LiteralMatcher(literal))
         for (i, char) in enumerate(string):
             if char == "$":
                 if state != "escaped":
@@ -104,10 +115,9 @@ class FormatterBuilder:
                     state = "normal"
             elif state == "dollar":
                 if char == "{":
-                    state = "left_bracket"
-                    self._main_rule.append(repr(string[last:i - 1]))
-                    self._matchers.append(LiteralMatcher(string[last:i - 1]))
+                    append_literal(i-1)
                     last = i + 1
+                    state = "left_bracket"
                 else:
                     state = "normal"
             elif state == "left_bracket":
@@ -120,68 +130,49 @@ class FormatterBuilder:
                 state = "escaped"
             else:
                 state = "normal"
-        if last < len(string):
-            self._main_rule.append(repr(string[last:]))
-            self._matchers.append(LiteralMatcher(string[last:]))
+        append_literal(len(string))
 
-    def regex(self, regex: str, *, capture_name: str = None) -> str:
+    def _create_nonterminal(self, capture_name: typing.Optional[str], name: str) -> str:
         if capture_name is not None:
             self._assert_capture_name_valid(capture_name)
             self._capture_names.add(capture_name)
-            nonterminal = f"__regex_{capture_name}_{id(regex)}"
+            nonterminal = f"__{name}_{capture_name}_{self.instance_id}"
         else:
-            nonterminal = f"__regex_{id(regex)}_{self._counter}"
+            nonterminal = f"__{name}_{self._counter}_{self.instance_id}"
             self._counter += 1
+        return nonterminal
+
+    def regex(self, regex: str, *, capture_name: str = None) -> str:
+        nonterminal = self._create_nonterminal(capture_name, "regex")
         self._nonterminal_to_matcher[nonterminal] = RegexMatcher(regex, capture_name, nonterminal)
         self._rules.append(f"{nonterminal} ::= #{repr(regex)};")
         return self._nonterminal_to_matcher[nonterminal]
 
     def schema(self, schema: typing.Type[schemas.schema.Schema],
                grammar_generator: grammar_generators.grammar_generator.GrammarGenerator, *, capture_name: str = None):
-        if capture_name is not None:
-            self._assert_capture_name_valid(capture_name)
-            self._capture_names.add(capture_name)
-            nonterminal = f"__schema_{capture_name}_{id(schema)}"
-        else:
-            nonterminal = f"__schema_{id(schema)}_{self._counter}"
-            self._counter += 1
-        self._rules.append(grammar_generator.generate(schema, nonterminal))
+        nonterminal = self._create_nonterminal(capture_name, "schema")
         self._nonterminal_to_matcher[nonterminal] = grammar_generator.get_matcher(nonterminal, capture_name)
+        self._rules.append(grammar_generator.generate(schema, nonterminal))
         # Repetitive header might slow down compilation time, but let's ignore it for now.
         return self._nonterminal_to_matcher[nonterminal]
 
-    def str(self, *,
-            stop: typing.Union[str, list[str]] = None, not_contain: typing.Union[str, list[str], None] = None,
-            capture_name: str = None):
-        if stop is None:
-            stop = []
-        elif isinstance(stop, str):
-            stop = [stop]
-        if not_contain is None:
-            not_contain = []
-        elif isinstance(not_contain, str):
-            not_contain = [not_contain]
+    def str(self, *, stop: typing.Union[str, list[str]] = None,
+            not_contain: typing.Union[str, list[str], None] = None,
+            capture_name: typing.Optional[str] = None):
+        stop = [stop] if isinstance(stop, str) else stop or []
+        not_contain = [not_contain] if isinstance(not_contain, str) else not_contain or []
         if not stop and not not_contain:
             capture_regex = ".*"
             get_excepted = None
             get_nonterminal_regex = lambda _: "#'.*'"
         else:
-            capture_regex = f".*?(?:{'|'.join([repr(i) for i in stop + not_contain])})"
+            capture_regex = f".*?(?:{'|'.join(map(repr, stop + not_contain))})"
             get_excepted = lambda nonterminal: f"{nonterminal}_excepted"
-            if stop:
-                end = f"({' | '.join(repr(i) for i in stop)})"
-            else:
-                end = ""
+            end = f"({'|'.join(map(repr, stop))})" if stop else ""
             get_nonterminal_regex = lambda nonterminal: f"except!({get_excepted(nonterminal)}){end}"
-        if capture_name is not None:
-            self._assert_capture_name_valid(capture_name)
-            self._capture_names.add(capture_name)
-            nonterminal = f"__str_{capture_name}_{id(capture_name)}"
-        else:
-            nonterminal = f"__str_{id(self)}_{self._counter}"
-            self._counter += 1
-        if get_excepted is not None:
-            self._rules.append(f"{get_excepted(nonterminal)} ::= {' | '.join(repr(i) for i in stop+not_contain)};")
+        nonterminal = self._create_nonterminal(capture_name, "str")
+        if get_excepted:
+            self._rules.append(f"{get_excepted(nonterminal)} ::= {' | '.join(map(repr, stop + not_contain))};")
         self._rules.append(f"{nonterminal} ::= {get_nonterminal_regex(nonterminal)};")
         self._nonterminal_to_matcher[nonterminal] = RegexMatcher(capture_regex, capture_name, nonterminal)
         return self._nonterminal_to_matcher[nonterminal]
@@ -189,7 +180,6 @@ class FormatterBuilder:
     def build(self, vocabulary: kbnf.Vocabulary, decode_callback: typing.Callable[[list[int]], str]):
         self._rules.append(f"start ::= {' '.join(self._main_rule)};")
         grammar_str = "\n".join(self._rules)
-        print(grammar_str)
         engine = Engine(grammar_str, vocabulary)
         f = Formatter(self._matchers, engine, decode_callback, grammar_str)
         return f
