@@ -8,7 +8,7 @@ class Matcher(abc.ABC):
         self.capture_name = capture_name
 
     @abc.abstractmethod
-    def match(self, input_str: str) -> tuple[str, typing.Any]:
+    def match(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
         pass
 
     @abc.abstractmethod
@@ -25,9 +25,10 @@ class LiteralMatcher(Matcher):
         super().__init__(literal)
         self.literal = literal
 
-    def match(self, input_str: str) -> tuple[str, typing.Any]:
+    def match(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
         pos = input_str.find(self.literal)
-        assert pos != -1
+        if pos == -1:
+            return None
         return input_str[pos + len(self.literal):], self.literal
 
     def _to_str(self) -> str:
@@ -41,9 +42,28 @@ class RegexMatcher(Matcher):
         self.regex = re.compile(regex)
         self.nonterminal = nonterminal
 
-    def match(self, input_str: str) -> tuple[str, typing.Any]:
+    def match(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
         matched = self.regex.match(input_str)
+        if not matched:
+            return None
         return input_str[matched.lastindex + 1:], matched.groups()
+
+    def _to_str(self) -> str:
+        return self.nonterminal
+
+
+class ChoiceMatcher(Matcher):
+    def __init__(self, choices: typing.Iterable[Matcher], capture_name: str, nonterminal: str):
+        super().__init__(capture_name)
+        self.choices = choices
+        self.nonterminal = nonterminal
+
+    def match(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
+        for choice in self.choices:
+            matched = choice.match(input_str)
+            if matched:
+                return matched
+        return None
 
     def _to_str(self) -> str:
         return self.nonterminal

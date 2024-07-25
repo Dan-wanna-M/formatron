@@ -182,7 +182,7 @@ array_end ::= #"{_space_nonterminal}\\]";
         return "".join(result)
 
     def get_matcher(self, nonterminal: str, capture_name: typing.Optional[str]) -> matcher.Matcher:
-        return JsonMatcher(nonterminal,capture_name)
+        return JsonMatcher(nonterminal, capture_name)
 
 
 class JsonMatcher(matcher.Matcher):
@@ -190,13 +190,14 @@ class JsonMatcher(matcher.Matcher):
         super().__init__(capture_name)
         self.nonterminal = nonterminal
 
-    def _to_str(self)->str:
+    def _to_str(self) -> str:
         return self.nonterminal
 
-    def match(self, input_str: str) -> tuple[str, typing.Any]:
+    def match(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
         # Ensure the input string starts with '{' after stripping leading whitespace
         input_str = input_str.lstrip()
-        assert input_str.startswith('{'), "Input string must start with '{'."
+        if not input_str.startswith('{'):
+            return None
 
         # Variables to track the balance of brackets and the position in the string
         bracket_count = 0
@@ -215,7 +216,8 @@ class JsonMatcher(matcher.Matcher):
             # If brackets are balanced, stop processing
             if bracket_count == 0:
                 break
-
+        else:
+            return None
         # The position now points to the character after the last '}', so we slice to position
         json_str = input_str[:position]
         remaining_str = input_str[position:]

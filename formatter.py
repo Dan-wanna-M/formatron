@@ -7,7 +7,7 @@ from kbnf import AcceptTokenResult, Engine
 
 import grammar_generators.grammar_generator
 import schemas.schema
-from matcher import Matcher, LiteralMatcher, RegexMatcher
+from matcher import Matcher, LiteralMatcher, RegexMatcher, ChoiceMatcher
 
 
 class FormatterBase(abc.ABC):
@@ -107,6 +107,7 @@ class FormatterBuilder:
                 literal = string[last:end]
                 self._main_rule.append(repr(literal))
                 self._matchers.append(LiteralMatcher(literal))
+
         for (i, char) in enumerate(string):
             if char == "$":
                 if state != "escaped":
@@ -115,7 +116,7 @@ class FormatterBuilder:
                     state = "normal"
             elif state == "dollar":
                 if char == "{":
-                    append_literal(i-1)
+                    append_literal(i - 1)
                     last = i + 1
                     state = "left_bracket"
                 else:
@@ -142,19 +143,28 @@ class FormatterBuilder:
             self._counter += 1
         return nonterminal
 
-    def regex(self, regex: str, *, capture_name: str = None) -> str:
-        nonterminal = self._create_nonterminal(capture_name, "regex")
-        self._nonterminal_to_matcher[nonterminal] = RegexMatcher(regex, capture_name, nonterminal)
-        self._rules.append(f"{nonterminal} ::= #{repr(regex)};")
+    def choose(self, *matchers: Matcher, capture_name: str = None):
+        return self._add_matcher(capture_name, "choice",
+                                 lambda nonterminal: ChoiceMatcher(matchers, capture_name, nonterminal),
+                                 lambda nonterminal: f"{nonterminal} ::= {' | '.join(map(str, matchers))};")
+
+    def _add_matcher(self, capture_name: str, matcher_type: str, create_matcher: typing.Callable[[str], Matcher],
+                     create_rule: typing.Callable[[str], str]):
+        nonterminal = self._create_nonterminal(capture_name, matcher_type)
+        self._nonterminal_to_matcher[nonterminal] = create_matcher(nonterminal)
+        self._rules.append(create_rule(nonterminal))
         return self._nonterminal_to_matcher[nonterminal]
+
+    def regex(self, regex: str, *, capture_name: str = None) -> str:
+        return self._add_matcher(capture_name, "regex",
+                                 lambda nonterminal: RegexMatcher(regex, capture_name, nonterminal),
+                                 lambda nonterminal: f"{nonterminal} ::= #{repr(regex)};")
 
     def schema(self, schema: typing.Type[schemas.schema.Schema],
                grammar_generator: grammar_generators.grammar_generator.GrammarGenerator, *, capture_name: str = None):
-        nonterminal = self._create_nonterminal(capture_name, "schema")
-        self._nonterminal_to_matcher[nonterminal] = grammar_generator.get_matcher(nonterminal, capture_name)
-        self._rules.append(grammar_generator.generate(schema, nonterminal))
-        # Repetitive header might slow down compilation time, but let's ignore it for now.
-        return self._nonterminal_to_matcher[nonterminal]
+        return self._add_matcher(capture_name, "schema",
+                                 lambda nonterminal: grammar_generator.get_matcher(nonterminal, capture_name),
+                                 lambda nonterminal: grammar_generator.generate(schema, nonterminal))
 
     def str(self, *, stop: typing.Union[str, list[str]] = None,
             not_contain: typing.Union[str, list[str], None] = None,
