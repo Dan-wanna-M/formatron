@@ -7,6 +7,7 @@ from kbnf import AcceptTokenResult, Token
 from torch.nn import functional as F
 import schemas.schema
 from config import EngineGenerationConfig
+from formatter import Formatter, FormatterBuilder
 
 
 class PIPELINE_ARGS(rwkv.utils.PIPELINE_ARGS):
@@ -34,52 +35,53 @@ def create_engine_vocabulary(WORD_NAME, tokenizer):
 
 
 class PIPELINE(rwkv.utils.PIPELINE):
-    def __init__(self, model, WORD_NAME, grammar_str=None):
+    def __init__(self, model, WORD_NAME, formatter_builder: FormatterBuilder):
         super().__init__(model, WORD_NAME)
-        if grammar_str is not None:
-            self.engine = kbnf.Engine(grammar_str, create_engine_vocabulary(WORD_NAME, self.tokenizer))
+        vocabulary = create_engine_vocabulary(WORD_NAME, self.tokenizer)
+        formatter = formatter_builder.build(vocabulary, lambda tokens: self.tokenizer.decode(tokens))
+        if formatter is not None:
+            self.formatter = formatter
         else:
-            self.engine = None
+            self.formatter = None
 
     def generate(self, ctx, token_count=100, args=PIPELINE_ARGS(), callback=None, state=None):
         all_tokens = []
         out_last = 0
         out_str = ''
         occurrence = {}
+        if args.engine_gen_config.reset_on_completion and self.formatter:
+            self.formatter.reset()
         for i in range(token_count):
             # forward & adjust prob.
             tokens = self.encode(ctx) if i == 0 else [token]
-            engine_result = None
-            if self.engine is not None:
-                engine = self.engine
+            if self.formatter is not None:
                 if i == 0 and args.engine_gen_config.read_prompt:
                     for token in tokens:
-                        engine.try_accept_new_token(token)
+                        self.formatter.accept_token(token)
             while len(tokens) > 0:
                 out, state = self.model.forward(tokens[:args.chunk_len], state)
                 tokens = tokens[args.chunk_len:]
-            if engine_result == AcceptTokenResult.Finished:
+            if self.formatter and self.formatter.is_completed():
                 break
             for n in args.token_ban:
                 out[n] = -float('inf')
             for n in occurrence:
                 out[n] -= (args.alpha_presence + occurrence[n] * args.alpha_frequency)
-            if self.engine is not None:
-                engine = self.engine
-                engine.compute_allowed_token_ids()
+            if self.formatter is not None:
+                formatter = self.formatter
+                formatter.compute_allowed_tokens()
                 out = out[:len(self.tokenizer.idx2token) + 1]  # account for the padding `0` token
-                out = engine.mask_logits(out)
+                out = formatter.mask_logits(out)
                 # out = torch.where(out == float('-inf'), torch.tensor(-1e38), out)
             # sampler
             token = self.sample_logits(out, temperature=args.temperature, top_p=args.top_p, top_k=args.top_k)
-            if self.engine is not None:
-                engine = self.engine
-                result = engine.try_accept_new_token(token)
-                if result == AcceptTokenResult.Finished:
-                    if args.engine_gen_config.reset_on_completion:
-                        engine.reset()
+            if self.formatter:
+                self.formatter.accept_token(token)
+                if self.formatter.is_completed():
+                    print("completed")
                     break
             if token in args.token_stop:
+                print("stop")
                 break
             all_tokens += [token]
             for xxx in occurrence:

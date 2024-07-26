@@ -188,10 +188,11 @@ array_end ::= #"{_space_nonterminal}\\]";
 class JsonMatcher(matcher.Matcher):
     def __init__(self, nonterminal: str, capture_name: typing.Optional[str]):
         super().__init__(capture_name)
-        self.nonterminal = nonterminal
+        self._nonterminal = nonterminal
 
-    def _to_str(self) -> str:
-        return self.nonterminal
+    @property
+    def kbnf_representation(self) -> str:
+        return self._nonterminal
 
     def match(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
         # Ensure the input string starts with '{' after stripping leading whitespace

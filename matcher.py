@@ -11,18 +11,19 @@ class Matcher(abc.ABC):
     def match(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
         pass
 
+    @property
     @abc.abstractmethod
-    def _to_str(self) -> str:
+    def kbnf_representation(self) -> str:
         pass
 
     def __str__(self):
-        return f"${{{self._to_str()}}}"
+        return f"${{{self.kbnf_representation}}}"
 
 
 class LiteralMatcher(Matcher):
 
     def __init__(self, literal: str):
-        super().__init__(literal)
+        super().__init__(None)
         self.literal = literal
 
     def match(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
@@ -31,8 +32,9 @@ class LiteralMatcher(Matcher):
             return None
         return input_str[pos + len(self.literal):], self.literal
 
-    def _to_str(self) -> str:
-        return self.literal
+    @property
+    def kbnf_representation(self) -> str:
+        return repr(self.literal)
 
 
 class RegexMatcher(Matcher):
@@ -40,23 +42,24 @@ class RegexMatcher(Matcher):
     def __init__(self, regex: str, capture_name: str, nonterminal: str):
         super().__init__(capture_name)
         self.regex = re.compile(regex)
-        self.nonterminal = nonterminal
+        self._nonterminal = nonterminal
 
     def match(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
         matched = self.regex.match(input_str)
         if not matched:
             return None
-        return input_str[matched.lastindex + 1:], matched.groups()
+        return input_str[matched.span()[1]:], matched
 
-    def _to_str(self) -> str:
-        return self.nonterminal
+    @property
+    def kbnf_representation(self) -> str:
+        return self._nonterminal
 
 
 class ChoiceMatcher(Matcher):
     def __init__(self, choices: typing.Iterable[Matcher], capture_name: str, nonterminal: str):
         super().__init__(capture_name)
         self.choices = choices
-        self.nonterminal = nonterminal
+        self._nonterminal = nonterminal
 
     def match(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
         for choice in self.choices:
@@ -65,5 +68,6 @@ class ChoiceMatcher(Matcher):
                 return matched
         return None
 
-    def _to_str(self) -> str:
-        return self.nonterminal
+    @property
+    def kbnf_representation(self) -> str:
+        return self._nonterminal

@@ -5,6 +5,7 @@ import sys
 import typing
 
 import rwkv
+from rwkv.model import RWKV
 from rwkv.rwkv_tokenizer import TRIE_TOKENIZER
 
 import integrations.RWKV
@@ -20,22 +21,23 @@ vector = list[int]
 
 
 class Test(schemas.pydantic.ClassSchema):
-    a: typing.Annotated[str, Field("OK"), "114":514, Field("OK2")]
-    b: int = 1
-    c: typing.Literal["114'\"", "514", True, typing.Literal["1919", "810"]]
-    e: tuple[typing.List[float], str, decimal.Decimal, typing.Dict, dict[str, typing.Any]]
-    f: typing.Union[bool, int, typing.Any, new_int, vector]
+    name: str
+    weight: float
+    color: str
 
 
 def test_formatter(snapshot):
     f = FormatterBuilder()
-    f.append_line(f"This is a number: {f.regex('[0-9]+')}")
-    f.append_str(f"This is a json: "
-                 f"{f.schema(Test, grammar_generators.json_generator.JsonGenerator(), capture_name='json')}\n")
-    f.append_multiline_str(f"""Multiple indentations
-                                are handled
-                                    correctly. This is a random sentence: {f.str(stop=".")}""")
-    rwkv_world_series_vocab_name = "rwkv_vocab_v20230424"
-    tokenizer = TRIE_TOKENIZER("assets/rwkv_vocab_v20230424.txt")
-    vocabulary = integrations.RWKV.create_engine_vocabulary(rwkv_world_series_vocab_name, tokenizer)
-    snapshot.assert_match(f.build(vocabulary, lambda tokens: tokenizer.decode(tokens)).grammar_str)
+    f.append_line(f"Today, I want to eat {f.choose('railroad', 'orange', 'banana', capture_name='food')}")
+    f.append_str(f"My food's ID is {f.choose(f.regex('[0-9]+'), f.regex('[a-z]+'), capture_name='ID')}.\n")
+    f.append_multiline_str(f"""
+                            What's more, indentations
+                            are handled
+                            appropriately.""")
+    f.append_line(
+        f"Let me give you a random json: {f.schema(Test, grammar_generators.json_generator.JsonGenerator(), capture_name='json')}")
+    model = RWKV("assets/RWKV-5-World-0.4B-v2-20231113-ctx4096.pth", 'cuda fp16')
+    pipeline = integrations.RWKV.PIPELINE(model, "rwkv_vocab_v20230424", f)
+    snapshot.assert_match(pipeline.formatter.grammar_str)
+    snapshot.assert_match(pipeline.generate("My name is Van. ", args=integrations.RWKV.PIPELINE_ARGS(top_p=0)))
+    snapshot.assert_match(pipeline.formatter.captures)

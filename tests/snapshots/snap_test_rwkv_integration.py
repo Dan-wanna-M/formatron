@@ -7,5 +7,6 @@ from snapshottest import Snapshot
 
 snapshots = Snapshot()
 
-snapshots['test_rwkv_integration 1'] = '''一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个
-'''
+snapshots['test_rwkv_integration 1'] = 'Hello, RWKV!'
+
+snapshots['test_rwkv_integration 2'] = 'Hello, RWKV!'

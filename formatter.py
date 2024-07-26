@@ -31,8 +31,13 @@ class FormatterBase(abc.ABC):
     def on_completion(self, generated_output: str) -> None:
         pass
 
+    @property
     @abc.abstractmethod
-    def captures_iter(self) -> dict[str, typing.Any]:
+    def captures(self) -> dict[str, typing.Any]:
+        pass
+
+    @abc.abstractmethod
+    def reset(self) -> None:
         pass
 
 
@@ -45,6 +50,7 @@ class Formatter(FormatterBase):
         self._token_ids = []
         self._decode_callback = decode_callback
         self._grammar_str = grammar_str
+        self._captures = {}
 
     @property
     def grammar_str(self):
@@ -56,6 +62,7 @@ class Formatter(FormatterBase):
         if result == AcceptTokenResult.Finished:
             output = self._decode_callback(self._token_ids)
             self.on_completion(output)
+        return result
 
     def compute_allowed_tokens(self) -> None:
         self._engine.compute_allowed_token_ids()
@@ -67,10 +74,22 @@ class Formatter(FormatterBase):
         return self._engine.is_finished()
 
     def on_completion(self, generated_output: str) -> None:
-        pass  # TODO
+        print(self._matchers)
+        print(self._token_ids)
 
-    def captures_iter(self) -> dict[str, typing.Any]:
-        pass
+        for matcher in self._matchers:
+            generated_output, captured = matcher.match(generated_output)
+            if matcher.capture_name:
+                self._captures[matcher.capture_name] = captured
+
+    @property
+    def captures(self) -> dict[str, typing.Any] | None:
+        return self._captures
+
+    def reset(self) -> None:
+        self._captures.clear()
+        self._engine.reset()
+        self._token_ids.clear()
 
 
 class FormatterBuilder:
@@ -143,10 +162,17 @@ class FormatterBuilder:
             self._counter += 1
         return nonterminal
 
-    def choose(self, *matchers: Matcher, capture_name: str = None):
+    def choose(self, *matchers: Matcher | str, capture_name: str = None):
+        new_matchers = []
+        for matcher in matchers:
+            if isinstance(matcher, str):
+                new_matchers.append(LiteralMatcher(matcher))
+            else:
+                new_matchers.append(matcher)
         return self._add_matcher(capture_name, "choice",
-                                 lambda nonterminal: ChoiceMatcher(matchers, capture_name, nonterminal),
-                                 lambda nonterminal: f"{nonterminal} ::= {' | '.join(map(str, matchers))};")
+                                 lambda nonterminal: ChoiceMatcher(new_matchers, capture_name, nonterminal),
+                                 lambda nonterminal:
+                                 f"{nonterminal} ::= {' | '.join([i.kbnf_representation for i in new_matchers])};")
 
     def _add_matcher(self, capture_name: str, matcher_type: str, create_matcher: typing.Callable[[str], Matcher],
                      create_rule: typing.Callable[[str], str]):
