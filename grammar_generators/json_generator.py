@@ -8,6 +8,8 @@ import matcher
 import schemas.schema
 from grammar_generators.grammar_generator import GrammarGenerator
 
+__all__ = ["JsonGenerator"]
+
 
 class JsonGenerator(GrammarGenerator):
     _space_nonterminal = "(\\u0020|\\u000A|\\u000D|\\u0009)*"
@@ -43,7 +45,7 @@ array_end ::= #"{_space_nonterminal}\\]";
                 fields = []
                 for field, field_info in current.fields().items():
                     field_name = f"{nonterminal}_{field}"
-                    fields.append(f"'{field}' colon {field_name}")
+                    fields.append(f"'\"{field}\"' colon {field_name}")
                     result.append((field_info, field_name))
                 line.append(" comma ".join(fields))
                 line.append(" object_end;\n")
@@ -160,9 +162,6 @@ array_end ::= #"{_space_nonterminal}\\]";
         cls.register_generate_nonterminal_def(builtin_list)
         cls.register_generate_nonterminal_def(builtin_dict)
 
-    # Definitions of various non-terminal type handlers (e.g., schema, field_info, builtin_list, etc.)
-    # should be added here in a similar manner as the previous implementation.
-
     def generate(self, schema: typing.Type[schemas.schema.Schema], start_nonterminal: str = "start") -> str:
         result = [self._grammar_header]
         nonterminals = set()
@@ -181,14 +180,17 @@ array_end ::= #"{_space_nonterminal}\\]";
                 raise TypeError(f"{current} from {nonterminal} is not supported in json_generators!")
         return "".join(result)
 
-    def get_matcher(self, nonterminal: str, capture_name: typing.Optional[str]) -> matcher.Matcher:
-        return JsonMatcher(nonterminal, capture_name)
+    def get_matcher(self, nonterminal: str, capture_name: typing.Optional[str],
+                    to_object: typing.Callable[[str, ], schemas.schema.Schema]) -> matcher.Matcher:
+        return JsonMatcher(nonterminal, capture_name, to_object)
 
 
 class JsonMatcher(matcher.Matcher):
-    def __init__(self, nonterminal: str, capture_name: typing.Optional[str]):
+    def __init__(self, nonterminal: str, capture_name: typing.Optional[str],
+                 to_object: typing.Callable[[str, ], schemas.schema.Schema]):
         super().__init__(capture_name)
         self._nonterminal = nonterminal
+        self._to_object = to_object
 
     @property
     def kbnf_representation(self) -> str:
@@ -223,7 +225,7 @@ class JsonMatcher(matcher.Matcher):
         json_str = input_str[:position]
         remaining_str = input_str[position:]
         # Return the unparsed remainder of the string and the decoded JSON object
-        return remaining_str, json_str
+        return remaining_str, self._to_object(json_str)
 
 
 JsonGenerator._register_all_predefined_types()

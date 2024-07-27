@@ -1,4 +1,5 @@
 import inspect
+import json
 import typing
 
 import pydantic.fields
@@ -37,6 +38,10 @@ class ClassSchema(BaseModel, schema.Schema):
             return cls.__cached_fields__
         cls.__cached_fields__ = {k: FieldInfo(v) for k, v in cls.model_fields.items()}
         return cls.__cached_fields__
+
+    @classmethod
+    def from_json(cls, json: str) -> "ClassSchema":
+        return cls.model_validate_json(json)
 
 
 CallableT = typing.TypeVar('CallableT', bound=typing.Callable)
@@ -77,6 +82,18 @@ def callable_schema(func: CallableT, /, *, config: ConfigDict = None, validate_r
         fields[k].metadata.extend(metadata)
     for k in fields:
         fields[k] = FieldInfo(fields[k])
+
+    def from_json(cls, json_str):
+        json_data = json.loads(json_str)
+        positional_only = []
+        others = {}
+        for k, p in signature.parameters.items():
+            if p.kind == p.POSITIONAL_ONLY:
+                positional_only.append(json_data[k])
+            else:
+                others[k] = json_data[k]
+        return cls(*positional_only, **others)
+
     _class = type(
         f'{func.__qualname__}_PydanticSchema_{id(func)}',
         (schema.Schema,),
@@ -87,4 +104,5 @@ def callable_schema(func: CallableT, /, *, config: ConfigDict = None, validate_r
             '__call__': lambda *args, **kwargs: pydantic_wrapper(*args, **kwargs)  # make duck typer happy
         }
     )
+    _class.from_json = classmethod(from_json)
     return _class

@@ -74,9 +74,6 @@ class Formatter(FormatterBase):
         return self._engine.is_finished()
 
     def on_completion(self, generated_output: str) -> None:
-        print(self._matchers)
-        print(self._token_ids)
-
         for matcher in self._matchers:
             generated_output, captured = matcher.match(generated_output)
             if matcher.capture_name:
@@ -189,7 +186,8 @@ class FormatterBuilder:
     def schema(self, schema: typing.Type[schemas.schema.Schema],
                grammar_generator: grammar_generators.grammar_generator.GrammarGenerator, *, capture_name: str = None):
         return self._add_matcher(capture_name, "schema",
-                                 lambda nonterminal: grammar_generator.get_matcher(nonterminal, capture_name),
+                                 lambda nonterminal: grammar_generator.get_matcher(nonterminal, capture_name,
+                                                                                   lambda json: schema.from_json(json)),
                                  lambda nonterminal: grammar_generator.generate(schema, nonterminal))
 
     def str(self, *, stop: typing.Union[str, list[str]] = None,

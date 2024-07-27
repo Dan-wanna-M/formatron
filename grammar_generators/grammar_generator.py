@@ -2,7 +2,7 @@ import abc
 import typing
 
 import matcher
-import schemas.schema
+import schemas
 
 
 class GrammarGenerator(abc.ABC):
@@ -11,5 +11,6 @@ class GrammarGenerator(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_matcher(self, nonterminal:str, capture_name: typing.Optional[str]) -> matcher.Matcher:
+    def get_matcher(self, nonterminal: str, capture_name: typing.Optional[str],
+                    to_object: typing.Callable[[str, ], schemas.schema.Schema]) -> matcher.Matcher:
         pass

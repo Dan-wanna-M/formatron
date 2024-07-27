@@ -20,3 +20,8 @@ class Schema(abc.ABC):
     @abc.abstractmethod
     def fields(cls) -> dict[str, FieldInfo]:
         pass
+
+    @classmethod
+    @abc.abstractmethod
+    def from_json(cls, json: str) -> "Schema":
+        pass

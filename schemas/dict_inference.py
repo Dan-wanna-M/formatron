@@ -1,4 +1,5 @@
 import collections.abc
+import json
 from typing import Any, Type
 
 from pydantic import typing
@@ -58,4 +59,5 @@ def infer_mapping(mapping: collections.abc.Mapping[str, Any]) -> typing.Type[sch
         inferred_type = _infer_type(value)
         field_infos[key] = FieldInfo(inferred_type)
     _class = type(f"Mapping_{id(mapping)}", (schemas.schema.Schema,), {"fields": lambda: field_infos})
+    _class.from_json = classmethod(lambda cls, json_str: json.loads(json_str))
     return _class
