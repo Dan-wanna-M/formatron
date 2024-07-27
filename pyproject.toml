@@ -1,10 +1,6 @@
-[tool.pytest.ini_options]
-addopts = [
-    "--import-mode=importlib",
-]
-pythonpath = [
-    "./src/formatron",
-]
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 [project]
 name = "formatron"
 version = "0.1.0"
@@ -30,3 +26,10 @@ classifiers = [
 rwkv = ["rwkv"]
 [project.urls]
 Repository = "https://github.com/Dan-wanna-M/formatron"
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+pythonpath = [
+    "./src/formatron",
+]
