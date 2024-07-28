@@ -1,10 +1,9 @@
 import collections
 import decimal
-import json
 import types
 import typing
 
-import matcher
+import extractor
 import schemas.schema
 from grammar_generators.grammar_generator import GrammarGenerator
 
@@ -12,6 +11,9 @@ __all__ = ["JsonGenerator"]
 
 
 class JsonGenerator(GrammarGenerator):
+    """
+    A KBNF grammar generator for JSON format.
+    """
     _space_nonterminal = "(\\u0020|\\u000A|\\u000D|\\u0009)*"
 
     _grammar_header = rf"""integer ::= #"-?(0|[1-9]\\d*)";
@@ -32,7 +34,17 @@ array_end ::= #"{_space_nonterminal}\\]";
     _type_to_nonterminals = []
 
     @classmethod
-    def register_generate_nonterminal_def(cls, generate_nonterminal_def):
+    def register_generate_nonterminal_def(cls, generate_nonterminal_def: typing.Callable[
+        [typing.Type, str], typing.Optional[typing.Tuple[str, typing.List[typing.Tuple[typing.Type, str]]]]]) -> None:
+        """
+        Register a callable to generate nonterminal definition from a type.
+        The callable returns (nonterminal_definition, [(sub_type, sub_nonterminal), ...])
+        if the type is supported by this callable, otherwise None.
+        [(sub_type, sub_nonterminal), ...] are the types and nonterminals used in nonterminal_definition that may need
+        to be generated in the grammar too.
+
+        :param generate_nonterminal_def: A callable to generate nonterminal definition from a type.
+        """
         cls._type_to_nonterminals.append(generate_nonterminal_def)
 
     @classmethod
@@ -163,6 +175,13 @@ array_end ::= #"{_space_nonterminal}\\]";
         cls.register_generate_nonterminal_def(builtin_dict)
 
     def generate(self, schema: typing.Type[schemas.schema.Schema], start_nonterminal: str = "start") -> str:
+        """
+        Generate a KBNF grammar string from a schema for JSON format.
+
+        :param schema: The schema to generate a grammar for.
+        :param start_nonterminal: The start nonterminal of the grammar. Default is "start".
+        :return: The generated KBNF grammar string.
+        """
         result = [self._grammar_header]
         nonterminals = set()
         stack = [(schema, start_nonterminal)]
@@ -180,23 +199,36 @@ array_end ::= #"{_space_nonterminal}\\]";
                 raise TypeError(f"{current} from {nonterminal} is not supported in json_generators!")
         return "".join(result)
 
-    def get_matcher(self, nonterminal: str, capture_name: typing.Optional[str],
-                    to_object: typing.Callable[[str, ], schemas.schema.Schema]) -> matcher.Matcher:
-        return JsonMatcher(nonterminal, capture_name, to_object)
+    def get_extractor(self, nonterminal: str, capture_name: typing.Optional[str],
+                      to_object: typing.Callable[[str, ], schemas.schema.Schema]) -> extractor.Extractor:
+        return JsonExtractor(nonterminal, capture_name, to_object)
 
 
-class JsonMatcher(matcher.Matcher):
+class JsonExtractor(extractor.Extractor):
     def __init__(self, nonterminal: str, capture_name: typing.Optional[str],
                  to_object: typing.Callable[[str, ], schemas.schema.Schema]):
+        """
+        Create a extractor.
+
+        :param nonterminal: The nonterminal representing the extractor.
+        :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
+        :param to_object: A callable to convert the extracted string to a schema instance.
+        """
         super().__init__(capture_name)
         self._nonterminal = nonterminal
         self._to_object = to_object
 
     @property
-    def kbnf_representation(self) -> str:
+    def _kbnf_representation(self) -> str:
         return self._nonterminal
 
-    def match(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
+    def extract(self, input_str: str) -> typing.Optional[tuple[str, schemas.schema.Schema]]:
+        """
+        Extract a schema instance from a string.
+
+        :param input_str: The input string to extract from.
+        :return: A tuple of the remaining string and the extracted schema instance, or `None` if extraction failed.
+        """
         # Ensure the input string starts with '{' after stripping leading whitespace
         input_str = input_str.lstrip()
         if not input_str.startswith('{'):

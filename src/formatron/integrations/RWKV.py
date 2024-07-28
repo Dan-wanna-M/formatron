@@ -7,6 +7,10 @@ from formatter import FormatterBuilder
 
 
 class PIPELINE_ARGS(rwkv.utils.PIPELINE_ARGS):
+    """
+    A wrapper for the arguments of the pipeline of RWKV.
+    """
+
     def __init__(self,
                  temperature=1.0,
                  top_p=0.2,
@@ -23,7 +27,13 @@ class PIPELINE_ARGS(rwkv.utils.PIPELINE_ARGS):
         self.engine_gen_config = engine_gen_config
 
 
-def create_engine_vocabulary(WORD_NAME, tokenizer):
+def create_engine_vocabulary(WORD_NAME: str, tokenizer):
+    """
+    Create a vocabulary for the KBNF engine.
+    :param WORD_NAME: The name of the vocabulary.
+    :param tokenizer: The tokenizer.
+    :return: The vocabulary.
+    """
     assert WORD_NAME == 'rwkv_vocab_v20230424', "Only world vocabulary is supported!"
     return kbnf.Vocabulary({k: Token(v) for k, v in tokenizer.idx2token.items()},
                            {k: v.decode("UTF-8", errors="replace") for k, v in
@@ -31,7 +41,18 @@ def create_engine_vocabulary(WORD_NAME, tokenizer):
 
 
 class PIPELINE(rwkv.utils.PIPELINE):
-    def __init__(self, model, WORD_NAME, formatter_builder: FormatterBuilder):
+    """
+    A wrapper for the pipeline of RWKV.
+    """
+
+    def __init__(self, model, WORD_NAME, formatter_builder: FormatterBuilder = None):
+        """
+        Initialize the pipeline.
+
+        :param model: The file path of the model.
+        :param WORD_NAME: The name of the vocabulary.
+        :param formatter_builder: The formatter builder, or `None` if no formatter is used.
+        """
         super().__init__(model, WORD_NAME)
         vocabulary = create_engine_vocabulary(WORD_NAME, self.tokenizer)
         formatter = formatter_builder.build(vocabulary, lambda tokens: self.tokenizer.decode(tokens))

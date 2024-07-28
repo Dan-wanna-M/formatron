@@ -11,18 +11,28 @@ class FieldInfo(schemas.schema.FieldInfo):
     __slots__ = ("_annotation",)
 
     def __init__(self, annotation: typing.Type):
+        """
+        Initialize the field information.
+
+        :param annotation: The type annotation of the field.
+        """
         self._annotation = annotation
 
     @property
     def annotation(self) -> typing.Type[typing.Any] | None:
+        """
+        Get the type annotation of the field.
+        """
         return self._annotation
 
     def required(self) -> bool:
+        """
+        Check if the field is required for the schema.
+        """
         return True
 
 
 def _infer_type(value: Any) -> Type[Any]:
-    """Infer the type of given value."""
     if isinstance(value, collections.abc.Mapping):
         return infer_mapping(value)
     elif isinstance(value, collections.abc.Sequence) and not isinstance(value, str):
@@ -53,9 +63,20 @@ def _infer_type(value: Any) -> Type[Any]:
 
 
 def infer_mapping(mapping: collections.abc.Mapping[str, Any]) -> typing.Type[schemas.schema.Schema]:
-    """Recursively infer a schema from a mapping."""
+    """
+    Recursively infer a schema from a mapping.
+
+    Types that are specially handled:
+        - collections.abc.Mapping: converted to a schema.
+         Keys are converted to field names and corresponding value types are converted to field types.
+        - collections.abc.Sequence with heterogeneous elements: all different element types are included in a union type.
+
+    Other types are directly inferred from the type of the value with no special handling.
+    """
     field_infos = {}
     for key, value in mapping.items():
+        assert isinstance(key, str), f"Key must be a string, got {key} of type {type(key)}"
+        assert key.isidentifier(), f"Key must be a valid identifier, got {key}"
         inferred_type = _infer_type(value)
         field_infos[key] = FieldInfo(inferred_type)
     _class = type(f"Mapping_{id(mapping)}", (schemas.schema.Schema,), {"fields": lambda: field_infos})

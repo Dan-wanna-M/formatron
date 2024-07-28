@@ -9,9 +9,15 @@ from pydantic import BaseModel, validate_call, ConfigDict, Field
 
 
 class FieldInfo(schema.FieldInfo):
+    """
+    A wrapper for pydantic FieldInfo.
+    """
     __slots__ = ("_field",)
 
     def __init__(self, field: pydantic.fields.FieldInfo):
+        """
+        Initialize the field information.
+        """
         self._field = field
 
     @property
@@ -30,6 +36,9 @@ class FieldInfo(schema.FieldInfo):
 
 
 class ClassSchema(BaseModel, schema.Schema):
+    """
+    A wrapper for pydantic BaseModel that implements the Schema interface.
+    """
     __cached_fields__ = None
 
     @classmethod
@@ -41,6 +50,9 @@ class ClassSchema(BaseModel, schema.Schema):
 
     @classmethod
     def from_json(cls, json: str) -> "ClassSchema":
+        """
+        Create a ClassSchema from a JSON string.
+        """
         return cls.model_validate_json(json)
 
 
@@ -48,6 +60,14 @@ CallableT = typing.TypeVar('CallableT', bound=typing.Callable)
 
 
 def callable_schema(func: CallableT, /, *, config: ConfigDict = None, validate_return: bool = False) -> CallableT:
+    """
+    A decorator that wraps pydantic's validate_call. The decorated callable also implements the Schema interface.
+
+    :param func: The function to decorate.
+    :param config: The pydantic configuration of validate_call.
+    :param validate_return: Whether to validate the return value.
+    :return: The decorated callable.
+    """
     pydantic_wrapper = validate_call(config=config, validate_return=validate_return)(func)
     signature = inspect.signature(func, eval_str=True)
     fields = {}
