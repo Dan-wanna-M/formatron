@@ -37,27 +37,24 @@ def _infer_type(value: Any) -> Type[Any]:
         return infer_mapping(value)
     elif isinstance(value, collections.abc.Sequence) and not isinstance(value, str):
         # Handle sequences with possibly heterogeneous elements
-        if value:
-            element_types = set()
-            for element in value:
-                element_type = type(element)
-                # Check for dictionary
-                original = typing.get_origin(element_type)
-                if original is None:
-                    original = element_type
-                if original is typing.Mapping or isinstance(original, type) and issubclass(original,
-                                                                                           collections.abc.Mapping):
-                    element_types.add(infer_mapping(element))
-                else:
-                    element_types.add(element_type)
-            if len(element_types) == 1:
-                return collections.abc.Sequence[next(iter(element_types))]
-            else:
-
-                union_type = typing.Union[tuple(element_types)]
-                return collections.abc.Sequence[union_type]
-        else:
+        if not value:
             return collections.Sequence[Any]
+        element_types = set()
+        for element in value:
+            element_type = type(element)
+            # Check for dictionary
+            original = typing.get_origin(element_type)
+            if original is None:
+                original = element_type
+            if original is typing.Mapping or isinstance(original, type) and issubclass(original,
+                                                                                       collections.abc.Mapping):
+                element_types.add(infer_mapping(element))
+            else:
+                element_types.add(element_type)
+        if len(element_types) == 1:
+            return collections.abc.Sequence[next(iter(element_types))]
+        union_type = typing.Union[tuple(element_types)]
+        return collections.abc.Sequence[union_type]
     else:
         return type(value)
 

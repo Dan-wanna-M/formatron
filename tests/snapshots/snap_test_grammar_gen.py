@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 from snapshottest import Snapshot
 
-
 snapshots = Snapshot()
 
 snapshots['test_infer_mapping 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";

@@ -6,7 +6,7 @@ from config import EngineGenerationConfig
 from formatter import FormatterBuilder
 
 
-class PIPELINE_ARGS(rwkv.utils.PIPELINE_ARGS):
+class PIPELINE_ARGS(rwkv.utils.PIPELINE_ARGS):  # NOSONAR
     """
     A wrapper for the arguments of the pipeline of RWKV.
     """
@@ -27,7 +27,7 @@ class PIPELINE_ARGS(rwkv.utils.PIPELINE_ARGS):
         self.engine_gen_config = engine_gen_config
 
 
-def create_engine_vocabulary(WORD_NAME: str, tokenizer):
+def create_engine_vocabulary(WORD_NAME: str, tokenizer):  # NOSONAR
     """
     Create a vocabulary for the KBNF engine.
     :param WORD_NAME: The name of the vocabulary.
@@ -40,12 +40,12 @@ def create_engine_vocabulary(WORD_NAME: str, tokenizer):
                             tokenizer.idx2token.items()})
 
 
-class PIPELINE(rwkv.utils.PIPELINE):
+class PIPELINE(rwkv.utils.PIPELINE):  # NOSONAR
     """
     A wrapper for the pipeline of RWKV.
     """
 
-    def __init__(self, model, WORD_NAME, formatter_builder: FormatterBuilder = None):
+    def __init__(self, model, WORD_NAME, formatter_builder: FormatterBuilder = None):  # NOSONAR
         """
         Initialize the pipeline.
 
@@ -94,10 +94,8 @@ class PIPELINE(rwkv.utils.PIPELINE):
             if self.formatter:
                 self.formatter.accept_token(token)
                 if self.formatter.is_completed():
-                    print("completed")
                     break
             if token in args.token_stop:
-                print("stop")
                 break
             all_tokens += [token]
             for xxx in occurrence:

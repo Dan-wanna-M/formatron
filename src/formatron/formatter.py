@@ -188,7 +188,7 @@ class FormatterBuilder:
                 self._main_rule.append(repr(literal))
                 self._extractors.append(LiteralExtractor(literal))
 
-        for (i, char) in enumerate(string):
+        for i, char in enumerate(string):
             if char == "$":
                 if state != "escaped":
                     state = "dollar"

@@ -3,9 +3,9 @@ import json
 import typing
 
 import pydantic.fields
+from pydantic import BaseModel, validate_call, ConfigDict, Field
 
 from schemas import schema
-from pydantic import BaseModel, validate_call, ConfigDict, Field
 
 
 class FieldInfo(schema.FieldInfo):
