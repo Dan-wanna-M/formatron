@@ -130,6 +130,9 @@ class Formatter(FormatterBase):
         self._engine.reset()
         self._token_ids.clear()
 
+    def __str__(self):
+        return str(self._engine)
+
 
 class FormatterBuilder:
     """

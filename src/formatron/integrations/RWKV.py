@@ -27,7 +27,7 @@ class PIPELINE_ARGS(rwkv.utils.PIPELINE_ARGS):  # NOSONAR
         self.engine_gen_config = engine_gen_config
 
 
-def create_engine_vocabulary(WORD_NAME: str, tokenizer):  # NOSONAR
+def create_engine_vocabulary(WORD_NAME: str, tokenizer)-> kbnf.Vocabulary:  # NOSONAR
     """
     Create a vocabulary for the KBNF engine.
     :param WORD_NAME: The name of the vocabulary.
@@ -93,8 +93,6 @@ class PIPELINE(rwkv.utils.PIPELINE):  # NOSONAR
             token = self.sample_logits(out, temperature=args.temperature, top_p=args.top_p, top_k=args.top_k)
             if self.formatter:
                 self.formatter.accept_token(token)
-                if self.formatter.is_completed():
-                    break
             if token in args.token_stop:
                 break
             all_tokens += [token]
@@ -120,4 +118,6 @@ class PIPELINE(rwkv.utils.PIPELINE):  # NOSONAR
                     callback(tmp)
                 out_str += tmp
                 out_last = i + 1
+            if self.formatter and self.formatter.is_completed():
+                break
         return out_str
