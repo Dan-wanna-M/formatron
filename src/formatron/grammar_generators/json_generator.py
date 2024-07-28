@@ -34,8 +34,12 @@ array_end ::= #"{_space_nonterminal}\\]";
     _type_to_nonterminals = []
 
     @classmethod
-    def register_generate_nonterminal_def(cls, generate_nonterminal_def: typing.Callable[
-        [typing.Type, str], typing.Optional[typing.Tuple[str, typing.List[typing.Tuple[typing.Type, str]]]]]) -> None:
+    def register_generate_nonterminal_def(
+            cls,
+            generate_nonterminal_def: typing.Callable[
+                [typing.Type, str],
+                typing.Optional[typing.Tuple[str,
+                                             typing.List[typing.Tuple[typing.Type, str]]]]]) -> None:
         """
         Register a callable to generate nonterminal definition from a type.
         The callable returns (nonterminal_definition, [(sub_type, sub_nonterminal), ...])
@@ -55,10 +59,10 @@ array_end ::= #"{_space_nonterminal}\\]";
                 line = [f"{nonterminal} ::= ", "object_begin "]
                 result = []
                 fields = []
-                for field, field_info in current.fields().items():
+                for field, _field_info in current.fields().items():
                     field_name = f"{nonterminal}_{field}"
                     fields.append(f"'\"{field}\"' colon {field_name}")
-                    result.append((field_info, field_name))
+                    result.append((_field_info, field_name))
                 line.append(" comma ".join(fields))
                 line.append(" object_end;\n")
                 return "".join(line), result
@@ -163,6 +167,7 @@ array_end ::= #"{_space_nonterminal}\\]";
             elif current is typing.Any:
                 return f"{nonterminal} ::= json_value;\n", []
             elif type(current) is typing.NewType:
+                current: typing.NewType
                 return "", [(current.__supertype__, nonterminal)]
 
         cls.register_generate_nonterminal_def(builtin_simple_types)
@@ -208,7 +213,7 @@ class JsonExtractor(extractor.Extractor):
     def __init__(self, nonterminal: str, capture_name: typing.Optional[str],
                  to_object: typing.Callable[[str, ], schemas.schema.Schema]):
         """
-        Create a extractor.
+        Create an extractor.
 
         :param nonterminal: The nonterminal representing the extractor.
         :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
@@ -219,7 +224,7 @@ class JsonExtractor(extractor.Extractor):
         self._to_object = to_object
 
     @property
-    def _kbnf_representation(self) -> str:
+    def kbnf_representation(self) -> str:
         return self._nonterminal
 
     def extract(self, input_str: str) -> typing.Optional[tuple[str, schemas.schema.Schema]]:

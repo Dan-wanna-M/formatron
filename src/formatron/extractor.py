@@ -25,11 +25,11 @@ class Extractor(abc.ABC):
 
     @property
     @abc.abstractmethod
-    def _kbnf_representation(self) -> str:
+    def kbnf_representation(self) -> str:
         pass
 
     def __str__(self):
-        return f"${{{self._kbnf_representation}}}"
+        return f"${{{self.kbnf_representation}}}"
 
 
 class LiteralExtractor(Extractor):
@@ -55,7 +55,7 @@ class LiteralExtractor(Extractor):
         return input_str[pos + len(self.literal):], self.literal
 
     @property
-    def _kbnf_representation(self) -> str:
+    def kbnf_representation(self) -> str:
         return repr(self.literal)
 
 
@@ -88,7 +88,7 @@ class RegexExtractor(Extractor):
         return input_str[matched.span()[1]:], matched
 
     @property
-    def _kbnf_representation(self) -> str:
+    def kbnf_representation(self) -> str:
         return self._nonterminal
 
 
@@ -116,5 +116,5 @@ class ChoiceExtractor(Extractor):
         return None
 
     @property
-    def _kbnf_representation(self) -> str:
+    def kbnf_representation(self) -> str:
         return self._nonterminal

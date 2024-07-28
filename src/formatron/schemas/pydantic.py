@@ -49,11 +49,11 @@ class ClassSchema(BaseModel, schema.Schema):
         return cls.__cached_fields__
 
     @classmethod
-    def from_json(cls, json: str) -> "ClassSchema":
+    def from_json(cls, _json: str) -> "ClassSchema":
         """
         Create a ClassSchema from a JSON string.
         """
-        return cls.model_validate_json(json)
+        return cls.model_validate_json(_json)
 
 
 CallableT = typing.TypeVar('CallableT', bound=typing.Callable)

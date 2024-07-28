@@ -39,7 +39,7 @@ def test_infer_mapping(snapshot):
       "mode": "xx",
       "title": "xx",
       "queries": ["xx", 2, true],
-      "related_queries": [{"114":514}, "xx", "xx"],
+      "related_queries": [{"foo":514}, "xx", "xx"],
       "concepts": ["xx", "xx", "xx"],
       "urls": ["xx", "xx", "xx"]
     }

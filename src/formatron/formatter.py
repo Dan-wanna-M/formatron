@@ -151,8 +151,9 @@ class FormatterBuilder:
         self.__class__._formatter_builder_counter += 1
 
     def _assert_capture_name_valid(self, capture_name: str):
-        assert capture_name.isidentifier(), f"capture_name {capture_name} should only contains alphanumeric characters, " \
-                                            f"underscores, and does not start with digits!"
+        assert capture_name.isidentifier(), (f"capture_name {capture_name}"
+                                             f" should only contains alphanumeric characters, "
+                                             f"underscores, and does not start with digits!")
         assert capture_name not in self._capture_names, f"capture_name {capture_name} is duplicated!"
 
     def append_line(self, line: str) -> None:
@@ -238,7 +239,7 @@ class FormatterBuilder:
         return self._add_extractor(capture_name, "choice",
                                    lambda nonterminal: ChoiceExtractor(new_extractors, capture_name, nonterminal),
                                    lambda nonterminal:
-                                   f"{nonterminal} ::= {' | '.join([i._kbnf_representation for i in new_extractors])};")
+                                   f"{nonterminal} ::= {' | '.join([i.kbnf_representation for i in new_extractors])};")
 
     def _add_extractor(self, capture_name: str, extractor_type: str,
                        create_extractor: typing.Callable[[str], Extractor],
@@ -288,19 +289,17 @@ class FormatterBuilder:
         """
         stop = [stop] if isinstance(stop, str) else stop or []
         not_contain = [not_contain] if isinstance(not_contain, str) else not_contain or []
+        nonterminal = self._create_nonterminal(capture_name, "str")
         if not stop and not not_contain:
             capture_regex = ".*"
-            get_excepted = None
-            get_nonterminal_regex = lambda _: "#'.*'"
+            nonterminal_regex = "#'.*'"
         else:
             capture_regex = f".*?(?:{'|'.join(map(repr, stop + not_contain))})"
-            get_excepted = lambda nonterminal: f"{nonterminal}_excepted"
+            excepted = f"{nonterminal}_excepted"
             end = f"({'|'.join(map(repr, stop))})" if stop else ""
-            get_nonterminal_regex = lambda nonterminal: f"except!({get_excepted(nonterminal)}){end}"
-        nonterminal = self._create_nonterminal(capture_name, "str")
-        if get_excepted:
-            self._rules.append(f"{get_excepted(nonterminal)} ::= {' | '.join(map(repr, stop + not_contain))};")
-        self._rules.append(f"{nonterminal} ::= {get_nonterminal_regex(nonterminal)};")
+            nonterminal_regex = f"except!({excepted}){end}"
+            self._rules.append(f"{excepted} ::= {' | '.join(map(repr, stop + not_contain))};")
+        self._rules.append(f"{nonterminal} ::= {nonterminal_regex};")
         self._nonterminal_to_extractor[nonterminal] = RegexExtractor(capture_regex, capture_name, nonterminal)
         return self._nonterminal_to_extractor[nonterminal]
 

@@ -89,7 +89,6 @@ class PIPELINE(rwkv.utils.PIPELINE):
                 formatter.compute_allowed_tokens()
                 out = out[:len(self.tokenizer.idx2token) + 1]  # account for the padding `0` token
                 out = formatter.mask_logits(out)
-                # out = torch.where(out == float('-inf'), torch.tensor(-1e38), out)
             # sampler
             token = self.sample_logits(out, temperature=args.temperature, top_p=args.top_p, top_k=args.top_k)
             if self.formatter:
