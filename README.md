@@ -1,5 +1,5 @@
 ![Logo](logo.svg)
---- ---
+---
 Formatron allows users to control the output format of language models
 with minimal overhead. It is lightweight, user-friendly,
 and seamlessly integrates into existing codebases and frameworks.
