@@ -306,15 +306,18 @@ class FormatterBuilder:
         self._nonterminal_to_extractor[nonterminal] = RegexExtractor(capture_regex, capture_name, nonterminal)
         return self._nonterminal_to_extractor[nonterminal]
 
-    def build(self, vocabulary: kbnf.Vocabulary, decode_callback: typing.Callable[[list[int]], str]) -> Formatter:
+    def build(self, vocabulary: kbnf.Vocabulary,
+              decode: typing.Callable[[list[int]], str],
+              engine_config: kbnf.Config = None) -> Formatter:
         """
         Build a formatter from the builder.
         :param vocabulary: The KBNF engine vocabulary for the formatter.
-        :param decode_callback: The callback to decode the token IDs to a string.
+        :param decode: The callback to decode the token IDs to a string.
+        :param engine_config: The KBNF engine configuration.
         :return: The formatter.
         """
         self._rules.append(f"start ::= {' '.join(self._main_rule)};")
         grammar_str = "\n".join(self._rules)
-        engine = Engine(grammar_str, vocabulary)
-        f = Formatter(self._extractors, engine, decode_callback, grammar_str)
+        engine = Engine(grammar_str, vocabulary, engine_config)
+        f = Formatter(self._extractors, engine, decode, grammar_str)
         return f

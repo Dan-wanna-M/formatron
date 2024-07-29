@@ -37,7 +37,8 @@ My food's ID is a.
 
 What's more, indentations
 are handled
-appropriately.My weight is 14.4kg and my color is pink. This is my personal info json: {"name":"Van","weight":1.4,"color":"#F9F9F9"}'''
+appropriately.My weight is 14.4kg and my color is pink. This is my personal info json: {"name":"Van","weight":1.4,"color":"#F9F9F9"}
+'''
 
 snapshots['test_formatter 3'] = {
     'ID': GenericRepr("<re.Match object; span=(0, 1), match='a'>"),
@@ -66,7 +67,8 @@ __schema_json_2_a ::= integer;
 
 start ::= __schema_json_2 '\\n';'''
 
-snapshots['test_formatter_callable_schema 2'] = '{"a":1,"b":2,"c":3}'
+snapshots['test_formatter_callable_schema 2'] = '''{"a":1,"b":2,"c":3}
+'''
 
 snapshots['test_formatter_callable_schema 3'] = {
     'json': 6
@@ -92,7 +94,8 @@ __schema_json_1_name ::= string;
 
 start ::= __schema_json_1 '\\n';'''
 
-snapshots['test_formatter_dict_inference 2'] = '{"name":"Abraham","gender":"male"}'
+snapshots['test_formatter_dict_inference 2'] = '''{"name":"Abraham","gender":"male"}
+'''
 
 snapshots['test_formatter_dict_inference 3'] = {
     'json': {
