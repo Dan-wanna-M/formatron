@@ -187,11 +187,26 @@ array_end ::= #"{_space_nonterminal}\\]";
         :param start_nonterminal: The start nonterminal of the grammar. Default is "start".
         :return: The generated KBNF grammar string.
         """
+        type_id_to_nonterminal = {
+            id(int): "integer",
+            id(float): "number",
+            id(str): "string",
+            id(bool): "boolean",
+            id(type(None)): "null",
+            id(list): "array",
+            id(dict): "object",
+        }
         result = [self._grammar_header]
         nonterminals = set()
         stack = [(schema, start_nonterminal)]
         while stack:
             (current, nonterminal) = stack.pop()
+            type_id = id(current)
+            if type_id in type_id_to_nonterminal:
+                line = f"{nonterminal} ::= {type_id_to_nonterminal[type_id]};\n"
+                result.append(line)
+                continue
+            type_id_to_nonterminal[type_id] = nonterminal
             for i in self._type_to_nonterminals:
                 value = i(current, nonterminal)
                 if value is not None:

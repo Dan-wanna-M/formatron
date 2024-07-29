@@ -20,8 +20,18 @@ class Test(schemas.pydantic.ClassSchema):
     f: typing.Union[bool, int, typing.Any, new_int, vector]
 
 
+class LinkedList(schemas.pydantic.ClassSchema):
+    value: int
+    next: typing.Optional["LinkedList"]
+
+
 def test_pydantic_class(snapshot):
     result = grammar_generators.json_generator.JsonGenerator().generate(Test)
+    snapshot.assert_match(result)
+
+
+def test_pydantic_class_linked_list(snapshot):
+    result = grammar_generators.json_generator.JsonGenerator().generate(LinkedList)
     snapshot.assert_match(result)
 
 
@@ -29,6 +39,7 @@ def test_pydantic_callable(snapshot):
     @schemas.pydantic.callable_schema
     def foo(a: int, b: typing.Annotated[int, Field(gt=10), "1124"] = 2):
         return a + b
+
     result = grammar_generators.json_generator.JsonGenerator().generate(foo)
     snapshot.assert_match(result)
 
