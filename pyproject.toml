@@ -7,7 +7,7 @@ version = "0.1.0"
 authors = [
   {name = "Xintong Sun", email = "xs28@rice.edu"},
 ]
-description = "Formatron empowers everyone to control the format of language models' output with minimal overhead."
+description = "Formatron empowers everyone to control the output format of language models with minimal overhead."
 readme = "README.md"
 dependencies = ["pydantic","kbnf"]
 license = {file = "LICENSE"}
