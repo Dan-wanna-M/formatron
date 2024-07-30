@@ -1,6 +1,7 @@
 import abc
 import textwrap
 import typing
+from copy import copy
 
 import kbnf
 from kbnf import AcceptTokenResult, Engine
@@ -112,6 +113,10 @@ class Formatter(FormatterBase):
     def mask_logits(self, logits) -> typing.Any:
         return self._engine.mask_logits(logits)
 
+    @property
+    def allowed_tokens_since_last_computation(self) -> typing.Sequence[int]:
+        return self._engine.get_allowed_token_ids_from_last_computation()
+
     def is_completed(self) -> bool:
         return self._engine.is_finished()
 
@@ -119,7 +124,11 @@ class Formatter(FormatterBase):
         for matcher in self._extractors:
             generated_output, captured = matcher.extract(generated_output)
             if matcher.capture_name:
-                self._captures[matcher.capture_name] = captured
+                if matcher.capture_name in self._captures:
+                    self._captures[matcher.capture_name] = [self._captures[matcher.capture_name]]
+                    self._captures[matcher.capture_name].append(captured)
+                else:
+                    self._captures[matcher.capture_name] = captured
 
     @property
     def captures(self) -> dict[str, typing.Any] | None:
@@ -132,6 +141,12 @@ class Formatter(FormatterBase):
 
     def __str__(self):
         return str(self._engine)
+
+    def __copy__(self):
+        f = Formatter(self._extractors.copy(), copy(self._engine), self._decode_callback, self._grammar_str)
+        f._captures = self._captures.copy()
+        f._token_ids = self._token_ids.copy()
+        return f
 
 
 class FormatterBuilder:

@@ -7,12 +7,17 @@ class Extractor(abc.ABC):
     """
     An abstract extractor that extracts data from a string.
     """
+
     def __init__(self, capture_name: typing.Optional[str] = None):
         """
         Initialize an extractor.
         :param capture_name: The name of the capture, or `None` if the extractor does not capture.
         """
-        self.capture_name = capture_name
+        self._capture_name = capture_name
+
+    @property
+    def capture_name(self) -> typing.Optional[str]:
+        return self._capture_name
 
     @abc.abstractmethod
     def extract(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
@@ -36,6 +41,7 @@ class LiteralExtractor(Extractor):
     """
     An extractor that extracts a literal string.
     """
+
     def __init__(self, literal: str):
         """
         Initialize the literal extractor. It never captures since capturing a literal is redundant.
@@ -43,26 +49,27 @@ class LiteralExtractor(Extractor):
         :param literal: The literal string to extract.
         """
         super().__init__(None)
-        self.literal = literal
+        self._literal = literal
 
     def extract(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
         """
         Extract the literal from the input string.
         """
-        pos = input_str.find(self.literal)
+        pos = input_str.find(self._literal)
         if pos == -1:
             return None
-        return input_str[pos + len(self.literal):], self.literal
+        return input_str[pos + len(self._literal):], self._literal
 
     @property
     def kbnf_representation(self) -> str:
-        return repr(self.literal)
+        return repr(self._literal)
 
 
 class RegexExtractor(Extractor):
     """
     An extractor that extracts a string using a regular expression.
     """
+
     def __init__(self, regex: str, capture_name: str, nonterminal: str):
         """
         Initialize the regex extractor.
@@ -72,7 +79,7 @@ class RegexExtractor(Extractor):
         :param nonterminal: The nonterminal representing the extractor.
         """
         super().__init__(capture_name)
-        self.regex = re.compile(regex)
+        self._regex = re.compile(regex)
         self._nonterminal = nonterminal
 
     def extract(self, input_str: str) -> typing.Optional[tuple[str, re.Match]]:
@@ -82,7 +89,7 @@ class RegexExtractor(Extractor):
         :param input_str: The input string.
         :return: The remaining string and the extracted `re.Match` object, or `None` if the extraction failed.
         """
-        matched = self.regex.match(input_str)
+        matched = self._regex.match(input_str)
         if not matched:
             return None
         return input_str[matched.span()[1]:], matched
@@ -96,6 +103,7 @@ class ChoiceExtractor(Extractor):
     """
     An extractor that uses multiple extractors to extract data. It stops at the first succeeding extractor.
     """
+
     def __init__(self, choices: typing.Iterable[Extractor], capture_name: str, nonterminal: str):
         """
         Initialize the choice extractor.
@@ -105,11 +113,11 @@ class ChoiceExtractor(Extractor):
         :param nonterminal: The nonterminal representing the extractor.
         """
         super().__init__(capture_name)
-        self.choices = choices
+        self._choices = choices
         self._nonterminal = nonterminal
 
     def extract(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
-        for choice in self.choices:
+        for choice in self._choices:
             matched = choice.extract(input_str)
             if matched:
                 return matched
