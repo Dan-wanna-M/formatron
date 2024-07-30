@@ -58,5 +58,5 @@ class FormatterFilter(ExLlamaV2Filter):
         pass_tokens = set()
         end_tokens = set()  # TODO: implement end_tokens after adding end_tokens() in kbnf
         self._formatter.compute_allowed_tokens()
-        pass_tokens.update(self._formatter.allowed_tokens_since_last_computation)
+        pass_tokens.update(self._formatter.get_allowed_tokens_since_last_computation())
         return pass_tokens, end_tokens

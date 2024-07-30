@@ -113,8 +113,7 @@ class Formatter(FormatterBase):
     def mask_logits(self, logits) -> typing.Any:
         return self._engine.mask_logits(logits)
 
-    @property
-    def allowed_tokens_since_last_computation(self) -> typing.Sequence[int]:
+    def get_allowed_tokens_since_last_computation(self) -> typing.Sequence[int]:
         return self._engine.get_allowed_token_ids_from_last_computation()
 
     def is_completed(self) -> bool:
