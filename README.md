@@ -37,8 +37,10 @@ TODO: show how to customize schema generation
 TODO: show how to customize grammar generation
 ### Customize Post-Generation Processing
 TODO: show how to customize post-generation processing
-## Integrations
+### Integrations
 Check out integration examples in the `tests` directory.
+## API Reference
+Check out the API reference [here]().
 ## Benchmarks
 TODO: show Formatron's speed against other libraries
 Here's a refined version of the paragraph:

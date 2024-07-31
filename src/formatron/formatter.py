@@ -107,6 +107,9 @@ class Formatter(FormatterBase):
             self.on_completion(output)
         return result
 
+    def accept_bytes(self, _bytes: bytes):
+        self._engine.try_accept_new_bytes(_bytes)
+
     def compute_allowed_tokens(self) -> None:
         self._engine.compute_allowed_token_ids()
 
@@ -115,6 +118,9 @@ class Formatter(FormatterBase):
 
     def get_allowed_tokens_since_last_computation(self) -> typing.Sequence[int]:
         return self._engine.get_allowed_token_ids_from_last_computation()
+
+    def get_tokens_to_finish_since_last_computation(self) -> typing.Sequence[int]:
+        return self._engine.get_tokens_to_finish_from_last_computation()
 
     def is_completed(self) -> bool:
         return self._engine.is_finished()

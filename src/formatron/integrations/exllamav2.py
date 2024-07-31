@@ -48,15 +48,16 @@ class FormatterFilter(ExLlamaV2Filter):
         if self._config.reset_on_completion:
             self._formatter.reset()
         if self._config.read_prompt:
-            raise NotImplementedError("read_prompt is not implemented yet")
-            # TODO: implement read_prompt after exposing accept_bytes() in kbnf
+            prompt = prefix_str.encode("utf-8")
+            self._formatter.accept_bytes(prompt)
 
     def feed(self, token: int):
         self._formatter.accept_token(token)
 
     def next(self) -> typing.Tuple[typing.Set[int], typing.Set[int]]:
         pass_tokens = set()
-        end_tokens = set()  # TODO: implement end_tokens after adding end_tokens() in kbnf
+        end_tokens = set()
         self._formatter.compute_allowed_tokens()
         pass_tokens.update(self._formatter.get_allowed_tokens_since_last_computation())
+        end_tokens.update(self._formatter.get_allowed_tokens_since_last_computation())
         return pass_tokens, end_tokens
