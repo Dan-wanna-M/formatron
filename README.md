@@ -20,7 +20,7 @@ Effortlessly interleave regular expressions and context-free grammars (CFG) in f
 - **🚀 Minimal Runtime Overhead**: 
 With Leo optimization, a specialized compacting algorithm,
 and CFG caches across generations, Earley algorithm implemented in Rust is
-the aymptotically and practically fastest algorithms.
+aymptotically and practically the fastest algorithms.
 Here's a refined version of the bullet point:
 - **🔧 Customizable**: Everything is configurable, including schema generation,
 grammar generation, and post-generation processing (such as function calls).
