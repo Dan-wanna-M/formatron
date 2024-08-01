@@ -7,10 +7,10 @@ from snapshottest import GenericRepr, Snapshot
 
 snapshots = Snapshot()
 
-snapshots['test_formatter 1'] = '''__choice_food_1 ::= 'railroad' | 'orange' | 'banana';
-__regex_0_1 ::= #'[0-9]+';
-__regex_1_1 ::= #'[a-z]+';
-__choice_ID_1 ::= __regex_0_1 | __regex_1_1;
+snapshots['test_formatter 1'] = '''__choice_food_0 ::= 'railroad' | 'orange' | 'banana';
+__regex_0_0 ::= #'[0-9]+';
+__regex_1_0 ::= #'[a-z]+';
+__choice_ID_0 ::= __regex_0_0 | __regex_1_0;
 integer ::= #"-?(0|[1-9]\\\\d*)";
 number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
@@ -25,12 +25,12 @@ object_begin ::= #"\\\\{(\\u0020|\\u000A|\\u000D|\\u0009)*";
 object_end ::= #"(\\u0020|\\u000A|\\u000D|\\u0009)*\\\\}";
 array_begin ::= #"\\\\[(\\u0020|\\u000A|\\u000D|\\u0009)*";
 array_end ::= #"(\\u0020|\\u000A|\\u000D|\\u0009)*\\\\]";
-__schema_json_1 ::= object_begin \'"name"\' colon __schema_json_1_name comma \'"weight"\' colon __schema_json_1_weight comma \'"color"\' colon __schema_json_1_color object_end;
-__schema_json_1_color ::= string;
-__schema_json_1_weight ::= number;
-__schema_json_1_name ::= string;
+__schema_json_0 ::= object_begin \'"name"\' colon __schema_json_0_name comma \'"weight"\' colon __schema_json_0_weight comma \'"color"\' colon __schema_json_0_color object_end;
+__schema_json_0_color ::= string;
+__schema_json_0_weight ::= number;
+__schema_json_0_name ::= string;
 
-start ::= \'Today, I want to eat \' __choice_food_1 \'\\n\' "My food\'s ID is " __choice_ID_1 \'.\\n\' "\\nWhat\'s more, indentations\\nare handled\\nappropriately." \'My weight is 14.4kg and my color is pink. This is my personal info json: \' __schema_json_1 \'\\n\';'''
+start ::= \'Today, I want to eat \' __choice_food_0 \'\\n\' "My food\'s ID is " __choice_ID_0 \'.\\n\' "\\nWhat\'s more, indentations\\nare handled\\nappropriately." \'My weight is 14.4kg and my color is pink. This is my personal info json: \' __schema_json_0 \'\\n\';'''
 
 snapshots['test_formatter 2'] = '''Today, I want to eat orange
 My food's ID is a.
@@ -60,12 +60,12 @@ object_begin ::= #"\\\\{(\\u0020|\\u000A|\\u000D|\\u0009)*";
 object_end ::= #"(\\u0020|\\u000A|\\u000D|\\u0009)*\\\\}";
 array_begin ::= #"\\\\[(\\u0020|\\u000A|\\u000D|\\u0009)*";
 array_end ::= #"(\\u0020|\\u000A|\\u000D|\\u0009)*\\\\]";
-__schema_json_3 ::= object_begin \'"a"\' colon __schema_json_3_a comma \'"b"\' colon __schema_json_3_b comma \'"c"\' colon __schema_json_3_c object_end;
-__schema_json_3_c ::= integer;
-__schema_json_3_b ::= integer;
-__schema_json_3_a ::= integer;
+__schema_json_2 ::= object_begin \'"a"\' colon __schema_json_2_a comma \'"b"\' colon __schema_json_2_b comma \'"c"\' colon __schema_json_2_c object_end;
+__schema_json_2_c ::= integer;
+__schema_json_2_b ::= integer;
+__schema_json_2_a ::= integer;
 
-start ::= __schema_json_3 '\\n';'''
+start ::= __schema_json_2 '\\n';'''
 
 snapshots['test_formatter_callable_schema 2'] = '''{"a":1,"b":2,"c":3}
 '''
@@ -88,11 +88,11 @@ object_begin ::= #"\\\\{(\\u0020|\\u000A|\\u000D|\\u0009)*";
 object_end ::= #"(\\u0020|\\u000A|\\u000D|\\u0009)*\\\\}";
 array_begin ::= #"\\\\[(\\u0020|\\u000A|\\u000D|\\u0009)*";
 array_end ::= #"(\\u0020|\\u000A|\\u000D|\\u0009)*\\\\]";
-__schema_json_2 ::= object_begin \'"name"\' colon __schema_json_2_name comma \'"gender"\' colon __schema_json_2_gender object_end;
-__schema_json_2_gender ::= string;
-__schema_json_2_name ::= string;
+__schema_json_1 ::= object_begin \'"name"\' colon __schema_json_1_name comma \'"gender"\' colon __schema_json_1_gender object_end;
+__schema_json_1_gender ::= string;
+__schema_json_1_name ::= string;
 
-start ::= __schema_json_2 '\\n';'''
+start ::= __schema_json_1 '\\n';'''
 
 snapshots['test_formatter_dict_inference 2'] = '''{"name":"Ryan","gender":"male"}
 '''

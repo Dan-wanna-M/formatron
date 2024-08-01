@@ -1,6 +1,5 @@
 import typing
 from copy import copy, deepcopy
-
 import kbnf
 import torch
 from exllamav2 import ExLlamaV2Tokenizer, ExLlamaV2

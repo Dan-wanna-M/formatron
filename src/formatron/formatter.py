@@ -170,7 +170,7 @@ class FormatterBuilder:
         self._capture_names = set()
         self._nonterminal_to_extractor = {}
         self._extractors = []
-        self.instance_id = self.__class__._formatter_builder_counter
+        self._instance_id = self.__class__._formatter_builder_counter
         self.__class__._formatter_builder_counter += 1
 
     def _assert_capture_name_valid(self, capture_name: str):
@@ -240,9 +240,9 @@ class FormatterBuilder:
         if capture_name is not None:
             self._assert_capture_name_valid(capture_name)
             self._capture_names.add(capture_name)
-            nonterminal = f"__{name}_{capture_name}_{self.instance_id}"
+            nonterminal = f"__{name}_{capture_name}_{self._instance_id}"
         else:
-            nonterminal = f"__{name}_{self._counter}_{self.instance_id}"
+            nonterminal = f"__{name}_{self._counter}_{self._instance_id}"
             self._counter += 1
         return nonterminal
 
