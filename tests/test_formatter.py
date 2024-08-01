@@ -39,6 +39,7 @@ def test_formatter_dict_inference(snapshot):
         f"{f.schema(infer_mapping({'name': 'xxx', 'gender': 'xxx'}), grammar_generators.json_generator.JsonGenerator(), capture_name='json')}")
     model = RWKV("assets/RWKV-5-World-0.4B-v2-20231113-ctx4096.pth", 'cuda fp16')
     pipeline = integrations.RWKV.PIPELINE(model, "rwkv_vocab_v20230424", f)
+    np.random.seed(42)
     snapshot.assert_match(pipeline.formatter.grammar_str)
     snapshot.assert_match(
         pipeline.generate("This is a random json: ", token_count=256, args=integrations.RWKV.PIPELINE_ARGS(top_p=0.5)))
@@ -55,6 +56,7 @@ def test_formatter_callable_schema(snapshot):
         f"{f.schema(add, grammar_generators.json_generator.JsonGenerator(), capture_name='json')}")
     model = RWKV("assets/RWKV-5-World-0.4B-v2-20231113-ctx4096.pth", 'cuda fp16')
     pipeline = integrations.RWKV.PIPELINE(model, "rwkv_vocab_v20230424", f)
+    np.random.seed(42)
     snapshot.assert_match(pipeline.formatter.grammar_str)
     snapshot.assert_match(
         pipeline.generate("This is a random json: ", token_count=256, args=integrations.RWKV.PIPELINE_ARGS(top_p=0.5)))

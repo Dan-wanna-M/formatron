@@ -2,10 +2,11 @@ import typing
 from copy import copy, deepcopy
 
 import kbnf
-from exllamav2 import ExLlamaV2Tokenizer
+import torch
+from exllamav2 import ExLlamaV2Tokenizer, ExLlamaV2
 from exllamav2.generator.base import ExLlamaV2Filter
 from config import EngineGenerationConfig
-from formatter import Formatter
+from formatter import Formatter, FormatterBuilder
 from integrations._utils import get_original_whitespace_characters
 
 
@@ -24,13 +25,19 @@ def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer) -> kbnf.Vocabulary:
     return kbnf.Vocabulary({v: kbnf.Token(k.encode("utf-8")) for k, v in vocab.items()},
                            {v: k for k, v in vocab.items()})
 
+def create_formatter_filter(model:ExLlamaV2,tokenizer: ExLlamaV2Tokenizer,
+                            formatter_builder:FormatterBuilder,
+                            engine_config:EngineGenerationConfig=None)->ExLlamaV2Filter:
+    vocab = create_engine_vocabulary(tokenizer)
+    f = formatter_builder.build(vocab, lambda tokens:tokenizer.decode(torch.tensor(tokens)))
+    return FormatterFilter(model, tokenizer, f, engine_config)
 
 class FormatterFilter(ExLlamaV2Filter):
     def __init__(self, model, tokenizer, formatter: Formatter,
                  config: EngineGenerationConfig = None):
         super().__init__(model, tokenizer)
         self._formatter = formatter
-        if config is not None:
+        if config is None:
             config = EngineGenerationConfig()
         self._config = config
 
