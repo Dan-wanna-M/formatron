@@ -60,12 +60,12 @@ object_begin ::= #"\\\\{(\\u0020|\\u000A|\\u000D|\\u0009)*";
 object_end ::= #"(\\u0020|\\u000A|\\u000D|\\u0009)*\\\\}";
 array_begin ::= #"\\\\[(\\u0020|\\u000A|\\u000D|\\u0009)*";
 array_end ::= #"(\\u0020|\\u000A|\\u000D|\\u0009)*\\\\]";
-__schema_json_2 ::= object_begin \'"a"\' colon __schema_json_2_a comma \'"b"\' colon __schema_json_2_b comma \'"c"\' colon __schema_json_2_c object_end;
-__schema_json_2_c ::= integer;
-__schema_json_2_b ::= integer;
-__schema_json_2_a ::= integer;
+__schema_json_0 ::= object_begin \'"a"\' colon __schema_json_0_a comma \'"b"\' colon __schema_json_0_b comma \'"c"\' colon __schema_json_0_c object_end;
+__schema_json_0_c ::= integer;
+__schema_json_0_b ::= integer;
+__schema_json_0_a ::= integer;
 
-start ::= __schema_json_2 '\\n';'''
+start ::= __schema_json_0 '\\n';'''
 
 snapshots['test_formatter_callable_schema 2'] = '''{"a":1,"b":2,"c":3}
 '''
@@ -88,11 +88,11 @@ object_begin ::= #"\\\\{(\\u0020|\\u000A|\\u000D|\\u0009)*";
 object_end ::= #"(\\u0020|\\u000A|\\u000D|\\u0009)*\\\\}";
 array_begin ::= #"\\\\[(\\u0020|\\u000A|\\u000D|\\u0009)*";
 array_end ::= #"(\\u0020|\\u000A|\\u000D|\\u0009)*\\\\]";
-__schema_json_1 ::= object_begin \'"name"\' colon __schema_json_1_name comma \'"gender"\' colon __schema_json_1_gender object_end;
-__schema_json_1_gender ::= string;
-__schema_json_1_name ::= string;
+__schema_json_0 ::= object_begin \'"name"\' colon __schema_json_0_name comma \'"gender"\' colon __schema_json_0_gender object_end;
+__schema_json_0_gender ::= string;
+__schema_json_0_name ::= string;
 
-start ::= __schema_json_1 '\\n';'''
+start ::= __schema_json_0 '\\n';'''
 
 snapshots['test_formatter_dict_inference 2'] = '''{"name":"Ryan","gender":"male"}
 '''

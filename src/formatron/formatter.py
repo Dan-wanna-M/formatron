@@ -120,7 +120,7 @@ class Formatter(FormatterBase):
         return self._engine.get_allowed_token_ids_from_last_computation()
 
     def get_tokens_to_finish_since_last_computation(self) -> typing.Sequence[int]:
-        return self._engine.get_tokens_to_finish_from_last_computation()
+        return self._engine.get_token_ids_to_finish_from_last_computation()
 
     def is_completed(self) -> bool:
         return self._engine.is_finished()

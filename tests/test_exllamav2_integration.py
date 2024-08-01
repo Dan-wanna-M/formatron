@@ -13,7 +13,7 @@ def test_exllamav2_integration(snapshot):
     model.load_autosplit(cache, progress = True)
     tokenizer = ExLlamaV2Tokenizer(config)
     f = FormatterBuilder()
-    f.append_line(" Hello, Exllamav2!")
+    f.append_line("Hello, Exllamav2!")
     exllama_filter = create_formatter_filter(model, tokenizer, f)
     generator = ExLlamaV2DynamicGenerator(
         model=model,
@@ -21,7 +21,7 @@ def test_exllamav2_integration(snapshot):
         tokenizer=tokenizer,
     )
     output = generator.generate(
-        prompt="Five good reasons to adopt a cat:",
+        prompt="Hello, cats! ",
         max_new_tokens=200,
         add_bos=True,
         filters=[exllama_filter]

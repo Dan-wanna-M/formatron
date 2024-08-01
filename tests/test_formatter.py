@@ -15,6 +15,7 @@ class Test(schemas.pydantic.ClassSchema):
 
 
 def test_formatter(snapshot):
+    FormatterBuilder._formatter_builder_counter = 0
     f = FormatterBuilder()
     f.append_line(f"Today, I want to eat {f.choose('railroad', 'orange', 'banana', capture_name='food')}")
     f.append_str(f"My food's ID is {f.choose(f.regex('[0-9]+'), f.regex('[a-z]+'), capture_name='ID')}.\n")
@@ -34,6 +35,7 @@ def test_formatter(snapshot):
 
 
 def test_formatter_dict_inference(snapshot):
+    FormatterBuilder._formatter_builder_counter = 0
     f = FormatterBuilder()
     f.append_line(
         f"{f.schema(infer_mapping({'name': 'xxx', 'gender': 'xxx'}), grammar_generators.json_generator.JsonGenerator(), capture_name='json')}")
@@ -51,6 +53,7 @@ def test_formatter_callable_schema(snapshot):
     def add(a: int, b: int, /, *, c: int):
         return a + b + c
 
+    FormatterBuilder._formatter_builder_counter = 0
     f = FormatterBuilder()
     f.append_line(
         f"{f.schema(add, grammar_generators.json_generator.JsonGenerator(), capture_name='json')}")

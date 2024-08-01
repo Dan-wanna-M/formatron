@@ -65,5 +65,5 @@ class FormatterFilter(ExLlamaV2Filter):
         end_tokens = set()
         self._formatter.compute_allowed_tokens()
         pass_tokens.update(self._formatter.get_allowed_tokens_since_last_computation())
-        end_tokens.update(self._formatter.get_allowed_tokens_since_last_computation())
+        end_tokens.update(self._formatter.get_tokens_to_finish_since_last_computation())
         return pass_tokens, end_tokens
