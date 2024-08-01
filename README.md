@@ -6,17 +6,19 @@ and seamlessly integrates into existing codebases and frameworks.
 
 ## Features
 
-- **🔗 Popular Library Integrations**: Supports transformers and RWKV.
+- **🔗 Popular Library Integrations**: Supports transformers, exllamav2 and RWKV.
 - **🔌 Plugins, not wrappers**:
 Instead of wrapping third-party libraries in large, cumbersome classes,
 Formatron offers convenient, clean plugins for different libraries.
-- **💡 Utilities, not frameworks**:
+- **💡 Library, not framework**:
 Instead of unifying everything into a bulky framework,
-Formatron provides flexible utilities that can be used anywhere.
+Formatron is a flexible library that can be embedded anywhere.
 - **✍️ Fluent Formatting**: Describe your format as easily as writing natural language.
 - **📜 Regex and CFG Support**:
 Effortlessly interleave regular expressions and context-free grammars (CFG) in formats.
 - **⚙️ Efficient JSON Generation**: Feature-complete JSON generation based on Pydantic models.
+- **📤 Batched Inference**: 
+Freely specify different formats for each sequence in one batch!
 - **🚀 Minimal Runtime Overhead**: 
 With Leo optimization, a specialized compacting algorithm,
 and CFG caches across generations, Earley algorithm implemented in Rust is

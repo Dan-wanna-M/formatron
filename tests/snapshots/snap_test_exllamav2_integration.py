@@ -7,5 +7,12 @@ from snapshottest import Snapshot
 
 snapshots = Snapshot()
 
+snapshots['test_exllamav2_batched_inference 1'] = [
+    '''Hello, cats! Hello, Exllamav2!
+''',
+    '''Hello, dogs! Hello, Exllamav2!
+'''
+]
+
 snapshots['test_exllamav2_integration 1'] = '''Hello, cats! Hello, Exllamav2!
 '''

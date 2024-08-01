@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from exllamav2 import ExLlamaV2, ExLlamaV2Config, ExLlamaV2Cache, ExLlamaV2Tokenizer
 from exllamav2.generator import ExLlamaV2DynamicGenerator, ExLlamaV2Sampler
 
@@ -25,5 +27,30 @@ def test_exllamav2_integration(snapshot):
         max_new_tokens=200,
         add_bos=True,
         filters=[exllama_filter]
+    )
+    snapshot.assert_match(output)
+
+def test_exllamav2_batched_inference(snapshot):
+    model_dir = "local_assets/Llama-3-8B-exl2/"
+    config = ExLlamaV2Config(model_dir)
+    model = ExLlamaV2(config)
+    cache = ExLlamaV2Cache(model, max_seq_len = 65536, lazy = True)
+    model.load_autosplit(cache, progress = True)
+    tokenizer = ExLlamaV2Tokenizer(config)
+    f = FormatterBuilder()
+    f.append_line("Hello, Exllamav2!")
+    f2 = deepcopy(f)
+    exllama_filter = create_formatter_filter(model, tokenizer, f)
+    exllama_filter2 = create_formatter_filter(model, tokenizer, f2)
+    generator = ExLlamaV2DynamicGenerator(
+        model=model,
+        cache=cache,
+        tokenizer=tokenizer,
+    )
+    output = generator.generate(
+        prompt=["Hello, cats! ", "Hello, dogs! "],
+        max_new_tokens=200,
+        add_bos=True,
+        filters=[[exllama_filter],[exllama_filter2]]
     )
     snapshot.assert_match(output)
