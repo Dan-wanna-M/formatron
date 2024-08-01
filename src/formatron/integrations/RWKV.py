@@ -66,7 +66,7 @@ class PIPELINE(rwkv.utils.PIPELINE):  # NOSONAR
         out_last = 0
         out_str = ''
         occurrence = {}
-        if args.engine_gen_config.reset_on_completion and self.formatter:
+        if args.engine_gen_config.reset_on_completion and self.formatter and self.formatter.is_completed():
             self.formatter.reset()
         for i in range(token_count):
             # forward & adjust prob.

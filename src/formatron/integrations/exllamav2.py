@@ -51,7 +51,7 @@ class FormatterFilter(ExLlamaV2Filter):
         return c
 
     def begin(self, prefix_str: str) -> None:
-        if self._config.reset_on_completion:
+        if self._config.reset_on_completion and self._formatter.is_completed():
             self._formatter.reset()
         if self._config.read_prompt:
             prompt = prefix_str.encode("utf-8")

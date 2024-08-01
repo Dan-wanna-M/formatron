@@ -88,3 +88,12 @@ as it is usually possible to extract the format from the generated string
 using simple algorithms and then parse it with a parser.
 However, in some cases, obtaining the AST might be necessary.
 In a future release, Formatron will support AST construction.
+
+### Process batch logits in parallel
+
+While it is *technically possible* to process logits in parallel CPU threads
+since Formatron uses Rust internally, most frameworks' generation loop call
+Formatron's plugin for each logits in a batch in sequential order. Modifying
+this behaviour requires a breaking change to the frameworks' API or let
+Formatron takes over the control flow from frameworks, either of which implies
+substantial work.

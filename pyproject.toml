@@ -26,6 +26,7 @@ classifiers = [
 rwkv = ["rwkv"]
 transformers = ["transformers"]
 exllamav2 = ["exllamav2"]
+vllm = ["vllm"]
 [project.urls]
 Repository = "https://github.com/Dan-wanna-M/formatron"
 [tool.pytest.ini_options]
