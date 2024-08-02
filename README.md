@@ -16,7 +16,7 @@ Formatron is a flexible library that can be embedded anywhere.
 - **✍️ Fluent Formatting**: Describe your format as easily as writing natural language.
 - **📜 Regex and CFG Support**:
 Effortlessly interleave regular expressions and context-free grammars (CFG) in formats.
-- **⚙️ Efficient JSON Generation**: Feature-complete JSON generation based on Pydantic models.
+- **⚙️ Efficient JSON Generation**: Feature-complete JSON generation based on Pydantic models or json schemas.
 - **📤 Batched Inference**: 
 Freely specify different formats for each sequence in one batch!
 - **🚀 Minimal Runtime Overhead**: 
@@ -26,8 +26,27 @@ aymptotically and practically the fastest algorithms.
 Here's a refined version of the bullet point:
 - **🔧 Customizable**: Everything is configurable, including schema generation,
 grammar generation, and post-generation processing (such as function calls).
-## Feature matrix
-TODO: create a feature matrix comparing Formatron to other libraries
+## Comparison to other libraries
+
+| Capability                                   | Formatron                                                                                | [LM Format Enforcer](https://github.com/noamgat/lm-format-enforcer)                           | [Guidance](https://github.com/guidance-ai/guidance) | [Outlines](https://github.com/outlines-dev/outlines)                                    |
+|:---------------------------------------------|------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------|:----------------------------------------------------|:----------------------------------------------------------------------------------------|
+| Regular Expressions                          | ✅                                                                                        | ✅                                                                                             | ✅                                                   | ✅                                                                                       |
+| Efficient Regex-constrained Generation       | ✅                                                                                        | 🟡([performance issues still exist](https://github.com/noamgat/lm-format-enforcer/issues/36)) | ❌                                                   | 🟡([scalablity currently suffers](https://github.com/outlines-dev/outlines/issues/680)) |
+| Context Free Grammars(CFG)                   | ✅                                                                                        | ❌                                                                                             | ✅                                                   | 🟡([some bugs exists](https://github.com/outlines-dev/outlines/issues/959))             |
+| Efficient CFG-constrained Generation         | ✅                                                                                        | ❌                                                                                             | ❌                                                   | ❌                                                                                       |
+| Custom Format Extractor                      | 🟡([some limitations exist](#ast))                                                       | ❌                                                                                             | ✅                                                   | ✅                                                                                       |
+| JSON Schema                                  | ✅([indirectly](https://docs.pydantic.dev/latest/integrations/datamodel_code_generator/)) | ✅                                                                                             | ✅                                                   | ✅                                                                                       |
+| Function Call From Callable                  | ✅                                                                                        | ❌                                                                                             | ✅                                                   | ✅                                                                                       |
+| Interleave Python control flow in generation | ❌                                                                                        | ❌                                                                                             | ✅                                                   | ❌                                                                                       |
+| Batched Generation                           | ✅                                                                                        | ✅                                                                                             | ❌                                                   | ✅                                                                                       |
+| Beam Search                                  | ❌                                                                                        | ✅                                                                                             | ❌                                                   | ✅                                                                                       |
+| Integrates into existing pipelines           | ✅                                                                                        | ✅                                                                                             | ❌                                                   | ✅                                                                                       |
+| Optional JSON Fields                         | ✅                                                                                        | ✅                                                                                             | ❌                                                   | ❌                                                                                       |
+| LLM Controls JSON field whitespaces          | ✅                                                                                        | ✅                                                                                             | ❌                                                   | ❌                                                                                       |
+| LLM Controls JSON field orderings            | ❌                                                                                        | ✅                                                                                             | ❌                                                   | ❌                                                                                       |
+| JSON Schema with recursive classes           | ✅                                                                                        | ✅                                                                                             | ❌                                                   | ❌                                                                                       |
+
+Feel free to open up an [issue]() if something is missing or incorrect!
 ## Examples
 ### Quick Start
 TODO: make a fancy example that shows off all the powerful features of Formatron
@@ -62,14 +81,10 @@ Formatron focuses on being modular and easily embeddable into existing
 and future pipelines.
 While this may require users to write a bit more code initially,
 it makes maintaining and updating the pipeline in the long run.
-### Claim to integrate something that in fact it doesn't
-Formatron only considers a library integrated
-if all of Formatron's features are supported in the integration.
-That's why Formatron doesn't support OpenAI or any remote API-based LLM libraries—
-they don't support efficient logits masking per token, nullifying most benefits
-of constrained decoding.
-
 ## What Formatron Can't Do Now
+### Support OpenAI or in general API-based LLM solutions
+They don't support efficient logits masking per token, nullifying most benefits
+of constrained decoding.
 ### Context-Sensitive Validation
 Unfortunately, many formats require context-sensitive validation.
 For example, two keys in a JSON object must not be equal to each other.
@@ -78,7 +93,7 @@ such constraints. However, for a specific format, it is possible to validate
 them efficiently with a specialized algorithm. In a future release,
 Formatron will support context-sensitive validation for popular formats like JSON.
 
-### Abstract Syntax Tree (AST) Construction
+### Abstract Syntax Tree (AST) Construction<a id='ast'></a>
 
 Formatron uses an Earley recognizer rather than a parser under the hood.
 This approach allows for more efficient generation and validation
@@ -91,9 +106,9 @@ In a future release, Formatron will support AST construction.
 
 ### Process batch logits in parallel
 
-While it is *technically possible* to process logits in parallel CPU threads
+While it is *technically possible* to process batch logits in parallel CPU threads
 since Formatron uses Rust internally, most frameworks' generation loop call
 Formatron's plugin for each logits in a batch in sequential order. Modifying
 this behaviour requires a breaking change to the frameworks' API or let
-Formatron takes over the control flow from frameworks, either of which implies
+Formatron take over the control flow from frameworks, either of which implies
 substantial work.
