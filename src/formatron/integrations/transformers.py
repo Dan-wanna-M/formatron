@@ -1,8 +1,7 @@
-import re
+import collections
 import typing
 
 import kbnf
-import torch
 from transformers import LogitsProcessor, PreTrainedTokenizerBase, LogitsProcessorList
 
 from config import EngineGenerationConfig
@@ -29,7 +28,7 @@ def create_formatter_logits_processor(tokenizer: PreTrainedTokenizerBase,
     Create a formatter logits processor.
     """
     vocab = create_engine_vocabulary(tokenizer)
-    if not isinstance(formatter_builders, typing.Sequence):
+    if not isinstance(formatter_builders, collections.abc.Sequence):
         formatter_builders = [formatter_builders]
     formatters = [i.build(vocab, lambda tokens: tokenizer.decode(tokens)) for i in formatter_builders]
     return FormattersLogitsProcessor(formatters, tokenizer.eos_token_id, configs)
