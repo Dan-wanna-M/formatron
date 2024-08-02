@@ -1,7 +1,7 @@
+import collections.abc
 import typing
 
 import kbnf
-from transformers import PreTrainedTokenizerBase
 from vllm import LLM
 
 from config import EngineGenerationConfig
@@ -16,50 +16,70 @@ def create_engine_vocabulary(llm:LLM)->kbnf.Vocabulary:
     return kbnf.Vocabulary({v: kbnf.Token(k.encode("utf-8")) for k, v in new_vocab.items()},
                            {v: k for k, v in new_vocab.items()})
 
-def create_formatter_logits_processor(llm:LLM,
-                                      formatter_builder: FormatterBuilder,
-                                      config:EngineGenerationConfig = None) -> "FormatterLogitsProcessor":
+def create_formatters_logits_processor(llm: LLM,
+                                      formatter_builders: typing.Sequence[FormatterBuilder] | FormatterBuilder,
+                                      configs: typing.Sequence[EngineGenerationConfig] = None)\
+        -> "FormattersLogitsProcessor":
     """
     Create a formatter logits processor.
     """
-    vocab = create_engine_vocabulary(llm)
     tokenizer = llm.get_tokenizer()
-    formatter = formatter_builder.build(vocab, lambda tokens:tokenizer.decode(tokens))
-    return FormatterLogitsProcessor(formatter, tokenizer.eos_token_id, config)
+    vocab = create_engine_vocabulary(llm)
+    if not isinstance(formatter_builders, collections.abc.Sequence):
+        formatter_builders = [formatter_builders]
+    formatters = [i.build(vocab, lambda tokens: tokenizer.decode(tokens)) for i in formatter_builders]
+    return FormattersLogitsProcessor(formatters, tokenizer.eos_token_id, configs)
 
-class FormatterLogitsProcessor:
+class FormattersLogitsProcessor:
     """
     Logit processor that uses formatters to mask batch logits.
     """
 
-    def __init__(self, formatter: Formatter, eos_token_id: int,
-                 config: EngineGenerationConfig = None):
-        self._formatter = formatter
+    def __init__(self, formatters: typing.Sequence[Formatter], eos_token_id: int,
+                 configs: typing.Sequence[EngineGenerationConfig] = None):
+        self._formatters = formatters
         self._eos_token_id = eos_token_id
-        self._last_input_id_length = None
-        if config is None:
-            config = EngineGenerationConfig()
-        self.config = config
+        self._last_input_id_length = 0
+        if configs is None:
+            configs = [EngineGenerationConfig() for _ in formatters]
+        assert len(configs) == len(formatters), \
+            f"Number of formatters({len(formatters)}) must match number of configs({len(configs)})"
+        self._configs = configs
+        self._iter = zip(self._formatters, self._configs)
+        self._debug_counter = 0
+
+    def _to_next_batch_step(self):
+        self._iter = zip(self._formatters, self._configs)
+        self._debug_counter = 0
 
     def __call__(self, prompt, generated_tokens, logits):
-        if self._last_input_id_length is None:  # First iteration
-            self._last_input_id_length = len(generated_tokens)
-            if self.config.reset_on_completion and self._formatter.is_completed():
-                self._formatter.reset()
-            if self.config.read_prompt:
+        if 0 == len(generated_tokens):  # First iteration
+            result = next(self._iter, None)
+            self._debug_counter += 1
+            if result is None:
+                raise ValueError(f"Batch size {self._debug_counter} "
+                                 f"is greater than number of formatters({len(self._formatters)})!")
+            formatter, config = result
+            if config.reset_on_completion and formatter.is_completed():
+                formatter.reset()
+            if config.read_prompt:
                 for token in prompt:
-                    self._formatter.accept_token(token)
-        else:
-            assert len(generated_tokens) == self._last_input_id_length + 1, ("One iteration in generation loop"
-                                                                          " must add exactly one token.")
+                    formatter.accept_token(token)
+        elif len(generated_tokens) == self._last_input_id_length + 1: # to next batch step
+            assert next(self._iter, None) is None,  (f"Batch size {self._debug_counter} "
+                                                     f"is less than number of formatters({len(self._formatters)})!")
+            self._to_next_batch_step()
             self._last_input_id_length += 1
+        if "formatter" not in locals():
+            formatter, _ = next(self._iter)
+        if self._last_input_id_length == len(generated_tokens) != 0: # accept new token
             input_id = generated_tokens[-1]
             if input_id != self._eos_token_id:
-                self._formatter.accept_token(input_id)
-        if self._formatter.is_completed():
+                formatter.accept_token(input_id)
+        if formatter.is_completed():
             logits[:] = float("-inf")
             logits[self._eos_token_id] = 0.0
             return logits
-        self._formatter.compute_allowed_tokens()
-        logits = self._formatter.mask_logits(logits)
+        formatter.compute_allowed_tokens()
+        logits = formatter.mask_logits(logits)
         return logits

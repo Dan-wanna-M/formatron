@@ -6,7 +6,7 @@ and seamlessly integrates into existing codebases and frameworks.
 
 ## Features
 
-- **🔗 Popular Library Integrations**: Supports transformers, exllamav2 and RWKV.
+- **🔗 Popular Library Integrations**: Supports transformers, exllamav2, vllm and RWKV.
 - **🔌 Plugins, not wrappers**:
 Instead of wrapping third-party libraries in large, cumbersome classes,
 Formatron offers convenient, clean plugins for different libraries.

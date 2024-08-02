@@ -351,6 +351,7 @@ class FormatterBuilder:
         :param engine_config: The KBNF engine configuration.
         :return: The formatter.
         """
+        assert len(self._main_rule) != 0, "An empty formatter builder cannot build!"
         self._rules.append(f"start ::= {' '.join(self._main_rule)};")
         grammar_str = "\n".join(self._rules)
         engine = Engine(grammar_str, vocabulary, engine_config)
