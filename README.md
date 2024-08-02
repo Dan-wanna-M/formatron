@@ -46,7 +46,7 @@ grammar generation, and post-generation processing (such as function calls).
 | LLM Controls JSON field orderings            | ❌                                                                                        | ✅                                                                                             | ❌                                                   | ❌                                                                                       |
 | JSON Schema with recursive classes           | ✅                                                                                        | ✅                                                                                             | ❌                                                   | ❌                                                                                       |
 
-Feel free to open up an [issue]() if something is missing or incorrect!
+Feel free to open up an [issue](https://github.com/Dan-wanna-M/formatron/issues) if something is missing or incorrect!
 ## Examples
 ### Quick Start
 TODO: make a fancy example that shows off all the powerful features of Formatron
