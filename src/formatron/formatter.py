@@ -147,12 +147,6 @@ class Formatter(FormatterBase):
     def __str__(self):
         return str(self._engine)
 
-    def __copy__(self):
-        f = Formatter(self._extractors.copy(), copy(self._engine), self._decode_callback, self._grammar_str)
-        f._captures = self._captures.copy()
-        f._token_ids = self._token_ids.copy()
-        return f
-
 
 class FormatterBuilder:
     """
