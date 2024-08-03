@@ -22,8 +22,7 @@ Freely specify different formats for each sequence in one batch!
 - **🚀 Minimal Runtime Overhead**: 
 With Leo optimization, a specialized compacting algorithm,
 and CFG caches across generations, Earley algorithm implemented in Rust is
-aymptotically and practically the fastest algorithms.
-Here's a refined version of the bullet point:
+aymptotically and practically the fastest algorithm.
 - **🔧 Customizable**: Everything is configurable, including schema generation,
 grammar generation, and post-generation processing (such as function calls).
 ## Comparison to other libraries
@@ -79,7 +78,7 @@ Rather than providing a full-fledged inference pipeline,
 Formatron focuses on being modular and easily embeddable into existing
 and future pipelines.
 While this may require users to write a bit more code initially,
-it makes maintaining and updating the pipeline in the long run.
+it makes maintaining and updating the pipeline painless in the long run.
 ## What Formatron Can't Do Now
 ### Support OpenAI or in general API-based LLM solutions
 They don't support efficient logits masking per token, nullifying most benefits
@@ -106,8 +105,8 @@ In a future release, Formatron will support AST construction.
 ### Process batch logits in parallel
 
 While it is *technically possible* to process batch logits in parallel CPU threads
-since Formatron uses Rust internally, most frameworks' generation loop call
-Formatron's plugin for each logits in a batch in sequential order. Modifying
-this behaviour requires a breaking change to the frameworks' API or let
-Formatron take over the control flow from frameworks, either of which implies
+since Formatron uses Rust internally, most frameworks sequentially
+call Formatron's plugin for each logits in a batch. Altering 
+this behaviour requires a breaking change to the frameworks' API or letting
+Formatron take over the control flow. Both options imply
 substantial work.
