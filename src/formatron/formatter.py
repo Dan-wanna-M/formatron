@@ -172,28 +172,19 @@ class FormatterBuilder:
         self._extractors = []
         self._instance_id = self.__class__._formatter_builder_counter
         self.__class__._formatter_builder_counter += 1
-        self._built = False
-
-    @staticmethod
-    def _assert_unbuilt(func):
-        def inner_func(self, *args,**kwargs):
-            assert not self._built, "A built builder cannot be used again!"
-            return func(self, *args, **kwargs)
-        return inner_func
 
     def _assert_capture_name_valid(self, capture_name: str):
         assert capture_name.isidentifier(), (f"capture_name {capture_name}"
                                              f" should only contains alphanumeric characters, "
                                              f"underscores, and does not start with digits!")
         assert capture_name not in self._capture_names, f"capture_name {capture_name} is duplicated!"
-    @_assert_unbuilt
+
     def append_line(self, line: str) -> None:
         """
         Append a line to the format. Specifically, a newline character is appended to the input.
         """
         self.append_str(line + '\n')
 
-    @_assert_unbuilt
     def append_multiline_str(self, lines: str) -> None:
         """
         Appends a multiline string to the format, preserving the first line's leading whitespaces
@@ -207,7 +198,6 @@ class FormatterBuilder:
         first = lines.find('\n')
         self.append_str(lines[:first + 1] + textwrap.dedent(lines[first + 1:]))
 
-    @_assert_unbuilt
     def append_str(self, string: str) -> None:
         """
         Append a string to the format without any post-processing.
@@ -256,7 +246,6 @@ class FormatterBuilder:
             self._counter += 1
         return nonterminal
 
-    @_assert_unbuilt
     def choose(self, *extractors: Extractor | str, capture_name: str = None) -> ChoiceExtractor:
         """
         Create a choice extractor.
@@ -283,7 +272,6 @@ class FormatterBuilder:
         self._rules.append(create_rule(nonterminal))
         return self._nonterminal_to_extractor[nonterminal]
 
-    @_assert_unbuilt
     def regex(self, regex: str, *, capture_name: str = None) -> RegexExtractor:
         """
         Create a regex extractor.
@@ -295,7 +283,6 @@ class FormatterBuilder:
                                    lambda nonterminal: RegexExtractor(regex, capture_name, nonterminal),
                                    lambda nonterminal: f"{nonterminal} ::= #{repr(regex)};")
 
-    @_assert_unbuilt
     def schema(self, schema: typing.Type[schemas.schema.Schema],
                grammar_generator: grammar_generators.grammar_generator.GrammarGenerator, *,
                capture_name: str = None) -> Extractor:
@@ -312,7 +299,6 @@ class FormatterBuilder:
                                                                                            json)),
                                    lambda nonterminal: grammar_generator.generate(schema, nonterminal))
 
-    @_assert_unbuilt
     def str(self, *, stop: typing.Union[str, list[str]] = None,
             not_contain: typing.Union[str, list[str], None] = None,
             capture_name: typing.Optional[str] = None) -> RegexExtractor:
@@ -340,20 +326,21 @@ class FormatterBuilder:
         self._nonterminal_to_extractor[nonterminal] = RegexExtractor(capture_regex, capture_name, nonterminal)
         return self._nonterminal_to_extractor[nonterminal]
 
-    @_assert_unbuilt
     def build(self, vocabulary: kbnf.Vocabulary,
               decode: typing.Callable[[list[int]], str],
               engine_config: kbnf.Config = None) -> Formatter:
         """
-        Build a formatter from the builder. The builder will be consumed and cannot be used again.
+        Build a formatter from the builder. The builder will not be consumed and can be used again.
         :param vocabulary: The KBNF engine vocabulary for the formatter.
         :param decode: The callback to decode the token IDs to a string.
         :param engine_config: The KBNF engine configuration.
         :return: The formatter.
         """
         assert len(self._main_rule) != 0, "An empty formatter builder cannot build!"
-        self._rules.append(f"start ::= {' '.join(self._main_rule)};")
-        grammar_str = "\n".join(self._rules)
+        rules = copy(self._rules)
+        rules.append(f"start ::= {' '.join(self._main_rule)};")
+        grammar_str = "\n".join(rules)
         engine = Engine(grammar_str, vocabulary, engine_config)
-        f = Formatter(self._extractors, engine, decode, grammar_str)
+        extractors = copy(self._extractors)
+        f = Formatter(extractors, engine, decode, grammar_str)
         return f

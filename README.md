@@ -63,11 +63,10 @@ Check out integration examples in the `tests` directory.
 ## API Reference
 Check out the API reference [here]().
 ## Benchmarks
-TODO: show Formatron's speed against other libraries
-Here's a refined version of the paragraph:
-
----
-
+### Effectiveness
+TODO: show Formatron's improvements on benchmarks against unconstrained versions.
+### Efficiency
+TODO: show Formatron's speed and memory usage against other libraries
 ## What Formatron Won't Do
 ### Implement an End-to-End Inference Pipeline
 Every library related to large language models(LLM) must consider that LLMs

@@ -39,9 +39,8 @@ def test_exllamav2_batched_inference(snapshot):
     tokenizer = ExLlamaV2Tokenizer(config)
     f = FormatterBuilder()
     f.append_line("Hello, Exllamav2!")
-    f2 = deepcopy(f)
     exllama_filter = create_formatter_filter(model, tokenizer, f)
-    exllama_filter2 = create_formatter_filter(model, tokenizer, f2)
+    exllama_filter2 = create_formatter_filter(model, tokenizer, f)
     generator = ExLlamaV2DynamicGenerator(
         model=model,
         cache=cache,
