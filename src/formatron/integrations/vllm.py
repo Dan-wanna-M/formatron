@@ -9,16 +9,17 @@ from formatter import Formatter, FormatterBuilder
 from integrations._utils import get_original_whitespace_characters
 
 
-def create_engine_vocabulary(llm:LLM)->kbnf.Vocabulary:
+def create_engine_vocabulary(llm: LLM) -> kbnf.Vocabulary:
     tokenizer = llm.get_tokenizer()
     vocab = tokenizer.get_vocab()
     new_vocab = get_original_whitespace_characters(tokenizer, vocab)
     return kbnf.Vocabulary({v: kbnf.Token(k.encode("utf-8")) for k, v in new_vocab.items()},
                            {v: k for k, v in new_vocab.items()})
 
+
 def create_formatters_logits_processor(llm: LLM,
-                                      formatter_builders: typing.Sequence[FormatterBuilder] | FormatterBuilder,
-                                      configs: typing.Sequence[EngineGenerationConfig] = None)\
+                                       formatter_builders: typing.Sequence[FormatterBuilder] | FormatterBuilder,
+                                       configs: typing.Sequence[EngineGenerationConfig] = None) \
         -> "FormattersLogitsProcessor":
     """
     Create a formatter logits processor.
@@ -29,6 +30,7 @@ def create_formatters_logits_processor(llm: LLM,
         formatter_builders = [formatter_builders]
     formatters = [i.build(vocab, lambda tokens: tokenizer.decode(tokens)) for i in formatter_builders]
     return FormattersLogitsProcessor(formatters, tokenizer.eos_token_id, configs)
+
 
 class FormattersLogitsProcessor:
     """
@@ -53,26 +55,27 @@ class FormattersLogitsProcessor:
         self._debug_counter = 0
 
     def __call__(self, prompt, generated_tokens, logits):
-        if 0 == len(generated_tokens):  # First iteration
-            result = next(self._iter, None)
+        result = next(self._iter, None)
+        if result is None and len(generated_tokens) == self._last_input_id_length:
+            # We exhausted all formatters but still have sequences to process in this batch
+            raise ValueError(f"Batch size {self._debug_counter} "
+                             f"is greater than number of formatters({len(self._formatters)})!")
+        if len(generated_tokens) == 0:  # First iteration
             self._debug_counter += 1
-            if result is None:
-                raise ValueError(f"Batch size {self._debug_counter} "
-                                 f"is greater than number of formatters({len(self._formatters)})!")
             formatter, config = result
             if config.reset_on_completion and formatter.is_completed():
                 formatter.reset()
             if config.read_prompt:
                 for token in prompt:
                     formatter.accept_token(token)
-        elif len(generated_tokens) == self._last_input_id_length + 1: # to next batch step
-            assert next(self._iter, None) is None,  (f"Batch size {self._debug_counter} "
-                                                     f"is less than number of formatters({len(self._formatters)})!")
+        elif len(generated_tokens) == self._last_input_id_length + 1:  # to next batch step
+            assert result is None, (f"Batch size {self._debug_counter} "
+                                    f"is less than number of formatters({len(self._formatters)})!")
             self._to_next_batch_step()
+            result = next(self._iter)
             self._last_input_id_length += 1
-        if "formatter" not in locals():
-            formatter, _ = next(self._iter)
-        if self._last_input_id_length == len(generated_tokens) != 0: # accept new token
+        formatter, _ = result
+        if len(generated_tokens) != 0:  # accept new token
             input_id = generated_tokens[-1]
             if input_id != self._eos_token_id:
                 formatter.accept_token(input_id)
