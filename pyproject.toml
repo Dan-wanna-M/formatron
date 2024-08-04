@@ -3,13 +3,13 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "formatron"
-version = "0.1.0"
+version = "0.1.1"
 authors = [
   {name = "Xintong Sun", email = "xs28@rice.edu"},
 ]
 description = "Formatron empowers everyone to control the output format of language models with minimal overhead."
 readme = "README.md"
-dependencies = ["pydantic>=2","kbnf>=0.2.1"]
+dependencies = ["pydantic>=2","kbnf>=0.2.2"]
 license = {file = "LICENSE"}
 keywords = ["deep learning", "language model", "guided generation", "structured generation","constrained decoding"]
 requires-python = ">=3.10"
