@@ -39,4 +39,4 @@ exclude_patterns = []
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the built-in static files,
-html_static_path = ['_build']
+html_static_path = ['_static']
