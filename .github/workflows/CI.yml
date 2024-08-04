@@ -3,10 +3,10 @@ name: CI
 on:
   push:
     branches:
-      - main  # Adjust this if your default branch is different
+      - master  # Adjust this if your default branch is different
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   build_docs:
