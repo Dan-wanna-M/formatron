@@ -10,9 +10,9 @@ sys.path.insert(0, os.path.abspath('../src'))
 # -- Project information -----------------------------------------------------
 
 project = 'Formatron'
-copyright = '2023, Xintong Sun'
+copyright = '2024, Xintong Sun'
 author = 'Xintong Sun'
-release = '0.1.0'
+release = '0.0.1'
 
 # -- General configuration ---------------------------------------------------
 
@@ -39,4 +39,4 @@ exclude_patterns = []
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the built-in static files,
-html_static_path = []
+html_static_path = ['_build']
