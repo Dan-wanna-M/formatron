@@ -20,8 +20,10 @@ Contents:
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
    installation
    usage
    api/index
-
+   .. automodule:: formatron
+   :members:
+   :undoc-members:
+   :show-inheritance:
