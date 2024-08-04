@@ -39,4 +39,4 @@ html_theme = 'sphinx_rtd_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the built-in static files,
-html_static_path = ['_static']
+html_static_path = []
