@@ -103,9 +103,85 @@ $(function(){initNavTree('namespaceformatron_1_1schemas_1_1dict__inference.html'
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">formatron.schemas.dict_inference Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>This module contains utilities for inferring schemas from dictionaries.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classformatron_1_1schemas_1_1dict__inference_1_1FieldInfo.html">FieldInfo</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ad5cac24e76dc097a995f31d3d0ff9efc" id="r_ad5cac24e76dc097a995f31d3d0ff9efc"><td class="memItemLeft" align="right" valign="top">Type[Any]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5cac24e76dc097a995f31d3d0ff9efc">_infer_type</a> (Any value)</td></tr>
+<tr class="separator:ad5cac24e76dc097a995f31d3d0ff9efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a850490b4a317260a236333130d36a5d8" id="r_a850490b4a317260a236333130d36a5d8"><td class="memItemLeft" align="right" valign="top">typing.Type[<a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a850490b4a317260a236333130d36a5d8">infer_mapping</a> (collections.abc.Mapping[str, Any] mapping)</td></tr>
+<tr class="memdesc:a850490b4a317260a236333130d36a5d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursively infer a schema from a mapping.  <br /></td></tr>
+<tr class="separator:a850490b4a317260a236333130d36a5d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This module contains utilities for inferring schemas from dictionaries. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="ad5cac24e76dc097a995f31d3d0ff9efc" name="ad5cac24e76dc097a995f31d3d0ff9efc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5cac24e76dc097a995f31d3d0ff9efc">&#9670;&#160;</a></span>_infer_type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Type[Any] formatron.schemas.dict_inference._infer_type </td>
+          <td>(</td>
+          <td class="paramtype">Any</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="dict__inference_8py_source.html#l00040">40</a> of file <a class="el" href="dict__inference_8py_source.html">dict_inference.py</a>.</p>
+
+</div>
+</div>
+<a id="a850490b4a317260a236333130d36a5d8" name="a850490b4a317260a236333130d36a5d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a850490b4a317260a236333130d36a5d8">&#9670;&#160;</a></span>infer_mapping()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> typing.Type[<a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>] formatron.schemas.dict_inference.infer_mapping </td>
+          <td>(</td>
+          <td class="paramtype">collections.abc.Mapping[str, Any]</td>          <td class="paramname"><span class="paramname"><em>mapping</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recursively infer a schema from a mapping. </p>
+<p>Types that are specially handled:</p><ul>
+<li>collections.abc.Mapping: converted to a schema. Keys are converted to field names and corresponding value types are converted to field types.</li>
+<li>collections.abc.Sequence with heterogeneous elements: all different element types are included in a union type.</li>
+</ul>
+<p>Other types are directly inferred from the type of the value with no special handling. </p>
+
+<p class="definition">Definition at line <a class="el" href="dict__inference_8py_source.html#l00076">76</a> of file <a class="el" href="dict__inference_8py_source.html">dict_inference.py</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

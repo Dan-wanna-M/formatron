@@ -103,9 +103,85 @@ $(function(){initNavTree('namespaceformatron_1_1integrations_1_1exllamav2.html',
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">formatron.integrations.exllamav2 Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html">FormatterFilter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">ExLlamaV2Filter that uses a formatter to mask logits.  <a href="classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab73e373da3d117082bfcb5e4020e0358" id="r_ab73e373da3d117082bfcb5e4020e0358"><td class="memItemLeft" align="right" valign="top">kbnf.Vocabulary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab73e373da3d117082bfcb5e4020e0358">create_engine_vocabulary</a> (ExLlamaV2Tokenizer tokenizer)</td></tr>
+<tr class="memdesc:ab73e373da3d117082bfcb5e4020e0358"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a vocabulary for the KBNF engine.  <br /></td></tr>
+<tr class="separator:ab73e373da3d117082bfcb5e4020e0358"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fb6a829f6fb28c956693fb2e4b39b63" id="r_a8fb6a829f6fb28c956693fb2e4b39b63"><td class="memItemLeft" align="right" valign="top">ExLlamaV2Filter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8fb6a829f6fb28c956693fb2e4b39b63">create_formatter_filter</a> (ExLlamaV2 model, ExLlamaV2Tokenizer tokenizer, <a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a> formatter_builder, <a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a> engine_config=None)</td></tr>
+<tr class="memdesc:a8fb6a829f6fb28c956693fb2e4b39b63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a formatter filter for the ExLlamaV2 engine.  <br /></td></tr>
+<tr class="separator:a8fb6a829f6fb28c956693fb2e4b39b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ab73e373da3d117082bfcb5e4020e0358" name="ab73e373da3d117082bfcb5e4020e0358"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab73e373da3d117082bfcb5e4020e0358">&#9670;&#160;</a></span>create_engine_vocabulary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> kbnf.Vocabulary formatron.integrations.exllamav2.create_engine_vocabulary </td>
+          <td>(</td>
+          <td class="paramtype">ExLlamaV2Tokenizer</td>          <td class="paramname"><span class="paramname"><em>tokenizer</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a vocabulary for the KBNF engine. </p>
+
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00018">18</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+
+</div>
+</div>
+<a id="a8fb6a829f6fb28c956693fb2e4b39b63" name="a8fb6a829f6fb28c956693fb2e4b39b63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fb6a829f6fb28c956693fb2e4b39b63">&#9670;&#160;</a></span>create_formatter_filter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> ExLlamaV2Filter formatron.integrations.exllamav2.create_formatter_filter </td>
+          <td>(</td>
+          <td class="paramtype">ExLlamaV2</td>          <td class="paramname"><span class="paramname"><em>model</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ExLlamaV2Tokenizer</td>          <td class="paramname"><span class="paramname"><em>tokenizer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a></td>          <td class="paramname"><span class="paramname"><em>formatter_builder</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a> </td>          <td class="paramname"><span class="paramname"><em>engine_config</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a formatter filter for the ExLlamaV2 engine. </p>
+
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00032">32</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

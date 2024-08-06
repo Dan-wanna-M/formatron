@@ -114,135 +114,185 @@ $(function(){initNavTree('extractor_8py_source.html',''); initResizable(true); }
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">import</span> typing</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">class </span>Extractor(abc.ABC):</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">class </span><a class="code hl_class" href="classformatron_1_1extractor_1_1Extractor.html">Extractor</a>(abc.ABC):</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="stringliteral">    An abstract extractor that extracts data from a string.</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="foldopen" id="foldopen00012" data-start="" data-end="">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1Extractor.html">   12</a></span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">def </span>__init__(self, capture_name: typing.Optional[str] = <span class="keywordtype">None</span>):</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1extractor_1_1Extractor.html#a569fc7895a82f4d4b59866719219d4e0">__init__</a>(self, capture_name: typing.Optional[str] = <span class="keywordtype">None</span>):</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="stringliteral">        Initialize an extractor.</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="stringliteral">        :param capture_name: The name of the capture, or `None` if the extractor does not capture.</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        self._capture_name = capture_name</div>
+<div class="foldopen" id="foldopen00018" data-start="" data-end="">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1Extractor.html#a569fc7895a82f4d4b59866719219d4e0">   18</a></span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1Extractor.html#a3299dc34a7276ab8ab553513048211d3">   19</a></span>        self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1Extractor.html#a3299dc34a7276ab8ab553513048211d3">_capture_name</a> = capture_name</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="preprocessor">@property</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">def </span>capture_name(self) -&gt; typing.Optional[str]:</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">def </span><a class="code hl_property" href="classformatron_1_1extractor_1_1Extractor.html#add83af9dc477dcba7ce2bde8939acf13">capture_name</a>(self) -&gt; typing.Optional[str]:</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="stringliteral">        Get the name of the capture, or `None` if the extractor does not capture.</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">return</span> self._capture_name</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1Extractor.html#add83af9dc477dcba7ce2bde8939acf13">   25</a></span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">return</span> self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1Extractor.html#a3299dc34a7276ab8ab553513048211d3">_capture_name</a></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="preprocessor">@abc.abstractmethod</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">def </span>extract(self, input_str: str) -&gt; typing.Optional[tuple[str, typing.Any]]:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1extractor_1_1Extractor.html#a9efb2a75cf5fc5e0919c235aa1435469">extract</a>(self, input_str: str) -&gt; typing.Optional[tuple[str, typing.Any]]:</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="stringliteral">        Extract data from the input string.</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="stringliteral">        :param input_str: The input string.</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="stringliteral">        :return: The remaining string and the extracted data, or `None` if the extraction failed.</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">pass</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="foldopen" id="foldopen00036" data-start="" data-end="">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1Extractor.html#a9efb2a75cf5fc5e0919c235aa1435469">   36</a></span> </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="preprocessor">@property</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="preprocessor">@abc.abstractmethod</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">def </span>kbnf_representation(self) -&gt; str:</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">def </span><a class="code hl_property" href="classformatron_1_1extractor_1_1Extractor.html#a457a8d567a00b28a6cb48e80555b078c">kbnf_representation</a>(self) -&gt; str:</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="stringliteral">        Get the KBNF representation of the extractor in the generated grammar of a Formatter.</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">pass</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">def </span>__str__(self):</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1Extractor.html#a457a8d567a00b28a6cb48e80555b078c">   44</a></span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1extractor_1_1Extractor.html#afe6a1f745fd56540ccff5fdc5d00f0a5">__str__</a>(self):</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">return</span> f<span class="stringliteral">&quot;${{{self.kbnf_representation}}}&quot;</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">class </span>LiteralExtractor(Extractor):</div>
+<div class="foldopen" id="foldopen00049" data-start="" data-end="">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1Extractor.html#afe6a1f745fd56540ccff5fdc5d00f0a5">   49</a></span><span class="keyword">class </span><a class="code hl_class" href="classformatron_1_1extractor_1_1LiteralExtractor.html">LiteralExtractor</a>(<a class="code hl_class" href="classformatron_1_1extractor_1_1Extractor.html">Extractor</a>):</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="stringliteral">    An extractor that extracts a literal string.</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+</div>
+</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">def </span>__init__(self, literal: str):</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1extractor_1_1Extractor.html#a569fc7895a82f4d4b59866719219d4e0">__init__</a>(self, literal: str):</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="stringliteral">        Initialize the literal extractor. It never captures since capturing a literal is redundant.</span></div>
+<div class="foldopen" id="foldopen00056" data-start="" data-end="">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1LiteralExtractor.html">   56</a></span><span class="stringliteral">        Initialize the literal extractor. It never captures since capturing a literal is redundant.</span></div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="stringliteral"></span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="stringliteral">        :param literal: The literal string to extract.</span></div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        super().__init__(<span class="keywordtype">None</span>)</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        self._literal = literal</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        super().<a class="code hl_function" href="classformatron_1_1extractor_1_1LiteralExtractor.html#ab4da390ad7efaf5a3aab0e0ccb78fab3">__init__</a>(<span class="keywordtype">None</span>)</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1LiteralExtractor.html#a333e99fa481e15e9d907d35cda8ee728">_literal</a> = literal</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">def </span>extract(self, input_str: str) -&gt; typing.Optional[tuple[str, typing.Any]]:</div>
+<div class="foldopen" id="foldopen00063" data-start="" data-end="">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1LiteralExtractor.html#ab4da390ad7efaf5a3aab0e0ccb78fab3">   63</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1extractor_1_1LiteralExtractor.html#a41802ff51d41ff1b157adf15214917de">extract</a>(self, input_str: str) -&gt; typing.Optional[tuple[str, typing.Any]]:</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="stringliteral">        Extract the literal from the input string.</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1LiteralExtractor.html#a333e99fa481e15e9d907d35cda8ee728">   65</a></span><span class="stringliteral">        Extract the literal from the input string.</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        pos = input_str.find(self._literal)</div>
+</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        pos = input_str.find(self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1LiteralExtractor.html#a333e99fa481e15e9d907d35cda8ee728">_literal</a>)</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">if</span> pos == -1:</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">return</span> input_str[pos + len(self._literal):], self._literal</div>
+<div class="foldopen" id="foldopen00070" data-start="" data-end="">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1LiteralExtractor.html#a41802ff51d41ff1b157adf15214917de">   70</a></span>        <span class="keywordflow">return</span> input_str[pos + len(self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1LiteralExtractor.html#a333e99fa481e15e9d907d35cda8ee728">_literal</a>):], self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1LiteralExtractor.html#a333e99fa481e15e9d907d35cda8ee728">_literal</a></div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="preprocessor">@property</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">def </span>kbnf_representation(self) -&gt; str:</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> repr(self._literal)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">def </span><a class="code hl_property" href="classformatron_1_1extractor_1_1LiteralExtractor.html#acdebdec6bfee8c8a6ed60bdf1913baec">kbnf_representation</a>(self) -&gt; str:</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> repr(self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1LiteralExtractor.html#a333e99fa481e15e9d907d35cda8ee728">_literal</a>)</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">class </span>RegexExtractor(Extractor):</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1LiteralExtractor.html#acdebdec6bfee8c8a6ed60bdf1913baec">   77</a></span><span class="keyword">class </span><a class="code hl_class" href="classformatron_1_1extractor_1_1RegexExtractor.html">RegexExtractor</a>(<a class="code hl_class" href="classformatron_1_1extractor_1_1Extractor.html">Extractor</a>):</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="stringliteral">    An extractor that extracts a string using a regular expression.</span></div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">def </span>__init__(self, regex: str, capture_name: str, nonterminal: str):</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1extractor_1_1LiteralExtractor.html#ab4da390ad7efaf5a3aab0e0ccb78fab3">__init__</a>(self, regex: str, capture_name: str, nonterminal: str):</div>
+</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="stringliteral">        Initialize the regex extractor.</span></div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="stringliteral">        :param regex: The regular expression for extraction.</span></div>
+<div class="foldopen" id="foldopen00086" data-start="" data-end="">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1RegexExtractor.html">   86</a></span><span class="stringliteral">        :param regex: The regular expression for extraction.</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="stringliteral">        :param capture_name: The name of the capture, or `None` if the extractor does not capture.</span></div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="stringliteral">        :param nonterminal: The nonterminal representing the extractor.</span></div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        super().__init__(capture_name)</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        self._regex = re.compile(regex)</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        self._nonterminal = nonterminal</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        super().<a class="code hl_function" href="classformatron_1_1extractor_1_1RegexExtractor.html#a9cd154c1f2b97b0c63d6c7c7392f6eae">__init__</a>(capture_name)</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1RegexExtractor.html#a207689483d8ae65776a72686993dd78f">_regex</a> = re.compile(regex)</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1RegexExtractor.html#a9e0f1b5bb15f25f00584e079b18442c0">_nonterminal</a> = nonterminal</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">def </span>extract(self, input_str: str) -&gt; typing.Optional[tuple[str, re.Match]]:</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1extractor_1_1RegexExtractor.html#af9f29bfcd4f43deff1b86a46dda20550">extract</a>(self, input_str: str) -&gt; typing.Optional[tuple[str, re.Match]]:</div>
+<div class="foldopen" id="foldopen00095" data-start="" data-end="">
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1RegexExtractor.html#a9cd154c1f2b97b0c63d6c7c7392f6eae">   95</a></span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="stringliteral">        Extract the string using the regular expression.</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="stringliteral">        :param input_str: The input string.</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1RegexExtractor.html#a207689483d8ae65776a72686993dd78f">   97</a></span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1RegexExtractor.html#a9e0f1b5bb15f25f00584e079b18442c0">   98</a></span><span class="stringliteral">        :param input_str: The input string.</span></div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="stringliteral">        :return: The remaining string and the extracted `re.Match` object, or `None` if the extraction failed.</span></div>
+</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        matched = self._regex.match(input_str)</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        matched = self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1RegexExtractor.html#a207689483d8ae65776a72686993dd78f">_regex</a>.match(input_str)</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> matched:</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">return</span> input_str[matched.span()[1]:], matched</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="preprocessor">@property</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">def </span>kbnf_representation(self) -&gt; str:</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keywordflow">return</span> self._nonterminal</div>
+<div class="foldopen" id="foldopen00106" data-start="" data-end="">
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1RegexExtractor.html#af9f29bfcd4f43deff1b86a46dda20550">  106</a></span>    <span class="preprocessor">@property</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">def </span><a class="code hl_property" href="classformatron_1_1extractor_1_1RegexExtractor.html#a5f96691c2975832f9b9ec0ae2b6144d0">kbnf_representation</a>(self) -&gt; str:</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keywordflow">return</span> self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1RegexExtractor.html#a9e0f1b5bb15f25f00584e079b18442c0">_nonterminal</a></div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keyword">class </span>ChoiceExtractor(Extractor):</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keyword">class </span><a class="code hl_class" href="classformatron_1_1extractor_1_1ChoiceExtractor.html">ChoiceExtractor</a>(<a class="code hl_class" href="classformatron_1_1extractor_1_1Extractor.html">Extractor</a>):</div>
+</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="stringliteral">    An extractor that uses multiple extractors to extract data. It stops at the first succeeding extractor.</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1RegexExtractor.html#a5f96691c2975832f9b9ec0ae2b6144d0">  113</a></span><span class="stringliteral">    An extractor that uses multiple extractors to extract data. It stops at the first succeeding extractor.</span></div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keyword">def </span>__init__(self, choices: typing.Iterable[Extractor], capture_name: str, nonterminal: str):</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1extractor_1_1RegexExtractor.html#a9cd154c1f2b97b0c63d6c7c7392f6eae">__init__</a>(self, choices: typing.Iterable[Extractor], capture_name: str, nonterminal: str):</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="stringliteral">        Initialize the choice extractor.</span></div>
+</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="stringliteral"></span> </div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="stringliteral">        :param choices: The extractors to choose from. The order determines the extractors&#39; priority.</span></div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="stringliteral">        :param capture_name: The name of the capture, or `None` if the extractor does not capture.</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="stringliteral">        :param nonterminal: The nonterminal representing the extractor.</span></div>
+<div class="foldopen" id="foldopen00122" data-start="" data-end="">
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1ChoiceExtractor.html">  122</a></span><span class="stringliteral">        :param nonterminal: The nonterminal representing the extractor.</span></div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        super().__init__(capture_name)</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        self._choices = choices</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        self._nonterminal = nonterminal</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        super().<a class="code hl_function" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a1a91b31475c7348a3cf9fab97c6d26f0">__init__</a>(capture_name)</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a6ea971d4c6915dc2b5ece64cd010a087">_choices</a> = choices</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#ae7f614ea2c5bda5c3e54ef79e3127add">_nonterminal</a> = nonterminal</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keyword">def </span>extract(self, input_str: str) -&gt; typing.Optional[tuple[str, typing.Any]]:</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">for</span> choice <span class="keywordflow">in</span> self._choices:</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#acfd6ee4d6b1ea910dd6f89a4c0fca41f">extract</a>(self, input_str: str) -&gt; typing.Optional[tuple[str, typing.Any]]:</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">for</span> choice <span class="keywordflow">in</span> self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a6ea971d4c6915dc2b5ece64cd010a087">_choices</a>:</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            matched = choice.extract(input_str)</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            <span class="keywordflow">if</span> matched:</div>
+<div class="foldopen" id="foldopen00131" data-start="" data-end="">
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a1a91b31475c7348a3cf9fab97c6d26f0">  131</a></span>            <span class="keywordflow">if</span> matched:</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>                <span class="keywordflow">return</span> matched</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a6ea971d4c6915dc2b5ece64cd010a087">  133</a></span>        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#ae7f614ea2c5bda5c3e54ef79e3127add">  134</a></span> </div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="preprocessor">@property</span></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keyword">def </span>kbnf_representation(self) -&gt; str:</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keywordflow">return</span> self._nonterminal</div>
+</div>
+<div class="foldopen" id="foldopen00136" data-start="" data-end="">
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#acfd6ee4d6b1ea910dd6f89a4c0fca41f">  136</a></span>    <span class="keyword">def </span><a class="code hl_property" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a4540f7ff9927540441496270b0780bf0">kbnf_representation</a>(self) -&gt; str:</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keywordflow">return</span> self.<a class="code hl_variable" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#ae7f614ea2c5bda5c3e54ef79e3127add">_nonterminal</a></div>
+</div>
+</div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1ChoiceExtractor_html"><div class="ttname"><a href="classformatron_1_1extractor_1_1ChoiceExtractor.html">formatron.extractor.ChoiceExtractor</a></div><div class="ttdoc">An extractor that uses multiple extractors to extract data.</div><div class="ttdef"><b>Definition</b> <a href="#l00122">extractor.py:122</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1ChoiceExtractor_html_a1a91b31475c7348a3cf9fab97c6d26f0"><div class="ttname"><a href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a1a91b31475c7348a3cf9fab97c6d26f0">formatron.extractor.ChoiceExtractor.__init__</a></div><div class="ttdeci">__init__(self, typing.Iterable[Extractor] choices, str capture_name, str nonterminal)</div><div class="ttdoc">Initialize the choice extractor.</div><div class="ttdef"><b>Definition</b> <a href="#l00131">extractor.py:131</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1ChoiceExtractor_html_a4540f7ff9927540441496270b0780bf0"><div class="ttname"><a href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a4540f7ff9927540441496270b0780bf0">formatron.extractor.ChoiceExtractor.kbnf_representation</a></div><div class="ttdeci">kbnf_representation</div><div class="ttdef"><b>Definition</b> <a href="#l00144">extractor.py:144</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1ChoiceExtractor_html_a6ea971d4c6915dc2b5ece64cd010a087"><div class="ttname"><a href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a6ea971d4c6915dc2b5ece64cd010a087">formatron.extractor.ChoiceExtractor._choices</a></div><div class="ttdeci">_choices</div><div class="ttdef"><b>Definition</b> <a href="#l00133">extractor.py:133</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1ChoiceExtractor_html_acfd6ee4d6b1ea910dd6f89a4c0fca41f"><div class="ttname"><a href="classformatron_1_1extractor_1_1ChoiceExtractor.html#acfd6ee4d6b1ea910dd6f89a4c0fca41f">formatron.extractor.ChoiceExtractor.extract</a></div><div class="ttdeci">typing.Optional[tuple[str, typing.Any]] extract(self, str input_str)</div><div class="ttdoc">Extract data from the input string.</div><div class="ttdef"><b>Definition</b> <a href="#l00136">extractor.py:136</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1ChoiceExtractor_html_ae7f614ea2c5bda5c3e54ef79e3127add"><div class="ttname"><a href="classformatron_1_1extractor_1_1ChoiceExtractor.html#ae7f614ea2c5bda5c3e54ef79e3127add">formatron.extractor.ChoiceExtractor._nonterminal</a></div><div class="ttdeci">_nonterminal</div><div class="ttdef"><b>Definition</b> <a href="#l00134">extractor.py:134</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1Extractor_html"><div class="ttname"><a href="classformatron_1_1extractor_1_1Extractor.html">formatron.extractor.Extractor</a></div><div class="ttdoc">An abstract extractor that extracts data from a string.</div><div class="ttdef"><b>Definition</b> <a href="#l00012">extractor.py:12</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1Extractor_html_a3299dc34a7276ab8ab553513048211d3"><div class="ttname"><a href="classformatron_1_1extractor_1_1Extractor.html#a3299dc34a7276ab8ab553513048211d3">formatron.extractor.Extractor._capture_name</a></div><div class="ttdeci">_capture_name</div><div class="ttdef"><b>Definition</b> <a href="#l00019">extractor.py:19</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1Extractor_html_a457a8d567a00b28a6cb48e80555b078c"><div class="ttname"><a href="classformatron_1_1extractor_1_1Extractor.html#a457a8d567a00b28a6cb48e80555b078c">formatron.extractor.Extractor.kbnf_representation</a></div><div class="ttdeci">kbnf_representation</div><div class="ttdoc">Get the KBNF representation of the extractor in the generated grammar of a Formatter.</div><div class="ttdef"><b>Definition</b> <a href="#l00044">extractor.py:44</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1Extractor_html_a569fc7895a82f4d4b59866719219d4e0"><div class="ttname"><a href="classformatron_1_1extractor_1_1Extractor.html#a569fc7895a82f4d4b59866719219d4e0">formatron.extractor.Extractor.__init__</a></div><div class="ttdeci">__init__(self, typing.Optional[str] capture_name=None)</div><div class="ttdoc">Initialize an extractor.</div><div class="ttdef"><b>Definition</b> <a href="#l00018">extractor.py:18</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1Extractor_html_a9efb2a75cf5fc5e0919c235aa1435469"><div class="ttname"><a href="classformatron_1_1extractor_1_1Extractor.html#a9efb2a75cf5fc5e0919c235aa1435469">formatron.extractor.Extractor.extract</a></div><div class="ttdeci">typing.Optional[tuple[str, typing.Any]] extract(self, str input_str)</div><div class="ttdoc">Extract data from the input string.</div><div class="ttdef"><b>Definition</b> <a href="#l00036">extractor.py:36</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1Extractor_html_add83af9dc477dcba7ce2bde8939acf13"><div class="ttname"><a href="classformatron_1_1extractor_1_1Extractor.html#add83af9dc477dcba7ce2bde8939acf13">formatron.extractor.Extractor.capture_name</a></div><div class="ttdeci">capture_name</div><div class="ttdoc">Get the name of the capture, or None if the extractor does not capture.</div><div class="ttdef"><b>Definition</b> <a href="#l00025">extractor.py:25</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1Extractor_html_afe6a1f745fd56540ccff5fdc5d00f0a5"><div class="ttname"><a href="classformatron_1_1extractor_1_1Extractor.html#afe6a1f745fd56540ccff5fdc5d00f0a5">formatron.extractor.Extractor.__str__</a></div><div class="ttdeci">__str__(self)</div><div class="ttdef"><b>Definition</b> <a href="#l00049">extractor.py:49</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1LiteralExtractor_html"><div class="ttname"><a href="classformatron_1_1extractor_1_1LiteralExtractor.html">formatron.extractor.LiteralExtractor</a></div><div class="ttdoc">An extractor that extracts a literal string.</div><div class="ttdef"><b>Definition</b> <a href="#l00056">extractor.py:56</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1LiteralExtractor_html_a333e99fa481e15e9d907d35cda8ee728"><div class="ttname"><a href="classformatron_1_1extractor_1_1LiteralExtractor.html#a333e99fa481e15e9d907d35cda8ee728">formatron.extractor.LiteralExtractor._literal</a></div><div class="ttdeci">_literal</div><div class="ttdef"><b>Definition</b> <a href="#l00065">extractor.py:65</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1LiteralExtractor_html_a41802ff51d41ff1b157adf15214917de"><div class="ttname"><a href="classformatron_1_1extractor_1_1LiteralExtractor.html#a41802ff51d41ff1b157adf15214917de">formatron.extractor.LiteralExtractor.extract</a></div><div class="ttdeci">typing.Optional[tuple[str, typing.Any]] extract(self, str input_str)</div><div class="ttdoc">Extract the literal from the input string.</div><div class="ttdef"><b>Definition</b> <a href="#l00070">extractor.py:70</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1LiteralExtractor_html_ab4da390ad7efaf5a3aab0e0ccb78fab3"><div class="ttname"><a href="classformatron_1_1extractor_1_1LiteralExtractor.html#ab4da390ad7efaf5a3aab0e0ccb78fab3">formatron.extractor.LiteralExtractor.__init__</a></div><div class="ttdeci">__init__(self, str literal)</div><div class="ttdoc">Initialize the literal extractor.</div><div class="ttdef"><b>Definition</b> <a href="#l00063">extractor.py:63</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1LiteralExtractor_html_acdebdec6bfee8c8a6ed60bdf1913baec"><div class="ttname"><a href="classformatron_1_1extractor_1_1LiteralExtractor.html#acdebdec6bfee8c8a6ed60bdf1913baec">formatron.extractor.LiteralExtractor.kbnf_representation</a></div><div class="ttdeci">kbnf_representation</div><div class="ttdef"><b>Definition</b> <a href="#l00077">extractor.py:77</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1RegexExtractor_html"><div class="ttname"><a href="classformatron_1_1extractor_1_1RegexExtractor.html">formatron.extractor.RegexExtractor</a></div><div class="ttdoc">An extractor that extracts a string using a regular expression.</div><div class="ttdef"><b>Definition</b> <a href="#l00086">extractor.py:86</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1RegexExtractor_html_a207689483d8ae65776a72686993dd78f"><div class="ttname"><a href="classformatron_1_1extractor_1_1RegexExtractor.html#a207689483d8ae65776a72686993dd78f">formatron.extractor.RegexExtractor._regex</a></div><div class="ttdeci">_regex</div><div class="ttdef"><b>Definition</b> <a href="#l00097">extractor.py:97</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1RegexExtractor_html_a5f96691c2975832f9b9ec0ae2b6144d0"><div class="ttname"><a href="classformatron_1_1extractor_1_1RegexExtractor.html#a5f96691c2975832f9b9ec0ae2b6144d0">formatron.extractor.RegexExtractor.kbnf_representation</a></div><div class="ttdeci">kbnf_representation</div><div class="ttdef"><b>Definition</b> <a href="#l00113">extractor.py:113</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1RegexExtractor_html_a9cd154c1f2b97b0c63d6c7c7392f6eae"><div class="ttname"><a href="classformatron_1_1extractor_1_1RegexExtractor.html#a9cd154c1f2b97b0c63d6c7c7392f6eae">formatron.extractor.RegexExtractor.__init__</a></div><div class="ttdeci">__init__(self, str regex, str capture_name, str nonterminal)</div><div class="ttdoc">Initialize the regex extractor.</div><div class="ttdef"><b>Definition</b> <a href="#l00095">extractor.py:95</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1RegexExtractor_html_a9e0f1b5bb15f25f00584e079b18442c0"><div class="ttname"><a href="classformatron_1_1extractor_1_1RegexExtractor.html#a9e0f1b5bb15f25f00584e079b18442c0">formatron.extractor.RegexExtractor._nonterminal</a></div><div class="ttdeci">_nonterminal</div><div class="ttdef"><b>Definition</b> <a href="#l00098">extractor.py:98</a></div></div>
+<div class="ttc" id="aclassformatron_1_1extractor_1_1RegexExtractor_html_af9f29bfcd4f43deff1b86a46dda20550"><div class="ttname"><a href="classformatron_1_1extractor_1_1RegexExtractor.html#af9f29bfcd4f43deff1b86a46dda20550">formatron.extractor.RegexExtractor.extract</a></div><div class="ttdeci">typing.Optional[tuple[str, re.Match]] extract(self, str input_str)</div><div class="ttdoc">Extract the string using the regular expression.</div><div class="ttdef"><b>Definition</b> <a href="#l00106">extractor.py:106</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
