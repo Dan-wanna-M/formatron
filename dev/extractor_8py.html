@@ -30,6 +30,10 @@
  <tr id="projectrow">
   <td id="projectalign">
    <div id="projectname">Formatron<span id="projectnumber">&#160;dev</span>
+     <!-- Version Selector -->
+     <select id="versionSelector" onchange="location = this.value;">
+       <option value="dev/index.html">dev</option>
+     </select>
    </div>
    <div id="projectbrief">Formatron empowers everyone to control the output format of language models with minimal overhead.</div>
   </td>
@@ -100,7 +104,6 @@ $(function(){initNavTree('extractor_8py.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle"><div class="title">extractor.py File Reference</div></div>
 </div><!--header-->
@@ -108,21 +111,6 @@ $(function(){initNavTree('extractor_8py.html',''); initResizable(true); });
 
 <p><a href="extractor_8py_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classformatron_1_1extractor_1_1Extractor.html">formatron.extractor.Extractor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An abstract extractor that extracts data from a string.  <a href="classformatron_1_1extractor_1_1Extractor.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classformatron_1_1extractor_1_1LiteralExtractor.html">formatron.extractor.LiteralExtractor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An extractor that extracts a literal string.  <a href="classformatron_1_1extractor_1_1LiteralExtractor.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classformatron_1_1extractor_1_1RegexExtractor.html">formatron.extractor.RegexExtractor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An extractor that extracts a string using a regular expression.  <a href="classformatron_1_1extractor_1_1RegexExtractor.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classformatron_1_1extractor_1_1ChoiceExtractor.html">formatron.extractor.ChoiceExtractor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An extractor that uses multiple extractors to extract data.  <a href="classformatron_1_1extractor_1_1ChoiceExtractor.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron.html">formatron</a></td></tr>

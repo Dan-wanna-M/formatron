@@ -30,6 +30,10 @@
  <tr id="projectrow">
   <td id="projectalign">
    <div id="projectname">Formatron<span id="projectnumber">&#160;dev</span>
+     <!-- Version Selector -->
+     <select id="versionSelector" onchange="location = this.value;">
+       <option value="dev/index.html">dev</option>
+     </select>
    </div>
    <div id="projectbrief">Formatron empowers everyone to control the output format of language models with minimal overhead.</div>
   </td>
@@ -106,17 +110,14 @@ $(function(){initNavTree('__utils_8py_source.html',''); initResizable(true); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="keyword">import</span> typing</div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="foldopen" id="foldopen00005" data-start="" data-end="">
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1__utils.html#a97325e0e6105cf7c28dc5d535397239c">    5</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1__utils.html#a97325e0e6105cf7c28dc5d535397239c">_multiple_replace</a>(replacements, text):</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">def </span>_multiple_replace(replacements, text):</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="comment"># Create a regular expression from the dictionary keys</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    regex = re.compile(<span class="stringliteral">&quot;(%s)&quot;</span> % <span class="stringliteral">&quot;|&quot;</span>.join(map(re.escape, replacements.keys())))</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="comment"># For each match, look-up corresponding value in dictionary</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keywordflow">return</span> regex.sub(<span class="keyword">lambda</span> mo:replacements.get(mo.group(), <span class="stringliteral">&quot;&quot;</span>), text)</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-</div>
-<div class="foldopen" id="foldopen00012" data-start="" data-end="">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1__utils.html#a1a45a26058585480ecdc071efe0aef5d">   12</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1__utils.html#a1a45a26058585480ecdc071efe0aef5d">get_original_whitespace_characters</a>(tokenizer, vocab, chars=None) -&gt; typing.Dict[str, int]:</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">def </span>get_original_whitespace_characters(tokenizer, vocab, chars=None) -&gt; typing.Dict[str, int]:</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="comment"># Undo the creepy workarounds for BPE algorithms</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    old_char_to_new_char = {}</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">if</span> chars <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
@@ -135,12 +136,9 @@ $(function(){initNavTree('__utils_8py_source.html',''); initResizable(true); });
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            old_char_to_new_char[char_token] = char</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    new_vocab = {}</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">for</span> k <span class="keywordflow">in</span> vocab:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        new_k = <a class="code hl_function" href="namespaceformatron_1_1integrations_1_1__utils.html#a97325e0e6105cf7c28dc5d535397239c">_multiple_replace</a>(old_char_to_new_char, k)</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        new_k = _multiple_replace(old_char_to_new_char, k)</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        new_vocab[new_k] = vocab[k]</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">return</span> new_vocab</div>
-</div>
-<div class="ttc" id="anamespaceformatron_1_1integrations_1_1__utils_html_a1a45a26058585480ecdc071efe0aef5d"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1__utils.html#a1a45a26058585480ecdc071efe0aef5d">formatron.integrations._utils.get_original_whitespace_characters</a></div><div class="ttdeci">typing.Dict[str, int] get_original_whitespace_characters(tokenizer, vocab, chars=None)</div><div class="ttdef"><b>Definition</b> <a href="#l00012">_utils.py:12</a></div></div>
-<div class="ttc" id="anamespaceformatron_1_1integrations_1_1__utils_html_a97325e0e6105cf7c28dc5d535397239c"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1__utils.html#a97325e0e6105cf7c28dc5d535397239c">formatron.integrations._utils._multiple_replace</a></div><div class="ttdeci">_multiple_replace(replacements, text)</div><div class="ttdef"><b>Definition</b> <a href="#l00005">_utils.py:5</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

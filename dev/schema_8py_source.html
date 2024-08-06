@@ -30,6 +30,10 @@
  <tr id="projectrow">
   <td id="projectalign">
    <div id="projectname">Formatron<span id="projectnumber">&#160;dev</span>
+     <!-- Version Selector -->
+     <select id="versionSelector" onchange="location = this.value;">
+       <option value="dev/index.html">dev</option>
+     </select>
    </div>
    <div id="projectbrief">Formatron empowers everyone to control the output format of language models with minimal overhead.</div>
   </td>
@@ -109,53 +113,43 @@ $(function(){initNavTree('schema_8py_source.html',''); initResizable(true); });
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">import</span> typing</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="foldopen" id="foldopen00008" data-start="" data-end="">
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html">    8</a></span><span class="keyword">class </span><a class="code hl_class" href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html">FieldInfo</a>(abc.ABC):</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">class </span>FieldInfo(abc.ABC):</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="preprocessor">@property</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="preprocessor">@abc.abstractmethod</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">def </span><a class="code hl_property" href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html#afd24e4ace0f46ebaf38446785208c811">annotation</a>(self) -&gt; typing.Type[typing.Any] | None:</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">def </span>annotation(self) -&gt; typing.Type[typing.Any] | None:</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="stringliteral">        Get the type annotation of the field.</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html#afd24e4ace0f46ebaf38446785208c811">   14</a></span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordflow">pass</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="preprocessor">@property</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="preprocessor">@abc.abstractmethod</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">def </span><a class="code hl_property" href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html#a916324d3d6064de65f37bc9ef429c266">required</a>(self) -&gt; bool:</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">def </span>required(self) -&gt; bool:</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="stringliteral">        Check if the field is required for the schema.</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordflow">pass</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html#a916324d3d6064de65f37bc9ef429c266">   24</a></span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">class </span>Schema(abc.ABC):</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="stringliteral">    An abstract schema that describes some data.</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="preprocessor">@classmethod</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="preprocessor">@abc.abstractmethod</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">def </span>fields(cls) -&gt; dict[str, FieldInfo]:</div>
-<div class="foldopen" id="foldopen00033" data-start="" data-end="">
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">   33</a></span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="stringliteral">        Get the fields of the schema.</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">pass</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="preprocessor">@classmethod</span></div>
-<div class="foldopen" id="foldopen00039" data-start="" data-end="">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classformatron_1_1schemas_1_1schema_1_1Schema.html#a98d77a5645545d440b91126926d1aeb8">   39</a></span>    <span class="preprocessor">@abc.abstractmethod</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1schemas_1_1schema_1_1Schema.html#a8c45239aaa45574add14fa72fbdf16dc">from_json</a>(cls, json: str) -&gt; <span class="stringliteral">&quot;Schema&quot;</span>:</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="preprocessor">@abc.abstractmethod</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">def </span>from_json(cls, json: str) -&gt; <span class="stringliteral">&quot;Schema&quot;</span>:</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
-</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="stringliteral">        Create a schema from a JSON string.</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">pass</span></div>
-</div>
-<div class="ttc" id="aclassformatron_1_1schemas_1_1schema_1_1FieldInfo_html"><div class="ttname"><a href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html">formatron.schemas.schema.FieldInfo</a></div><div class="ttdef"><b>Definition</b> <a href="#l00008">schema.py:8</a></div></div>
-<div class="ttc" id="aclassformatron_1_1schemas_1_1schema_1_1FieldInfo_html_a916324d3d6064de65f37bc9ef429c266"><div class="ttname"><a href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html#a916324d3d6064de65f37bc9ef429c266">formatron.schemas.schema.FieldInfo.required</a></div><div class="ttdeci">required</div><div class="ttdoc">Check if the field is required for the schema.</div><div class="ttdef"><b>Definition</b> <a href="#l00024">schema.py:24</a></div></div>
-<div class="ttc" id="aclassformatron_1_1schemas_1_1schema_1_1FieldInfo_html_afd24e4ace0f46ebaf38446785208c811"><div class="ttname"><a href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html#afd24e4ace0f46ebaf38446785208c811">formatron.schemas.schema.FieldInfo.annotation</a></div><div class="ttdeci">annotation</div><div class="ttdoc">Get the type annotation of the field.</div><div class="ttdef"><b>Definition</b> <a href="#l00014">schema.py:14</a></div></div>
-<div class="ttc" id="aclassformatron_1_1schemas_1_1schema_1_1Schema_html_a8c45239aaa45574add14fa72fbdf16dc"><div class="ttname"><a href="classformatron_1_1schemas_1_1schema_1_1Schema.html#a8c45239aaa45574add14fa72fbdf16dc">formatron.schemas.schema.Schema.from_json</a></div><div class="ttdeci">&quot;Schema&quot; from_json(cls, str json)</div><div class="ttdoc">Create a schema from a JSON string.</div><div class="ttdef"><b>Definition</b> <a href="#l00047">schema.py:47</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

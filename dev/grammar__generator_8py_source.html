@@ -30,6 +30,10 @@
  <tr id="projectrow">
   <td id="projectalign">
    <div id="projectname">Formatron<span id="projectnumber">&#160;dev</span>
+     <!-- Version Selector -->
+     <select id="versionSelector" onchange="location = this.value;">
+       <option value="dev/index.html">dev</option>
+     </select>
    </div>
    <div id="projectbrief">Formatron empowers everyone to control the output format of language models with minimal overhead.</div>
   </td>
@@ -112,14 +116,13 @@ $(function(){initNavTree('grammar__generator_8py_source.html',''); initResizable
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">import</span> schemas</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">class </span><a class="code hl_class" href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html">GrammarGenerator</a>(abc.ABC):</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">class </span>GrammarGenerator(abc.ABC):</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="stringliteral">    An abstract KBNF grammar generator that enables converting from a schema to a KBNF grammar</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="stringliteral">    and converting from a string adhering to the grammar back to a schema instance.</span></div>
-<div class="foldopen" id="foldopen00015" data-start="" data-end="">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html">   15</a></span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="preprocessor">@abc.abstractmethod</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html#a5c1c76bc0151686220be9902b064fe02">generate</a>(self, schema: typing.Type[<a class="code hl_class" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>], start_nonterminal: str) -&gt; str:</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">def </span>generate(self, schema: typing.Type[schemas.schema.Schema], start_nonterminal: str) -&gt; str:</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="stringliteral">        Generate a KBNF grammar string from a schema.</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="stringliteral"></span> </div>
@@ -129,14 +132,12 @@ $(function(){initNavTree('grammar__generator_8py_source.html',''); initResizable
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="stringliteral"></span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="stringliteral">        Returns:</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="stringliteral">            The KBNF grammar string.</span></div>
-<div class="foldopen" id="foldopen00027" data-start="" data-end="">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html#a5c1c76bc0151686220be9902b064fe02">   27</a></span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">pass</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="preprocessor">@abc.abstractmethod</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html#af8697ae2e156443620146d97fe7868be">get_extractor</a>(self, nonterminal: str, capture_name: typing.Optional[str],</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                      to_object: typing.Callable[[str, ], <a class="code hl_class" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>]) -&gt; <a class="code hl_class" href="classformatron_1_1extractor_1_1Extractor.html">extractor.Extractor</a>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">def </span>get_extractor(self, nonterminal: str, capture_name: typing.Optional[str],</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                      to_object: typing.Callable[[str, ], schemas.schema.Schema]) -&gt; extractor.Extractor:</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="stringliteral">        Get an extractor for this grammar generator.</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="stringliteral"></span> </div>
@@ -145,18 +146,10 @@ $(function(){initNavTree('grammar__generator_8py_source.html',''); initResizable
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="stringliteral">            capture_name: The capture name of the extractor, or `None` if the extractor does not capture.</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="stringliteral">            to_object: A callable to convert the extracted string to a schema instance.</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="stringliteral"></span> </div>
-<div class="foldopen" id="foldopen00041" data-start="" data-end="">
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html#af8697ae2e156443620146d97fe7868be">   41</a></span><span class="stringliteral">        Returns:</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="stringliteral">        Returns:</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="stringliteral">            The extractor.</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">pass</span></div>
-</div>
-</div>
-<div class="ttc" id="aclassformatron_1_1extractor_1_1Extractor_html"><div class="ttname"><a href="classformatron_1_1extractor_1_1Extractor.html">formatron.extractor.Extractor</a></div><div class="ttdoc">An abstract extractor that extracts data from a string.</div><div class="ttdef"><b>Definition</b> <a href="extractor_8py_source.html#l00012">extractor.py:12</a></div></div>
-<div class="ttc" id="aclassformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator_html"><div class="ttname"><a href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html">formatron.grammar_generators.grammar_generator.GrammarGenerator</a></div><div class="ttdoc">An abstract KBNF grammar generator that enables converting from a schema to a KBNF grammar and conver...</div><div class="ttdef"><b>Definition</b> <a href="#l00015">grammar_generator.py:15</a></div></div>
-<div class="ttc" id="aclassformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator_html_a5c1c76bc0151686220be9902b064fe02"><div class="ttname"><a href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html#a5c1c76bc0151686220be9902b064fe02">formatron.grammar_generators.grammar_generator.GrammarGenerator.generate</a></div><div class="ttdeci">str generate(self, typing.Type[schemas.schema.Schema] schema, str start_nonterminal)</div><div class="ttdoc">Generate a KBNF grammar string from a schema.</div><div class="ttdef"><b>Definition</b> <a href="#l00027">grammar_generator.py:27</a></div></div>
-<div class="ttc" id="aclassformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator_html_af8697ae2e156443620146d97fe7868be"><div class="ttname"><a href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html#af8697ae2e156443620146d97fe7868be">formatron.grammar_generators.grammar_generator.GrammarGenerator.get_extractor</a></div><div class="ttdeci">extractor.Extractor get_extractor(self, str nonterminal, typing.Optional[str] capture_name, abc, abstractmethod, typing.Callable[[str,], schemas.schema.Schema] to_object)</div><div class="ttdoc">Get an extractor for this grammar generator.</div><div class="ttdef"><b>Definition</b> <a href="#l00041">grammar_generator.py:43</a></div></div>
-<div class="ttc" id="aclassformatron_1_1schemas_1_1schema_1_1Schema_html"><div class="ttname"><a href="classformatron_1_1schemas_1_1schema_1_1Schema.html">formatron.schemas.schema.Schema</a></div><div class="ttdoc">An abstract schema that describes some data.</div><div class="ttdef"><b>Definition</b> <a href="schema_8py_source.html#l00033">schema.py:33</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

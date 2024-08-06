@@ -30,6 +30,10 @@
  <tr id="projectrow">
   <td id="projectalign">
    <div id="projectname">Formatron<span id="projectnumber">&#160;dev</span>
+     <!-- Version Selector -->
+     <select id="versionSelector" onchange="location = this.value;">
+       <option value="dev/index.html">dev</option>
+     </select>
    </div>
    <div id="projectbrief">Formatron empowers everyone to control the output format of language models with minimal overhead.</div>
   </td>
@@ -99,113 +103,9 @@ $(function(){initNavTree('namespaceformatron_1_1integrations_1_1transformers.htm
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">formatron.integrations.transformers Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html">FormattersLogitsProcessor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logit processor that uses formatters to mask batch logits.  <a href="classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a1e2bb52e2c35fb3592fbc9fcff06f41a" id="r_a1e2bb52e2c35fb3592fbc9fcff06f41a"><td class="memItemLeft" align="right" valign="top">kbnf.Vocabulary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e2bb52e2c35fb3592fbc9fcff06f41a">create_engine_vocabulary</a> (PreTrainedTokenizerBase tokenizer)</td></tr>
-<tr class="memdesc:a1e2bb52e2c35fb3592fbc9fcff06f41a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a vocabulary for the KBNF engine.  <br /></td></tr>
-<tr class="separator:a1e2bb52e2c35fb3592fbc9fcff06f41a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afffe60e04b19e9b75d4b15c8330a1914" id="r_afffe60e04b19e9b75d4b15c8330a1914"><td class="memItemLeft" align="right" valign="top">LogitsProcessor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afffe60e04b19e9b75d4b15c8330a1914">create_formatter_logits_processor</a> (PreTrainedTokenizerBase tokenizer, typing.Sequence[<a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a>]|<a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a> formatter_builders, typing.Sequence[<a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a>] configs=None)</td></tr>
-<tr class="memdesc:afffe60e04b19e9b75d4b15c8330a1914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a formatter logits processor.  <br /></td></tr>
-<tr class="separator:afffe60e04b19e9b75d4b15c8330a1914"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedac0d446b75c83068265569ce04c5b8" id="r_aedac0d446b75c83068265569ce04c5b8"><td class="memItemLeft" align="right" valign="top">LogitsProcessorList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aedac0d446b75c83068265569ce04c5b8">create_formatter_logits_processor_list</a> (PreTrainedTokenizerBase tokenizer, typing.Sequence[<a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a>]|<a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a> formatter_builders, typing.Sequence[<a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a>] configs=None)</td></tr>
-<tr class="memdesc:aedac0d446b75c83068265569ce04c5b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a formatter logits processor list.  <br /></td></tr>
-<tr class="separator:aedac0d446b75c83068265569ce04c5b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a1e2bb52e2c35fb3592fbc9fcff06f41a" name="a1e2bb52e2c35fb3592fbc9fcff06f41a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e2bb52e2c35fb3592fbc9fcff06f41a">&#9670;&#160;</a></span>create_engine_vocabulary()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> kbnf.Vocabulary formatron.integrations.transformers.create_engine_vocabulary </td>
-          <td>(</td>
-          <td class="paramtype">PreTrainedTokenizerBase</td>          <td class="paramname"><span class="paramname"><em>tokenizer</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create a vocabulary for the KBNF engine. </p>
-
-<p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00018">18</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
-
-</div>
-</div>
-<a id="afffe60e04b19e9b75d4b15c8330a1914" name="afffe60e04b19e9b75d4b15c8330a1914"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afffe60e04b19e9b75d4b15c8330a1914">&#9670;&#160;</a></span>create_formatter_logits_processor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> LogitsProcessor formatron.integrations.transformers.create_formatter_logits_processor </td>
-          <td>(</td>
-          <td class="paramtype">PreTrainedTokenizerBase</td>          <td class="paramname"><span class="paramname"><em>tokenizer</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">typing.Sequence[<a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a>] | <a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a></td>          <td class="paramname"><span class="paramname"><em>formatter_builders</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">typing.Sequence[<a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a>] </td>          <td class="paramname"><span class="paramname"><em>configs</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create a formatter logits processor. </p>
-
-<p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00028">28</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
-
-</div>
-</div>
-<a id="aedac0d446b75c83068265569ce04c5b8" name="aedac0d446b75c83068265569ce04c5b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aedac0d446b75c83068265569ce04c5b8">&#9670;&#160;</a></span>create_formatter_logits_processor_list()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> LogitsProcessorList formatron.integrations.transformers.create_formatter_logits_processor_list </td>
-          <td>(</td>
-          <td class="paramtype">PreTrainedTokenizerBase</td>          <td class="paramname"><span class="paramname"><em>tokenizer</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">typing.Sequence[<a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a>] | <a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a></td>          <td class="paramname"><span class="paramname"><em>formatter_builders</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">typing.Sequence[<a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a>] </td>          <td class="paramname"><span class="paramname"><em>configs</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create a formatter logits processor list. </p>
-
-<p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00041">41</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

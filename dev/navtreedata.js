@@ -26,23 +26,7 @@ var NAVTREE =
 [
   [ "Formatron", "index.html", [
     [ "Packages", "namespaces.html", [
-      [ "Package List", "namespaces.html", "namespaces_dup" ],
-      [ "Package Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ],
-        [ "Variables", "namespacemembers_vars.html", null ]
-      ] ]
-    ] ],
-    [ "Classes", "annotated.html", [
-      [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
-      [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ],
-        [ "Properties", "functions_prop.html", null ]
-      ] ]
+      [ "Package List", "namespaces.html", "namespaces_dup" ]
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ]
@@ -52,8 +36,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"RWKV_8py.html",
-"classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#aa6549c4f4130d1778f69e3e99942a87b"
+"RWKV_8py.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
