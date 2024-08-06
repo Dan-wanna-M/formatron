@@ -1,10 +1,10 @@
-from copy import deepcopy
-
-from transformers import LogitsProcessorList, GPT2LMHeadModel
-
-from formatter import FormatterBuilder
-from integrations.transformers import create_formatter_logits_processor_list, FormattersLogitsProcessor
 import transformers
+from formatter import FormatterBuilder
+from integrations.transformers import create_formatter_logits_processor_list
+from schemas import dict_inference
+from transformers import GPT2LMHeadModel, AutoModelForCausalLM
+
+from grammar_generators.json_generator import JsonGenerator
 
 
 def test_transformers_integration(snapshot):
@@ -17,6 +17,25 @@ def test_transformers_integration(snapshot):
     inputs = tokenizer(["I am GPT2. "], return_tensors="pt")
     snapshot.assert_match(
         tokenizer.batch_decode(model.generate(**inputs, max_new_tokens=100, logits_processor=logits_processor)))
+
+
+def test_readme_example(snapshot):
+    f = FormatterBuilder()
+    digit = f.regex('([1-9][0-9]*)', capture_name='digit')
+    f.append_line(f"My favorite numbers are {digit}, {digit}, and {digit}.")
+    schema = dict_inference.infer_mapping({'name': 'xxx', 'age': 'xxx'})
+    f.append_str(f"Here's my personal info: {f.schema(schema,JsonGenerator(), capture_name='info')}\n")
+    f.append_multiline_str(f"""
+    Today, I want to eat {f.choose('apple', 'orange', 'banana', capture_name='food')}.
+        I also want to {f.str(stop='.')}
+    """)
+    model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-4k-instruct")
+    tokenizer = transformers.AutoTokenizer.from_pretrained("microsoft/Phi-3-mini-4k-instruct")
+    model.generation_config.pad_token_id = tokenizer.eos_token_id  # Remove the annoying warning
+    logits_processor = create_formatter_logits_processor_list(tokenizer, f)
+    inputs = tokenizer(["I am Phi. "], return_tensors="pt")
+    snapshot.assert_match(
+        tokenizer.batch_decode(model.generate(**inputs, max_new_tokens=256, logits_processor=logits_processor)))
 
 
 def test_transformers_batched_inference(snapshot):

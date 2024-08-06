@@ -53,16 +53,10 @@ Feel free to open up an [issue](https://github.com/Dan-wanna-M/formatron/issues)
 TODO: make a fancy example that shows off all the powerful features of Formatron
 ### Function Calls
 TODO: show how to call functions in Formatron
-### Customize Schema Generation
-TODO: show how to customize schema generation
-### Customize Grammar Generation
-TODO: show how to customize grammar generation
-### Customize Post-Generation Processing
-TODO: show how to customize post-generation processing
 ### Integrations
 Check out integration examples in the `tests` directory.
 ## API Reference
-Check out the API reference [here]().
+Check out the API reference [here](https://dan-wanna-m.github.io/formatron/).
 ## Benchmarks
 ### Effectiveness
 TODO: show Formatron's improvements on benchmarks against unconstrained versions.
