@@ -10,12 +10,46 @@ name: Upload Python Package
 
 on:
   push:
-    tags: "v*"
-
-permissions:
-  contents: read
+    branches:
+      - master
+    tags:
+      - "v*"
 
 jobs:
+  doc-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install Doxypypy
+        run: pip install doxypypy
+      - name: Doxygen Deploy Action
+        uses: Dan-Wanna-M/doxygen-github-pages-action@v0.1.4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: docs/dev/html
+          config_file: Doxyfile
+          target_folder: ${{ github.ref_name }}/
+          pre_build: |
+            chmod +x docs/header_gen.sh
+            ./docs/header_gen.sh
+            chmod +x py_filter.sh
+            export VERSION=${{ github.ref_name }}
+            echo "PROJECT_NUMBER = $VERSION" >> Doxyfile
+      - name: Generate index.html
+        run: |
+          python docs/index_gen.py --version ${{ github.ref_name }}
+      - name: Update index.html
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: docs/index/
+
+
   deploy:
 
     runs-on: ubuntu-latest

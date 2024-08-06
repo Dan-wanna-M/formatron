@@ -1,3 +1,6 @@
+"""
+This module integrates the ExLlamaV2 library by providing convenience utilities.
+"""
 import typing
 from copy import copy, deepcopy
 import kbnf
@@ -12,8 +15,6 @@ from integrations._utils import get_original_whitespace_characters
 def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer) -> kbnf.Vocabulary:
     """
     Create a vocabulary for the KBNF engine.
-    :param tokenizer: The tokenizer.
-    :return: The vocabulary.
     """
     assert hasattr(tokenizer.tokenizer_model, "vocab"), (f"tokenizer({tokenizer})"
                                                          f" with tokenizer_model({tokenizer.tokenizer_model})"
@@ -24,14 +25,22 @@ def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer) -> kbnf.Vocabulary:
     return kbnf.Vocabulary({v: kbnf.Token(k.encode("utf-8")) for k, v in vocab.items()},
                            {v: k for k, v in vocab.items()})
 
-def create_formatter_filter(model:ExLlamaV2,tokenizer: ExLlamaV2Tokenizer,
-                            formatter_builder:FormatterBuilder,
-                            engine_config:EngineGenerationConfig=None)->ExLlamaV2Filter:
+
+def create_formatter_filter(model: ExLlamaV2, tokenizer: ExLlamaV2Tokenizer,
+                            formatter_builder: FormatterBuilder,
+                            engine_config: EngineGenerationConfig = None) -> ExLlamaV2Filter:
+    """
+    Create a formatter filter for the ExLlamaV2 engine.
+    """
     vocab = create_engine_vocabulary(tokenizer)
-    f = formatter_builder.build(vocab, lambda tokens:tokenizer.decode(torch.tensor(tokens)))
+    f = formatter_builder.build(vocab, lambda tokens: tokenizer.decode(torch.tensor(tokens)))
     return FormatterFilter(model, tokenizer, f, engine_config)
 
+
 class FormatterFilter(ExLlamaV2Filter):
+    """
+    ExLlamaV2Filter that uses a formatter to mask logits.
+    """
     def __init__(self, model, tokenizer, formatter: Formatter,
                  config: EngineGenerationConfig = None):
         super().__init__(model, tokenizer)
@@ -51,7 +60,7 @@ class FormatterFilter(ExLlamaV2Filter):
         return c
 
     def begin(self, prefix_str: str) -> None:
-        if self._config.reset_on_completion and self._formatter.is_completed():
+        if self._config.reset_at_beginning and self._formatter.is_completed():
             self._formatter.reset()
         if self._config.read_prompt:
             prompt = prefix_str.encode("utf-8")

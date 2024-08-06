@@ -1,3 +1,6 @@
+"""@package formatron.schemas.dict_inference
+This module contains utilities for inferring schemas from dictionaries.
+"""
 import collections.abc
 import json
 from typing import Any, Type
@@ -64,8 +67,7 @@ def infer_mapping(mapping: collections.abc.Mapping[str, Any]) -> typing.Type[sch
     Recursively infer a schema from a mapping.
 
     Types that are specially handled:
-        - collections.abc.Mapping: converted to a schema.
-         Keys are converted to field names and corresponding value types are converted to field types.
+        - collections.abc.Mapping: converted to a schema. Keys are converted to field names and corresponding value types are converted to field types.
         - collections.abc.Sequence with heterogeneous elements: all different element types are included in a union type.
 
     Other types are directly inferred from the type of the value with no special handling.

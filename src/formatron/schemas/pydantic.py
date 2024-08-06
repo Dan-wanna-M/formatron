@@ -1,3 +1,6 @@
+"""
+A module that implements the Schema interface using pydantic.
+"""
 import inspect
 import json
 import typing
@@ -63,10 +66,13 @@ def callable_schema(func: CallableT, /, *, config: ConfigDict = None, validate_r
     """
     A decorator that wraps pydantic's validate_call. The decorated callable also implements the Schema interface.
 
-    :param func: The function to decorate.
-    :param config: The pydantic configuration of validate_call.
-    :param validate_return: Whether to validate the return value.
-    :return: The decorated callable.
+    Args:
+        func: The function to decorate.
+        config: The pydantic configuration of validate_call.
+        validate_return: Whether to validate the return value.
+
+    Returns:
+        The decorated callable.
     """
     pydantic_wrapper = validate_call(config=config, validate_return=validate_return)(func)
     signature = inspect.signature(func, eval_str=True)

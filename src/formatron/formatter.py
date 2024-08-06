@@ -1,3 +1,6 @@
+"""
+This module contains the Formatter class and its related classes.
+"""
 import abc
 import textwrap
 import typing

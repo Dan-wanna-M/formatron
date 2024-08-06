@@ -1,3 +1,6 @@
+"""
+This module integrates the transformers library by providing convenience utilities.
+"""
 import collections
 import typing
 
@@ -12,8 +15,6 @@ from integrations._utils import get_original_whitespace_characters
 def create_engine_vocabulary(tokenizer: PreTrainedTokenizerBase) -> kbnf.Vocabulary:
     """
     Create a vocabulary for the KBNF engine.
-    :param tokenizer: The tokenizer.
-    :return: The vocabulary.
     """
     vocab = tokenizer.get_vocab()
     new_vocab = get_original_whitespace_characters(tokenizer, vocab)
@@ -66,7 +67,7 @@ class FormattersLogitsProcessor(LogitsProcessor):
         if self._last_input_id_length is None:  # First iteration
             self._last_input_id_length = input_ids.shape[1]
             for formatter, config, prompt in zip(self._formatters, self.configs, input_ids):
-                if config.reset_on_completion and formatter.is_completed():
+                if config.reset_at_beginning and formatter.is_completed():
                     formatter.reset()
                 if config.read_prompt:
                     for token in prompt:

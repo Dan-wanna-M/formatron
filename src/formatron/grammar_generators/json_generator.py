@@ -1,3 +1,6 @@
+"""
+The module defines the `JsonGenerator` class, a KBNF grammar generator for JSON format.
+"""
 import collections
 import decimal
 import types
@@ -47,7 +50,8 @@ array_end ::= #"{_space_nonterminal}\\]";
         [(sub_type, sub_nonterminal), ...] are the types and nonterminals used in nonterminal_definition that may need
         to be generated in the grammar too.
 
-        :param generate_nonterminal_def: A callable to generate nonterminal definition from a type.
+        Args:
+            generate_nonterminal_def: A callable to generate nonterminal definition from a type.
         """
         cls._type_to_nonterminals.append(generate_nonterminal_def)
 
@@ -183,9 +187,12 @@ array_end ::= #"{_space_nonterminal}\\]";
         """
         Generate a KBNF grammar string from a schema for JSON format.
 
-        :param schema: The schema to generate a grammar for.
-        :param start_nonterminal: The start nonterminal of the grammar. Default is "start".
-        :return: The generated KBNF grammar string.
+        Args:
+            schema: The schema to generate a grammar for.
+            start_nonterminal: The start nonterminal of the grammar. Default is "start".
+
+        Returns:
+            The generated KBNF grammar string.
         """
         type_id_to_nonterminal = {
             id(int): "integer",
@@ -230,9 +237,10 @@ class JsonExtractor(extractor.Extractor):
         """
         Create an extractor.
 
-        :param nonterminal: The nonterminal representing the extractor.
-        :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
-        :param to_object: A callable to convert the extracted string to a schema instance.
+        Args:
+            nonterminal: The nonterminal representing the extractor.
+            capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
+            to_object: A callable to convert the extracted string to a schema instance.
         """
         super().__init__(capture_name)
         self._nonterminal = nonterminal
@@ -246,9 +254,13 @@ class JsonExtractor(extractor.Extractor):
         """
         Extract a schema instance from a string.
 
-        :param input_str: The input string to extract from.
-        :return: A tuple of the remaining string and the extracted schema instance, or `None` if extraction failed.
+        Args:
+            input_str: The input string to extract from.
+
+        Returns:
+            A tuple of the remaining string and the extracted schema instance, or `None` if extraction failed.
         """
+
         # Ensure the input string starts with '{' after stripping leading whitespace
         input_str = input_str.lstrip()
         if not input_str.startswith('{'):

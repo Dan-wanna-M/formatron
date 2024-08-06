@@ -1,3 +1,6 @@
+"""
+This module contains the Schema abstract class and FieldInfo abstract class.
+"""
 import abc
 import typing
 

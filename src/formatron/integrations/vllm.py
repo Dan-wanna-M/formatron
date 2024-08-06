@@ -1,3 +1,6 @@
+"""
+This module integrates the vllm library by providing convenience utilities.
+"""
 import collections.abc
 import typing
 
@@ -10,6 +13,9 @@ from integrations._utils import get_original_whitespace_characters
 
 
 def create_engine_vocabulary(llm: LLM) -> kbnf.Vocabulary:
+    """
+    Create a vocabulary for the KBNF engine.
+    """
     tokenizer = llm.get_tokenizer()
     vocab = tokenizer.get_vocab()
     new_vocab = get_original_whitespace_characters(tokenizer, vocab)
@@ -63,7 +69,7 @@ class FormattersLogitsProcessor:
         if len(generated_tokens) == 0:  # First iteration
             self._debug_counter += 1
             formatter, config = result
-            if config.reset_on_completion and formatter.is_completed():
+            if config.reset_at_beginning and formatter.is_completed():
                 formatter.reset()
             if config.read_prompt:
                 for token in prompt:

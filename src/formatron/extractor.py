@@ -1,3 +1,6 @@
+"""
+Extractors for extracting data from generated strings.
+"""
 import abc
 import re
 import typing
@@ -17,6 +20,9 @@ class Extractor(abc.ABC):
 
     @property
     def capture_name(self) -> typing.Optional[str]:
+        """
+        Get the name of the capture, or `None` if the extractor does not capture.
+        """
         return self._capture_name
 
     @abc.abstractmethod
@@ -31,6 +37,9 @@ class Extractor(abc.ABC):
     @property
     @abc.abstractmethod
     def kbnf_representation(self) -> str:
+        """
+        Get the KBNF representation of the extractor in the generated grammar of a Formatter.
+        """
         pass
 
     def __str__(self):

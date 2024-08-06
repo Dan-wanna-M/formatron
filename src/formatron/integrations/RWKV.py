@@ -1,3 +1,6 @@
+"""
+This module integrates the RWKV library by providing convenience utilities.
+"""
 import kbnf
 import rwkv.utils
 from kbnf import Token
@@ -27,12 +30,9 @@ class PIPELINE_ARGS(rwkv.utils.PIPELINE_ARGS):  # NOSONAR
         self.engine_gen_config = engine_gen_config
 
 
-def create_engine_vocabulary(WORD_NAME: str, tokenizer)-> kbnf.Vocabulary:  # NOSONAR
+def create_engine_vocabulary(WORD_NAME: str, tokenizer) -> kbnf.Vocabulary:  # NOSONAR
     """
     Create a vocabulary for the KBNF engine.
-    :param WORD_NAME: The name of the vocabulary.
-    :param tokenizer: The tokenizer.
-    :return: The vocabulary.
     """
     assert WORD_NAME == 'rwkv_vocab_v20230424', "Only world vocabulary is supported!"
     return kbnf.Vocabulary({k: Token(v) for k, v in tokenizer.idx2token.items()},
@@ -46,13 +46,6 @@ class PIPELINE(rwkv.utils.PIPELINE):  # NOSONAR
     """
 
     def __init__(self, model, WORD_NAME, formatter_builder: FormatterBuilder = None):  # NOSONAR
-        """
-        Initialize the pipeline.
-
-        :param model: The file path of the model.
-        :param WORD_NAME: The name of the vocabulary.
-        :param formatter_builder: The formatter builder, or `None` if no formatter is used.
-        """
         super().__init__(model, WORD_NAME)
         vocabulary = create_engine_vocabulary(WORD_NAME, self.tokenizer)
         formatter = formatter_builder.build(vocabulary, lambda tokens: self.tokenizer.decode(tokens))
@@ -66,7 +59,7 @@ class PIPELINE(rwkv.utils.PIPELINE):  # NOSONAR
         out_last = 0
         out_str = ''
         occurrence = {}
-        if args.engine_gen_config.reset_on_completion and self.formatter and self.formatter.is_completed():
+        if args.engine_gen_config.reset_at_beginning and self.formatter and self.formatter.is_completed():
             self.formatter.reset()
         for i in range(token_count):
             # forward & adjust prob.
@@ -103,8 +96,6 @@ class PIPELINE(rwkv.utils.PIPELINE):  # NOSONAR
             www = 1
             if ttt in ' \t0123456789':
                 www = 0
-            # elif ttt in '\r\n,.;?!"\':+-*/=#@$%^&_`~|<>\\()[]{}，。；“”：？！（）【】':
-            #     www = 0.5
             if token not in occurrence:
                 occurrence[token] = www
             else:

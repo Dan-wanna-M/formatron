@@ -1,3 +1,6 @@
+"""
+This module defines the GrammarGenerator abstract base class.
+"""
 import abc
 import typing
 
@@ -14,9 +17,13 @@ class GrammarGenerator(abc.ABC):
     def generate(self, schema: typing.Type[schemas.schema.Schema], start_nonterminal: str) -> str:
         """
         Generate a KBNF grammar string from a schema.
-        :param schema: The schema to generate a grammar for.
-        :param start_nonterminal: The start nonterminal of the grammar.
-        :return: The generated KBNF grammar string.
+
+        Args:
+            schema: The schema to generate a grammar for.
+            start_nonterminal: The start nonterminal of the grammar.
+
+        Returns:
+            The KBNF grammar string.
         """
         pass
 
@@ -25,9 +32,13 @@ class GrammarGenerator(abc.ABC):
                       to_object: typing.Callable[[str, ], schemas.schema.Schema]) -> extractor.Extractor:
         """
         Get an extractor for this grammar generator.
-        :param nonterminal: The nonterminal representing the extractor.
-        :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
-        :param to_object: A callable to convert the extracted string to a schema instance.
-        :return: The extractor.
+
+        Args:
+            nonterminal: The nonterminal representing the extractor.
+            capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
+            to_object: A callable to convert the extracted string to a schema instance.
+
+        Returns:
+            The extractor.
         """
         pass
