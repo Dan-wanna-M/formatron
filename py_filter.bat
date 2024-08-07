@@ -1,1 +1,1 @@
-doxypypy -a -c -k %1
+doxypypy -a -c %1
