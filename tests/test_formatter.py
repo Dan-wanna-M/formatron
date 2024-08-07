@@ -36,7 +36,7 @@ def test_formatter(snapshot):
 def test_formatter_str(snapshot):
     FormatterBuilder._formatter_builder_counter = 0
     f = FormatterBuilder()
-    f.append_line(f"{f.str(stop=['.','!', ','])}")
+    f.append_line(f"{f.str(stop=['.'])}")
     model = RWKV("assets/RWKV-5-World-0.4B-v2-20231113-ctx4096.pth", 'cuda fp16')
     pipeline = integrations.RWKV.PIPELINE(model, "rwkv_vocab_v20230424", f)
     np.random.seed(42)

@@ -320,7 +320,7 @@ class FormatterBuilder:
             capture_regex = ".*"
             nonterminal_regex = "#'.*'"
         else:
-            capture_regex = f".*?(?:{'|'.join(map(re.escape, stop + not_contain))})"
+            capture_regex = f".*?(?:{'|'.join(map(re.escape, stop))})"
             excepted = f"{nonterminal}_excepted"
             end = f"({'|'.join(map(repr, stop))})" if stop else ""
             nonterminal_regex = f"except!({excepted}){end}"

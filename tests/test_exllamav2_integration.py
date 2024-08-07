@@ -1,7 +1,5 @@
-from copy import deepcopy
-
 from exllamav2 import ExLlamaV2, ExLlamaV2Config, ExLlamaV2Cache, ExLlamaV2Tokenizer
-from exllamav2.generator import ExLlamaV2DynamicGenerator, ExLlamaV2Sampler
+from exllamav2.generator import ExLlamaV2DynamicGenerator
 
 from formatter import FormatterBuilder
 from integrations.exllamav2 import create_formatter_filter
@@ -37,8 +35,9 @@ def test_exllamav2_utf_8(snapshot):
     cache = ExLlamaV2Cache(model, max_seq_len = 65536, lazy = True)
     model.load_autosplit(cache, progress = True)
     tokenizer = ExLlamaV2Tokenizer(config)
+
     f = FormatterBuilder()
-    f.append_line("你好，羊驼！")
+    f.append_line("你好，土豆！")
     exllama_filter = create_formatter_filter(model, tokenizer, f)
     generator = ExLlamaV2DynamicGenerator(
         model=model,

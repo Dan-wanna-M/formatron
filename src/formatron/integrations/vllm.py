@@ -12,32 +12,6 @@ from formatter import Formatter, FormatterBuilder
 from integrations._utils import get_original_characters
 
 
-def create_engine_vocabulary(llm: LLM) -> kbnf.Vocabulary:
-    """
-    Create a vocabulary for the KBNF engine.
-    """
-    tokenizer = llm.get_tokenizer()
-    vocab = tokenizer.get_vocab()
-    new_vocab = get_original_characters(tokenizer, vocab)
-    return kbnf.Vocabulary({v: kbnf.Token(k.encode("utf-8")) for k, v in new_vocab.items()},
-                           {v: k for k, v in new_vocab.items()})
-
-
-def create_formatters_logits_processor(llm: LLM,
-                                       formatter_builders: typing.Sequence[FormatterBuilder] | FormatterBuilder,
-                                       configs: typing.Sequence[EngineGenerationConfig] = None) \
-        -> "FormattersLogitsProcessor":
-    """
-    Create a formatter logits processor.
-    """
-    tokenizer = llm.get_tokenizer()
-    vocab = create_engine_vocabulary(llm)
-    if not isinstance(formatter_builders, collections.abc.Sequence):
-        formatter_builders = [formatter_builders]
-    formatters = [i.build(vocab, lambda tokens: tokenizer.decode(tokens)) for i in formatter_builders]
-    return FormattersLogitsProcessor(formatters, tokenizer.eos_token_id, configs)
-
-
 class FormattersLogitsProcessor:
     """
     Logit processor that uses formatters to mask batch logits.
@@ -92,3 +66,29 @@ class FormattersLogitsProcessor:
         formatter.compute_allowed_tokens()
         logits = formatter.mask_logits(logits)
         return logits
+
+
+def create_engine_vocabulary(llm: LLM) -> kbnf.Vocabulary:
+    """
+    Create a vocabulary for the KBNF engine.
+    """
+    tokenizer = llm.get_tokenizer()
+    vocab = tokenizer.get_vocab()
+    new_vocab = get_original_characters(vocab)
+    return kbnf.Vocabulary({v: kbnf.Token(k) for k, v in new_vocab.items()}, {
+        v:k for k,v in vocab.items()})
+
+
+def create_formatters_logits_processor(llm: LLM,
+                                       formatter_builders: typing.Sequence[FormatterBuilder] | FormatterBuilder,
+                                       configs: typing.Sequence[EngineGenerationConfig] = None) \
+        -> FormattersLogitsProcessor:
+    """
+    Create a formatter logits processor.
+    """
+    tokenizer = llm.get_tokenizer()
+    vocab = create_engine_vocabulary(llm)
+    if not isinstance(formatter_builders, collections.abc.Sequence):
+        formatter_builders = [formatter_builders]
+    formatters = [i.build(vocab, lambda tokens: tokenizer.decode(tokens)) for i in formatter_builders]
+    return FormattersLogitsProcessor(formatters, tokenizer.eos_token_id, configs)

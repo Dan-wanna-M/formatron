@@ -12,16 +12,18 @@ Processors = set[typing.Literal["sentencepiece", "<0xHH>", "dot_G"]]
 
 def _autodetect_processors(vocab:typing.Dict[str, int]):
     result = set()
-    space_present = any(i.find(' ')!=-1 for i in vocab.keys())
     llama_present = any(i.find('<0xF0>')!=-1 for i in vocab.keys())
-    underscore_present = any(i.find('\u2581')!=-1 for i in vocab.keys())
-    g_present = any(i.find('\u0120')!=-1 for i in vocab.keys())
+    underscore_present = (len([1 for i in vocab.keys() if i.find('\u2581')!=-1]) / len(vocab)) > 0.2
+    g_present = (len([1 for i in vocab.keys() if i.find('\u0120')!=-1]) / len(vocab)) > 0.2
+    c_present = any(i.find('\u010A') != -1 for i in vocab.keys())
     if llama_present:
         result.add("<0xHH>")
-    if not space_present and underscore_present:
+    if underscore_present:
         result.add("sentencepiece")
-    elif not space_present and g_present:
+    elif g_present:
         result.add("dot_G")
+    if c_present:
+        result.add("dot_C")
     return result
 
 def get_original_characters(vocab:typing.Dict[str, int]) -> typing.Dict[bytes, int]:
@@ -32,6 +34,8 @@ def get_original_characters(vocab:typing.Dict[str, int]) -> typing.Dict[bytes, i
             old_char_to_new_char["\u2581".encode("UTF-8")] = b" "
         elif i == "dot_G":
             old_char_to_new_char["\u0120".encode("UTF-8")] = b" "
+        elif i == "dot_C":
+            old_char_to_new_char["\u010A".encode("UTF-8")] = b"\n"
         elif i == "<0xHH>":
             for j in range(256):
                 old_char_to_new_char[("<0x"+f"{j:02x}".upper()+">").encode("UTF-8")] = bytes([j])
