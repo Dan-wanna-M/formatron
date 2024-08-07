@@ -30,6 +30,10 @@ class FormattersLogitsProcessor:
         self._iter = zip(self._formatters, self._configs)
         self._debug_counter = 0
 
+    @property
+    def formatters_captures(self) -> list[dict[str, typing.Any]]:
+        return [f.captures for f in self._formatters]
+
     def _to_next_batch_step(self):
         self._iter = zip(self._formatters, self._configs)
         self._debug_counter = 0

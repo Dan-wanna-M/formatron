@@ -56,6 +56,7 @@ from transformers import AutoModelForCausalLM
 import transformers
 from formatron.formatter import FormatterBuilder
 from formatron.integrations.transformers import create_formatter_logits_processor_list
+
 torch.manual_seed(514)
 model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
                                              device_map="cuda",
@@ -78,6 +79,71 @@ print(logits_processor[0].formatters_captures)
 # [{'digit': [<re.Match object; span=(0, 2), match='42'>, <re.Match object; span=(0, 2), match='42'>]}]
 ```
 ### Json Generation
+#### Pydantic Model
+```python
+import torch
+from transformers import AutoModelForCausalLM
+import transformers
+from formatron.formatter import FormatterBuilder
+from formatron.integrations.transformers import create_formatter_logits_processor_list
+from formatron.schemas.pydantic import ClassSchema
+from grammar_generators.json_generator import JsonGenerator
+
+class Goods(ClassSchema):
+    name:str
+    price:float
+    remaining:int
+
+torch.manual_seed(520)
+model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
+                                             device_map="cuda",
+                                             torch_dtype=torch.float16)
+tokenizer = transformers.AutoTokenizer.from_pretrained("microsoft/Phi-3-mini-128k-instruct")
+
+f = FormatterBuilder()
+schema = Goods
+f.append_line(f"{f.schema(schema, JsonGenerator(), capture_name='json')}")
+logits_processor = create_formatter_logits_processor_list(tokenizer, f)
+inputs = tokenizer(["""<|system|>
+You are a helpful assistant.<|end|>
+<|user|>We have 14 apples left with each price 14.4$. Extract information from this sentence into json.<|end|>
+<|assistant|>"""], return_tensors="pt").to("cuda")
+print(tokenizer.batch_decode(model.generate(**inputs,top_p=0.5, temperature=1,
+                                          max_new_tokens=100, logits_processor=logits_processor)))
+print(logits_processor[0].formatters_captures)
+# possible output:
+# [{'json': Goods(name='apples', price=14.4, remaining=14)}]
+```
+#### Json Example
+```python
+import torch
+from transformers import AutoModelForCausalLM
+import transformers
+from formatron.formatter import FormatterBuilder
+from formatron.integrations.transformers import create_formatter_logits_processor_list
+from grammar_generators.json_generator import JsonGenerator
+from formatron.schemas.dict_inference import infer_mapping
+
+torch.manual_seed(520)
+model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
+                                             device_map="cuda",
+                                             torch_dtype=torch.float16)
+tokenizer = transformers.AutoTokenizer.from_pretrained("microsoft/Phi-3-mini-128k-instruct")
+
+f = FormatterBuilder()
+schema = infer_mapping({"name":"foo", "age": 28})
+f.append_line(f"{f.str(not_contain='{')}{f.schema(schema, JsonGenerator(), capture_name='json')}")
+logits_processor = create_formatter_logits_processor_list(tokenizer, f)
+inputs = tokenizer(["""<|system|>
+You are a helpful assistant.<|end|>
+<|user|>I am 周明瑞. My age is 24. Extract information from this sentence into json.<|end|>
+<|assistant|>"""], return_tensors="pt").to("cuda")
+print(tokenizer.batch_decode(model.generate(**inputs,top_p=0.5, temperature=1,
+                                          max_new_tokens=100, logits_processor=logits_processor)))
+print(logits_processor[0].formatters_captures)
+# possible output:
+# [{'json': {'name': '周明瑞', 'age': 34}}]
+```
 ### Batched Inference
 ```python
 import transformers

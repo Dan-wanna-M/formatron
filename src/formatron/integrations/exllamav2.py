@@ -76,3 +76,7 @@ class FormatterFilter(ExLlamaV2Filter):
         pass_tokens.update(self._formatter.get_allowed_tokens_since_last_computation())
         end_tokens.update(self._formatter.get_tokens_to_finish_since_last_computation())
         return pass_tokens, end_tokens
+
+    @property
+    def formatter_captures(self)->dict[str, typing.Any]:
+        return self._formatter.captures

@@ -1,11 +1,11 @@
 import torch
 import transformers
-from formatter import FormatterBuilder
-from integrations.transformers import create_formatter_logits_processor_list
-from schemas import dict_inference
+from formatron.schemas.pydantic import ClassSchema
 from transformers import GPT2LMHeadModel, AutoModelForCausalLM
 
+from formatter import FormatterBuilder
 from grammar_generators.json_generator import JsonGenerator
+from integrations.transformers import create_formatter_logits_processor_list
 from schemas.dict_inference import infer_mapping
 
 
@@ -63,6 +63,33 @@ You are a helpful assistant.<|end|>
     print(logits_processor[0].formatters_captures)
     # possible output:
     # [{'json': {'name': '周明瑞', 'age': 34}}]
+
+
+def test_readme_example3(snapshot):
+    class Goods(ClassSchema):
+        name:str
+        price:float
+        remaining:int
+
+    torch.manual_seed(520)
+    model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
+                                                 device_map="cuda",
+                                                 torch_dtype=torch.float16)
+    tokenizer = transformers.AutoTokenizer.from_pretrained("microsoft/Phi-3-mini-128k-instruct")
+
+    f = FormatterBuilder()
+    schema = Goods
+    f.append_line(f"{f.schema(schema, JsonGenerator(), capture_name='json')}")
+    logits_processor = create_formatter_logits_processor_list(tokenizer, f)
+    inputs = tokenizer(["""<|system|>
+You are a helpful assistant.<|end|>
+<|user|>We have 14 apples left with each price 14.4$. Extract information from this sentence into json.<|end|>
+<|assistant|>"""], return_tensors="pt").to("cuda")
+    print(tokenizer.batch_decode(model.generate(**inputs,top_p=0.5, temperature=1,
+                                              max_new_tokens=100, logits_processor=logits_processor)))
+    print(logits_processor[0].formatters_captures)
+    # possible output:
+    # [{'json': Goods(name='apples', price=14.4, remaining=14)}]
 
 
 def test_transformers_batched_inference(snapshot):
