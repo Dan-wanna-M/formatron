@@ -9,7 +9,7 @@ from vllm import LLM
 
 from config import EngineGenerationConfig
 from formatter import Formatter, FormatterBuilder
-from integrations._utils import get_original_whitespace_characters
+from integrations._utils import get_original_characters
 
 
 def create_engine_vocabulary(llm: LLM) -> kbnf.Vocabulary:
@@ -18,7 +18,7 @@ def create_engine_vocabulary(llm: LLM) -> kbnf.Vocabulary:
     """
     tokenizer = llm.get_tokenizer()
     vocab = tokenizer.get_vocab()
-    new_vocab = get_original_whitespace_characters(tokenizer, vocab)
+    new_vocab = get_original_characters(tokenizer, vocab)
     return kbnf.Vocabulary({v: kbnf.Token(k.encode("utf-8")) for k, v in new_vocab.items()},
                            {v: k for k, v in new_vocab.items()})
 

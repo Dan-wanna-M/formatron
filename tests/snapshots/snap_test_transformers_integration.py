@@ -7,12 +7,16 @@ from snapshottest import Snapshot
 
 snapshots = Snapshot()
 
-snapshots['test_transformers_batched_inference 1'] = ['<|endoftext|><|endoftext|>I am GPT2. Hello, Huggingface!\n'
- '<|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|>',
- '<|endoftext|>I am another GPT2. Hello, Huggingface!\n'
- '<|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|>',
- 'I am yet another GPT2. Hello, Huggingface! Hello, Huggingface!\n'
- '<|endoftext|>']
+
+
+snapshots['test_transformers_batched_inference 1'] = [
+    '''<|endoftext|><|endoftext|>I am GPT2. Hello, Huggingface!
+<|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|>''',
+    '''<|endoftext|>I am another GPT2. Hello, Huggingface!
+<|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|>''',
+    '''I am yet another GPT2. Hello, Huggingface! Hello, Huggingface!
+<|endoftext|>'''
+]
 
 snapshots['test_transformers_integration 1'] = [
     '''I am GPT2. Hello, Huggingface!

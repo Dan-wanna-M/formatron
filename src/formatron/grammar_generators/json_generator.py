@@ -16,6 +16,21 @@ __all__ = ["JsonGenerator"]
 class JsonGenerator(GrammarGenerator):
     """
     A KBNF grammar generator for JSON format.
+
+    Currently, the following data types are supported:
+
+    - bool
+    - int
+    - float
+    - string
+    - NoneType
+    - typing.Any
+    - Subclasses of collections.abc.Mapping[str,T] and typing.Mapping[str,T] where T is a supported type,
+    - Subclasses of collections.abc.Sequence[T] and typing.Sequence[T] where T is a supported type.
+    - tuple[T1,T2,...] where T1,T2,... are supported types. The order, type and number of elements will be preserved.
+    - typing.Literal[x1,x2,...] where x1, x2, ... are instances of int, string, bool or NoneType, or some other typing.Literal[y1,y2,...]
+    - typing.Union[T1,T2,...] where T1,T2,... are supported types.
+    - schemas.Schema where all its fields' data types are supported. Recursive schema definitions are supported as well.
     """
     _space_nonterminal = "(\\u0020|\\u000A|\\u000D|\\u0009)*"
 
@@ -149,6 +164,10 @@ array_end ::= #"{_space_nonterminal}\\]";
                         new_nonterminals.append(f"{repr(arg)}")
                     elif isinstance(arg, bool):
                         new_nonterminals.append(f"'{str(arg)}'")
+                    elif isinstance(arg, int):
+                        new_nonterminals.append(f"'{str(arg)}'")
+                    elif arg is None:
+                        new_nonterminals.append("null")
                     else:
                         new_nonterminal = f"{nonterminal}_{i}"
                         result.append((arg, new_nonterminal))

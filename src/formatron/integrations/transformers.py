@@ -5,21 +5,22 @@ import collections
 import typing
 
 import kbnf
-from transformers import LogitsProcessor, PreTrainedTokenizerBase, LogitsProcessorList
+import transformers
+from transformers import LogitsProcessor, PreTrainedTokenizerBase, LogitsProcessorList, LlamaTokenizer, GPT2Tokenizer, \
+    LlamaTokenizerFast, GPT2TokenizerFast
 
 from config import EngineGenerationConfig
 from formatter import Formatter, FormatterBuilder
-from integrations._utils import get_original_whitespace_characters
-
+from integrations._utils import get_original_characters, Processors
 
 def create_engine_vocabulary(tokenizer: PreTrainedTokenizerBase) -> kbnf.Vocabulary:
     """
     Create a vocabulary for the KBNF engine.
     """
     vocab = tokenizer.get_vocab()
-    new_vocab = get_original_whitespace_characters(tokenizer, vocab)
-    return kbnf.Vocabulary({v: kbnf.Token(k.encode("utf-8")) for k, v in new_vocab.items()},
-                           {v: k for k, v in new_vocab.items()})
+    new_vocab = get_original_characters(vocab)
+    return kbnf.Vocabulary({v: kbnf.Token(k) for k, v in new_vocab.items()},
+                           {v: k for k, v in vocab.items()})
 
 
 def create_formatter_logits_processor(tokenizer: PreTrainedTokenizerBase,
@@ -42,7 +43,8 @@ def create_formatter_logits_processor_list(tokenizer: PreTrainedTokenizerBase,
     """
     Create a formatter logits processor list.
     """
-    return LogitsProcessorList([create_formatter_logits_processor(tokenizer, formatter_builders, configs)])
+    return LogitsProcessorList([create_formatter_logits_processor(tokenizer,
+                                                                  formatter_builders, configs)])
 
 
 class FormattersLogitsProcessor(LogitsProcessor):
@@ -60,6 +62,10 @@ class FormattersLogitsProcessor(LogitsProcessor):
         assert len(configs) == len(formatters), \
             f"Number of formatters({len(formatters)}) must match number of configs({len(configs)})"
         self.configs = configs
+
+    @property
+    def formatters_captures(self)->list[dict[str,typing.Any]]:
+        return [f.captures for f in self._formatters]
 
     def __call__(self, input_ids, scores):
         assert input_ids.shape[0] == len(self._formatters), (f"Number of formatters({len(self._formatters)})"
@@ -79,6 +85,7 @@ class FormattersLogitsProcessor(LogitsProcessor):
             for formatter, input_id in zip(self._formatters, input_ids[:, -1]):
                 if input_id != self._eos_token_id:
                     formatter.accept_token(input_id)
+
         for i, formatter in enumerate(self._formatters):
             if formatter.is_completed():
                 scores[i, :] = float("-inf")

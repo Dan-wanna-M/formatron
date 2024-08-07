@@ -5,9 +5,11 @@ import abc
 import textwrap
 import typing
 from copy import copy
+import re
 
 import kbnf
 from kbnf import AcceptTokenResult, Engine
+from sympy.abc import lamda
 
 import grammar_generators.grammar_generator
 import schemas.schema
@@ -130,7 +132,11 @@ class Formatter(FormatterBase):
 
     def on_completion(self, generated_output: str) -> None:
         for matcher in self._extractors:
-            generated_output, captured = matcher.extract(generated_output)
+            result = matcher.extract(generated_output)
+            if result is None:
+                captured = None
+            else:
+                generated_output, captured = matcher.extract(generated_output)
             if matcher.capture_name:
                 if matcher.capture_name in self._captures:
                     self._captures[matcher.capture_name] = [self._captures[matcher.capture_name]]
@@ -314,7 +320,7 @@ class FormatterBuilder:
             capture_regex = ".*"
             nonterminal_regex = "#'.*'"
         else:
-            capture_regex = f".*?(?:{'|'.join(map(repr, stop + not_contain))})"
+            capture_regex = f".*?(?:{'|'.join(map(re.escape, stop + not_contain))})"
             excepted = f"{nonterminal}_excepted"
             end = f"({'|'.join(map(repr, stop))})" if stop else ""
             nonterminal_regex = f"except!({excepted}){end}"

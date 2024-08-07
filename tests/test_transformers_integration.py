@@ -1,3 +1,4 @@
+import torch
 import transformers
 from formatter import FormatterBuilder
 from integrations.transformers import create_formatter_logits_processor_list
@@ -5,6 +6,7 @@ from schemas import dict_inference
 from transformers import GPT2LMHeadModel, AutoModelForCausalLM
 
 from grammar_generators.json_generator import JsonGenerator
+from schemas.dict_inference import infer_mapping
 
 
 def test_transformers_integration(snapshot):
@@ -20,22 +22,47 @@ def test_transformers_integration(snapshot):
 
 
 def test_readme_example(snapshot):
+    torch.manual_seed(514)
+    model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
+                                                 device_map="cuda",
+                                                 torch_dtype=torch.float16)
+    tokenizer = transformers.AutoTokenizer.from_pretrained("microsoft/Phi-3-mini-128k-instruct")
+
     f = FormatterBuilder()
     digit = f.regex('([1-9][0-9]*)', capture_name='digit')
-    f.append_line(f"My favorite numbers are {digit}, {digit}, and {digit}.")
-    schema = dict_inference.infer_mapping({'name': 'xxx', 'age': 'xxx'})
-    f.append_str(f"Here's my personal info: {f.schema(schema,JsonGenerator(), capture_name='info')}\n")
-    f.append_multiline_str(f"""
-    Today, I want to eat {f.choose('apple', 'orange', 'banana', capture_name='food')}.
-        I also want to {f.str(stop='.')}
-    """)
-    model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-4k-instruct")
-    tokenizer = transformers.AutoTokenizer.from_pretrained("microsoft/Phi-3-mini-4k-instruct")
-    model.generation_config.pad_token_id = tokenizer.eos_token_id  # Remove the annoying warning
+    f.append_line(f"My favorite integer is {digit}.")
+    f.append_str(f"I think integer {digit} is also very interesting.")
     logits_processor = create_formatter_logits_processor_list(tokenizer, f)
-    inputs = tokenizer(["I am Phi. "], return_tensors="pt")
-    snapshot.assert_match(
-        tokenizer.batch_decode(model.generate(**inputs, max_new_tokens=256, logits_processor=logits_processor)))
+    inputs = tokenizer(["""<|system|>
+You are a helpful assistant.<|end|>
+<|user|>Which integer is your favourite?<|end|>
+<|assistant|>"""], return_tensors="pt").to("cuda")
+    print(tokenizer.batch_decode(model.generate(**inputs,top_p=0.5, temperature=1,
+                                              max_new_tokens=100, logits_processor=logits_processor)))
+    print(logits_processor[0].formatters_captures)
+    # possible output:
+    # [{'digit': [<re.Match object; span=(0, 2), match='42'>, <re.Match object; span=(0, 2), match='42'>]}]
+
+def test_readme_example2(snapshot):
+    torch.manual_seed(520)
+    model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
+                                                 device_map="cuda",
+                                                 torch_dtype=torch.float16)
+    tokenizer = transformers.AutoTokenizer.from_pretrained("microsoft/Phi-3-mini-128k-instruct")
+
+    f = FormatterBuilder()
+    schema = infer_mapping({"name":"foo", "age": 28})
+    f.append_line(f"{f.str(not_contain='{')}{f.schema(schema, JsonGenerator(), capture_name='json')}")
+    logits_processor = create_formatter_logits_processor_list(tokenizer, f)
+    inputs = tokenizer(["""<|system|>
+You are a helpful assistant.<|end|>
+<|user|>I am 周明瑞. My age is 24. Extract information from this sentence into json.<|end|>
+<|assistant|>"""], return_tensors="pt").to("cuda")
+    print(tokenizer.batch_decode(model.generate(**inputs,top_p=0.5, temperature=1,
+                                              max_new_tokens=100, logits_processor=logits_processor)))
+    print(logits_processor[0].formatters_captures)
+    # possible output:
+    # [{'json': {'name': '周明瑞', 'age': 34}}]
 
 
 def test_transformers_batched_inference(snapshot):

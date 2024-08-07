@@ -9,7 +9,7 @@ authors = [
 ]
 description = "Formatron empowers everyone to control the output format of language models with minimal overhead."
 readme = "README.md"
-dependencies = ["pydantic>=2","kbnf>=0.2.2"]
+dependencies = ["pydantic>=2","kbnf>=0.2.3"]
 license = {file = "LICENSE"}
 keywords = ["deep learning", "language model", "guided generation", "structured generation","constrained decoding"]
 requires-python = ">=3.10"
@@ -23,10 +23,10 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: CPython",
 ]
 [project.optional-dependencies]
-rwkv = ["rwkv"]
-transformers = ["transformers"]
-exllamav2 = ["exllamav2"]
-vllm = ["vllm"]
+rwkv = ["rwkv>=0.7.4"]
+transformers = ["transformers>=4.17.0"]
+exllamav2 = ["exllamav2>=0.0.17"]
+vllm = ["vllm>=0.2.2"]
 [project.urls]
 Repository = "https://github.com/Dan-wanna-M/formatron"
 [tool.pytest.ini_options]
