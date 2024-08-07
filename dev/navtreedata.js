@@ -53,7 +53,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "RWKV_8py.html",
-"classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#aa6549c4f4130d1778f69e3e99942a87b"
+"classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a938cc79008bf81cd8d78681f5a229b89"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

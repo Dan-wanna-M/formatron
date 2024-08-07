@@ -152,8 +152,23 @@ Static Protected Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A KBNF grammar generator for JSON format. </p>
+<p>Currently, the following data types are supported:</p>
+<div class="fragment"><div class="line">- bool</div>
+<div class="line">- int</div>
+<div class="line">- float</div>
+<div class="line">- string</div>
+<div class="line">- NoneType</div>
+<div class="line">- typing.Any</div>
+</div><!-- fragment --><ul>
+<li>Subclasses of collections.abc.Mapping[str,T] and typing.Mapping[str,T] where T is a supported type,</li>
+<li>Subclasses of collections.abc.Sequence[T] and typing.Sequence[T] where T is a supported type.</li>
+<li>tuple[T1,T2,...] where T1,T2,... are supported types. The order, type and number of elements will be preserved.</li>
+<li>typing.Literal[x1,x2,...] where x1, x2, ... are instances of int, string, bool or NoneType, or some other typing.Literal[y1,y2,...]</li>
+<li>typing.Union[T1,T2,...] where T1,T2,... are supported types.</li>
+<li>schemas.Schema where all its fields' data types are supported. Recursive schema definitions are supported as well. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00019">19</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00036">36</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a591d4b45a2f84953e9a290d5e20e7eea" name="a591d4b45a2f84953e9a290d5e20e7eea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a591d4b45a2f84953e9a290d5e20e7eea">&#9670;&#160;</a></span>_register_all_predefined_types()</h2>
@@ -178,7 +193,7 @@ Static Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00068">68</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00085">85</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>
@@ -218,7 +233,7 @@ Static Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html#a5c1c76bc0151686220be9902b064fe02">formatron.grammar_generators.grammar_generator.GrammarGenerator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00205">205</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00226">226</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>
@@ -264,7 +279,7 @@ Static Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html#af8697ae2e156443620146d97fe7868be">formatron.grammar_generators.grammar_generator.GrammarGenerator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00238">238</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00259">259</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>
@@ -300,7 +315,7 @@ Static Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00058">58</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00075">75</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>
@@ -325,7 +340,7 @@ Static Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00028">28</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00045">45</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>
@@ -349,7 +364,7 @@ Static Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00023">23</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00040">40</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>
@@ -373,7 +388,7 @@ Static Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00046">46</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00063">63</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>

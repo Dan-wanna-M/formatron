@@ -117,7 +117,7 @@ $(function(){initNavTree('exllamav2_8py_source.html',''); initResizable(true); }
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">from</span> exllamav2.generator.base <span class="keyword">import</span> ExLlamaV2Filter</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">from</span> config <span class="keyword">import</span> EngineGenerationConfig</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">from</span> formatter <span class="keyword">import</span> Formatter, FormatterBuilder</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">from</span> integrations._utils <span class="keyword">import</span> get_original_whitespace_characters</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">from</span> integrations._utils <span class="keyword">import</span> get_original_characters</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1exllamav2.html#ab73e373da3d117082bfcb5e4020e0358">create_engine_vocabulary</a>(tokenizer: ExLlamaV2Tokenizer) -&gt; kbnf.Vocabulary:</div>
@@ -129,10 +129,10 @@ $(function(){initNavTree('exllamav2_8py_source.html',''); initResizable(true); }
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                                                         f<span class="stringliteral">&quot; with tokenizer_model({tokenizer.tokenizer_model})&quot;</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                                                         f<span class="stringliteral">&quot; does not have vocab attribute!&quot;</span>)</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    vocab = tokenizer.get_id_to_piece_list(include_special_tokens=<span class="keyword">True</span>)</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    vocab = {v: i <span class="keywordflow">for</span> i, v <span class="keywordflow">in</span> enumerate(vocab)}</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    vocab = get_original_whitespace_characters(tokenizer, vocab)</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">return</span> kbnf.Vocabulary({v: kbnf.Token(k.encode(<span class="stringliteral">&quot;utf-8&quot;</span>)) <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> vocab.items()},</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                           {v: k <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> vocab.items()})</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    new_vocab = {v: i <span class="keywordflow">for</span> i, v <span class="keywordflow">in</span> enumerate(vocab)}</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    new_vocab = get_original_characters(new_vocab)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">return</span> kbnf.Vocabulary({v: kbnf.Token(k) <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> new_vocab.items()},</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                           {k: v <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> enumerate(vocab)})</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 </div>

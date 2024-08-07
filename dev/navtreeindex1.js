@@ -1,5 +1,9 @@
 var NAVTREEINDEX1 =
 {
+"classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a938cc79008bf81cd8d78681f5a229b89":[1,0,0,4,3,0,0],
+"classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a9c18332e5d1133b7524a8dde402f2677":[0,0,0,4,4,0,5],
+"classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a9c18332e5d1133b7524a8dde402f2677":[1,0,0,4,3,0,5],
+"classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#aa6549c4f4130d1778f69e3e99942a87b":[0,0,0,4,4,0,8],
 "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#aa6549c4f4130d1778f69e3e99942a87b":[1,0,0,4,3,0,8],
 "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#ab87fea11f930a33130cecadd8cdf0cc6":[0,0,0,4,4,0,2],
 "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#ab87fea11f930a33130cecadd8cdf0cc6":[1,0,0,4,3,0,2],
@@ -98,8 +102,10 @@ var NAVTREEINDEX1 =
 "namespaceformatron_1_1integrations_1_1RWKV.html":[0,0,0,4,2],
 "namespaceformatron_1_1integrations_1_1RWKV.html#a2fc99d20bbcc438cc823a728cbc999ea":[0,0,0,4,2,2],
 "namespaceformatron_1_1integrations_1_1__utils.html":[0,0,0,4,0],
-"namespaceformatron_1_1integrations_1_1__utils.html#a1a45a26058585480ecdc071efe0aef5d":[0,0,0,4,0,1],
-"namespaceformatron_1_1integrations_1_1__utils.html#a97325e0e6105cf7c28dc5d535397239c":[0,0,0,4,0,0],
+"namespaceformatron_1_1integrations_1_1__utils.html#a50a91803c9f84eddfd3209f611ca1f5e":[0,0,0,4,0,2],
+"namespaceformatron_1_1integrations_1_1__utils.html#a76ded8fc3ee5ad369ec55b595ae74153":[0,0,0,4,0,0],
+"namespaceformatron_1_1integrations_1_1__utils.html#a97325e0e6105cf7c28dc5d535397239c":[0,0,0,4,0,1],
+"namespaceformatron_1_1integrations_1_1__utils.html#ad5e049a7fd2978958881877de9eb6c1a":[0,0,0,4,0,3],
 "namespaceformatron_1_1integrations_1_1exllamav2.html":[0,0,0,4,1],
 "namespaceformatron_1_1integrations_1_1exllamav2.html#a8fb6a829f6fb28c956693fb2e4b39b63":[0,0,0,4,1,2],
 "namespaceformatron_1_1integrations_1_1exllamav2.html#ab73e373da3d117082bfcb5e4020e0358":[0,0,0,4,1,1],

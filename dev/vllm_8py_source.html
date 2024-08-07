@@ -117,7 +117,7 @@ $(function(){initNavTree('vllm_8py_source.html',''); initResizable(true); });
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">from</span> config <span class="keyword">import</span> EngineGenerationConfig</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">from</span> formatter <span class="keyword">import</span> Formatter, FormatterBuilder</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">from</span> integrations._utils <span class="keyword">import</span> get_original_whitespace_characters</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">from</span> integrations._utils <span class="keyword">import</span> get_original_characters</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1vllm.html#acec47a067c2396265f1d7a941b0a7ab3">create_engine_vocabulary</a>(llm: LLM) -&gt; kbnf.Vocabulary:</div>
@@ -127,7 +127,7 @@ $(function(){initNavTree('vllm_8py_source.html',''); initResizable(true); });
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1vllm.html#acec47a067c2396265f1d7a941b0a7ab3">   18</a></span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    tokenizer = llm.get_tokenizer()</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    vocab = tokenizer.get_vocab()</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    new_vocab = get_original_whitespace_characters(tokenizer, vocab)</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    new_vocab = get_original_characters(tokenizer, vocab)</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">return</span> kbnf.Vocabulary({v: kbnf.Token(k.encode(<span class="stringliteral">&quot;utf-8&quot;</span>)) <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> new_vocab.items()},</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                           {v: k <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> new_vocab.items()})</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>

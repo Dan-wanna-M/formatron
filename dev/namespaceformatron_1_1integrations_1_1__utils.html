@@ -104,7 +104,8 @@ $(function(){initNavTree('namespaceformatron_1_1integrations_1_1__utils.html',''
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">formatron.integrations._utils Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -113,10 +114,44 @@ $(function(){initNavTree('namespaceformatron_1_1integrations_1_1__utils.html',''
 Functions</h2></td></tr>
 <tr class="memitem:a97325e0e6105cf7c28dc5d535397239c" id="r_a97325e0e6105cf7c28dc5d535397239c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97325e0e6105cf7c28dc5d535397239c">_multiple_replace</a> (replacements, text)</td></tr>
 <tr class="separator:a97325e0e6105cf7c28dc5d535397239c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a45a26058585480ecdc071efe0aef5d" id="r_a1a45a26058585480ecdc071efe0aef5d"><td class="memItemLeft" align="right" valign="top">typing.Dict[str, int]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a45a26058585480ecdc071efe0aef5d">get_original_whitespace_characters</a> (tokenizer, vocab, chars=None)</td></tr>
-<tr class="separator:a1a45a26058585480ecdc071efe0aef5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76ded8fc3ee5ad369ec55b595ae74153" id="r_a76ded8fc3ee5ad369ec55b595ae74153"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76ded8fc3ee5ad369ec55b595ae74153">_autodetect_processors</a> (typing.Dict[str, int] vocab)</td></tr>
+<tr class="separator:a76ded8fc3ee5ad369ec55b595ae74153"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50a91803c9f84eddfd3209f611ca1f5e" id="r_a50a91803c9f84eddfd3209f611ca1f5e"><td class="memItemLeft" align="right" valign="top">typing.Dict[bytes, int]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50a91803c9f84eddfd3209f611ca1f5e">get_original_characters</a> (typing.Dict[str, int] vocab)</td></tr>
+<tr class="separator:a50a91803c9f84eddfd3209f611ca1f5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ad5e049a7fd2978958881877de9eb6c1a" id="r_ad5e049a7fd2978958881877de9eb6c1a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5e049a7fd2978958881877de9eb6c1a">Processors</a> = set[typing.Literal[&quot;sentencepiece&quot;, &quot;&lt;0xHH&gt;&quot;, &quot;dot_G&quot;]]</td></tr>
+<tr class="separator:ad5e049a7fd2978958881877de9eb6c1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a76ded8fc3ee5ad369ec55b595ae74153" name="a76ded8fc3ee5ad369ec55b595ae74153"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76ded8fc3ee5ad369ec55b595ae74153">&#9670;&#160;</a></span>_autodetect_processors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">formatron.integrations._utils._autodetect_processors </td>
+          <td>(</td>
+          <td class="paramtype">typing.Dict[str, int]</td>          <td class="paramname"><span class="paramname"><em>vocab</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="__utils_8py_source.html#l00013">13</a> of file <a class="el" href="__utils_8py_source.html">_utils.py</a>.</p>
+
+</div>
+</div>
 <a id="a97325e0e6105cf7c28dc5d535397239c" name="a97325e0e6105cf7c28dc5d535397239c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a97325e0e6105cf7c28dc5d535397239c">&#9670;&#160;</a></span>_multiple_replace()</h2>
 
@@ -148,31 +183,39 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1a45a26058585480ecdc071efe0aef5d" name="a1a45a26058585480ecdc071efe0aef5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a45a26058585480ecdc071efe0aef5d">&#9670;&#160;</a></span>get_original_whitespace_characters()</h2>
+<a id="a50a91803c9f84eddfd3209f611ca1f5e" name="a50a91803c9f84eddfd3209f611ca1f5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50a91803c9f84eddfd3209f611ca1f5e">&#9670;&#160;</a></span>get_original_characters()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"> typing.Dict[str, int] formatron.integrations._utils.get_original_whitespace_characters </td>
+          <td class="memname"> typing.Dict[bytes, int] formatron.integrations._utils.get_original_characters </td>
           <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>tokenizer</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">typing.Dict[str, int]</td>          <td class="paramname"><span class="paramname"><em>vocab</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>vocab</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>chars</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="__utils_8py_source.html#l00012">12</a> of file <a class="el" href="__utils_8py_source.html">_utils.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="__utils_8py_source.html#l00027">27</a> of file <a class="el" href="__utils_8py_source.html">_utils.py</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ad5e049a7fd2978958881877de9eb6c1a" name="ad5e049a7fd2978958881877de9eb6c1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5e049a7fd2978958881877de9eb6c1a">&#9670;&#160;</a></span>Processors</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">formatron.integrations._utils.Processors = set[typing.Literal[&quot;sentencepiece&quot;, &quot;&lt;0xHH&gt;&quot;, &quot;dot_G&quot;]]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="__utils_8py_source.html#l00011">11</a> of file <a class="el" href="__utils_8py_source.html">_utils.py</a>.</p>
 
 </div>
 </div>
