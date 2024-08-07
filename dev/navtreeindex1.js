@@ -114,7 +114,7 @@ var NAVTREEINDEX1 =
 "namespaceformatron_1_1integrations_1_1transformers.html#aedac0d446b75c83068265569ce04c5b8":[0,0,0,4,3,3],
 "namespaceformatron_1_1integrations_1_1transformers.html#afffe60e04b19e9b75d4b15c8330a1914":[0,0,0,4,3,2],
 "namespaceformatron_1_1integrations_1_1vllm.html":[0,0,0,4,4],
-"namespaceformatron_1_1integrations_1_1vllm.html#a65a9636f2db90500b15c674052d7965a":[0,0,0,4,4,2],
+"namespaceformatron_1_1integrations_1_1vllm.html#a12fbb11b247c84e1c280924e7b6b5a60":[0,0,0,4,4,2],
 "namespaceformatron_1_1integrations_1_1vllm.html#acec47a067c2396265f1d7a941b0a7ab3":[0,0,0,4,4,1],
 "namespaceformatron_1_1schemas.html":[0,0,0,5],
 "namespaceformatron_1_1schemas_1_1dict__inference.html":[0,0,0,5,0],
@@ -143,7 +143,7 @@ var NAVTREEINDEX1 =
 "transformers_8py.html#afffe60e04b19e9b75d4b15c8330a1914":[2,0,0,0,1,4,2],
 "transformers_8py_source.html":[2,0,0,0,1,4],
 "vllm_8py.html":[2,0,0,0,1,5],
-"vllm_8py.html#a65a9636f2db90500b15c674052d7965a":[2,0,0,0,1,5,2],
+"vllm_8py.html#a12fbb11b247c84e1c280924e7b6b5a60":[2,0,0,0,1,5,2],
 "vllm_8py.html#acec47a067c2396265f1d7a941b0a7ab3":[2,0,0,0,1,5,1],
 "vllm_8py_source.html":[2,0,0,0,1,5]
 };
