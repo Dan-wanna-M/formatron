@@ -111,26 +111,21 @@ $(function(){initNavTree('classformatron_1_1extractor_1_1ChoiceExtractor.html','
   <div class="headertitle"><div class="title">formatron.extractor.ChoiceExtractor Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>An extractor that uses multiple extractors to extract data.  
- <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for formatron.extractor.ChoiceExtractor:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="classformatron_1_1extractor_1_1ChoiceExtractor.png" usemap="#formatron.extractor.ChoiceExtractor_map" alt=""/>
   <map id="formatron.extractor.ChoiceExtractor_map" name="formatron.extractor.ChoiceExtractor_map">
-<area href="classformatron_1_1extractor_1_1Extractor.html" title="An abstract extractor that extracts data from a string." alt="formatron.extractor.Extractor" shape="rect" coords="0,56,215,80"/>
+<area href="classformatron_1_1extractor_1_1Extractor.html" alt="formatron.extractor.Extractor" shape="rect" coords="0,56,215,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1a91b31475c7348a3cf9fab97c6d26f0" id="r_a1a91b31475c7348a3cf9fab97c6d26f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a91b31475c7348a3cf9fab97c6d26f0">__init__</a> (self, typing.Iterable[<a class="el" href="classformatron_1_1extractor_1_1Extractor.html">Extractor</a>] choices, str <a class="el" href="classformatron_1_1extractor_1_1Extractor.html#add83af9dc477dcba7ce2bde8939acf13">capture_name</a>, str nonterminal)</td></tr>
-<tr class="memdesc:a1a91b31475c7348a3cf9fab97c6d26f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the choice extractor.  <br /></td></tr>
 <tr class="separator:a1a91b31475c7348a3cf9fab97c6d26f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfd6ee4d6b1ea910dd6f89a4c0fca41f" id="r_acfd6ee4d6b1ea910dd6f89a4c0fca41f"><td class="memItemLeft" align="right" valign="top">typing.Optional[tuple[str, typing.Any]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acfd6ee4d6b1ea910dd6f89a4c0fca41f">extract</a> (self, str input_str)</td></tr>
-<tr class="memdesc:acfd6ee4d6b1ea910dd6f89a4c0fca41f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract data from the input string.  <br /></td></tr>
 <tr class="separator:acfd6ee4d6b1ea910dd6f89a4c0fca41f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classformatron_1_1extractor_1_1Extractor"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classformatron_1_1extractor_1_1Extractor')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classformatron_1_1extractor_1_1Extractor.html">formatron.extractor.Extractor</a></td></tr>
 <tr class="memitem:afe6a1f745fd56540ccff5fdc5d00f0a5 inherit pub_methods_classformatron_1_1extractor_1_1Extractor" id="r_afe6a1f745fd56540ccff5fdc5d00f0a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classformatron_1_1extractor_1_1Extractor.html#afe6a1f745fd56540ccff5fdc5d00f0a5">__str__</a> (self)</td></tr>
@@ -152,14 +147,11 @@ Properties</h2></td></tr>
 <tr class="separator:a4540f7ff9927540441496270b0780bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_classformatron_1_1extractor_1_1Extractor"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_classformatron_1_1extractor_1_1Extractor')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="classformatron_1_1extractor_1_1Extractor.html">formatron.extractor.Extractor</a></td></tr>
 <tr class="memitem:add83af9dc477dcba7ce2bde8939acf13 inherit properties_classformatron_1_1extractor_1_1Extractor" id="r_add83af9dc477dcba7ce2bde8939acf13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classformatron_1_1extractor_1_1Extractor.html#add83af9dc477dcba7ce2bde8939acf13">capture_name</a> = property</td></tr>
-<tr class="memdesc:add83af9dc477dcba7ce2bde8939acf13 inherit properties_classformatron_1_1extractor_1_1Extractor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the capture, or <code>None</code> if the extractor does not capture.  <br /></td></tr>
 <tr class="separator:add83af9dc477dcba7ce2bde8939acf13 inherit properties_classformatron_1_1extractor_1_1Extractor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>An extractor that uses multiple extractors to extract data. </p>
-<p>It stops at the first succeeding extractor. </p>
-
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00122">122</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00135">135</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1a91b31475c7348a3cf9fab97c6d26f0" name="a1a91b31475c7348a3cf9fab97c6d26f0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1a91b31475c7348a3cf9fab97c6d26f0">&#9670;&#160;</a></span>__init__()</h2>
@@ -190,19 +182,9 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize the choice extractor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">choices</td><td>The extractors to choose from. The order determines the extractors' priority. </td></tr>
-    <tr><td class="paramname">capture_name</td><td>The name of the capture, or <code>None</code> if the extractor does not capture. </td></tr>
-    <tr><td class="paramname">nonterminal</td><td>The nonterminal representing the extractor. </td></tr>
-  </table>
-  </dd>
-</dl>
-
 <p>Reimplemented from <a class="el" href="classformatron_1_1extractor_1_1Extractor.html#a569fc7895a82f4d4b59866719219d4e0">formatron.extractor.Extractor</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00131">131</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00145">145</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 
 </div>
 </div>
@@ -226,18 +208,9 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Extract data from the input string. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">input_str</td><td>The input string. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The remaining string and the extracted data, or <code>None</code> if the extraction failed. </dd></dl>
-
 <p>Reimplemented from <a class="el" href="classformatron_1_1extractor_1_1Extractor.html#a9efb2a75cf5fc5e0919c235aa1435469">formatron.extractor.Extractor</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00136">136</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00150">150</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 
 </div>
 </div>
@@ -262,7 +235,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00133">133</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00147">147</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 
 </div>
 </div>
@@ -286,7 +259,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00134">134</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00148">148</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 
 </div>
 </div>
@@ -311,7 +284,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00144">144</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00158">158</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 
 </div>
 </div>

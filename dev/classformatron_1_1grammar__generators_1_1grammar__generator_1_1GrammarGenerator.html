@@ -109,32 +109,26 @@ $(function(){initNavTree('classformatron_1_1grammar__generators_1_1grammar__gene
   <div class="headertitle"><div class="title">formatron.grammar_generators.grammar_generator.GrammarGenerator Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>An abstract KBNF grammar generator that enables converting from a schema to a KBNF grammar and converting from a string adhering to the grammar back to a schema instance.  
- <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for formatron.grammar_generators.grammar_generator.GrammarGenerator:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.png" usemap="#formatron.grammar_5Fgenerators.grammar_5Fgenerator.GrammarGenerator_map" alt=""/>
   <map id="formatron.grammar_5Fgenerators.grammar_5Fgenerator.GrammarGenerator_map" name="formatron.grammar_5Fgenerators.grammar_5Fgenerator.GrammarGenerator_map">
-<area href="classformatron_1_1grammar__generators_1_1json__generator_1_1JsonGenerator.html" title="A KBNF grammar generator for JSON format." alt="formatron.grammar_generators.json_generator.JsonGenerator" shape="rect" coords="0,112,414,136"/>
+<area href="classformatron_1_1grammar__generators_1_1json__generator_1_1JsonGenerator.html" alt="formatron.grammar_generators.json_generator.JsonGenerator" shape="rect" coords="0,112,414,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5c1c76bc0151686220be9902b064fe02" id="r_a5c1c76bc0151686220be9902b064fe02"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c1c76bc0151686220be9902b064fe02">generate</a> (self, typing.Type[<a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>] schema, str start_nonterminal)</td></tr>
-<tr class="memdesc:a5c1c76bc0151686220be9902b064fe02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a KBNF grammar string from a schema.  <br /></td></tr>
 <tr class="separator:a5c1c76bc0151686220be9902b064fe02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8697ae2e156443620146d97fe7868be" id="r_af8697ae2e156443620146d97fe7868be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classformatron_1_1extractor_1_1Extractor.html">extractor.Extractor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8697ae2e156443620146d97fe7868be">get_extractor</a> (self, str nonterminal, typing.Optional[str] capture_name, abc, abstractmethod, typing.Callable[[str,], <a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>] to_object)</td></tr>
-<tr class="memdesc:af8697ae2e156443620146d97fe7868be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an extractor for this grammar generator.  <br /></td></tr>
-<tr class="separator:af8697ae2e156443620146d97fe7868be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4ada54b7c4a1d8396308d3da2bf022c" id="r_ab4ada54b7c4a1d8396308d3da2bf022c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classformatron_1_1extractor_1_1Extractor.html">extractor.Extractor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4ada54b7c4a1d8396308d3da2bf022c">get_extractor</a> (self, str nonterminal, typing.Optional[str] capture_name, typing.Callable[[str,], <a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>] to_object)</td></tr>
+<tr class="separator:ab4ada54b7c4a1d8396308d3da2bf022c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>An abstract KBNF grammar generator that enables converting from a schema to a KBNF grammar and converting from a string adhering to the grammar back to a schema instance. </p>
-
-<p class="definition">Definition at line <a class="el" href="grammar__generator_8py_source.html#l00015">15</a> of file <a class="el" href="grammar__generator_8py_source.html">grammar_generator.py</a>.</p>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="grammar__generator_8py_source.html#l00017">17</a> of file <a class="el" href="grammar__generator_8py_source.html">grammar_generator.py</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a5c1c76bc0151686220be9902b064fe02" name="a5c1c76bc0151686220be9902b064fe02"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c1c76bc0151686220be9902b064fe02">&#9670;&#160;</a></span>generate()</h2>
@@ -160,24 +154,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Generate a KBNF grammar string from a schema. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">schema</td><td>The schema to generate a grammar for. </td></tr>
-    <tr><td class="paramname">start_nonterminal</td><td>The start nonterminal of the grammar.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The KBNF grammar string. </dd></dl>
-
 <p>Reimplemented in <a class="el" href="classformatron_1_1grammar__generators_1_1json__generator_1_1JsonGenerator.html#ac6a214d8a6bc35849c851db5eeeeaec0">formatron.grammar_generators.json_generator.JsonGenerator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="grammar__generator_8py_source.html#l00027">27</a> of file <a class="el" href="grammar__generator_8py_source.html">grammar_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="grammar__generator_8py_source.html#l00030">30</a> of file <a class="el" href="grammar__generator_8py_source.html">grammar_generator.py</a>.</p>
 
 </div>
 </div>
-<a id="af8697ae2e156443620146d97fe7868be" name="af8697ae2e156443620146d97fe7868be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8697ae2e156443620146d97fe7868be">&#9670;&#160;</a></span>get_extractor()</h2>
+<a id="ab4ada54b7c4a1d8396308d3da2bf022c" name="ab4ada54b7c4a1d8396308d3da2bf022c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4ada54b7c4a1d8396308d3da2bf022c">&#9670;&#160;</a></span>get_extractor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,35 +184,14 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>abc</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>abstractmethod</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">typing.Callable[[str, ], <a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>]</td>          <td class="paramname"><span class="paramname"><em>to_object</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get an extractor for this grammar generator. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nonterminal</td><td>The nonterminal representing the extractor. </td></tr>
-    <tr><td class="paramname">capture_name</td><td>The capture name of the extractor, or <code>None</code> if the extractor does not capture. </td></tr>
-    <tr><td class="paramname">to_object</td><td>A callable to convert the extracted string to a schema instance.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The extractor. </dd></dl>
-
 <p>Reimplemented in <a class="el" href="classformatron_1_1grammar__generators_1_1json__generator_1_1JsonGenerator.html#acef209fb3cdffa6bcd77940b05191f45">formatron.grammar_generators.json_generator.JsonGenerator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="grammar__generator_8py_source.html#l00041">41</a> of file <a class="el" href="grammar__generator_8py_source.html">grammar_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="grammar__generator_8py_source.html#l00046">46</a> of file <a class="el" href="grammar__generator_8py_source.html">grammar_generator.py</a>.</p>
 
 </div>
 </div>

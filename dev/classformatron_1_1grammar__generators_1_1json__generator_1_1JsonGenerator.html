@@ -111,29 +111,23 @@ $(function(){initNavTree('classformatron_1_1grammar__generators_1_1json__generat
   <div class="headertitle"><div class="title">formatron.grammar_generators.json_generator.JsonGenerator Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>A KBNF grammar generator for JSON format.  
- <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for formatron.grammar_generators.json_generator.JsonGenerator:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="classformatron_1_1grammar__generators_1_1json__generator_1_1JsonGenerator.png" usemap="#formatron.grammar_5Fgenerators.json_5Fgenerator.JsonGenerator_map" alt=""/>
   <map id="formatron.grammar_5Fgenerators.json_5Fgenerator.JsonGenerator_map" name="formatron.grammar_5Fgenerators.json_5Fgenerator.JsonGenerator_map">
-<area href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html" title="An abstract KBNF grammar generator that enables converting from a schema to a KBNF grammar and conver..." alt="formatron.grammar_generators.grammar_generator.GrammarGenerator" shape="rect" coords="0,56,414,80"/>
+<area href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html" alt="formatron.grammar_generators.grammar_generator.GrammarGenerator" shape="rect" coords="0,56,414,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a38e28017b9c097401bb883d0f63f2223" id="r_a38e28017b9c097401bb883d0f63f2223"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38e28017b9c097401bb883d0f63f2223">register_generate_nonterminal_def</a> (cls, typing.Callable[[typing.Type, str], typing.Optional[typing.Tuple[str, @classmethod typing.List[typing.Tuple[typing.Type, str]]]]] generate_nonterminal_def)</td></tr>
-<tr class="memdesc:a38e28017b9c097401bb883d0f63f2223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a callable to generate nonterminal definition from a type.  <br /></td></tr>
-<tr class="separator:a38e28017b9c097401bb883d0f63f2223"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09a30809292082b024ae6ca0bee514c5" id="r_a09a30809292082b024ae6ca0bee514c5"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a09a30809292082b024ae6ca0bee514c5">register_generate_nonterminal_def</a> (cls, typing.Callable[[typing.Type, str], typing.Optional[typing.Tuple[str, typing.List[typing.Tuple[typing.Type, str]]]]] generate_nonterminal_def)</td></tr>
+<tr class="separator:a09a30809292082b024ae6ca0bee514c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6a214d8a6bc35849c851db5eeeeaec0" id="r_ac6a214d8a6bc35849c851db5eeeeaec0"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6a214d8a6bc35849c851db5eeeeaec0">generate</a> (self, typing.Type[<a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>] schema, str start_nonterminal=&quot;start&quot;)</td></tr>
-<tr class="memdesc:ac6a214d8a6bc35849c851db5eeeeaec0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a KBNF grammar string from a schema for JSON format.  <br /></td></tr>
 <tr class="separator:ac6a214d8a6bc35849c851db5eeeeaec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acef209fb3cdffa6bcd77940b05191f45" id="r_acef209fb3cdffa6bcd77940b05191f45"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classformatron_1_1extractor_1_1Extractor.html">extractor.Extractor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acef209fb3cdffa6bcd77940b05191f45">get_extractor</a> (self, str nonterminal, typing.Optional[str] capture_name, typing.Callable[[str,], <a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>] to_object)</td></tr>
-<tr class="memdesc:acef209fb3cdffa6bcd77940b05191f45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an extractor for this grammar generator.  <br /></td></tr>
 <tr class="separator:acef209fb3cdffa6bcd77940b05191f45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
@@ -151,24 +145,8 @@ Static Protected Attributes</h2></td></tr>
 <tr class="separator:a260e2c902984aa9bc5f6f677300da3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A KBNF grammar generator for JSON format. </p>
-<p>Currently, the following data types are supported:</p>
-<div class="fragment"><div class="line">- bool</div>
-<div class="line">- int</div>
-<div class="line">- float</div>
-<div class="line">- string</div>
-<div class="line">- NoneType</div>
-<div class="line">- typing.Any</div>
-</div><!-- fragment --><ul>
-<li>Subclasses of collections.abc.Mapping[str,T] and typing.Mapping[str,T] where T is a supported type,</li>
-<li>Subclasses of collections.abc.Sequence[T] and typing.Sequence[T] where T is a supported type.</li>
-<li>tuple[T1,T2,...] where T1,T2,... are supported types. The order, type and number of elements will be preserved.</li>
-<li>typing.Literal[x1,x2,...] where x1, x2, ... are instances of int, string, bool or NoneType, or some other typing.Literal[y1,y2,...]</li>
-<li>typing.Union[T1,T2,...] where T1,T2,... are supported types.</li>
-<li>schemas.Schema where all its fields' data types are supported. Recursive schema definitions are supported as well. </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00036">36</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00038">38</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a591d4b45a2f84953e9a290d5e20e7eea" name="a591d4b45a2f84953e9a290d5e20e7eea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a591d4b45a2f84953e9a290d5e20e7eea">&#9670;&#160;</a></span>_register_all_predefined_types()</h2>
@@ -193,7 +171,7 @@ Static Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00085">85</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00088">88</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>
@@ -221,19 +199,9 @@ Static Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Generate a KBNF grammar string from a schema for JSON format. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">schema</td><td>The schema to generate a grammar for. </td></tr>
-    <tr><td class="paramname">start_nonterminal</td><td>The start nonterminal of the grammar. Default is "start".</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The generated KBNF grammar string. </dd></dl>
-
 <p>Reimplemented from <a class="el" href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html#a5c1c76bc0151686220be9902b064fe02">formatron.grammar_generators.grammar_generator.GrammarGenerator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00226">226</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00230">230</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>
@@ -261,30 +229,19 @@ Static Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">typing.Callable[[str, ], <a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>]</td>          <td class="paramname"><span class="paramname"><em>abc</em></span>&#160;)</td>
+          <td class="paramtype">typing.Callable[[str, ], <a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>]</td>          <td class="paramname"><span class="paramname"><em>to_object</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get an extractor for this grammar generator. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nonterminal</td><td>The nonterminal representing the extractor. </td></tr>
-    <tr><td class="paramname">capture_name</td><td>The capture name of the extractor, or <code>None</code> if the extractor does not capture. </td></tr>
-    <tr><td class="paramname">to_object</td><td>A callable to convert the extracted string to a schema instance.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The extractor. </dd></dl>
+<p>Reimplemented from <a class="el" href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html#ab4ada54b7c4a1d8396308d3da2bf022c">formatron.grammar_generators.grammar_generator.GrammarGenerator</a>.</p>
 
-<p>Reimplemented from <a class="el" href="classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html#af8697ae2e156443620146d97fe7868be">formatron.grammar_generators.grammar_generator.GrammarGenerator</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00259">259</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00263">263</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>
-<a id="a38e28017b9c097401bb883d0f63f2223" name="a38e28017b9c097401bb883d0f63f2223"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38e28017b9c097401bb883d0f63f2223">&#9670;&#160;</a></span>register_generate_nonterminal_def()</h2>
+<a id="a09a30809292082b024ae6ca0bee514c5" name="a09a30809292082b024ae6ca0bee514c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09a30809292082b024ae6ca0bee514c5">&#9670;&#160;</a></span>register_generate_nonterminal_def()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,22 +257,12 @@ Static Protected Attributes</h2></td></tr>
           <td class="paramtype">typing.Callable[
                 [typing.Type, str],
                 typing.Optional[typing.Tuple[str,
-    @classmethod
                                              typing.List[typing.Tuple[typing.Type, str]]]]]</td>          <td class="paramname"><span class="paramname"><em>generate_nonterminal_def</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Register a callable to generate nonterminal definition from a type. </p>
-<p>The callable returns (nonterminal_definition, [(sub_type, sub_nonterminal), ...]) if the type is supported by this callable, otherwise None. [(sub_type, sub_nonterminal), ...] are the types and nonterminals used in nonterminal_definition that may need to be generated in the grammar too.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">generate_nonterminal_def</td><td>A callable to generate nonterminal definition from a type. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00075">75</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00079">79</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>
@@ -340,7 +287,7 @@ Static Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00045">45</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00047">47</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>
@@ -364,7 +311,7 @@ Static Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00040">40</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00042">42</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>
@@ -388,7 +335,7 @@ Static Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00063">63</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00065">65</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>
