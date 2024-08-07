@@ -6,5 +6,6 @@ var classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter =
     [ "feed", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a6896753ca9ce0cdb5cf998edd379123e", null ],
     [ "next", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#adcd3e2bfb151b6d32f87c0bb50c8b558", null ],
     [ "_config", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#ae43a79de8cc0fb018df02e7edab028ee", null ],
-    [ "_formatter", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a568277b00bef848b3fccbfa7030c435f", null ]
+    [ "_formatter", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a568277b00bef848b3fccbfa7030c435f", null ],
+    [ "formatter_captures", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a209a8a54cf9296197b197d20b11397bf", null ]
 ];

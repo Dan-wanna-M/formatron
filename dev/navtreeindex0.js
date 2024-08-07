@@ -215,6 +215,8 @@ var NAVTREEINDEX0 =
 "classformatron_1_1integrations_1_1RWKV_1_1PIPELINE__ARGS.html#a8f7501ec93400a3fbeadfd87a8886860":[1,0,0,4,1,1,1],
 "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html":[0,0,0,4,1,0],
 "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html":[1,0,0,4,0,0],
+"classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a209a8a54cf9296197b197d20b11397bf":[0,0,0,4,1,0,7],
+"classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a209a8a54cf9296197b197d20b11397bf":[1,0,0,4,0,0,7],
 "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a31967e1c243ae325d5bf288c73e6635e":[0,0,0,4,1,0,1],
 "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a31967e1c243ae325d5bf288c73e6635e":[1,0,0,4,0,0,1],
 "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a568277b00bef848b3fccbfa7030c435f":[0,0,0,4,1,0,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af5ec5643f3c51046cb3b5e73fbb04f2b":[1,0,0,4,2,0,1],
 "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html":[0,0,0,4,4,0],
 "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html":[1,0,0,4,3,0],
-"classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a83ec1613155b800bd9d1b0f012dff371":[0,0,0,4,4,0,4],
-"classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a83ec1613155b800bd9d1b0f012dff371":[1,0,0,4,3,0,4],
-"classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a938cc79008bf81cd8d78681f5a229b89":[0,0,0,4,4,0,0]
+"classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a83ec1613155b800bd9d1b0f012dff371":[0,0,0,4,4,0,4]
 };

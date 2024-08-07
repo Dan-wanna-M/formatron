@@ -23,10 +23,11 @@ var searchData=
   ['formatter_20',['Formatter',['../classformatron_1_1formatter_1_1Formatter.html',1,'formatron::formatter']]],
   ['formatter_21',['formatter',['../classformatron_1_1integrations_1_1RWKV_1_1PIPELINE.html#a363de79042e852aa9e8388507d29265a',1,'formatron::integrations::RWKV::PIPELINE']]],
   ['formatter_2epy_22',['formatter.py',['../formatter_8py.html',1,'']]],
-  ['formatterbase_23',['FormatterBase',['../classformatron_1_1formatter_1_1FormatterBase.html',1,'formatron::formatter']]],
-  ['formatterbuilder_24',['FormatterBuilder',['../classformatron_1_1formatter_1_1FormatterBuilder.html',1,'formatron::formatter']]],
-  ['formatterfilter_25',['FormatterFilter',['../classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html',1,'formatron::integrations::exllamav2']]],
-  ['formatters_5fcaptures_26',['formatters_captures',['../classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a53610e3f3279a603a03848d02a18a7fc',1,'formatron::integrations::transformers::FormattersLogitsProcessor']]],
-  ['formatterslogitsprocessor_27',['FormattersLogitsProcessor',['../classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html',1,'formatron.integrations.transformers.FormattersLogitsProcessor'],['../classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html',1,'formatron.integrations.vllm.FormattersLogitsProcessor']]],
-  ['from_5fjson_28',['from_json',['../classformatron_1_1schemas_1_1pydantic_1_1ClassSchema.html#aec269b72011e216e8f5fefdfa338253a',1,'formatron.schemas.pydantic.ClassSchema.from_json()'],['../classformatron_1_1schemas_1_1schema_1_1Schema.html#a8c45239aaa45574add14fa72fbdf16dc',1,'formatron.schemas.schema.Schema.from_json()']]]
+  ['formatter_5fcaptures_23',['formatter_captures',['../classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a209a8a54cf9296197b197d20b11397bf',1,'formatron::integrations::exllamav2::FormatterFilter']]],
+  ['formatterbase_24',['FormatterBase',['../classformatron_1_1formatter_1_1FormatterBase.html',1,'formatron::formatter']]],
+  ['formatterbuilder_25',['FormatterBuilder',['../classformatron_1_1formatter_1_1FormatterBuilder.html',1,'formatron::formatter']]],
+  ['formatterfilter_26',['FormatterFilter',['../classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html',1,'formatron::integrations::exllamav2']]],
+  ['formatters_5fcaptures_27',['formatters_captures',['../classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a53610e3f3279a603a03848d02a18a7fc',1,'formatron.integrations.transformers.FormattersLogitsProcessor.formatters_captures'],['../classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a9140db28220aa7ecb380bc99815dd925',1,'formatron.integrations.vllm.FormattersLogitsProcessor.formatters_captures']]],
+  ['formatterslogitsprocessor_28',['FormattersLogitsProcessor',['../classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html',1,'formatron.integrations.transformers.FormattersLogitsProcessor'],['../classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html',1,'formatron.integrations.vllm.FormattersLogitsProcessor']]],
+  ['from_5fjson_29',['from_json',['../classformatron_1_1schemas_1_1pydantic_1_1ClassSchema.html#aec269b72011e216e8f5fefdfa338253a',1,'formatron.schemas.pydantic.ClassSchema.from_json()'],['../classformatron_1_1schemas_1_1schema_1_1Schema.html#a8c45239aaa45574add14fa72fbdf16dc',1,'formatron.schemas.schema.Schema.from_json()']]]
 ];
