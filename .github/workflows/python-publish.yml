@@ -46,6 +46,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
           folder: docs/index/
+          target_folder: index/
+          clean: false
 
 
   deploy:
