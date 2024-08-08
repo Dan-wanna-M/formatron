@@ -106,29 +106,33 @@ $(function(){initNavTree('classformatron_1_1extractor_1_1Extractor.html',''); in
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#properties">Properties</a> &#124;
 <a href="classformatron_1_1extractor_1_1Extractor-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">formatron.extractor.Extractor Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>An abstract extractor that extracts data from a string.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for formatron.extractor.Extractor:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="classformatron_1_1extractor_1_1Extractor.png" usemap="#formatron.extractor.Extractor_map" alt=""/>
   <map id="formatron.extractor.Extractor_map" name="formatron.extractor.Extractor_map">
-<area href="classformatron_1_1extractor_1_1ChoiceExtractor.html" alt="formatron.extractor.ChoiceExtractor" shape="rect" coords="0,112,358,136"/>
-<area href="classformatron_1_1extractor_1_1LiteralExtractor.html" alt="formatron.extractor.LiteralExtractor" shape="rect" coords="368,112,726,136"/>
-<area href="classformatron_1_1extractor_1_1RegexExtractor.html" alt="formatron.extractor.RegexExtractor" shape="rect" coords="736,112,1094,136"/>
+<area href="classformatron_1_1extractor_1_1ChoiceExtractor.html" title="An extractor that uses multiple extractors to extract data." alt="formatron.extractor.ChoiceExtractor" shape="rect" coords="0,112,358,136"/>
+<area href="classformatron_1_1extractor_1_1LiteralExtractor.html" title="An extractor that extracts a literal string." alt="formatron.extractor.LiteralExtractor" shape="rect" coords="368,112,726,136"/>
+<area href="classformatron_1_1extractor_1_1RegexExtractor.html" title="An extractor that extracts a string using a regular expression." alt="formatron.extractor.RegexExtractor" shape="rect" coords="736,112,1094,136"/>
 <area href="classformatron_1_1grammar__generators_1_1json__generator_1_1JsonExtractor.html" alt="formatron.grammar_generators.json_generator.JsonExtractor" shape="rect" coords="1104,112,1462,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a569fc7895a82f4d4b59866719219d4e0" id="r_a569fc7895a82f4d4b59866719219d4e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a569fc7895a82f4d4b59866719219d4e0">__init__</a> (self, typing.Optional[str] <a class="el" href="#add83af9dc477dcba7ce2bde8939acf13">capture_name</a>=None)</td></tr>
+<tr class="memitem:a569fc7895a82f4d4b59866719219d4e0" id="r_a569fc7895a82f4d4b59866719219d4e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a569fc7895a82f4d4b59866719219d4e0">__init__</a> (self, typing.Optional[str] <a class="el" href="#abb72e0428a8b5835d075ebd889703e13">capture_name</a>=None)</td></tr>
+<tr class="memdesc:a569fc7895a82f4d4b59866719219d4e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize an extractor.  <br /></td></tr>
 <tr class="separator:a569fc7895a82f4d4b59866719219d4e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9efb2a75cf5fc5e0919c235aa1435469" id="r_a9efb2a75cf5fc5e0919c235aa1435469"><td class="memItemLeft" align="right" valign="top">typing.Optional[tuple[str, typing.Any]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9efb2a75cf5fc5e0919c235aa1435469">extract</a> (self, str input_str)</td></tr>
+<tr class="memdesc:a9efb2a75cf5fc5e0919c235aa1435469"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract data from the input string.  <br /></td></tr>
 <tr class="separator:a9efb2a75cf5fc5e0919c235aa1435469"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe6a1f745fd56540ccff5fdc5d00f0a5" id="r_afe6a1f745fd56540ccff5fdc5d00f0a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe6a1f745fd56540ccff5fdc5d00f0a5">__str__</a> (self)</td></tr>
 <tr class="separator:afe6a1f745fd56540ccff5fdc5d00f0a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,16 +142,18 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a3299dc34a7276ab8ab553513048211d3" id="r_a3299dc34a7276ab8ab553513048211d3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3299dc34a7276ab8ab553513048211d3">_capture_name</a></td></tr>
 <tr class="separator:a3299dc34a7276ab8ab553513048211d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
-Properties</h2></td></tr>
-<tr class="memitem:add83af9dc477dcba7ce2bde8939acf13" id="r_add83af9dc477dcba7ce2bde8939acf13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#add83af9dc477dcba7ce2bde8939acf13">capture_name</a> = property</td></tr>
-<tr class="separator:add83af9dc477dcba7ce2bde8939acf13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a457a8d567a00b28a6cb48e80555b078c" id="r_a457a8d567a00b28a6cb48e80555b078c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a457a8d567a00b28a6cb48e80555b078c">kbnf_representation</a> = property</td></tr>
-<tr class="separator:a457a8d567a00b28a6cb48e80555b078c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Properties</h2></td></tr>
+<tr class="memitem:abb72e0428a8b5835d075ebd889703e13" id="r_abb72e0428a8b5835d075ebd889703e13"><td class="memItemLeft" align="right" valign="top">typing.Optional[str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb72e0428a8b5835d075ebd889703e13">capture_name</a> (self)</td></tr>
+<tr class="memdesc:abb72e0428a8b5835d075ebd889703e13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the capture, or <code>None</code> if the extractor does not capture.  <br /></td></tr>
+<tr class="separator:abb72e0428a8b5835d075ebd889703e13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5c9bec3be4dcc1e4efef0b487c7fafe" id="r_ab5c9bec3be4dcc1e4efef0b487c7fafe"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5c9bec3be4dcc1e4efef0b487c7fafe">kbnf_representation</a> (self)</td></tr>
+<tr class="memdesc:ab5c9bec3be4dcc1e4efef0b487c7fafe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the KBNF representation of the extractor in the generated grammar of a Formatter.  <br /></td></tr>
+<tr class="separator:ab5c9bec3be4dcc1e4efef0b487c7fafe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00014">14</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<div class="textblock"><p>An abstract extractor that extracts data from a string. </p>
+
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00013">13</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a569fc7895a82f4d4b59866719219d4e0" name="a569fc7895a82f4d4b59866719219d4e0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a569fc7895a82f4d4b59866719219d4e0">&#9670;&#160;</a></span>__init__()</h2>
@@ -168,9 +174,17 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Initialize an extractor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">capture_name</td><td>The name of the capture, or <code>None</code> if the extractor does not capture. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p>Reimplemented in <a class="el" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a1a91b31475c7348a3cf9fab97c6d26f0">formatron.extractor.ChoiceExtractor</a>, <a class="el" href="classformatron_1_1extractor_1_1LiteralExtractor.html#ab4da390ad7efaf5a3aab0e0ccb78fab3">formatron.extractor.LiteralExtractor</a>, <a class="el" href="classformatron_1_1extractor_1_1RegexExtractor.html#a9cd154c1f2b97b0c63d6c7c7392f6eae">formatron.extractor.RegexExtractor</a>, and <a class="el" href="classformatron_1_1grammar__generators_1_1json__generator_1_1JsonExtractor.html#a3b54115735a92af19315a5142e56d78b">formatron.grammar_generators.json_generator.JsonExtractor</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00021">21</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00019">19</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 
 </div>
 </div>
@@ -190,7 +204,28 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00055">55</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00064">64</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+
+</div>
+</div>
+<a id="abb72e0428a8b5835d075ebd889703e13" name="abb72e0428a8b5835d075ebd889703e13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb72e0428a8b5835d075ebd889703e13">&#9670;&#160;</a></span>capture_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> typing.Optional[str] formatron.extractor.Extractor.capture_name </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the name of the capture, or <code>None</code> if the extractor does not capture. </p>
+
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00033">33</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 
 </div>
 </div>
@@ -213,9 +248,41 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#acfd6ee4d6b1ea910dd6f89a4c0fca41f">formatron.extractor.ChoiceExtractor</a>, <a class="el" href="classformatron_1_1extractor_1_1LiteralExtractor.html#a41802ff51d41ff1b157adf15214917de">formatron.extractor.LiteralExtractor</a>, <a class="el" href="classformatron_1_1extractor_1_1RegexExtractor.html#ae2faaaed1aa73fa83198538adbdaec43">formatron.extractor.RegexExtractor</a>, and <a class="el" href="classformatron_1_1grammar__generators_1_1json__generator_1_1JsonExtractor.html#a40b2454961a30f25eceafdd2304cd969">formatron.grammar_generators.json_generator.JsonExtractor</a>.</p>
+<p>Extract data from the input string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input_str</td><td>The input string. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The remaining string and the extracted data, or <code>None</code> if the extraction failed. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00041">41</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<p>Reimplemented in <a class="el" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#acfd6ee4d6b1ea910dd6f89a4c0fca41f">formatron.extractor.ChoiceExtractor</a>, <a class="el" href="classformatron_1_1extractor_1_1LiteralExtractor.html#a41802ff51d41ff1b157adf15214917de">formatron.extractor.LiteralExtractor</a>, <a class="el" href="classformatron_1_1extractor_1_1RegexExtractor.html#aeb2a3cd3b84ab0312d555d7bd3f0804a">formatron.extractor.RegexExtractor</a>, and <a class="el" href="classformatron_1_1grammar__generators_1_1json__generator_1_1JsonExtractor.html#a40b2454961a30f25eceafdd2304cd969">formatron.grammar_generators.json_generator.JsonExtractor</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00044">44</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+
+</div>
+</div>
+<a id="ab5c9bec3be4dcc1e4efef0b487c7fafe" name="ab5c9bec3be4dcc1e4efef0b487c7fafe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5c9bec3be4dcc1e4efef0b487c7fafe">&#9670;&#160;</a></span>kbnf_representation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str formatron.extractor.Extractor.kbnf_representation </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the KBNF representation of the extractor in the generated grammar of a Formatter. </p>
+
+<p>Reimplemented in <a class="el" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a665f6049b10db4243c7a659d7c5d709f">formatron.extractor.ChoiceExtractor</a>, <a class="el" href="classformatron_1_1extractor_1_1LiteralExtractor.html#a1eb1f122320e1dd9d56c90b53714554d">formatron.extractor.LiteralExtractor</a>, <a class="el" href="classformatron_1_1extractor_1_1RegexExtractor.html#aef6f5a63fb73c1161973147fe86bc5d8">formatron.extractor.RegexExtractor</a>, and <a class="el" href="classformatron_1_1grammar__generators_1_1json__generator_1_1JsonExtractor.html#a0d607679c4ec35cfbe9db0444ef97a55">formatron.grammar_generators.json_generator.JsonExtractor</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00059">59</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 
 </div>
 </div>
@@ -240,56 +307,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00022">22</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Property Documentation</h2>
-<a id="add83af9dc477dcba7ce2bde8939acf13" name="add83af9dc477dcba7ce2bde8939acf13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add83af9dc477dcba7ce2bde8939acf13">&#9670;&#160;</a></span>capture_name</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">formatron.extractor.Extractor.capture_name = property</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00029">29</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
-
-</div>
-</div>
-<a id="a457a8d567a00b28a6cb48e80555b078c" name="a457a8d567a00b28a6cb48e80555b078c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a457a8d567a00b28a6cb48e80555b078c">&#9670;&#160;</a></span>kbnf_representation</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">formatron.extractor.Extractor.kbnf_representation = property</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00050">50</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00020">20</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 
 </div>
 </div>

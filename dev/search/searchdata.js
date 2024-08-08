@@ -4,9 +4,8 @@ var indexSectionsWithContent =
   1: "cefgjlprs",
   2: "f",
   3: "_cdefgjprstv",
-  4: "_abcefgimnors",
-  5: "_cefpr",
-  6: "acfgkr"
+  4: "_abcefgikmnors",
+  5: "_cefpr"
 };
 
 var indexSectionNames =
@@ -16,8 +15,7 @@ var indexSectionNames =
   2: "namespaces",
   3: "files",
   4: "functions",
-  5: "variables",
-  6: "properties"
+  5: "variables"
 };
 
 var indexSectionLabels =
@@ -27,7 +25,6 @@ var indexSectionLabels =
   2: "Namespaces",
   3: "Files",
   4: "Functions",
-  5: "Variables",
-  6: "Properties"
+  5: "Variables"
 };
 

@@ -104,31 +104,35 @@ $(function(){initNavTree('classformatron_1_1schemas_1_1schema_1_1Schema.html',''
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classformatron_1_1schemas_1_1schema_1_1Schema-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">formatron.schemas.schema.Schema Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>An abstract schema that describes some data.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for formatron.schemas.schema.Schema:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="classformatron_1_1schemas_1_1schema_1_1Schema.png" usemap="#formatron.schemas.schema.Schema_map" alt=""/>
   <map id="formatron.schemas.schema.Schema_map" name="formatron.schemas.schema.Schema_map">
-<area href="classformatron_1_1schemas_1_1pydantic_1_1ClassSchema.html" alt="formatron.schemas.pydantic.ClassSchema" shape="rect" coords="0,112,251,136"/>
+<area href="classformatron_1_1schemas_1_1pydantic_1_1ClassSchema.html" title="A wrapper for pydantic BaseModel that implements the Schema interface." alt="formatron.schemas.pydantic.ClassSchema" shape="rect" coords="0,112,251,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Class Methods</h2></td></tr>
 <tr class="memitem:a98d77a5645545d440b91126926d1aeb8" id="r_a98d77a5645545d440b91126926d1aeb8"><td class="memItemLeft" align="right" valign="top">dict[str, <a class="el" href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html">FieldInfo</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98d77a5645545d440b91126926d1aeb8">fields</a> (cls)</td></tr>
+<tr class="memdesc:a98d77a5645545d440b91126926d1aeb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the fields of the schema.  <br /></td></tr>
 <tr class="separator:a98d77a5645545d440b91126926d1aeb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c45239aaa45574add14fa72fbdf16dc" id="r_a8c45239aaa45574add14fa72fbdf16dc"><td class="memItemLeft" align="right" valign="top">&quot;Schema&quot;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c45239aaa45574add14fa72fbdf16dc">from_json</a> (cls, str json)</td></tr>
+<tr class="memdesc:a8c45239aaa45574add14fa72fbdf16dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a schema from a JSON string.  <br /></td></tr>
 <tr class="separator:a8c45239aaa45574add14fa72fbdf16dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="schema_8py_source.html#l00037">37</a> of file <a class="el" href="schema_8py_source.html">schema.py</a>.</p>
+<div class="textblock"><p>An abstract schema that describes some data. </p>
+
+<p class="definition">Definition at line <a class="el" href="schema_8py_source.html#l00048">48</a> of file <a class="el" href="schema_8py_source.html">schema.py</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a98d77a5645545d440b91126926d1aeb8" name="a98d77a5645545d440b91126926d1aeb8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a98d77a5645545d440b91126926d1aeb8">&#9670;&#160;</a></span>fields()</h2>
@@ -145,9 +149,11 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Get the fields of the schema. </p>
+
 <p>Reimplemented in <a class="el" href="classformatron_1_1schemas_1_1pydantic_1_1ClassSchema.html#add30bb5902bbfd8ff4fa17f197994442">formatron.schemas.pydantic.ClassSchema</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="schema_8py_source.html#l00044">44</a> of file <a class="el" href="schema_8py_source.html">schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="schema_8py_source.html#l00061">61</a> of file <a class="el" href="schema_8py_source.html">schema.py</a>.</p>
 
 </div>
 </div>
@@ -170,9 +176,11 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Create a schema from a JSON string. </p>
+
 <p>Reimplemented in <a class="el" href="classformatron_1_1schemas_1_1pydantic_1_1ClassSchema.html#aec269b72011e216e8f5fefdfa338253a">formatron.schemas.pydantic.ClassSchema</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="schema_8py_source.html#l00053">53</a> of file <a class="el" href="schema_8py_source.html">schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="schema_8py_source.html#l00078">78</a> of file <a class="el" href="schema_8py_source.html">schema.py</a>.</p>
 
 </div>
 </div>
