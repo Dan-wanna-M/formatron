@@ -2,7 +2,7 @@
 
 # Extract tags from Git
 tags=$(git tag)
-
+echo "Tags: $tags"
 # Convert tags to a space-separated string
 mapfile -t tags_array <<< "$tags"
 
