@@ -1,4 +1,4 @@
-"""@package formatron.schemas.dict_inference
+"""
 This module contains utilities for inferring schemas from dictionaries.
 """
 import collections.abc

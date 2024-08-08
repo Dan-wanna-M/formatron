@@ -91,7 +91,7 @@ class RegexExtractor(Extractor):
         self._regex = re.compile(regex)
         self._nonterminal = nonterminal
 
-    def extract(self, input_str: str) -> typing.Optional[tuple[str, re.Match|None]]:
+    def extract(self, input_str: str) -> typing.Optional[tuple[str, re.Match | None]]:
         """
         Extract the string using the regular expression.
 

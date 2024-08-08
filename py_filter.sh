@@ -1,2 +1,2 @@
 #!/bin/bash
-doxypypy -a -c --ns="formatron" $1
+doxypypy -a -c $1

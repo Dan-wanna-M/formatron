@@ -1,4 +1,4 @@
-"""@package formatron.config
+"""
 Configuration classes for Formatron.
 """
 from dataclasses import dataclass
