@@ -81,9 +81,9 @@ $extrastylesheet
   <td id="projectalign">
    <div id="projectname">$projectname<span id="projectnumber">&#160;$projectnumber</span>
      <!-- Version Selector -->
-     <select id="versionSelector" onselect="location = this.value;">
-       <option value="../dev/index.html">dev</option>
+     <select id="versionSelector" onchange="location = this.value;">
        {options}
+       <option value="../dev/index.html">dev</option>
      </select>
    </div>
    <!--BEGIN PROJECT_BRIEF--><div id="projectbrief">$projectbrief</div><!--END PROJECT_BRIEF-->
