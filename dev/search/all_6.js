@@ -23,7 +23,7 @@ var searchData=
   ['formatter_20',['Formatter',['../classformatron_1_1formatter_1_1Formatter.html',1,'formatron::formatter']]],
   ['formatter_21',['formatter',['../classformatron_1_1integrations_1_1RWKV_1_1PIPELINE.html#a363de79042e852aa9e8388507d29265a',1,'formatron::integrations::RWKV::PIPELINE']]],
   ['formatter_2epy_22',['formatter.py',['../formatter_8py.html',1,'']]],
-  ['formatter_5fcaptures_23',['formatter_captures',['../classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a87a6a7b5f9b23b6f89e7061ef89f786d',1,'formatron::integrations::exllamav2::FormatterFilter']]],
+  ['formatter_5fcaptures_23',['formatter_captures',['../classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#ac1b4fa75c9e9009bd9990686efe1c2f5',1,'formatron::integrations::exllamav2::FormatterFilter']]],
   ['formatterbase_24',['FormatterBase',['../classformatron_1_1formatter_1_1FormatterBase.html',1,'formatron::formatter']]],
   ['formatterbuilder_25',['FormatterBuilder',['../classformatron_1_1formatter_1_1FormatterBuilder.html',1,'formatron::formatter']]],
   ['formatterfilter_26',['FormatterFilter',['../classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html',1,'formatron::integrations::exllamav2']]],
