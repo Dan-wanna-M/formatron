@@ -250,6 +250,9 @@ array_end ::= #"{_space_nonterminal}\\]";
 
 
 class JsonExtractor(extractor.Extractor):
+    """
+    An extractor that loads json data to an object from a string.
+    """
     def __init__(self, nonterminal: str, capture_name: typing.Optional[str],
                  to_object: typing.Callable[[str, ], schemas.schema.Schema]):
         """

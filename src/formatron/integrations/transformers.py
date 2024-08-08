@@ -5,13 +5,11 @@ import collections
 import typing
 
 import kbnf
-import transformers
-from transformers import LogitsProcessor, PreTrainedTokenizerBase, LogitsProcessorList, LlamaTokenizer, GPT2Tokenizer, \
-    LlamaTokenizerFast, GPT2TokenizerFast
-
 from config import EngineGenerationConfig
 from formatter import Formatter, FormatterBuilder
-from integrations._utils import get_original_characters, Processors
+from integrations._utils import get_original_characters
+from transformers import LogitsProcessor, PreTrainedTokenizerBase, LogitsProcessorList
+
 
 def create_engine_vocabulary(tokenizer: PreTrainedTokenizerBase) -> kbnf.Vocabulary:
     """

@@ -2,14 +2,13 @@
 This module contains the Formatter class and its related classes.
 """
 import abc
+import re
 import textwrap
 import typing
 from copy import copy
-import re
 
 import kbnf
 from kbnf import AcceptTokenResult, Engine
-from sympy.abc import lamda
 
 import grammar_generators.grammar_generator
 import schemas.schema
