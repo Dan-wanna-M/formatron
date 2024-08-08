@@ -7,4 +7,4 @@ echo "Tags: $tags"
 mapfile -t tags_array <<< "$tags"
 
 # Pass the tags to the Python script
-python docs/header_gen.py --tags "${tags_array[@]}"
+python docs/header_gen.py --current_tag "$1" --tags "${tags_array[@]}"

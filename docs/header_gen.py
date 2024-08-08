@@ -12,7 +12,7 @@ def sort_versions_by_latest(versions):
 
 # Create the parser
 parser = argparse.ArgumentParser(description='Process some tags.')
-
+parser.add_argument('--current_tag', default="", action='store', help='Current tag')
 # Add the tags argument
 parser.add_argument('--tags', default=[], action='store', nargs='*', help='List of tags to process')
 
@@ -24,9 +24,10 @@ print("Tags received:", args.tags)
 
 # filter out empty tags
 args.tags = [tag for tag in args.tags if tag]
-
-options = [fr'<option value="../{i}/index.html">{i}</option>' for i in sort_versions_by_latest(args.tags)]
-
+options = [fr'<option value="../{i}/index.html" {"selected" if i == args.current_tag else ""}>{i}</option>'
+           for i in sort_versions_by_latest(args.tags)]
+if not args.current_tag:
+    options.append(r'<option value="../dev/index.html" selected>dev</option>')
 options = '\n'.join(options)
 
 html = rf"""<!-- HTML header for doxygen 1.11.0-->
@@ -82,10 +83,7 @@ $extrastylesheet
    <div id="projectname">$projectname<span id="projectnumber">&#160;$projectnumber</span>
      <!-- Version Selector -->
      <select id="versionSelector" onchange="location = this.value;">
-       <option value="none" selected disabled hidden>Select an Version</option>
-       <option value="../dev/index.html">dev</option>
        {options}
-       
      </select>
    </div>
    <!--BEGIN PROJECT_BRIEF--><div id="projectbrief">$projectbrief</div><!--END PROJECT_BRIEF-->

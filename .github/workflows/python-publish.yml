@@ -33,7 +33,7 @@ jobs:
           target_folder: ${{ github.ref_name }}/
           pre_build: |
             chmod +x docs/header_gen.sh
-            ./docs/header_gen.sh
+            ./docs/header_gen.sh ${{ github.ref_name }}
             chmod +x py_filter.sh
             export VERSION=${{ github.ref_name }}
             echo "PROJECT_NUMBER = $VERSION" >> Doxyfile
