@@ -82,8 +82,10 @@ $extrastylesheet
    <div id="projectname">$projectname<span id="projectnumber">&#160;$projectnumber</span>
      <!-- Version Selector -->
      <select id="versionSelector" onchange="location = this.value;">
-       {options}
+       <option value="none" selected disabled hidden>Select an Version</option>
        <option value="../dev/index.html">dev</option>
+       {options}
+       
      </select>
    </div>
    <!--BEGIN PROJECT_BRIEF--><div id="projectbrief">$projectbrief</div><!--END PROJECT_BRIEF-->
