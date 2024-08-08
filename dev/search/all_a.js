@@ -1,4 +1,0 @@
-var searchData=
-[
-  ['kbnf_5frepresentation_0',['kbnf_representation',['../classformatron_1_1extractor_1_1Extractor.html#ab5c9bec3be4dcc1e4efef0b487c7fafe',1,'formatron.extractor.Extractor.kbnf_representation()'],['../classformatron_1_1extractor_1_1LiteralExtractor.html#a1eb1f122320e1dd9d56c90b53714554d',1,'formatron.extractor.LiteralExtractor.kbnf_representation()'],['../classformatron_1_1extractor_1_1RegexExtractor.html#aef6f5a63fb73c1161973147fe86bc5d8',1,'formatron.extractor.RegexExtractor.kbnf_representation()'],['../classformatron_1_1extractor_1_1ChoiceExtractor.html#a665f6049b10db4243c7a659d7c5d709f',1,'formatron.extractor.ChoiceExtractor.kbnf_representation()'],['../classformatron_1_1grammar__generators_1_1json__generator_1_1JsonExtractor.html#a0d607679c4ec35cfbe9db0444ef97a55',1,'formatron.grammar_generators.json_generator.JsonExtractor.kbnf_representation()']]]
-];
