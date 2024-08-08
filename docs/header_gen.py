@@ -25,7 +25,7 @@ print("Tags received:", args.tags)
 # filter out empty tags
 args.tags = [tag for tag in args.tags if tag]
 
-options = [fr'<option value="{i}/index.html">{i}</option>' for i in sort_versions_by_latest(args.tags)]
+options = [fr'<option value="../{i}/index.html">{i}</option>' for i in sort_versions_by_latest(args.tags)]
 
 options = '\n'.join(options)
 
@@ -82,7 +82,7 @@ $extrastylesheet
    <div id="projectname">$projectname<span id="projectnumber">&#160;$projectnumber</span>
      <!-- Version Selector -->
      <select id="versionSelector" onchange="location = this.value;">
-       <option value="dev/index.html">dev</option>
+       <option value="../dev/index.html">dev</option>
        {options}
      </select>
    </div>
