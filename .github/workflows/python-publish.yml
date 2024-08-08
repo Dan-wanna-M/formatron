@@ -24,7 +24,7 @@ jobs:
       - name: Install Doxypypy
         run: pip install git+https://github.com/Dan-wanna-M/doxypypy@master --force-reinstall
       - name: Doxygen Deploy Action
-        uses: Dan-Wanna-M/doxygen-github-pages-action@v0.1.4
+        uses: Dan-Wanna-M/doxygen-github-pages-action@v0.1.5
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
@@ -49,7 +49,6 @@ jobs:
 
 
   deploy:
-
     runs-on: ubuntu-latest
 
     steps:
