@@ -25,7 +25,6 @@ class GrammarGenerator(abc.ABC):
         Returns:
             The KBNF grammar string.
         """
-        pass
 
     @abc.abstractmethod
     def get_extractor(self, nonterminal: str, capture_name: typing.Optional[str],
@@ -41,4 +40,3 @@ class GrammarGenerator(abc.ABC):
         Returns:
             The extractor.
         """
-        pass

@@ -28,6 +28,7 @@ class FieldInfo(schemas.schema.FieldInfo):
         """
         return self._annotation
 
+    @property
     def required(self) -> bool:
         """
         Check if the field is required for the schema.

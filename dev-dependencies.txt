@@ -1,1 +1,1 @@
-doxypypy
+git+https://github.com/Dan-wanna-M/doxypypy@master

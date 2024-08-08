@@ -28,7 +28,7 @@ class JsonGenerator(GrammarGenerator):
     - Subclasses of collections.abc.Mapping[str,T] and typing.Mapping[str,T] where T is a supported type,
     - Subclasses of collections.abc.Sequence[T] and typing.Sequence[T] where T is a supported type.
     - tuple[T1,T2,...] where T1,T2,... are supported types. The order, type and number of elements will be preserved.
-    - typing.Literal[x1,x2,...] where x1, x2, ... are instances of int, string, bool or NoneType, or some other typing.Literal[y1,y2,...]
+    - typing.Literal[x1,x2,...] where x1, x2, ... are instances of int, string, bool or NoneType, or another typing.Literal[y1,y2,...]
     - typing.Union[T1,T2,...] where T1,T2,... are supported types.
     - schemas.Schema where all its fields' data types are supported. Recursive schema definitions are supported as well.
     """
@@ -91,9 +91,8 @@ array_end ::= #"{_space_nonterminal}\\]";
             if isinstance(current, schemas.schema.FieldInfo):
                 if current.required:
                     return "", [(current.annotation, nonterminal)]
-                else:
-                    new_nonterminal = f"{nonterminal}_required"
-                    return f"{nonterminal} ::= {new_nonterminal}?;\n", [(current.annotation, new_nonterminal)]
+                new_nonterminal = f"{nonterminal}_required"
+                return f"{nonterminal} ::= {new_nonterminal}?;\n", [(current.annotation, new_nonterminal)]
             return None
 
         def builtin_list(current: typing.Type, nonterminal: str):

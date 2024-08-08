@@ -41,6 +41,7 @@ class FormatterFilter(ExLlamaV2Filter):
     """
     ExLlamaV2Filter that uses a formatter to mask logits.
     """
+
     def __init__(self, model, tokenizer, formatter: Formatter,
                  config: EngineGenerationConfig = None):
         super().__init__(model, tokenizer)
@@ -78,5 +79,5 @@ class FormatterFilter(ExLlamaV2Filter):
         return pass_tokens, end_tokens
 
     @property
-    def formatter_captures(self)->dict[str, typing.Any]:
+    def formatter_captures(self) -> dict[str, typing.Any]:
         return self._formatter.captures
