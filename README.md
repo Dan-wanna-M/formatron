@@ -87,7 +87,7 @@ import transformers
 from formatron.formatter import FormatterBuilder
 from formatron.integrations.transformers import create_formatter_logits_processor_list
 from formatron.schemas.pydantic import ClassSchema
-from grammar_generators.json_generator import JsonGenerator
+from formatron.grammar_generators.json_generator import JsonGenerator
 
 class Goods(ClassSchema):
     name:str
@@ -121,7 +121,7 @@ from transformers import AutoModelForCausalLM
 import transformers
 from formatron.formatter import FormatterBuilder
 from formatron.integrations.transformers import create_formatter_logits_processor_list
-from grammar_generators.json_generator import JsonGenerator
+from formatron.grammar_generators.json_generator import JsonGenerator
 from formatron.schemas.dict_inference import infer_mapping
 
 torch.manual_seed(520)
