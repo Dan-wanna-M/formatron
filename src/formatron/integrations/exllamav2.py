@@ -67,6 +67,9 @@ class FormatterFilter(ExLlamaV2Filter):
             prompt = prefix_str.encode("utf-8")
             self._formatter.accept_bytes(prompt)
 
+    def reset(self)->None:
+        self._formatter.reset()
+
     def feed(self, token: int):
         self._formatter.accept_token(token)
 

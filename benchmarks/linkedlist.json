@@ -1,0 +1,24 @@
+{
+  "sentences": [
+    "LinkedList: 2->6->8",
+    "LinkedList: 5->3->7->1->9",
+    "LinkedList: 4->2->9",
+    "LinkedList: 7->1->8->3->5",
+    "LinkedList: 3->4->6",
+    "LinkedList: 9->5->2->8->7->1",
+    "LinkedList: 1->7->3",
+    "LinkedList: 6->9->1->5",
+    "LinkedList: 8->2",
+    "LinkedList: 5->1->3->6->4",
+    "LinkedList: 4->7->9->2",
+    "LinkedList: 3->8->1",
+    "LinkedList: 2->4->7->9",
+    "LinkedList: 7->5->1->8->6",
+    "LinkedList: 6->3->4",
+    "LinkedList: 9->2->5->7->3->1",
+    "LinkedList: 1->8->6",
+    "LinkedList: 5->7->4->2",
+    "LinkedList: 3->6->9",
+    "LinkedList: 8->4->2->7->5"
+  ]
+}

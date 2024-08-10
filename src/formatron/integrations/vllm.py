@@ -5,6 +5,7 @@ import collections.abc
 import typing
 
 import kbnf
+import torch
 from vllm import LLM
 
 from config import EngineGenerationConfig
@@ -34,6 +35,12 @@ class FormattersLogitsProcessor:
     def formatters_captures(self) -> list[dict[str, typing.Any]]:
         return [f.captures for f in self._formatters]
 
+    def reset(self)->None:
+        for f in self._formatters:
+            f.reset()
+        self._to_next_batch_step()
+        self._last_input_id_length = 0
+
     def _to_next_batch_step(self):
         self._iter = zip(self._formatters, self._configs)
         self._debug_counter = 0
@@ -58,11 +65,13 @@ class FormattersLogitsProcessor:
             self._to_next_batch_step()
             result = next(self._iter)
             self._last_input_id_length += 1
+
         formatter, _ = result
         if len(generated_tokens) != 0:  # accept new token
             input_id = generated_tokens[-1]
             if input_id != self._eos_token_id:
                 formatter.accept_token(input_id)
+
         if formatter.is_completed():
             logits[:] = float("-inf")
             logits[self._eos_token_id] = 0.0

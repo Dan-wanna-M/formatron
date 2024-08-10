@@ -1,0 +1,6 @@
+vllm_address generated 1032 tokens with 40.715563518001495 tps (with warm up)
+vllm_address unconstrained generated 1500 tokens with 42.01920504622742 tps
+linkedlist generated 1262 tokens with 40.568280943625346 tps (with warm up)
+linkedlist unconstrained generated 1337 tokens with 41.946869871332254 tps
+orders generated 4271 tokens with 40.09933827742811 tps (with warm up)
+orders unconstrained generated 4589 tokens with 41.564089177085926 tps

@@ -61,6 +61,11 @@ class FormattersLogitsProcessor(LogitsProcessor):
             f"Number of formatters({len(formatters)}) must match number of configs({len(configs)})"
         self.configs = configs
 
+    def reset(self)->None:
+        self._last_input_id_length = None
+        for f in self._formatters:
+            f.reset()
+
     @property
     def formatters_captures(self)->list[dict[str,typing.Any]]:
         return [f.captures for f in self._formatters]
