@@ -91,6 +91,30 @@ You are a helpful assistant.<|end|>
     # possible output:
     # [{'json': Goods(name='apples', price=14.4, remaining=14)}]
 
+def test_readme_example4(snapshot):
+    from formatron import schemas
+    from formatron.formatter import FormatterBuilder
+    from formatron.grammar_generators.json_generator import JsonGenerator
+    @schemas.pydantic.callable_schema
+    def add(a: int, b: int, /, *, c: int):
+        return a + b + c
+
+    model = AutoModelForCausalLM.from_pretrained("NurtureAI/Meta-Llama-3-8B-Instruct-32k",
+                                                 device_map="cuda",
+                                                 torch_dtype=torch.float16)
+    tokenizer = transformers.AutoTokenizer.from_pretrained("NurtureAI/Meta-Llama-3-8B-Instruct-32k")
+    inputs = tokenizer(["""<|system|>
+    You are a helpful assistant.<|end|>
+    <|user|>a is 1, b is 6 and c is 7. Generate a json containing them.<|end|>
+    <|assistant|>"""], return_tensors="pt").to("cuda")
+    f = FormatterBuilder()
+    f.append_line(f"{f.schema(add, JsonGenerator(), capture_name='json')}")
+    logits_processor = create_formatter_logits_processor_list(tokenizer, f)
+    print(tokenizer.batch_decode(model.generate(**inputs, top_p=0.5, temperature=1,
+                                                max_new_tokens=100, logits_processor=logits_processor)))
+    print(logits_processor[0].formatters_captures)
+    # possible output:
+    # [{'json': 14}]
 
 def test_transformers_batched_inference(snapshot):
     f = FormatterBuilder()
