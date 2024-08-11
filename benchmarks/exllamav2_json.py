@@ -7,7 +7,7 @@ from formatron.formatter import FormatterBuilder
 from formatron.grammar_generators.json_generator import JsonGenerator
 from formatron.integrations.exllamav2 import create_formatter_filter
 
-from benchmarks.utils import Order
+from utils import Order
 from test_grammar_gen import LinkedList
 from utils import Address, BenchResult, Context, log
 

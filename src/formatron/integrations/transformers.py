@@ -2,6 +2,7 @@
 This module integrates the transformers library by providing convenience utilities.
 """
 import collections
+import time
 import typing
 
 import kbnf
@@ -97,7 +98,6 @@ class FormattersLogitsProcessor(LogitsProcessor):
             formatter.compute_allowed_tokens()
             score = scores[i, :]
             new_score = formatter.mask_logits(score)
-
             if score is not new_score:  # Avoid unnecessary copy
                 scores[i, :] = new_score
         return scores
