@@ -1,6 +1,5 @@
+from dataclasses import dataclass
 from typing import Optional
-
-from attr import dataclass
 from formatron.schemas.pydantic import ClassSchema
 
 
@@ -47,3 +46,11 @@ class BenchResult:
 class Context:
     index:int
     tokens:int
+
+def log(func_name:str, data:BenchResult,f):
+    a = f"{func_name} generated {data.t1} tokens with {data.t1 / data.s1} tps (with warm up)\n"
+    b = (f"{func_name} unconstrained generated {data.t2} tokens with"
+          f" {data.t2 / data.s2} tps\n")
+    print(a)
+    print(b)
+    f.writelines([a,b])

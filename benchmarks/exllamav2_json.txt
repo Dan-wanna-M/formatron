@@ -1,0 +1,6 @@
+address_json_exllamav2 generated 1937 tokens with 82.8928200006119 tps (with warm up)
+address_json_exllamav2 unconstrained generated 2000 tokens with 84.3793451234579 tps
+linkedlist_json_exllamav2 generated 558 tokens with 80.73082629409335 tps (with warm up)
+linkedlist_json_exllamav2 unconstrained generated 640 tokens with 88.08959849567171 tps
+orders_json_exllamav2 generated 2976 tokens with 84.07997233781526 tps (with warm up)
+orders_json_exllamav2 unconstrained generated 3200 tokens with 91.83025447237793 tps

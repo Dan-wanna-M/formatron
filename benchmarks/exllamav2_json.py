@@ -1,11 +1,15 @@
+import json
 from timeit import timeit
 
 from exllamav2 import ExLlamaV2, ExLlamaV2Config, ExLlamaV2Cache, ExLlamaV2Tokenizer
-from exllamav2.generator import ExLlamaV2DynamicGenerator
+from exllamav2.generator import ExLlamaV2DynamicGenerator, ExLlamaV2Sampler
 from formatron.formatter import FormatterBuilder
 from formatron.grammar_generators.json_generator import JsonGenerator
 from formatron.integrations.exllamav2 import create_formatter_filter
-from formatron.schemas.pydantic import ClassSchema
+
+from benchmarks.utils import Order
+from test_grammar_gen import LinkedList
+from utils import Address, BenchResult, Context, log
 
 
 def create_exllamav2_6bpw_llama3_8b():
@@ -15,27 +19,66 @@ def create_exllamav2_6bpw_llama3_8b():
     cache = ExLlamaV2Cache(model, max_seq_len=65536, lazy=True)
     model.load_autosplit(cache, progress=True)
     tokenizer = ExLlamaV2Tokenizer(config)
-    f = FormatterBuilder()
-    f.append_line(f"{f.schema(Address, JsonGenerator(), capture_name='json')}")
-    exllama_filter = create_formatter_filter(model, tokenizer, f)
     generator = ExLlamaV2DynamicGenerator(
         model=model,
         cache=cache,
         tokenizer=tokenizer,
     )
-    return generator, exllama_filter
+    return generator
+
+def get_address_filter():
+    f = FormatterBuilder()
+    f.append_line(f"{f.schema(Address, JsonGenerator(), capture_name='json')}")
+    exllama_filter = create_formatter_filter(generator.model, generator.tokenizer, f)
+    return exllama_filter
+
+def get_linkedlist_filter():
+    f = FormatterBuilder()
+    f.append_line(f"{f.schema(LinkedList, JsonGenerator(), capture_name='json')}")
+    exllama_filter = create_formatter_filter(generator.model, generator.tokenizer, f)
+    return exllama_filter
+
+def get_order_filter():
+    f = FormatterBuilder()
+    f.append_line(f"{f.schema(Order, JsonGenerator(), capture_name='json')}")
+    exllama_filter = create_formatter_filter(generator.model, generator.tokenizer, f)
+    return exllama_filter
 
 
-def address_exllamav2():
-    prompt = f"""{system_prompt}I live in 5033 Broccoli street, Houston, Texas, the United States with postal\
- code 66004<|eot_id|><|start_header_id|>assistant<|end_header_id|> Sure! Here is the json: """
+def execute():
+    prompt = f"""{system_prompt}{inputs[context.index]}<|eot_id|><|start_header_id|>assistant<|end_header_id|> Sure! Here is the json: """
     output = generator.generate(
         prompt=prompt,
-        max_new_tokens=100,
+        max_new_tokens=max_new_tokens,
+        gen_settings=settings,
+        decode_special_tokens=True,
         add_bos=False,
-        filters=[exllama_filter]
+        filters=context.filters,
+        completion_only=True,
     )
-    # exllama_filter.reset()
+    context.index += 1
+    if context.filters:
+        context.tokens += len(context.filters[0]._formatter._token_ids)
+    else:
+        assert not output.endswith(generator.tokenizer.eos_token), "Something is wrong"
+        context.tokens += max_new_tokens
+
+def warm_up(f):
+    f()
+    context.index = 0
+    context.tokens = 0
+
+def bench(result:BenchResult, context:Context,func, bench_name:str, f):
+    context.index = 0
+    context.tokens = 0
+    result.s1 = (timeit(func, setup=lambda: warm_up(func), number=len(inputs)))
+    result.t1 = context.tokens
+    context.index = 0
+    context.tokens = 0
+    context.filters = None
+    result.s2 = (timeit(func, number=len(inputs)))
+    result.t2 = context.tokens
+    log(bench_name, result, f)
 
 
 if __name__ == '__main__':
@@ -44,5 +87,21 @@ if __name__ == '__main__':
 You are a helpful AI assistant for information extraction<|eot_id|><|start_header_id|>user<|end_header_id|>
 
 Extract information into json format: """
-    generator, exllama_filter = create_exllamav2_6bpw_llama3_8b()
-    print(f"address_exllamav2: {timeit(address_exllamav2, number=1000, globals=globals())/1000} seconds")
+    data = BenchResult(0, 0, 0, 0)
+    context = Context(0, 0)
+    generator = create_exllamav2_6bpw_llama3_8b()
+    settings = ExLlamaV2Sampler.Settings()
+    settings.disallow_tokens(generator.tokenizer, [generator.tokenizer.eos_token_id])
+    with open("exllamav2_json.txt", "w") as f:
+        inputs = json.load(open("address.json"))["sentences"]
+        context.filters = [get_address_filter()]
+        max_new_tokens = 100
+        bench(data, context, execute, "address_json_exllamav2", f)
+        context.filters = [get_linkedlist_filter()]
+        inputs = json.load(open("linkedlist.json"))["sentences"]
+        max_new_tokens = 32
+        bench(data, context, execute, "linkedlist_json_exllamav2", f)
+        context.filters = [get_order_filter()]
+        inputs = json.load(open("orders.json"))["orders"]
+        max_new_tokens = 160
+        bench(data, context, execute, "orders_json_exllamav2", f)

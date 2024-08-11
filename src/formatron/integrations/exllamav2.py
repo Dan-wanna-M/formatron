@@ -49,6 +49,8 @@ class FormatterFilter(ExLlamaV2Filter):
         if config is None:
             config = EngineGenerationConfig()
         self._config = config
+        self._pass_tokens = set()
+        self._end_tokens = set()
 
     def clone(self, c=None) -> "FormatterFilter":
         if c is None:
@@ -58,10 +60,12 @@ class FormatterFilter(ExLlamaV2Filter):
         c.sequence_str = self.sequence_str
         c._formatter = copy(self._formatter)  # formatter does not have mutable public state anyway
         c._config = deepcopy(self._config)
+        c._pass_tokens = self._pass_tokens
+        c._end_tokens = self._end_tokens
         return c
 
     def begin(self, prefix_str: str) -> None:
-        if self._config.reset_at_beginning and self._formatter.is_completed():
+        if self._config.reset_at_beginning:
             self._formatter.reset()
         if self._config.read_prompt:
             prompt = prefix_str.encode("utf-8")
@@ -74,12 +78,12 @@ class FormatterFilter(ExLlamaV2Filter):
         self._formatter.accept_token(token)
 
     def next(self) -> typing.Tuple[typing.Set[int], typing.Set[int]]:
-        pass_tokens = set()
-        end_tokens = set()
         self._formatter.compute_allowed_tokens()
-        pass_tokens.update(self._formatter.get_allowed_tokens_since_last_computation())
-        end_tokens.update(self._formatter.get_tokens_to_finish_since_last_computation())
-        return pass_tokens, end_tokens
+        self._pass_tokens.clear()
+        self._end_tokens.clear()
+        self._pass_tokens.update(self._formatter.get_allowed_tokens_since_last_computation())
+        self._end_tokens.update(self._formatter.get_tokens_to_finish_since_last_computation())
+        return self._pass_tokens, self._end_tokens
 
     @property
     def formatter_captures(self) -> dict[str, typing.Any]:

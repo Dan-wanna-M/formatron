@@ -20,8 +20,16 @@ schema creation to the first run ends.
 ## vllm
 Default vllm setting are used.
 
-| model           | schema          | constrained(with warm-up) / tps | unconstrained / tps |
-|-----------------|-----------------|---------------------------------|---------------------|
-| Llama3-8B(fp16) | address_json    | 40.72                           | 42.02               |
-| Llama3-8B(fp16) | linkedlist_json | 40.57                           | 41.95               |
-| Llama3-8B(fp16) | order_json      | 40.10                           | 41.56               |
+| model           | schema          | constrained(with warm-up) / tps | unconstrained / tps | overhead per token / ms |
+|-----------------|-----------------|---------------------------------|---------------------|-------------------------|
+| Llama3-8B(fp16) | address_json    | 40.72                           | 42.02               | 0.76                    |
+| Llama3-8B(fp16) | linkedlist_json | 40.57                           | 41.95               | 0.81                    |
+| Llama3-8B(fp16) | order_json      | 40.10                           | 41.56               | 0.88                    |
+## Exllamav2
+Default exllamav2 setting are used.
+
+| model                  | schema          | constrained(with warm-up) / tps | unconstrained / tps | overhead per token / ms |
+|------------------------|-----------------|---------------------------------|---------------------|-------------------------|
+| Llama3-8B(6.0bpw-exl2) | address_json    | 82.89                           | 84.38               | 0.21                    |
+| Llama3-8B(6.0bpw-exl2) | linkedlist_json | 80.73                           | 88.09               | 1.03                    |
+| Llama3-8B(6.0bpw-exl2) | order_json      | 84.08                           | 91.83               | 1.00                    |

@@ -5,7 +5,7 @@ from timeit import timeit
 from formatron.grammar_generators.json_generator import JsonGenerator
 from vllm import LLM, SamplingParams
 
-from utils import Order
+from utils import Order, log
 from utils import LinkedList
 from utils import BenchResult, Context
 from utils import Address
@@ -51,13 +51,7 @@ def warm_up(f):
     context.index = 0
     context.tokens = 0
 
-def log(func_name:str, data:BenchResult,f):
-    a = f"{func_name} generated {data.t1} tokens with {data.t1 / data.s1} tps (with warm up)\n"
-    b = (f"{func_name} unconstrained generated {data.t2} tokens with"
-          f" {data.t2 / data.s2} tps\n")
-    print(a)
-    print(b)
-    f.writelines([a,b])
+
 
 def bench(result:BenchResult, context:Context,func, bench_name:str, f):
     context.index = 0
