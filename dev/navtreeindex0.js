@@ -215,10 +215,14 @@ var NAVTREEINDEX0 =
 "classformatron_1_1integrations_1_1RWKV_1_1PIPELINE__ARGS.html#a8f7501ec93400a3fbeadfd87a8886860":[1,0,0,4,1,1,1],
 "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html":[0,0,0,4,1,0],
 "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html":[1,0,0,4,0,0],
+"classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a0b772378fc24096f824339a161136a77":[0,0,0,4,1,0,8],
+"classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a0b772378fc24096f824339a161136a77":[1,0,0,4,0,0,8],
 "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a31967e1c243ae325d5bf288c73e6635e":[0,0,0,4,1,0,1],
 "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a31967e1c243ae325d5bf288c73e6635e":[1,0,0,4,0,0,1],
-"classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a568277b00bef848b3fccbfa7030c435f":[0,0,0,4,1,0,8],
-"classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a568277b00bef848b3fccbfa7030c435f":[1,0,0,4,0,0,8],
+"classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a370eaf641dd803b2759b4e5fc7f74a1c":[0,0,0,4,1,0,10],
+"classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a370eaf641dd803b2759b4e5fc7f74a1c":[1,0,0,4,0,0,10],
+"classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a568277b00bef848b3fccbfa7030c435f":[0,0,0,4,1,0,9],
+"classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a568277b00bef848b3fccbfa7030c435f":[1,0,0,4,0,0,9],
 "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a6896753ca9ce0cdb5cf998edd379123e":[0,0,0,4,1,0,3],
 "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a6896753ca9ce0cdb5cf998edd379123e":[1,0,0,4,0,0,3],
 "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a6ea0f3a9197afc9dd2b5b808fac2f157":[0,0,0,4,1,0,2],
@@ -245,9 +249,5 @@ var NAVTREEINDEX0 =
 "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a7731ed1ab6807c0de6c29ebfefd6975f":[1,0,0,4,2,0,4],
 "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#ac7d50208421ad68f2d84f237272a9b8b":[0,0,0,4,3,0,2],
 "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#ac7d50208421ad68f2d84f237272a9b8b":[1,0,0,4,2,0,2],
-"classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af1d8e09ffb19047f612446d8aeca06ce":[0,0,0,4,3,0,0],
-"classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af1d8e09ffb19047f612446d8aeca06ce":[1,0,0,4,2,0,0],
-"classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af5ec5643f3c51046cb3b5e73fbb04f2b":[0,0,0,4,3,0,1],
-"classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af5ec5643f3c51046cb3b5e73fbb04f2b":[1,0,0,4,2,0,1],
-"classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af8c5e89c385c336d169f66584e7709ce":[0,0,0,4,3,0,3]
+"classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af1d8e09ffb19047f612446d8aeca06ce":[0,0,0,4,3,0,0]
 };
