@@ -25,6 +25,9 @@ Default vllm setting are used.
 | Llama3-8B(bf16) | address_json    | 40.72                           | 42.02               | 0.76                    |
 | Llama3-8B(bf16) | linkedlist_json | 40.57                           | 41.95               | 0.81                    |
 | Llama3-8B(bf16) | order_json      | 40.10                           | 41.56               | 0.88                    |
+| Llama2-7B(fp16) | address_json    | 46.66                           | 47.65               | 0.45                    |
+| Llama2-7B(fp16) | linkedlist_json | 46.55                           | 47.68               | 0.51                    |
+| Llama2-7B(fp16) | order_json      | 45.76                           | 46.81               | 0.49                    |
 ## Exllamav2
 Default exllamav2 setting are used.
 

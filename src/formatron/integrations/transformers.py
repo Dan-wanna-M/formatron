@@ -2,14 +2,14 @@
 This module integrates the transformers library by providing convenience utilities.
 """
 import collections
-import time
 import typing
 
 import kbnf
+from transformers import LogitsProcessor, PreTrainedTokenizerBase, LogitsProcessorList
+
 from config import EngineGenerationConfig
 from formatter import Formatter, FormatterBuilder
 from integrations._utils import get_original_characters
-from transformers import LogitsProcessor, PreTrainedTokenizerBase, LogitsProcessorList
 
 
 def create_engine_vocabulary(tokenizer: PreTrainedTokenizerBase) -> kbnf.Vocabulary:
@@ -77,7 +77,7 @@ class FormattersLogitsProcessor(LogitsProcessor):
         if self._last_input_id_length is None:  # First iteration
             self._last_input_id_length = input_ids.shape[1]
             for formatter, config, prompt in zip(self._formatters, self.configs, input_ids):
-                if config.reset_at_beginning and formatter.is_completed():
+                if config.reset_at_beginning:
                     formatter.reset()
                 if config.read_prompt:
                     for token in prompt:

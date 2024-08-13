@@ -5,7 +5,6 @@ import collections.abc
 import typing
 
 import kbnf
-import torch
 from vllm import LLM
 
 from config import EngineGenerationConfig
