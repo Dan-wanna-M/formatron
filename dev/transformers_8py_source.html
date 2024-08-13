@@ -112,14 +112,14 @@ $(function(){initNavTree('transformers_8py_source.html',''); initResizable(true)
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="stringliteral">This module integrates the transformers library by providing convenience utilities.</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">import</span> collections</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">import</span> time</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">import</span> typing</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">import</span> kbnf</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">from</span> config <span class="keyword">import</span> EngineGenerationConfig</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">from</span> formatter <span class="keyword">import</span> Formatter, FormatterBuilder</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">from</span> integrations._utils <span class="keyword">import</span> get_original_characters</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">from</span> transformers <span class="keyword">import</span> LogitsProcessor, PreTrainedTokenizerBase, LogitsProcessorList</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">import</span> typing</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">import</span> kbnf</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">from</span> transformers <span class="keyword">import</span> LogitsProcessor, PreTrainedTokenizerBase, LogitsProcessorList</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">from</span> config <span class="keyword">import</span> EngineGenerationConfig</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">from</span> formatter <span class="keyword">import</span> Formatter, FormatterBuilder</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">from</span> integrations._utils <span class="keyword">import</span> get_original_characters</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1transformers.html#a1e2bb52e2c35fb3592fbc9fcff06f41a">create_engine_vocabulary</a>(tokenizer: PreTrainedTokenizerBase) -&gt; kbnf.Vocabulary:</div>
@@ -199,7 +199,7 @@ $(function(){initNavTree('transformers_8py_source.html',''); initResizable(true)
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            self.<a class="code hl_variable" href="classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a24c02e28fdbae4450af7527f93400fa7">_last_input_id_length</a> = input_ids.shape[1]</div>
 <div class="foldopen" id="foldopen00079" data-start="" data-end="">
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#ac7d50208421ad68f2d84f237272a9b8b">   79</a></span>            <span class="keywordflow">for</span> formatter, config, prompt <span class="keywordflow">in</span> zip(self.<a class="code hl_variable" href="classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a50a0787df5f246965db8481f0700d0b4">_formatters</a>, self.<a class="code hl_variable" href="classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a598fc8c32fb2670796d4ae2186f8a134">configs</a>, input_ids):</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                <span class="keywordflow">if</span> config.reset_at_beginning <span class="keywordflow">and</span> formatter.is_completed():</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                <span class="keywordflow">if</span> config.reset_at_beginning:</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                    formatter.reset()</div>
 </div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                <span class="keywordflow">if</span> config.read_prompt:</div>
