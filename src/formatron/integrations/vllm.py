@@ -64,8 +64,9 @@ class FormattersLogitsProcessor:
             self._to_next_batch_step()
             result = next(self._iter)
             self._last_input_id_length += 1
-
         formatter, _ = result
+        while formatter.is_completed():
+            formatter, _ = next(self._iter)
         if len(generated_tokens) != 0:  # accept new token
             input_id = generated_tokens[-1]
             if input_id != self._eos_token_id:
@@ -73,7 +74,7 @@ class FormattersLogitsProcessor:
 
         if formatter.is_completed():
             logits[:] = float("-inf")
-            logits[self._eos_token_id] = 0.0
+            logits[self._eos_token_id] = 1000
             return logits
         formatter.compute_allowed_tokens()
         logits = formatter.mask_logits(logits)

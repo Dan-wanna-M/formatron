@@ -1,12 +1,12 @@
-llama3_8b_vllm_address generated 1085 tokens with 40.8469097124382 tps (with warm up)
-llama3_8b_vllm_address unconstrained generated 1526 tokens with 41.92947897884734 tps
-llama3_8b_linkedlist generated 1252 tokens with 40.53841940713149 tps (with warm up)
-llama3_8b_linkedlist unconstrained generated 1389 tokens with 41.83142077141228 tps
-llama3_8b_orders generated 4266 tokens with 40.03391057585299 tps (with warm up)
-llama3_8b_orders unconstrained generated 4595 tokens with 41.45157671971401 tps
-llama2_7b_vllm_address generated 1755 tokens with 46.537152877353094 tps (with warm up)
-llama2_7b_vllm_address unconstrained generated 1702 tokens with 47.51143248721739 tps
-llama2_7b_linkedlist generated 1918 tokens with 46.50518276029844 tps (with warm up)
-llama2_7b_linkedlist unconstrained generated 1903 tokens with 47.51484558427169 tps
-llama2_7b_orders generated 5073 tokens with 45.68708609099978 tps (with warm up)
-llama2_7b_orders unconstrained generated 5110 tokens with 46.65271793400345 tps
+llama3_8b_vllm_address generated 1085 tokens with 41.09999767701784 tps (with warm up)
+llama3_8b_vllm_address unconstrained generated 1526 tokens with 41.968252244152325 tps
+llama3_8b_linkedlist generated 1252 tokens with 40.797074516684404 tps (with warm up)
+llama3_8b_linkedlist unconstrained generated 1389 tokens with 41.91172085238663 tps
+llama3_8b_orders generated 4266 tokens with 40.24421333602719 tps (with warm up)
+llama3_8b_orders unconstrained generated 4595 tokens with 41.520316679742486 tps
+llama2_7b_vllm_address generated 1175 tokens with 46.92316431466862 tps (with warm up)
+llama2_7b_vllm_address unconstrained generated 1751 tokens with 47.68570809701806 tps
+llama2_7b_linkedlist generated 1288 tokens with 46.79789280862108 tps (with warm up)
+llama2_7b_linkedlist unconstrained generated 1945 tokens with 47.71323389337299 tps
+llama2_7b_orders generated 4207 tokens with 45.96312899147878 tps (with warm up)
+llama2_7b_orders unconstrained generated 5112 tokens with 46.83597327628955 tps

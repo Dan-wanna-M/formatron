@@ -1,5 +1,6 @@
 import re
 import typing
+from functools import lru_cache
 
 
 def _multiple_replace(replacements, text):
@@ -17,15 +18,12 @@ def _autodetect_processors(vocab: typing.Dict[str, int]):
     llama_present = any(i.find('<0xF0>') != -1 for i in vocab.keys())
     underscore_present = (len([1 for i in vocab.keys() if i.find('\u2581') != -1]) / len(vocab)) > 0.2
     g_present = (len([1 for i in vocab.keys() if i.find('\u0120') != -1]) / len(vocab)) > 0.2
-    c_present = any(i.find('\u010A') != -1 for i in vocab.keys())
     if llama_present:
         result.add("<0xHH>")
     if underscore_present:
         result.add("sentencepiece")
     elif g_present:
         result.add("dot_G")
-    if c_present:
-        result.add("dot_C")
     return result
 
 
@@ -36,9 +34,7 @@ def get_original_characters(vocab: typing.Dict[str, int]) -> typing.Dict[bytes, 
         if i == "sentencepiece":
             old_char_to_new_char["\u2581".encode("UTF-8")] = b" "
         elif i == "dot_G":
-            old_char_to_new_char["\u0120".encode("UTF-8")] = b" "
-        elif i == "dot_C":
-            old_char_to_new_char["\u010A".encode("UTF-8")] = b"\n"
+            old_char_to_new_char.update(huggingface_bytelevel_decoder())
         elif i == "<0xHH>":
             for j in range(256):
                 old_char_to_new_char[("<0x" + f"{j:02x}".upper() + ">").encode("UTF-8")] = bytes([j])
@@ -51,3 +47,22 @@ def get_original_characters(vocab: typing.Dict[str, int]) -> typing.Dict[bytes, 
         new_k = _multiple_replace(old_char_to_new_char, k)
         new_vocab[new_k] = token_id
     return new_vocab
+
+
+@lru_cache()
+def huggingface_bytelevel_decoder():
+    """
+    I hate legacy code.
+    """
+    bs = list(range(ord("!"), ord("~")+1))+list(range(ord("¡"), ord("¬")+1))+list(range(ord("®"), ord("ÿ")+1))
+    cs = bs[:]
+    n = 0
+    for b in range(2**8):
+        if b not in bs:
+            bs.append(b)
+            cs.append(2**8+n)
+            n += 1
+    cs = [chr(n).encode("UTF-8") for n in cs]
+    for i in range(len(bs)):
+        bs[i] = bytes([bs[i]])
+    return dict(zip(cs, bs))

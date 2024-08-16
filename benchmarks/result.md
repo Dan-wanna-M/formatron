@@ -22,12 +22,12 @@ Default vllm setting are used.
 
 | model           | schema          | constrained(with warm-up) / tps | unconstrained / tps | overhead per token / ms |
 |-----------------|-----------------|---------------------------------|---------------------|-------------------------|
-| Llama3-8B(bf16) | address_json    | 40.85                           | 41.93               | 0.63                    |
-| Llama3-8B(bf16) | linkedlist_json | 40.54                           | 41.83               | 0.76                    |
-| Llama3-8B(bf16) | order_json      | 40.03                           | 41.45               | 0.86                    |
-| Llama2-7B(fp16) | address_json    | 46.54                           | 47.51               | 0.44                    |
-| Llama2-7B(fp16) | linkedlist_json | 46.50                           | 47.51               | 0.46                    |
-| Llama2-7B(fp16) | order_json      | 45.69                           | 46.65               | 0.45                    |
+| Llama3-8B(bf16) | address_json    | 41.10                           | 41.97               | 0.50                    |
+| Llama3-8B(bf16) | linkedlist_json | 40.80                           | 41.91               | 0.65                    |
+| Llama3-8B(bf16) | order_json      | 40.24                           | 41.52               | 0.77                    |
+| Llama2-7B(fp16) | address_json    | 46.92                           | 47.69               | 0.34                    |
+| Llama2-7B(fp16) | linkedlist_json | 46.80                           | 47.71               | 0.41                    |
+| Llama2-7B(fp16) | order_json      | 45.96                           | 46.84               | 0.41                    |
 ## Exllamav2
 Default exllamav2 setting are used.
 
