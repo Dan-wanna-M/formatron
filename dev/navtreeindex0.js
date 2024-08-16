@@ -8,8 +8,9 @@ var NAVTREEINDEX0 =
 "__utils_8py.html":[2,0,0,0,1,1],
 "__utils_8py.html#a50a91803c9f84eddfd3209f611ca1f5e":[2,0,0,0,1,1,2],
 "__utils_8py.html#a76ded8fc3ee5ad369ec55b595ae74153":[2,0,0,0,1,1,0],
+"__utils_8py.html#a91dd89b0d6aecbea162244c5592f374b":[2,0,0,0,1,1,3],
 "__utils_8py.html#a97325e0e6105cf7c28dc5d535397239c":[2,0,0,0,1,1,1],
-"__utils_8py.html#ad5e049a7fd2978958881877de9eb6c1a":[2,0,0,0,1,1,3],
+"__utils_8py.html#ad5e049a7fd2978958881877de9eb6c1a":[2,0,0,0,1,1,4],
 "__utils_8py_source.html":[2,0,0,0,1,1],
 "annotated.html":[1,0],
 "classes.html":[1,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a7731ed1ab6807c0de6c29ebfefd6975f":[0,0,0,4,3,0,4],
 "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a7731ed1ab6807c0de6c29ebfefd6975f":[1,0,0,4,2,0,4],
 "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#ac7d50208421ad68f2d84f237272a9b8b":[0,0,0,4,3,0,2],
-"classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#ac7d50208421ad68f2d84f237272a9b8b":[1,0,0,4,2,0,2],
-"classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af1d8e09ffb19047f612446d8aeca06ce":[0,0,0,4,3,0,0]
+"classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#ac7d50208421ad68f2d84f237272a9b8b":[1,0,0,4,2,0,2]
 };

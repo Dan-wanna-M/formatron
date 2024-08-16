@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af1d8e09ffb19047f612446d8aeca06ce":[0,0,0,4,3,0,0],
 "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af1d8e09ffb19047f612446d8aeca06ce":[1,0,0,4,2,0,0],
 "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af5ec5643f3c51046cb3b5e73fbb04f2b":[0,0,0,4,3,0,1],
 "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af5ec5643f3c51046cb3b5e73fbb04f2b":[1,0,0,4,2,0,1],
@@ -117,8 +118,9 @@ var NAVTREEINDEX1 =
 "namespaceformatron_1_1integrations_1_1__utils.html":[0,0,0,4,0],
 "namespaceformatron_1_1integrations_1_1__utils.html#a50a91803c9f84eddfd3209f611ca1f5e":[0,0,0,4,0,2],
 "namespaceformatron_1_1integrations_1_1__utils.html#a76ded8fc3ee5ad369ec55b595ae74153":[0,0,0,4,0,0],
+"namespaceformatron_1_1integrations_1_1__utils.html#a91dd89b0d6aecbea162244c5592f374b":[0,0,0,4,0,3],
 "namespaceformatron_1_1integrations_1_1__utils.html#a97325e0e6105cf7c28dc5d535397239c":[0,0,0,4,0,1],
-"namespaceformatron_1_1integrations_1_1__utils.html#ad5e049a7fd2978958881877de9eb6c1a":[0,0,0,4,0,3],
+"namespaceformatron_1_1integrations_1_1__utils.html#ad5e049a7fd2978958881877de9eb6c1a":[0,0,0,4,0,4],
 "namespaceformatron_1_1integrations_1_1exllamav2.html":[0,0,0,4,1],
 "namespaceformatron_1_1integrations_1_1exllamav2.html#a8fb6a829f6fb28c956693fb2e4b39b63":[0,0,0,4,1,2],
 "namespaceformatron_1_1integrations_1_1exllamav2.html#ab73e373da3d117082bfcb5e4020e0358":[0,0,0,4,1,1],
