@@ -1,12 +1,12 @@
-llama3_8b_vllm_address generated 1085 tokens with 40.811995725723065 tps (with warm up)
-llama3_8b_vllm_address unconstrained generated 1526 tokens with 41.99365646425085 tps
-llama3_8b_linkedlist generated 1252 tokens with 40.58724636960033 tps (with warm up)
-llama3_8b_linkedlist unconstrained generated 1389 tokens with 41.977055386201535 tps
-llama3_8b_orders generated 4266 tokens with 40.109222217293876 tps (with warm up)
-llama3_8b_orders unconstrained generated 4595 tokens with 41.5902565932466 tps
-llama2_7b_vllm_address generated 1571 tokens with 46.65812840219695 tps (with warm up)
-llama2_7b_vllm_address unconstrained generated 1748 tokens with 47.65099657371631 tps
-llama2_7b_linkedlist generated 1648 tokens with 46.55372314285624 tps (with warm up)
-llama2_7b_linkedlist unconstrained generated 1917 tokens with 47.682641280112215 tps
-llama2_7b_orders generated 5120 tokens with 45.76177824108742 tps (with warm up)
-llama2_7b_orders unconstrained generated 5114 tokens with 46.81601673468687 tps
+llama3_8b_vllm_address generated 1085 tokens with 40.8469097124382 tps (with warm up)
+llama3_8b_vllm_address unconstrained generated 1526 tokens with 41.92947897884734 tps
+llama3_8b_linkedlist generated 1252 tokens with 40.53841940713149 tps (with warm up)
+llama3_8b_linkedlist unconstrained generated 1389 tokens with 41.83142077141228 tps
+llama3_8b_orders generated 4266 tokens with 40.03391057585299 tps (with warm up)
+llama3_8b_orders unconstrained generated 4595 tokens with 41.45157671971401 tps
+llama2_7b_vllm_address generated 1755 tokens with 46.537152877353094 tps (with warm up)
+llama2_7b_vllm_address unconstrained generated 1702 tokens with 47.51143248721739 tps
+llama2_7b_linkedlist generated 1918 tokens with 46.50518276029844 tps (with warm up)
+llama2_7b_linkedlist unconstrained generated 1903 tokens with 47.51484558427169 tps
+llama2_7b_orders generated 5073 tokens with 45.68708609099978 tps (with warm up)
+llama2_7b_orders unconstrained generated 5110 tokens with 46.65271793400345 tps

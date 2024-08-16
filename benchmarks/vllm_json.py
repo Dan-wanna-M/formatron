@@ -32,7 +32,6 @@ def get_vllm_address():
     f = FormatterBuilder()
     f.append_line(f"```json\n{f.schema(Address, JsonGenerator(), capture_name='json')}```")
     logits_processor = create_formatters_logits_processor(llm, [f])
-    print(llm.get_tokenizer().vocab_size)
     sampling_params = SamplingParams(temperature=0.8, top_p=0.95,max_tokens=100, logits_processors=[logits_processor])
     return sampling_params
 
@@ -81,6 +80,8 @@ if __name__ == "__main__":
 
                 Extract information into json format: """
         tail = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+        import os
+        os.environ["CUDA_VISIBLE_DEVICES"] = "1"
         llm = LLM(model="NurtureAI/Meta-Llama-3-8B-Instruct-32k", max_model_len=4096)
         inputs = json.load(open("address.json"))["sentences"]
         sampling_params = get_vllm_address()

@@ -73,18 +73,22 @@ if __name__ == "__main__":
     You are a helpful AI assistant for information extraction.<|eot_id|><|start_header_id|>user<|end_header_id|>
 
     Extract information into json format: """
-    model, tokenizer = get_llama3_8b_tokenizer_and_model()
+
+
     data = BenchResult(0, 0, 0, 0)
     context = Context(0, 0)
     with open("transformers_json.txt", "w") as f:
-        max_new_tokens = 50
-        inputs = json.load(open("address.json"))["sentences"]
-        logits_processor = get_address_schema()
-        bench(data,context,execute, "address_json", f)
-        inputs = json.load(open("linkedlist.json"))["sentences"]
-        logits_processor = get_linkedlist_schema()
-        max_new_tokens = 200
-        bench(data,context,execute, "linkedlist_json", f)
-        inputs = json.load(open("orders.json"))["orders"]
-        logits_processor = get_order_schema()
-        bench(data, context, execute, "order_json", f)
+        model, tokenizer = get_llama3_8b_tokenizer_and_model()
+        with torch.no_grad():
+            model.eval()
+            max_new_tokens = 50
+            inputs = json.load(open("address.json"))["sentences"]
+            logits_processor = get_address_schema()
+            bench(data,context,execute, "address_json", f)
+            inputs = json.load(open("linkedlist.json"))["sentences"]
+            logits_processor = get_linkedlist_schema()
+            max_new_tokens = 200
+            bench(data,context,execute, "linkedlist_json", f)
+            inputs = json.load(open("orders.json"))["orders"]
+            logits_processor = get_order_schema()
+            bench(data, context, execute, "order_json", f)

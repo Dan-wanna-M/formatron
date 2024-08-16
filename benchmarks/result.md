@@ -22,12 +22,12 @@ Default vllm setting are used.
 
 | model           | schema          | constrained(with warm-up) / tps | unconstrained / tps | overhead per token / ms |
 |-----------------|-----------------|---------------------------------|---------------------|-------------------------|
-| Llama3-8B(bf16) | address_json    | 40.72                           | 42.02               | 0.76                    |
-| Llama3-8B(bf16) | linkedlist_json | 40.57                           | 41.95               | 0.81                    |
-| Llama3-8B(bf16) | order_json      | 40.10                           | 41.56               | 0.88                    |
-| Llama2-7B(fp16) | address_json    | 46.66                           | 47.65               | 0.45                    |
-| Llama2-7B(fp16) | linkedlist_json | 46.55                           | 47.68               | 0.51                    |
-| Llama2-7B(fp16) | order_json      | 45.76                           | 46.81               | 0.49                    |
+| Llama3-8B(bf16) | address_json    | 40.85                           | 41.93               | 0.63                    |
+| Llama3-8B(bf16) | linkedlist_json | 40.54                           | 41.83               | 0.76                    |
+| Llama3-8B(bf16) | order_json      | 40.03                           | 41.45               | 0.86                    |
+| Llama2-7B(fp16) | address_json    | 46.54                           | 47.51               | 0.44                    |
+| Llama2-7B(fp16) | linkedlist_json | 46.50                           | 47.51               | 0.46                    |
+| Llama2-7B(fp16) | order_json      | 45.69                           | 46.65               | 0.45                    |
 ## Exllamav2
 Default exllamav2 setting are used.
 
@@ -39,13 +39,10 @@ Default exllamav2 setting are used.
 ## Transformers
 Default transformers setting with flash attention v2 enabled.
 
-The mysterious performance drop in huggingface integration is very interesting. 
-I currently pinpoint it to the performance difference in `mask_logits` 
-which simply use the torch.tensor\[indices\]=-inf API. Further investigations are needed
-to know what exactly is messing with us.
+The mysterious performance drop in huggingface integration is very interesting.
 
 | model           | schema          | constrained(with warm-up) / tps | unconstrained / tps | overhead per token / ms |
 |-----------------|-----------------|---------------------------------|---------------------|-------------------------|
-| Llama3-8B(bf16) | address_json    | 29.33                           | 38.64               | 8.21                    |
-| Llama3-8B(bf16) | linkedlist_json | 25.67                           | 38.65               | 13.1                    |
-| Llama3-8B(bf16) | order_json      | 26.48                           | 38.09               | 11.5                    |
+| Llama3-8B(bf16) | address_json    | 27.73                           | 32.07               | 4.88                    |
+| Llama3-8B(bf16) | linkedlist_json | 26.11                           | 32.13               | 7.17                    |
+| Llama3-8B(bf16) | order_json      | 26.36                           | 31.66               | 6.35                    |

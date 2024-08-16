@@ -1,6 +1,6 @@
-address_json generated 803 tokens with 29.326515624000265 tps (with warm up)
-address_json unconstrained generated 1000 tokens with 38.64387198495073 tps
-linkedlist_json generated 1051 tokens with 25.666082456335943 tps (with warm up)
-linkedlist_json unconstrained generated 1225 tokens with 38.6474067583602 tps
-order_json generated 3466 tokens with 26.484230265804978 tps (with warm up)
-order_json unconstrained generated 3969 tokens with 38.09129447191445 tps
+address_json generated 803 tokens with 27.73133365441571 tps (with warm up)
+address_json unconstrained generated 1000 tokens with 32.06941835850326 tps
+linkedlist_json generated 1051 tokens with 26.10733210624505 tps (with warm up)
+linkedlist_json unconstrained generated 1225 tokens with 32.128672426385975 tps
+order_json generated 3466 tokens with 26.364491518684723 tps (with warm up)
+order_json unconstrained generated 3969 tokens with 31.66292436079728 tps
