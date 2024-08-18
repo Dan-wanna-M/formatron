@@ -1,3 +1,4 @@
+import gc
 import json
 from timeit import timeit
 
@@ -21,6 +22,15 @@ def get_llama3_8b_tokenizer_and_model():
     model.generation_config.pad_token_id = tokenizer.eos_token_id
     return model, tokenizer
 
+def get_llama2_7b_tokenizer_and_model():
+    model = AutoModelForCausalLM.from_pretrained("togethercomputer/LLaMA-2-7B-32K",
+                                                 device_map="cuda",
+                                                 torch_dtype=torch.float16,
+                                                 attn_implementation="flash_attention_2")
+    tokenizer = AutoTokenizer.from_pretrained("togethercomputer/LLaMA-2-7B-32K")
+    model.generation_config.pad_token_id = tokenizer.eos_token_id
+    return model, tokenizer
+
 def get_address_schema():
     f = FormatterBuilder()
     f.append_line(f"{f.schema(Address, JsonGenerator(), capture_name='json')}")
@@ -38,7 +48,7 @@ def get_order_schema():
 
 def execute():
     prompts = [
-        f"{system_prompt}{inputs[context.index]}<|eot_id|><|start_header_id|>assistant<|end_header_id|>",
+        f"{system_prompt}{inputs[context.index]}{tail}",
     ]
     prompts = tokenizer(prompts, return_tensors='pt').to(model.device)
     input_len = prompts.input_ids.shape[-1]
@@ -68,27 +78,49 @@ def bench(result:BenchResult, context:Context,func, bench_name:str, f):
     log(bench_name, result, f)
 
 if __name__ == "__main__":
-    system_prompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-
-    You are a helpful AI assistant for information extraction.<|eot_id|><|start_header_id|>user<|end_header_id|>
-
-    Extract information into json format: """
-
-
     data = BenchResult(0, 0, 0, 0)
     context = Context(0, 0)
     with open("transformers_json.txt", "w") as f:
-        model, tokenizer = get_llama3_8b_tokenizer_and_model()
         with torch.no_grad():
+            system_prompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+            You are a helpful AI assistant for information extraction.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+            Extract information into json format: """
+            tail = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+            model, tokenizer = get_llama3_8b_tokenizer_and_model()
             model.eval()
             max_new_tokens = 50
             inputs = json.load(open("address.json"))["sentences"]
             logits_processor = get_address_schema()
-            bench(data,context,execute, "address_json", f)
+            bench(data,context,execute, "llama3_8b_address_json", f)
             inputs = json.load(open("linkedlist.json"))["sentences"]
             logits_processor = get_linkedlist_schema()
             max_new_tokens = 200
-            bench(data,context,execute, "linkedlist_json", f)
+            bench(data,context,execute, "llama3_8b_linkedlist_json", f)
             inputs = json.load(open("orders.json"))["orders"]
             logits_processor = get_order_schema()
-            bench(data, context, execute, "order_json", f)
+            bench(data, context, execute, "llama3_8b_order_json", f)
+            system_prompt = """[INST]
+                        You are a helpful AI assistant for information extraction.
+
+                        Extract information into json format: """
+            tail = "[/INST]"
+            del model
+            del tokenizer
+            gc.collect()
+            torch.cuda.empty_cache()
+            model, tokenizer = get_llama2_7b_tokenizer_and_model()
+            model.eval()
+            max_new_tokens = 50
+            inputs = json.load(open("address.json"))["sentences"]
+            logits_processor = get_address_schema()
+            bench(data, context, execute, "llama2_7b_address_json", f)
+            max_new_tokens = 30
+            inputs = json.load(open("linkedlist.json"))["sentences"]
+            logits_processor = get_linkedlist_schema()
+            max_new_tokens = 200
+            bench(data, context, execute, "llama2_7b_linkedlist_json", f)
+            inputs = json.load(open("orders.json"))["orders"]
+            logits_processor = get_order_schema()
+            bench(data, context, execute, "llama2_7b_order_json", f)

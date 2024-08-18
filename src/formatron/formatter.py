@@ -123,9 +123,6 @@ class Formatter(FormatterBase):
     def get_allowed_tokens_since_last_computation(self) -> typing.Sequence[int]:
         return self._engine.get_allowed_token_ids_from_last_computation()
 
-    def get_tokens_to_finish_since_last_computation(self) -> typing.Sequence[int]:
-        return self._engine.get_token_ids_to_finish_from_last_computation()
-
     def is_completed(self) -> bool:
         return self._engine.is_finished()
 
@@ -302,28 +299,22 @@ class FormatterBuilder:
                                    lambda nonterminal: grammar_generator.generate(schema, nonterminal))
 
     def str(self, *, stop: typing.Union[str, list[str]] = None,
-            not_contain: typing.Union[str, list[str], None] = None,
             capture_name: typing.Optional[str] = None) -> RegexExtractor:
         """
         Create a string extractor.
         :param stop: The strings for the extractors to stop at. They will be included in text generation and extraction.
-        :param not_contain: The strings that should not be included in the generation.
-         They will not be included in the generation and extraction.
         :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
         :return: The string extractor.
         """
         stop = [stop] if isinstance(stop, str) else stop or []
-        not_contain = [not_contain] if isinstance(not_contain, str) else not_contain or []
         nonterminal = self._create_nonterminal(capture_name, "str")
-        if not stop and not not_contain:
+        if not stop:
             capture_regex = ".*"
             nonterminal_regex = "#'.*'"
         else:
-            capture_regex = f".*?(?:{'|'.join(map(re.escape, stop))})"
-            excepted = f"{nonterminal}_excepted"
-            end = f"({'|'.join(map(repr, stop))})" if stop else ""
-            nonterminal_regex = f"except!({excepted}){end}"
-            self._rules.append(f"{excepted} ::= {' | '.join(map(repr, stop + not_contain))};")
+            backslash = '\\'
+            capture_regex = f".*?(?:{'|'.join([i.replace(backslash, backslash*2) for i in map(re.escape, stop)])})"
+            nonterminal_regex = f"#e'{capture_regex}'"
         self._rules.append(f"{nonterminal} ::= {nonterminal_regex};")
         self._nonterminal_to_extractor[nonterminal] = RegexExtractor(capture_regex, capture_name, nonterminal)
         return self._nonterminal_to_extractor[nonterminal]

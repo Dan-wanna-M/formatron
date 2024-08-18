@@ -5,6 +5,7 @@ import collections
 import typing
 
 import kbnf
+import torch
 from transformers import LogitsProcessor, PreTrainedTokenizerBase, LogitsProcessorList
 
 from config import EngineGenerationConfig
@@ -89,15 +90,14 @@ class FormattersLogitsProcessor(LogitsProcessor):
             for formatter, input_id in zip(self._formatters, input_ids[:, -1]):
                 if input_id != self._eos_token_id:
                     formatter.accept_token(input_id)
-
         for i, formatter in enumerate(self._formatters):
             if formatter.is_completed():
                 scores[i, :] = float("-inf")
                 scores[i, self._eos_token_id] = 0.0
                 continue
             formatter.compute_allowed_tokens()
-            score = scores[i, :]
+            # this is significantly faster on huggingface. I don't know why.
+            score = scores[i, :].numpy(force=True)
             new_score = formatter.mask_logits(score)
-            if score is not new_score:  # Avoid unnecessary copy
-                scores[i, :] = new_score
+            scores[i, :] = torch.tensor(new_score, dtype=scores.dtype, device=scores.device)
         return scores

@@ -1,6 +1,12 @@
-address_json generated 803 tokens with 27.73133365441571 tps (with warm up)
-address_json unconstrained generated 1000 tokens with 32.06941835850326 tps
-linkedlist_json generated 1051 tokens with 26.10733210624505 tps (with warm up)
-linkedlist_json unconstrained generated 1225 tokens with 32.128672426385975 tps
-order_json generated 3466 tokens with 26.364491518684723 tps (with warm up)
-order_json unconstrained generated 3969 tokens with 31.66292436079728 tps
+llama3_8b_address_json generated 786 tokens with 37.36371589602811 tps (with warm up)
+llama3_8b_address_json unconstrained generated 1000 tokens with 38.69880490679053 tps
+llama3_8b_linkedlist_json generated 887 tokens with 37.120954838498776 tps (with warm up)
+llama3_8b_linkedlist_json unconstrained generated 1236 tokens with 38.697844784161475 tps
+llama3_8b_order_json generated 3505 tokens with 36.78628437278762 tps (with warm up)
+llama3_8b_order_json unconstrained generated 3969 tokens with 38.14263146423028 tps
+llama2_7b_address_json generated 984 tokens with 41.33470448687917 tps (with warm up)
+llama2_7b_address_json unconstrained generated 1000 tokens with 42.21328193562087 tps
+llama2_7b_linkedlist_json generated 3068 tokens with 41.05214473703741 tps (with warm up)
+llama2_7b_linkedlist_json unconstrained generated 4000 tokens with 42.01075161949615 tps
+llama2_7b_order_json generated 3987 tokens with 39.76025691683701 tps (with warm up)
+llama2_7b_order_json unconstrained generated 4000 tokens with 40.5808187425456 tps

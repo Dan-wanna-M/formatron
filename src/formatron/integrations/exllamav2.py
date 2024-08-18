@@ -19,9 +19,8 @@ def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer) -> kbnf.Vocabulary:
     assert hasattr(tokenizer.tokenizer_model, "vocab"), (f"tokenizer({tokenizer})"
                                                          f" with tokenizer_model({tokenizer.tokenizer_model})"
                                                          f" does not have vocab attribute!")
-    vocab = tokenizer.get_id_to_piece_list(include_special_tokens=True)
-    new_vocab = {v: i for i, v in enumerate(vocab)}
-    new_vocab = get_original_characters(new_vocab)
+    vocab = {tokenizer.tokenizer_model.id_to_piece(i): i for i in range(tokenizer.tokenizer_model.vocab_size())}
+    new_vocab = get_original_characters(vocab)
     return kbnf.Vocabulary({v: kbnf.Token(k) for k, v in new_vocab.items()},
                            {k: v for k, v in enumerate(vocab)})
 
@@ -50,7 +49,6 @@ class FormatterFilter(ExLlamaV2Filter):
             config = EngineGenerationConfig()
         self._config = config
         self._pass_tokens = set()
-        self._end_tokens = set()
 
     def clone(self, c=None) -> "FormatterFilter":
         if c is None:
@@ -61,7 +59,6 @@ class FormatterFilter(ExLlamaV2Filter):
         c._formatter = copy(self._formatter)  # formatter does not have mutable public state anyway
         c._config = deepcopy(self._config)
         c._pass_tokens = self._pass_tokens
-        c._end_tokens = self._end_tokens
         return c
 
     def begin(self, prefix_str: str) -> None:
@@ -75,15 +72,17 @@ class FormatterFilter(ExLlamaV2Filter):
         self._formatter.reset()
 
     def feed(self, token: int):
+        if self._formatter.is_completed():
+            return None
         self._formatter.accept_token(token)
 
     def next(self) -> typing.Tuple[typing.Set[int], typing.Set[int]]:
+        if self._formatter.is_completed():
+            return {self.tokenizer.eos_token_id}, set()
         self._formatter.compute_allowed_tokens()
         self._pass_tokens.clear()
-        self._end_tokens.clear()
         self._pass_tokens.update(self._formatter.get_allowed_tokens_since_last_computation())
-        self._end_tokens.update(self._formatter.get_tokens_to_finish_since_last_computation())
-        return self._pass_tokens, self._end_tokens
+        return self._pass_tokens, set()
 
     @property
     def formatter_captures(self) -> dict[str, typing.Any]:

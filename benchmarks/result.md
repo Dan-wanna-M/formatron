@@ -33,16 +33,24 @@ Default exllamav2 setting are used.
 
 | model                  | schema          | constrained(with warm-up) / tps | unconstrained / tps | overhead per token / ms |
 |------------------------|-----------------|---------------------------------|---------------------|-------------------------|
-| Llama3-8B(6.0bpw-exl2) | address_json    | 82.89                           | 84.38               | 0.21                    |
-| Llama3-8B(6.0bpw-exl2) | linkedlist_json | 80.73                           | 88.09               | 1.03                    |
-| Llama3-8B(6.0bpw-exl2) | order_json      | 84.08                           | 91.83               | 1.00                    |
+| Llama3-8B(6.0bpw-exl2) | address_json    | 81.76                           | 91.94               | 1.36                    |
+| Llama3-8B(6.0bpw-exl2) | linkedlist_json | 73.73                           | 92.93               | 2.82                    |
+| Llama3-8B(6.0bpw-exl2) | order_json      | 79.11                           | 93.47               | 1.96                    |
+| Llama2-7B(4.0bpw-exl2) | address_json    | 123.71                          | 133.38              | 0.55                    |
+| Llama2-7B(4.0bpw-exl2) | linkedlist_json | 80.05                           | 132.20              | 4.90                    |
+| Llama2-7B(4.0bpw-exl2) | order_json      | 117.28                          | 129.65              | 0.82                    |
+
 ## Transformers
 Default transformers setting with flash attention v2 enabled.
 
-The mysterious performance drop in huggingface integration is very interesting.
+The mysterious performance drop in huggingface integration is very interesting. 
+The same implementation in `mask_logits` just appears to vastly inefficient.
 
 | model           | schema          | constrained(with warm-up) / tps | unconstrained / tps | overhead per token / ms |
 |-----------------|-----------------|---------------------------------|---------------------|-------------------------|
-| Llama3-8B(bf16) | address_json    | 27.73                           | 32.07               | 4.88                    |
-| Llama3-8B(bf16) | linkedlist_json | 26.11                           | 32.13               | 7.17                    |
-| Llama3-8B(bf16) | order_json      | 26.36                           | 31.66               | 6.35                    |
+| Llama3-8B(bf16) | address_json    | 37.42                           | 38.76               | 0.91                    |
+| Llama3-8B(bf16) | linkedlist_json | 37.14                           | 38.72               | 1.09                    |
+| Llama3-8B(bf16) | order_json      | 36.79                           | 38.16               | 0.97                    |
+| Llama2-7B(fp16) | address_json    | 41.34                           | 42.22               | 0.50                    |
+| Llama2-7B(fp16) | linkedlist_json | 40.97                           | 42.00               | 0.60                    |
+| Llama2-7B(fp16) | order_json      | 39.74                           | 40.60               | 0.54                    |
