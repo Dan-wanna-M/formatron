@@ -8,7 +8,6 @@ var classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter =
     [ "next", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#adcd3e2bfb151b6d32f87c0bb50c8b558", null ],
     [ "reset", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#abd5b819b208e0a60d8a2d3e631485fd6", null ],
     [ "_config", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#ae43a79de8cc0fb018df02e7edab028ee", null ],
-    [ "_end_tokens", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a0b772378fc24096f824339a161136a77", null ],
     [ "_formatter", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a568277b00bef848b3fccbfa7030c435f", null ],
     [ "_pass_tokens", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a370eaf641dd803b2759b4e5fc7f74a1c", null ]
 ];

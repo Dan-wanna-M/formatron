@@ -1,9 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af1d8e09ffb19047f612446d8aeca06ce":[0,0,0,4,3,0,0],
-"classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af1d8e09ffb19047f612446d8aeca06ce":[1,0,0,4,2,0,0],
-"classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af5ec5643f3c51046cb3b5e73fbb04f2b":[0,0,0,4,3,0,1],
-"classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af5ec5643f3c51046cb3b5e73fbb04f2b":[1,0,0,4,2,0,1],
 "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af8c5e89c385c336d169f66584e7709ce":[0,0,0,4,3,0,3],
 "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af8c5e89c385c336d169f66584e7709ce":[1,0,0,4,2,0,3],
 "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html":[0,0,0,4,4,0],
