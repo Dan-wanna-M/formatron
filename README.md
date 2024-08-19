@@ -209,7 +209,7 @@ You may also want to check the minimum compatible version in [pyproject.toml](ht
 ## API Reference
 Check out the API reference [here](https://dan-wanna-m.github.io/formatron/).
 ## Benchmark
-Check out the benchmark [here](benchmarks/result.md).
+Check out the benchmark [here](benchmarks/readme).
 ## What Formatron Won't Do
 ### Implement an End-to-End Inference Pipeline
 Every library related to large language models(LLM) must consider that LLMs
