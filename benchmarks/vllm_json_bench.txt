@@ -1,12 +1,12 @@
-llama3_8b_vllm_address generated 1085 tokens with 41.09999767701784 tps (with warm up)
-llama3_8b_vllm_address unconstrained generated 1526 tokens with 41.968252244152325 tps
-llama3_8b_linkedlist generated 1252 tokens with 40.797074516684404 tps (with warm up)
-llama3_8b_linkedlist unconstrained generated 1389 tokens with 41.91172085238663 tps
-llama3_8b_orders generated 4266 tokens with 40.24421333602719 tps (with warm up)
-llama3_8b_orders unconstrained generated 4595 tokens with 41.520316679742486 tps
-llama2_7b_vllm_address generated 1175 tokens with 46.92316431466862 tps (with warm up)
-llama2_7b_vllm_address unconstrained generated 1751 tokens with 47.68570809701806 tps
-llama2_7b_linkedlist generated 1288 tokens with 46.79789280862108 tps (with warm up)
-llama2_7b_linkedlist unconstrained generated 1945 tokens with 47.71323389337299 tps
-llama2_7b_orders generated 4207 tokens with 45.96312899147878 tps (with warm up)
-llama2_7b_orders unconstrained generated 5112 tokens with 46.83597327628955 tps
+llama3_8b_vllm_address generated 1085 tokens with 40.81784246815824 tps (with warm up)
+llama3_8b_vllm_address unconstrained generated 1526 tokens with 41.941802458298596 tps
+llama3_8b_linkedlist generated 1252 tokens with 40.55915109806643 tps (with warm up)
+llama3_8b_linkedlist unconstrained generated 1389 tokens with 41.85204307258889 tps
+llama3_8b_orders generated 4266 tokens with 40.055533063427156 tps (with warm up)
+llama3_8b_orders unconstrained generated 4595 tokens with 41.46372280395214 tps
+llama2_7b_vllm_address generated 1956 tokens with 46.56639728880725 tps (with warm up)
+llama2_7b_vllm_address unconstrained generated 1723 tokens with 47.53091890475664 tps
+llama2_7b_linkedlist generated 1590 tokens with 46.51200582753253 tps (with warm up)
+llama2_7b_linkedlist unconstrained generated 1915 tokens with 47.54641610018721 tps
+llama2_7b_orders generated 5073 tokens with 45.7052185686332 tps (with warm up)
+llama2_7b_orders unconstrained generated 5120 tokens with 46.68000079667531 tps

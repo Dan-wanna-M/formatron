@@ -22,14 +22,16 @@ Default vllm setting are used.
 
 | model           | schema          | constrained(with warm-up) / tps | unconstrained / tps | overhead per token / ms |
 |-----------------|-----------------|---------------------------------|---------------------|-------------------------|
-| Llama3-8B(bf16) | address_json    | 41.10                           | 41.97               | 0.50                    |
-| Llama3-8B(bf16) | linkedlist_json | 40.80                           | 41.91               | 0.65                    |
-| Llama3-8B(bf16) | order_json      | 40.24                           | 41.52               | 0.77                    |
-| Llama2-7B(fp16) | address_json    | 46.92                           | 47.69               | 0.34                    |
-| Llama2-7B(fp16) | linkedlist_json | 46.80                           | 47.71               | 0.41                    |
-| Llama2-7B(fp16) | order_json      | 45.96                           | 46.84               | 0.41                    |
+| Llama3-8B(bf16) | address_json    | 40.82                           | 41.94               | 0.65                    |
+| Llama3-8B(bf16) | linkedlist_json | 40.56                           | 41.85               | 0.76                    |
+| Llama3-8B(bf16) | order_json      | 40.05                           | 41.46               | 0.84                    |
+| Llama2-7B(fp16) | address_json    | 46.57                           | 47.53               | 0.44                    |
+| Llama2-7B(fp16) | linkedlist_json | 46.51                           | 47.54               | 0.46                    |
+| Llama2-7B(fp16) | order_json      | 45.71                           | 46.68               | 0.46                    |
 ## Exllamav2
-Default exllamav2 setting are used.
+Default exllamav2 setting are used. The inferior performance of exllamav2 integration
+can be attributed to the fact that `Exllamav2Filter` requires the implementation to return
+a set of allowed tokens, and constructing a large set is very slow in Python.
 
 | model                  | schema          | constrained(with warm-up) / tps | unconstrained / tps | overhead per token / ms |
 |------------------------|-----------------|---------------------------------|---------------------|-------------------------|
@@ -43,14 +45,11 @@ Default exllamav2 setting are used.
 ## Transformers
 Default transformers setting with flash attention v2 enabled.
 
-The mysterious performance drop in huggingface integration is very interesting. 
-The same implementation in `mask_logits` just appears to vastly inefficient.
-
 | model           | schema          | constrained(with warm-up) / tps | unconstrained / tps | overhead per token / ms |
 |-----------------|-----------------|---------------------------------|---------------------|-------------------------|
-| Llama3-8B(bf16) | address_json    | 37.42                           | 38.76               | 0.91                    |
-| Llama3-8B(bf16) | linkedlist_json | 37.14                           | 38.72               | 1.09                    |
-| Llama3-8B(bf16) | order_json      | 36.79                           | 38.16               | 0.97                    |
-| Llama2-7B(fp16) | address_json    | 41.34                           | 42.22               | 0.50                    |
-| Llama2-7B(fp16) | linkedlist_json | 40.97                           | 42.00               | 0.60                    |
-| Llama2-7B(fp16) | order_json      | 39.74                           | 40.60               | 0.54                    |
+| Llama3-8B(bf16) | address_json    | 37.39                           | 38.71               | 0.91                    |
+| Llama3-8B(bf16) | linkedlist_json | 37.25                           | 38.65               | 0.98                    |
+| Llama3-8B(bf16) | order_json      | 36.73                           | 38.11               | 0.99                    |
+| Llama2-7B(fp16) | address_json    | 41.30                           | 42.14               | 0.48                    |
+| Llama2-7B(fp16) | linkedlist_json | 40.75                           | 41.91               | 0.68                    |
+| Llama2-7B(fp16) | order_json      | 39.70                           | 40.41               | 0.44                    |
