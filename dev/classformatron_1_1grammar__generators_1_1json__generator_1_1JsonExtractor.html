@@ -129,7 +129,7 @@ Inheritance diagram for formatron.grammar_generators.json_generator.JsonExtracto
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3b54115735a92af19315a5142e56d78b" id="r_a3b54115735a92af19315a5142e56d78b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b54115735a92af19315a5142e56d78b">__init__</a> (self, str nonterminal, typing.Optional[str] <a class="el" href="classformatron_1_1extractor_1_1Extractor.html#abb72e0428a8b5835d075ebd889703e13">capture_name</a>, typing.Callable[[str,], <a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>] to_object)</td></tr>
+<tr class="memitem:a3b54115735a92af19315a5142e56d78b" id="r_a3b54115735a92af19315a5142e56d78b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b54115735a92af19315a5142e56d78b">__init__</a> (self, str <a class="el" href="#aa268c12aa75907bf760aa6c4d121c312">nonterminal</a>, typing.Optional[str] <a class="el" href="classformatron_1_1extractor_1_1Extractor.html#abb72e0428a8b5835d075ebd889703e13">capture_name</a>, typing.Callable[[str,], <a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>] to_object)</td></tr>
 <tr class="memdesc:a3b54115735a92af19315a5142e56d78b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an extractor.  <br /></td></tr>
 <tr class="separator:a3b54115735a92af19315a5142e56d78b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40b2454961a30f25eceafdd2304cd969" id="r_a40b2454961a30f25eceafdd2304cd969"><td class="memItemLeft" align="right" valign="top">typing.Optional[tuple[str, <a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40b2454961a30f25eceafdd2304cd969">extract</a> (self, str input_str)</td></tr>
@@ -156,6 +156,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a0d607679c4ec35cfbe9db0444ef97a55" id="r_a0d607679c4ec35cfbe9db0444ef97a55"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d607679c4ec35cfbe9db0444ef97a55">kbnf_representation</a> (self)</td></tr>
 <tr class="memdesc:a0d607679c4ec35cfbe9db0444ef97a55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the KBNF representation of the extractor in the generated grammar of a Formatter.  <br /></td></tr>
 <tr class="separator:a0d607679c4ec35cfbe9db0444ef97a55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa268c12aa75907bf760aa6c4d121c312" id="r_aa268c12aa75907bf760aa6c4d121c312"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa268c12aa75907bf760aa6c4d121c312">nonterminal</a> (self)</td></tr>
+<tr class="memdesc:aa268c12aa75907bf760aa6c4d121c312"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the nonterminal representing the extractor.  <br /></td></tr>
+<tr class="separator:aa268c12aa75907bf760aa6c4d121c312"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An extractor that loads json data to an object from a string. </p>
@@ -238,7 +241,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1extractor_1_1Extractor.html#a9efb2a75cf5fc5e0919c235aa1435469">formatron.extractor.Extractor</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00322">322</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00335">335</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>
@@ -262,6 +265,29 @@ Protected Attributes</h2></td></tr>
 <p>Reimplemented from <a class="el" href="classformatron_1_1extractor_1_1Extractor.html#ab5c9bec3be4dcc1e4efef0b487c7fafe">formatron.extractor.Extractor</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00308">308</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
+
+</div>
+</div>
+<a id="aa268c12aa75907bf760aa6c4d121c312" name="aa268c12aa75907bf760aa6c4d121c312"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa268c12aa75907bf760aa6c4d121c312">&#9670;&#160;</a></span>nonterminal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str formatron.grammar_generators.json_generator.JsonExtractor.nonterminal </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the nonterminal representing the extractor. </p>
+
+<p>Reimplemented from <a class="el" href="classformatron_1_1extractor_1_1Extractor.html#a28c11bf6c05e8d6e8a18ec1179c6d8f2">formatron.extractor.Extractor</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="json__generator_8py_source.html#l00321">321</a> of file <a class="el" href="json__generator_8py_source.html">json_generator.py</a>.</p>
 
 </div>
 </div>

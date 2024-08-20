@@ -1,6 +1,6 @@
 var classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter =
 [
-    [ "__init__", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#ab0c355e9bd37c9a9e75c73038ebd21b5", null ],
+    [ "__init__", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#aa28fd2ca5bbe8f04499316f7c46744c0", null ],
     [ "begin", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a31967e1c243ae325d5bf288c73e6635e", null ],
     [ "clone", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a6ea0f3a9197afc9dd2b5b808fac2f157", null ],
     [ "feed", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a6896753ca9ce0cdb5cf998edd379123e", null ],

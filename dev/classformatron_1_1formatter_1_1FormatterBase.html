@@ -137,6 +137,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae8db7e92a900322ae5aa603b5c8f386f" id="r_ae8db7e92a900322ae5aa603b5c8f386f"><td class="memItemLeft" align="right" valign="top">typing.Any&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8db7e92a900322ae5aa603b5c8f386f">mask_logits</a> (self, logits)</td></tr>
 <tr class="memdesc:ae8db7e92a900322ae5aa603b5c8f386f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask the logits based on the current state.  <br /></td></tr>
 <tr class="separator:ae8db7e92a900322ae5aa603b5c8f386f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab77855193118e33bf8247c5709a0f485" id="r_ab77855193118e33bf8247c5709a0f485"><td class="memItemLeft" align="right" valign="top">typing.Sequence[int]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab77855193118e33bf8247c5709a0f485">get_allowed_tokens_since_last_computation</a> (self)</td></tr>
+<tr class="memdesc:ab77855193118e33bf8247c5709a0f485"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the allowed tokens since the last computation(in other words, the last call to <code>compute_allowed_tokens</code>).  <br /></td></tr>
+<tr class="separator:ab77855193118e33bf8247c5709a0f485"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9af60077533ed0f3c9f42ee3a132899" id="r_ac9af60077533ed0f3c9f42ee3a132899"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9af60077533ed0f3c9f42ee3a132899">is_completed</a> (self)</td></tr>
 <tr class="memdesc:ac9af60077533ed0f3c9f42ee3a132899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the generated string satisfies the format and hence the generation is completed.  <br /></td></tr>
 <tr class="separator:ac9af60077533ed0f3c9f42ee3a132899"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -210,7 +213,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classformatron_1_1formatter_1_1Formatter.html#af69cc99bea2c85c4ca5af0ecc01c5db1">formatron.formatter.Formatter</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00075">75</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00083">83</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
 
 </div>
 </div>
@@ -237,6 +240,30 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ab77855193118e33bf8247c5709a0f485" name="ab77855193118e33bf8247c5709a0f485"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab77855193118e33bf8247c5709a0f485">&#9670;&#160;</a></span>get_allowed_tokens_since_last_computation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> typing.Sequence[int] formatron.formatter.FormatterBase.get_allowed_tokens_since_last_computation </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the allowed tokens since the last computation(in other words, the last call to <code>compute_allowed_tokens</code>). </p>
+<dl class="section return"><dt>Returns</dt><dd>The allowed tokens. </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classformatron_1_1formatter_1_1Formatter.html#a5d565301d527fd3a56ca86a98df9afaf">formatron.formatter.Formatter</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00054">54</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
+
+</div>
+</div>
 <a id="ac9af60077533ed0f3c9f42ee3a132899" name="ac9af60077533ed0f3c9f42ee3a132899"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac9af60077533ed0f3c9f42ee3a132899">&#9670;&#160;</a></span>is_completed()</h2>
 
@@ -256,7 +283,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classformatron_1_1formatter_1_1Formatter.html#ac15aeec180daa5c78ad3c9bd93bd2b5b">formatron.formatter.Formatter</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00053">53</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00061">61</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
 
 </div>
 </div>
@@ -317,7 +344,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classformatron_1_1formatter_1_1Formatter.html#af6d413529a074bd30579d27b42021702">formatron.formatter.Formatter</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00060">60</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00068">68</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
 
 </div>
 </div>
@@ -340,7 +367,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classformatron_1_1formatter_1_1Formatter.html#a10ff1aac8dcd90e1bd983d2f6580a964">formatron.formatter.Formatter</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00084">84</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00092">92</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
 
 </div>
 </div>

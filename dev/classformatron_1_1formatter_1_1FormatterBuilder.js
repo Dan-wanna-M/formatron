@@ -1,7 +1,7 @@
 var classformatron_1_1formatter_1_1FormatterBuilder =
 [
     [ "__init__", "classformatron_1_1formatter_1_1FormatterBuilder.html#abb13104747355cae16e6ad0c3067fac8", null ],
-    [ "_add_extractor", "classformatron_1_1formatter_1_1FormatterBuilder.html#a250ba90b7695398c39400715b8410e40", null ],
+    [ "_add_extractor", "classformatron_1_1formatter_1_1FormatterBuilder.html#af76e5a8771a5262630d34441053f0be7", null ],
     [ "_assert_capture_name_valid", "classformatron_1_1formatter_1_1FormatterBuilder.html#ab5ad5186f55d35e3abd2d5c213302a25", null ],
     [ "_create_nonterminal", "classformatron_1_1formatter_1_1FormatterBuilder.html#ad5d2ea4d73979c06d8a2dc5892e19306", null ],
     [ "append_line", "classformatron_1_1formatter_1_1FormatterBuilder.html#aa57e56f8d74b03eb4559106d189970c3", null ],
@@ -9,6 +9,7 @@ var classformatron_1_1formatter_1_1FormatterBuilder =
     [ "append_str", "classformatron_1_1formatter_1_1FormatterBuilder.html#a171eca2a241aaf0f5f1fa8c117694337", null ],
     [ "build", "classformatron_1_1formatter_1_1FormatterBuilder.html#aae2d235fef43c64305c076edbed41da5", null ],
     [ "choose", "classformatron_1_1formatter_1_1FormatterBuilder.html#a5594cefa0b28af7f159f374486e51618", null ],
+    [ "extractor", "classformatron_1_1formatter_1_1FormatterBuilder.html#a92da12244a77243bb209e11dc989d581", null ],
     [ "regex", "classformatron_1_1formatter_1_1FormatterBuilder.html#af34f97f7f62d2a1de4f9e863b1834619", null ],
     [ "schema", "classformatron_1_1formatter_1_1FormatterBuilder.html#af6dfe8381e9ac18b9f7ddd27e026f349", null ],
     [ "str", "classformatron_1_1formatter_1_1FormatterBuilder.html#a2ad4bf3fa14457e6e2b2698774cfed24", null ],
