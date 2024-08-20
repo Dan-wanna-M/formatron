@@ -42,8 +42,15 @@ class Extractor(abc.ABC):
         """
         pass
 
+    @property
+    def nonterminal(self) -> str:
+        """
+        Get the nonterminal representing the extractor.
+        """
+        raise NotImplementedError("This extractor does not have a corresponding nonterminal.")
+
     def __str__(self):
-        return f"${{{self.kbnf_representation}}}"
+        return f"${{{self.nonterminal}}}"
 
 
 class LiteralExtractor(Extractor):
@@ -107,6 +114,10 @@ class RegexExtractor(Extractor):
     def kbnf_representation(self) -> str:
         return self._nonterminal
 
+    @property
+    def nonterminal(self) -> str:
+        return self._nonterminal
+
 
 class ChoiceExtractor(Extractor):
     """
@@ -134,4 +145,8 @@ class ChoiceExtractor(Extractor):
 
     @property
     def kbnf_representation(self) -> str:
+        return self._nonterminal
+
+    @property
+    def nonterminal(self) -> str:
         return self._nonterminal

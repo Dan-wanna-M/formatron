@@ -271,6 +271,10 @@ class JsonExtractor(extractor.Extractor):
     def kbnf_representation(self) -> str:
         return self._nonterminal
 
+    @property
+    def nonterminal(self) -> str:
+        return self._nonterminal
+
     def extract(self, input_str: str) -> typing.Optional[tuple[str, schemas.schema.Schema]]:
         """
         Extract a schema instance from a string.

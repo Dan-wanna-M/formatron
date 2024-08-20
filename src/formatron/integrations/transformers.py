@@ -9,7 +9,7 @@ import torch
 from transformers import LogitsProcessor, PreTrainedTokenizerBase, LogitsProcessorList
 
 from config import EngineGenerationConfig
-from formatter import Formatter, FormatterBuilder
+from formatter import FormatterBuilder, FormatterBase
 from integrations._utils import get_original_characters
 
 
@@ -52,7 +52,7 @@ class FormattersLogitsProcessor(LogitsProcessor):
     Logit processor that uses formatters to mask batch logits.
     """
 
-    def __init__(self, formatters: typing.Sequence[Formatter], eos_token_id: int,
+    def __init__(self, formatters: typing.Sequence[FormatterBase], eos_token_id: int,
                  configs: typing.Sequence[EngineGenerationConfig] = None):
         self._formatters = formatters
         self._eos_token_id = eos_token_id

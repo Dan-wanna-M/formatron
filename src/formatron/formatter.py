@@ -46,6 +46,14 @@ class FormatterBase(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def get_allowed_tokens_since_last_computation(self) -> typing.Sequence[int]:
+        """
+        Get the allowed tokens since the last computation(in other words, the last call to `compute_allowed_tokens`).
+        :return: The allowed tokens.
+        """
+        pass
+
+    @abc.abstractmethod
     def is_completed(self) -> bool:
         """
         Check if the generated string satisfies the format and hence the generation is completed.
@@ -265,11 +273,23 @@ class FormatterBuilder:
 
     def _add_extractor(self, capture_name: str, extractor_type: str,
                        create_extractor: typing.Callable[[str], Extractor],
-                       create_rule: typing.Callable[[str], str]):
+                       create_rules: typing.Callable[[str], str]):
         nonterminal = self._create_nonterminal(capture_name, extractor_type)
         self._nonterminal_to_extractor[nonterminal] = create_extractor(nonterminal)
-        self._rules.append(create_rule(nonterminal))
+        self._rules.append(create_rules(nonterminal))
         return self._nonterminal_to_extractor[nonterminal]
+
+    def extractor(self, create_extractor: typing.Callable[[str], Extractor],
+                  create_rules: typing.Callable[[str], str], capture_name: str = None) -> Extractor:
+        """
+        Create a custom extractor.
+        :param create_extractor: callable with signature (extractor_nonterminal: str)->Extractor that create the extractor. extractor_nonterminal is the auto-generated nonterminal reference for the extractor.
+        :param create_rules: callable with signature (extractor_nonterminal: str)->str that create the KBNF rules for the extractor. It is separated from create_extractor to allow more flexibility. For example, you can reuse the same extractor with different rules.
+        :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
+        """
+        return self._add_extractor(capture_name, "extractor",
+                                   create_extractor,
+                                   create_rules)
 
     def regex(self, regex: str, *, capture_name: str = None) -> RegexExtractor:
         """
@@ -313,7 +333,7 @@ class FormatterBuilder:
             nonterminal_regex = "#'.*'"
         else:
             backslash = '\\'
-            capture_regex = f".*?(?:{'|'.join([i.replace(backslash, backslash*2) for i in map(re.escape, stop)])})"
+            capture_regex = f".*?(?:{'|'.join([i.replace(backslash, backslash * 2) for i in map(re.escape, stop)])})"
             nonterminal_regex = f"#e'{capture_regex}'"
         self._rules.append(f"{nonterminal} ::= {nonterminal_regex};")
         self._nonterminal_to_extractor[nonterminal] = RegexExtractor(capture_regex, capture_name, nonterminal)

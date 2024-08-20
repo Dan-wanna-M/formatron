@@ -80,6 +80,9 @@ print(logits_processor[0].formatters_captures)
 # possible output:
 # [{'digit': [<re.Match object; span=(0, 2), match='42'>, <re.Match object; span=(0, 2), match='42'>]}]
 ```
+Note that only
+[Rust regex's syntax](https://docs.rs/regex/latest/regex/#syntax) is supported, which notably
+does not include arbitrary lookaheads. 
 ### Json Generation
 #### Pydantic Model
 ```python
@@ -200,6 +203,7 @@ print(logits_processor[0].formatters_captures)
 # possible output:
 # [{'json': 14}]
 ```
+
 ### Json Schema
 You can use [pydantic's code generator](https://docs.pydantic.dev/latest/integrations/datamodel_code_generator/)
 to generate pydantic models from json schema. 

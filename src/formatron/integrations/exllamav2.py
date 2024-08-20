@@ -8,8 +8,10 @@ import torch
 from exllamav2 import ExLlamaV2Tokenizer, ExLlamaV2
 from exllamav2.generator.base import ExLlamaV2Filter
 from config import EngineGenerationConfig
-from formatter import Formatter, FormatterBuilder
+from formatter import FormatterBase, FormatterBuilder
 from integrations._utils import get_original_characters
+
+from formatron.formatter import FormatterBase
 
 
 def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer) -> kbnf.Vocabulary:
@@ -41,7 +43,7 @@ class FormatterFilter(ExLlamaV2Filter):
     ExLlamaV2Filter that uses a formatter to mask logits.
     """
 
-    def __init__(self, model, tokenizer, formatter: Formatter,
+    def __init__(self, model, tokenizer, formatter: FormatterBase,
                  config: EngineGenerationConfig = None):
         super().__init__(model, tokenizer)
         self._formatter = formatter
