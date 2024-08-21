@@ -1,5 +1,5 @@
 # Benchmark
-This benchmark is far from comprehensive and more benchmarks will be added in the
+More benchmarks will be added in the
 near future. 
 ## Benchmark Setting
 CPU: AMD EPYC 7513 32-Core Processor
