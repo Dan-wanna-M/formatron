@@ -137,7 +137,7 @@ tokenizer = transformers.AutoTokenizer.from_pretrained("microsoft/Phi-3-mini-128
 
 f = FormatterBuilder()
 schema = infer_mapping({"name":"foo", "age": 28})
-f.append_line(f"{f.str(not_contain='{')}{f.schema(schema, JsonGenerator(), capture_name='json')}")
+f.append_line(f"{f.schema(schema, JsonGenerator(), capture_name='json')}")
 logits_processor = create_formatter_logits_processor_list(tokenizer, f)
 inputs = tokenizer(["""<|system|>
 You are a helpful assistant.<|end|>
@@ -203,7 +203,76 @@ print(logits_processor[0].formatters_captures)
 # possible output:
 # [{'json': 14}]
 ```
+### CFG-Constrained generation
+Context free grammars use [kbnf's syntax](https://docs.rs/kbnf/latest/kbnf/#kbnf-grammar) which is a variant of EBNF.
+Since formatron uses [kbnf](https://github.com/Dan-wanna-M/kbnf?tab=readme-ov-file#features) under the hood, all kbnf's claims on performance hold.
+```python
+from formatron import extractor
+from formatron.formatter import FormatterBuilder
+from transformers import AutoModelForCausalLM
+import transformers
+import typing
+from formatron.integrations.transformers import create_formatter_logits_processor_list
+import torch
+rules = """
+expression ::=  term { ("+" | "-") term };
+term       ::= factor { ("*" | "/") factor };
+factor     ::= number | "(" expression ")";
+number     ::= #"[0-9]+(\\\\.[0-9]+)?";
+"""
+class ArithmeticExpressionExtractor(extractor.Extractor):
+    def __init__(self,nonterminal:str, capture_name: typing.Optional[str] = None):
+        super().__init__(capture_name)
+        self._nonterminal = nonterminal
 
+    def extract(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
+        i = 0
+        left_bracket = 0
+        while i < len(input_str):
+            if input_str[i].isdigit() or input_str[i] in "+-*/.":
+                i += 1
+                continue
+            if input_str[i] == "(":
+                i += 1
+                left_bracket += 1
+                continue
+            if input_str[i] == ")":
+                i += 1
+                left_bracket -= 1
+                continue
+            else:
+                break
+        if left_bracket != 0:
+            return None
+        return input_str[i:], input_str[:i]
+
+    @property
+    def nonterminal(self) -> str:
+        return self._nonterminal
+
+    @property
+    def kbnf_representation(self) -> str:
+        return self._nonterminal
+
+model = AutoModelForCausalLM.from_pretrained("NurtureAI/Meta-Llama-3-8B-Instruct-32k",
+                                             device_map="cuda",
+                                             torch_dtype=torch.float16)
+tokenizer = transformers.AutoTokenizer.from_pretrained("NurtureAI/Meta-Llama-3-8B-Instruct-32k")
+inputs = tokenizer(["""<|system|>
+    You are a helpful assistant.<|end|>
+    <|user|>Repeat it: ((32+43)*114)<|end|>
+    <|assistant|>((32+43)*114)<|end|>
+    <|user|>Repeat it: ((32+43)*(114-514))<|end|>
+    <|assistant|>"""], return_tensors="pt").to("cuda")
+f = FormatterBuilder()
+f.append_line(
+f"{f.extractor(lambda nonterminal: ArithmeticExpressionExtractor(nonterminal, 'json'),lambda nonterminal: rules.replace('expression', nonterminal), capture_name='json')}")
+logits_processor = create_formatter_logits_processor_list(tokenizer, f)
+print(tokenizer.batch_decode(model.generate(**inputs, top_p=0.5, temperature=1,
+                                            max_new_tokens=100, logits_processor=logits_processor)))
+print(logits_processor[0].formatters_captures)
+# possible output: [{'json': '(((32+43)*(114-514)))*1.5'}]
+```
 ### Json Schema
 You can use [pydantic's code generator](https://docs.pydantic.dev/latest/integrations/datamodel_code_generator/)
 to generate pydantic models from json schema. 

@@ -6,6 +6,7 @@ import re
 import textwrap
 import typing
 from copy import copy
+from json import JSONDecodeError
 
 import kbnf
 from kbnf import AcceptTokenResult, Engine
@@ -312,11 +313,17 @@ class FormatterBuilder:
         :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
         :return: The schema extractor.
         """
+        def to_json(json:str):
+            try:
+                return schema.from_json(json)
+            except JSONDecodeError: # make ChoiceExtractor work appropriately
+                return None
+
         return self._add_extractor(capture_name, "schema",
                                    lambda nonterminal: grammar_generator.get_extractor(nonterminal, capture_name,
-                                                                                       lambda json: schema.from_json(
-                                                                                           json)),
+                                                                                       to_json),
                                    lambda nonterminal: grammar_generator.generate(schema, nonterminal))
+
 
     def str(self, *, stop: typing.Union[str, list[str]] = None,
             capture_name: typing.Optional[str] = None) -> RegexExtractor:
