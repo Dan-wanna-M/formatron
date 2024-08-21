@@ -7,11 +7,9 @@ import kbnf
 import torch
 from exllamav2 import ExLlamaV2Tokenizer, ExLlamaV2
 from exllamav2.generator.base import ExLlamaV2Filter
-from config import EngineGenerationConfig
-from formatter import FormatterBase, FormatterBuilder
-from integrations._utils import get_original_characters
-
-from formatron.formatter import FormatterBase
+from formatron.config import EngineGenerationConfig
+from formatron.formatter import FormatterBase, FormatterBuilder
+from formatron.integrations._utils import get_original_characters
 
 
 def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer) -> kbnf.Vocabulary:

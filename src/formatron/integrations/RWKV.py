@@ -5,8 +5,8 @@ import kbnf
 import rwkv.utils
 from kbnf import Token
 
-from config import EngineGenerationConfig
-from formatter import FormatterBuilder
+from formatron.config import EngineGenerationConfig
+from formatron.formatter import FormatterBuilder
 
 
 class PIPELINE_ARGS(rwkv.utils.PIPELINE_ARGS):

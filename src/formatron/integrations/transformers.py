@@ -8,9 +8,9 @@ import kbnf
 import torch
 from transformers import LogitsProcessor, PreTrainedTokenizerBase, LogitsProcessorList
 
-from config import EngineGenerationConfig
-from formatter import FormatterBuilder, FormatterBase
-from integrations._utils import get_original_characters
+from formatron.config import EngineGenerationConfig
+from formatron.formatter import FormatterBuilder, FormatterBase
+from formatron.integrations._utils import get_original_characters
 
 
 def create_engine_vocabulary(tokenizer: PreTrainedTokenizerBase) -> kbnf.Vocabulary:

@@ -4,8 +4,8 @@ This module defines the GrammarGenerator abstract base class.
 import abc
 import typing
 
-import extractor
-import schemas
+import formatron.extractor as extractor
+import formatron.schemas as schemas
 
 
 class GrammarGenerator(abc.ABC):

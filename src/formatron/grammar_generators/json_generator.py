@@ -6,9 +6,9 @@ import decimal
 import types
 import typing
 
-import extractor
-import schemas.schema
-from grammar_generators.grammar_generator import GrammarGenerator
+import formatron.extractor as extractor
+import formatron.schemas as schemas
+from formatron.grammar_generators.grammar_generator import GrammarGenerator
 
 __all__ = ["JsonGenerator"]
 

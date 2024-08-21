@@ -7,9 +7,9 @@ import typing
 import kbnf
 from vllm import LLM
 
-from config import EngineGenerationConfig
-from formatter import FormatterBase, FormatterBuilder
-from integrations._utils import get_original_characters
+from formatron.config import EngineGenerationConfig
+from formatron.formatter import FormatterBase, FormatterBuilder
+from formatron.integrations._utils import get_original_characters
 
 
 class FormattersLogitsProcessor:

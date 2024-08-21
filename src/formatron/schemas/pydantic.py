@@ -8,7 +8,7 @@ import typing
 import pydantic.fields
 from pydantic import BaseModel, validate_call, ConfigDict, Field
 
-from schemas import schema
+from formatron.schemas import schema
 
 
 class FieldInfo(schema.FieldInfo):
