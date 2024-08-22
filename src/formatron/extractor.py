@@ -80,6 +80,9 @@ class LiteralExtractor(Extractor):
     def kbnf_representation(self) -> str:
         return repr(self._literal)
 
+    def __str__(self):
+        return f"${{{self.kbnf_representation}}}"
+
 
 class RegexExtractor(Extractor):
     """
