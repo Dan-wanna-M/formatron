@@ -108,6 +108,7 @@ if __name__ == "__main__":
             tail = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
             model, tokenizer = get_llama3_8b_tokenizer_and_model()
             model.eval()
+            # ----------------------------------------------------------------------------------------------------------
             max_new_tokens = 50
             inputs = load_address()
             prefix_fn = None
@@ -116,6 +117,7 @@ if __name__ == "__main__":
             logits_processor = None
             prefix_fn = lfe_address_prefix()
             bench(data, context, execute, "lm_format_enforcer_llama3_8b_address_json", f)
+            # ----------------------------------------------------------------------------------------------------------
             inputs = load_linkedlist()
             logits_processor = get_linkedlist_schema()
             max_new_tokens = 200
@@ -123,12 +125,14 @@ if __name__ == "__main__":
             logits_processor = None
             prefix_fn = lfe_linkedlist_prefix()
             bench(data, context, execute, "lm_format_enforcer_llama3_8b_linkedlist_json", f)
+            # ----------------------------------------------------------------------------------------------------------
             inputs = load_orders()
             logits_processor = get_order_schema()
             bench(data, context, execute, "formatron_llama3_8b_order_json", f)
             logits_processor = None
             prefix_fn = lfe_order_prefix()
             bench(data, context, execute, "lm_format_enforcer_llama3_8b_order_json", f)
+            # ----------------------------------------------------------------------------------------------------------
             system_prompt = """[INST]
                         You are a helpful AI assistant for information extraction.
 
@@ -140,6 +144,7 @@ if __name__ == "__main__":
             torch.cuda.empty_cache()
             model, tokenizer = get_llama2_7b_tokenizer_and_model()
             model.eval()
+            # ----------------------------------------------------------------------------------------------------------
             max_new_tokens = 50
             inputs = load_address()
             logits_processor = get_address_schema()
@@ -147,6 +152,7 @@ if __name__ == "__main__":
             logits_processor = None
             prefix_fn = lfe_address_prefix()
             bench(data, context, execute, "lm_format_enforcer_llama2_7b_address_json", f)
+            # ----------------------------------------------------------------------------------------------------------
             max_new_tokens = 30
             inputs = load_linkedlist()
             logits_processor = get_linkedlist_schema()
@@ -155,6 +161,7 @@ if __name__ == "__main__":
             logits_processor = None
             prefix_fn = lfe_linkedlist_prefix()
             bench(data, context, execute, "lm_format_enforcer_llama2_7b_linkedlist_json", f)
+            # ----------------------------------------------------------------------------------------------------------
             inputs = load_orders()
             logits_processor = get_order_schema()
             bench(data, context, execute, "formatron_llama2_7b_order_json", f)

@@ -20,16 +20,17 @@ schema creation to the first run ends.
 ## vllm
 Default vllm setting are used.
 
-| model           | schema          | constrained(with warm-up) / tps | unconstrained / tps | overhead per token / ms |
-|-----------------|-----------------|---------------------------------|---------------------|-------------------------|
-| Llama3-8B(bf16) | address_json    | 40.82                           | 41.94               | 0.65                    |
-| Llama3-8B(bf16) | linkedlist_json | 40.56                           | 41.85               | 0.76                    |
-| Llama3-8B(bf16) | order_json      | 40.05                           | 41.46               | 0.84                    |
-| Llama2-7B(fp16) | address_json    | 46.57                           | 47.53               | 0.44                    |
-| Llama2-7B(fp16) | linkedlist_json | 46.51                           | 47.54               | 0.46                    |
-| Llama2-7B(fp16) | order_json      | 45.71                           | 46.68               | 0.46                    |
+| model           | schema          | Formatron overhead per token(with warm-up) / ms | lm format enforcer overhead(with warm-up) per token / ms |
+|-----------------|-----------------|-------------------------------------------------|----------------------------------------------------------|
+| Llama3-8B(bf16) | address_json    | 0.59                                            | 2.31                                                     |
+| Llama3-8B(bf16) | linkedlist_json | 0.66                                            | 0.26                                                     |
+| Llama3-8B(bf16) | order_json      | 0.64                                            | 0.92                                                     |
+| Llama2-7B(fp16) | address_json    | 0.33                                            | 0.33                                                     |
+| Llama2-7B(fp16) | linkedlist_json | 0.45                                            | 0.36                                                     |
+| Llama2-7B(fp16) | order_json      | 0.40                                            | 0.34                                                     |
 ## Exllamav2
 Default exllamav2 setting are used. 
+Quantization likely has some influence on json outputs and hence affects the performance.
 
 | model                  | schema          | Formatron overhead per token(with warm-up) / ms | lm format enforcer overhead(with warm-up) per token / ms |
 |------------------------|-----------------|-------------------------------------------------|----------------------------------------------------------|

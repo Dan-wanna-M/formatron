@@ -7,7 +7,7 @@ from formatron.grammar_generators.json_generator import JsonGenerator
 from formatron.integrations.exllamav2 import create_formatter_filter
 from lmformatenforcer.integrations.exllamav2 import ExLlamaV2TokenEnforcerFilter
 
-from benchmarks.utils import load_address, load_linkedlist, load_orders, force_gc, address_lfe, linked_list_lfe, \
+from utils import load_address, load_linkedlist, load_orders, force_gc, address_lfe, linked_list_lfe, \
     order_lfe
 from test_grammar_gen import LinkedList
 from utils import Address, BenchResult, Context, log
@@ -15,10 +15,10 @@ from utils import Order
 
 
 def create_exllamav2_6bpw_llama3_8b():
-    model_dir = "../tests/local_assets/Llama-3-8B-exl2/"
+    model_dir = "../tests/local_assets/Meta-Llama-3-8B-Instruct-32k/"
     config = ExLlamaV2Config(model_dir)
     model = ExLlamaV2(config)
-    cache = ExLlamaV2Cache(model, max_seq_len=65536, lazy=True)
+    cache = ExLlamaV2Cache(model, max_seq_len=4096, lazy=True)
     model.load_autosplit(cache, progress=True)
     tokenizer = ExLlamaV2Tokenizer(config)
     generator = ExLlamaV2DynamicGenerator(
@@ -29,10 +29,10 @@ def create_exllamav2_6bpw_llama3_8b():
     return generator
 
 def create_exllamav2_4bpw_llama2_7b():
-    model_dir = "../tests/local_assets/Llama-2-7b-chat-hf-4.0-bpw-exl2/"
+    model_dir = "../tests/local_assets/LLaMA-2-7B-32K/"
     config = ExLlamaV2Config(model_dir)
     model = ExLlamaV2(config)
-    cache = ExLlamaV2Cache(model, max_seq_len=65536, lazy=True)
+    cache = ExLlamaV2Cache(model, max_seq_len=4096, lazy=True)
     model.load_autosplit(cache, progress=True)
     tokenizer = ExLlamaV2Tokenizer(config)
     generator = ExLlamaV2DynamicGenerator(
@@ -122,6 +122,10 @@ if __name__ == '__main__':
     context = Context(0, 0)
     with open("exllamav2_json.txt", "w") as f:
         generator = create_exllamav2_6bpw_llama3_8b()
+        settings = ExLlamaV2Sampler.Settings()
+        settings.disallow_tokens(generator.tokenizer, [generator.tokenizer.eos_token_id])
+        generator.generate("Something", max_new_tokens=4080, gen_settings=settings) # warm up exllamav2 itself
+        settings = ExLlamaV2Sampler.Settings()
         system_prompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
         You are a helpful AI assistant for information extraction<|eot_id|><|start_header_id|>user<|end_header_id|>
@@ -132,7 +136,7 @@ if __name__ == '__main__':
         # --------------------------------------------------------------------------------------------------------------
         inputs = load_address()
         context.filters = [f_get_address_filter()]
-        max_new_tokens = 100
+        max_new_tokens = 50
         bench(data, context, execute, "formatron_llama3_8b_6pw_exl2_address_json_exllamav2", f)
         context.filters = [lfe_get_address_filter()]
         bench(data, context, execute, "lm_format_enforcer_llama3_8b_6pw_exl2_address_json_exllamav2", f)
