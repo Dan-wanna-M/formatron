@@ -78,7 +78,7 @@ class FormatterFilter(ExLlamaV2Filter):
 
     def next(self) -> typing.Tuple[typing.Set[int], typing.Set[int]]:
         if self._formatter.is_completed():
-            return {self.tokenizer.eos_token_id}, set()
+            return {self.tokenizer.eos_token_id}, {self.tokenizer.eos_token_id}
         self._formatter.compute_allowed_tokens()
         self._pass_tokens.clear()
         self._pass_tokens.update(self._formatter.get_allowed_tokens_since_last_computation())

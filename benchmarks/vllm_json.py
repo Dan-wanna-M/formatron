@@ -24,7 +24,7 @@ def execute():
     context.index+=1
     outputs = llm.generate(prompts, sampling_params)
     context.tokens += len(outputs[0].outputs[0].token_ids)
-
+    # print(repr(outputs[0].outputs[0].text))
     l = sampling_params.logits_processors
     if l and isinstance(l[0], FormattersLogitsProcessor):
         l[0].reset()
@@ -58,12 +58,12 @@ def formatron_vllm_order():
     f = FormatterBuilder()
     f.append_line(f"{f.schema(Order, JsonGenerator(), capture_name='json')}")
     logits_processor = create_formatters_logits_processor(llm, [f])
-    sampling_params = SamplingParams(temperature=0.8, top_p=0.95, max_tokens=256, logits_processors=[logits_processor])
+    sampling_params = SamplingParams(temperature=0.8, top_p=0.95, max_tokens=350, logits_processors=[logits_processor])
     return sampling_params
 
 def lfe_vllm_order():
     logits_processor = build_vllm_logits_processor(llm, order_lfe)
-    sampling_params = SamplingParams(temperature=0.8, top_p=0.95, max_tokens=256, logits_processors=[logits_processor])
+    sampling_params = SamplingParams(temperature=0.8, top_p=0.95, max_tokens=350, logits_processors=[logits_processor])
     return sampling_params
 
 def warm_up(f):
@@ -98,7 +98,7 @@ if __name__ == "__main__":
                 Extract information into json format: """
         tail = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
         import os
-        os.environ["CUDA_VISIBLE_DEVICES"] = "7"
+        os.environ["CUDA_VISIBLE_DEVICES"] = "2"
         llm = LLM(model="NurtureAI/Meta-Llama-3-8B-Instruct-32k", max_model_len=4096)
         # --------------------------------------------------------------------------------------------------------------
         inputs = load_address()
@@ -130,7 +130,7 @@ if __name__ == "__main__":
 
             Extract information into json format: """
         tail = "[/INST]"
-        llm = LLM(model="togethercomputer/LLaMA-2-7B-32K", max_model_len=4096)
+        llm = LLM(model="mistralai/Mistral-7B-Instruct-v0.3", max_model_len=4096)
         # --------------------------------------------------------------------------------------------------------------
         inputs = load_address()
         sampling_params = formatron_vllm_address()

@@ -9,9 +9,8 @@ from copy import copy
 from json import JSONDecodeError
 
 import kbnf
+from grammar_generators.grammar_generator import GrammarGenerator
 from kbnf import AcceptTokenResult, Engine
-
-import grammar_generators.grammar_generator
 import schemas.schema
 from extractor import Extractor, LiteralExtractor, RegexExtractor, ChoiceExtractor
 
@@ -304,7 +303,7 @@ class FormatterBuilder:
                                    lambda nonterminal: f"{nonterminal} ::= #{repr(regex)};")
 
     def schema(self, schema: typing.Type[schemas.schema.Schema],
-               grammar_generator: grammar_generators.grammar_generator.GrammarGenerator, *,
+               grammar_generator: GrammarGenerator, *,
                capture_name: str = None) -> Extractor:
         """
         Create a schema extractor.

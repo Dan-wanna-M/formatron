@@ -1,18 +1,21 @@
+import os
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 import gc
-import json
 from timeit import timeit
 
 import torch
+from formatron.formatter import FormatterBuilder
+from lmformatenforcer.integrations.transformers import build_transformers_prefix_allowed_tokens_fn
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from benchmarks.utils import load_address, load_linkedlist, load_orders, address_lfe, linked_list_lfe, order_lfe
-from utils import Order
 from grammar_generators.json_generator import JsonGenerator
 from integrations.transformers import create_formatter_logits_processor_list, FormattersLogitsProcessor
 from test_grammar_gen import LinkedList
 from utils import BenchResult, Context, Address, log
-from formatron.formatter import FormatterBuilder
-from lmformatenforcer.integrations.transformers import build_transformers_prefix_allowed_tokens_fn
+from utils import Order
+
 
 def get_llama3_8b_tokenizer_and_model():
     model = AutoModelForCausalLM.from_pretrained("NurtureAI/Meta-Llama-3-8B-Instruct-32k",
@@ -24,11 +27,11 @@ def get_llama3_8b_tokenizer_and_model():
     return model, tokenizer
 
 def get_llama2_7b_tokenizer_and_model():
-    model = AutoModelForCausalLM.from_pretrained("togethercomputer/LLaMA-2-7B-32K",
+    model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.3",
                                                  device_map="cuda",
                                                  torch_dtype=torch.float16,
                                                  attn_implementation="flash_attention_2")
-    tokenizer = AutoTokenizer.from_pretrained("togethercomputer/LLaMA-2-7B-32K")
+    tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.3")
     model.generation_config.pad_token_id = tokenizer.eos_token_id
     return model, tokenizer
 
@@ -69,6 +72,7 @@ def execute():
     else:
         outputs = model.generate(**prompts, prefix_allowed_tokens_fn=prefix_fn,
                                  max_new_tokens=max_new_tokens)
+    # print(repr(tokenizer.decode(outputs[0][input_len:], skip_special_tokens=False))) # for debug purpose
     context.tokens += outputs.shape[-1]-input_len
     l = logits_processor
     if l and isinstance(l[0], FormattersLogitsProcessor):
@@ -120,7 +124,7 @@ if __name__ == "__main__":
             # ----------------------------------------------------------------------------------------------------------
             inputs = load_linkedlist()
             logits_processor = get_linkedlist_schema()
-            max_new_tokens = 200
+            max_new_tokens = 256
             bench(data,context,execute, "formatron_llama3_8b_linkedlist_json", f)
             logits_processor = None
             prefix_fn = lfe_linkedlist_prefix()
@@ -145,7 +149,7 @@ if __name__ == "__main__":
             model, tokenizer = get_llama2_7b_tokenizer_and_model()
             model.eval()
             # ----------------------------------------------------------------------------------------------------------
-            max_new_tokens = 50
+            max_new_tokens = 100
             inputs = load_address()
             logits_processor = get_address_schema()
             bench(data, context, execute, "formatron_llama2_7b_address_json", f)
@@ -153,10 +157,10 @@ if __name__ == "__main__":
             prefix_fn = lfe_address_prefix()
             bench(data, context, execute, "lm_format_enforcer_llama2_7b_address_json", f)
             # ----------------------------------------------------------------------------------------------------------
-            max_new_tokens = 30
+            max_new_tokens = 100
             inputs = load_linkedlist()
             logits_processor = get_linkedlist_schema()
-            max_new_tokens = 200
+
             bench(data, context, execute, "formatron_llama2_7b_linkedlist_json", f)
             logits_processor = None
             prefix_fn = lfe_linkedlist_prefix()
@@ -164,6 +168,7 @@ if __name__ == "__main__":
             # ----------------------------------------------------------------------------------------------------------
             inputs = load_orders()
             logits_processor = get_order_schema()
+            max_new_tokens = 300
             bench(data, context, execute, "formatron_llama2_7b_order_json", f)
             logits_processor = None
             prefix_fn = lfe_order_prefix()

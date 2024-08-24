@@ -17,8 +17,10 @@ where a few schemas are created but many requests are made.
 
 We also plan to add the "first-run" benchmark, which will measure the time taken from
 schema creation to the first run ends. 
+## Other libraries' version
+`lm-format-enforcer==v0.10.6`
 ## vllm
-Default vllm setting are used.
+Default vllm setting are used. Version: `0.5.3-post1`.
 
 | model           | schema          | Formatron overhead per token(with warm-up) / ms | lm format enforcer overhead(with warm-up) per token / ms |
 |-----------------|-----------------|-------------------------------------------------|----------------------------------------------------------|
@@ -29,20 +31,22 @@ Default vllm setting are used.
 | Llama2-7B(fp16) | linkedlist_json | 0.45                                            | 0.36                                                     |
 | Llama2-7B(fp16) | order_json      | 0.40                                            | 0.34                                                     |
 ## Exllamav2
-Default exllamav2 setting are used. 
-Quantization likely has some influence on json outputs and hence affects the performance.
+Default exllamav2 setting are used. Version: `0.1.9`.
 
-| model                  | schema          | Formatron overhead per token(with warm-up) / ms | lm format enforcer overhead(with warm-up) per token / ms |
-|------------------------|-----------------|-------------------------------------------------|----------------------------------------------------------|
-| Llama3-8B(6.0bpw-exl2) | address_json    | 1.4                                             | 11.7                                                     |
-| Llama3-8B(6.0bpw-exl2) | linkedlist_json | 5.4                                             | 9.1                                                      |
-| Llama3-8B(6.0bpw-exl2) | order_json      | 3.4                                             | 12.1                                                     |
-| Llama2-7B(4.0bpw-exl2) | address_json    | 1.2                                             | 0.73                                                     |
-| Llama2-7B(4.0bpw-exl2) | linkedlist_json | 3.2                                             | 0.20                                                     |
-| Llama2-7B(4.0bpw-exl2) | order_json      | 1.2                                             | 0.60                                                     |
+Note that the current `lm-format-enforcer` integration on `exllamav2` is [bugged](https://github.com/noamgat/lm-format-enforcer/issues/134),
+crippling its performance significantly.
+
+| model           | schema          | Formatron overhead per token(with warm-up) / ms | lm format enforcer overhead(with warm-up) per token / ms |
+|-----------------|-----------------|-------------------------------------------------|----------------------------------------------------------|
+| Llama3-8B(bf16) | address_json    | 2.83                                            | 11.7                                                     |
+| Llama3-8B(bf16) | linkedlist_json | 0.85                                            | 25.7                                                     |
+| Llama3-8B(bf16) | order_json      | 0.68                                            | 18.2                                                     |
+| Llama2-7B(fp16) | address_json    | 0.96                                            | 7.98                                                     |
+| Llama2-7B(fp16) | linkedlist_json | 0.41                                            | 6.4                                                      |
+| Llama2-7B(fp16) | order_json      | 0.23                                            | 5.24                                                     |
 
 ## Transformers
-Default transformers setting with flash attention v2 enabled.
+Default transformers setting with flash attention v2 enabled. Version: `4.43.2`
 
 | model           | schema          | Formatron overhead per token(with warm-up) / ms | lm format enforcer overhead(with warm-up) per token / ms |
 |-----------------|-----------------|-------------------------------------------------|----------------------------------------------------------|
