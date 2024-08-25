@@ -7,6 +7,7 @@ import torch
 from formatron.schemas.pydantic import ClassSchema
 from lmformatenforcer import JsonSchemaParser
 
+
 class Address(ClassSchema):
     street: str
     city: str

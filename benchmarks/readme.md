@@ -18,7 +18,11 @@ where a few schemas are created but many requests are made.
 We also plan to add the "first-run" benchmark, which will measure the time taken from
 schema creation to the first run ends. 
 ## Other libraries' version
-`lm-format-enforcer==v0.10.6`
+```
+lm-format-enforcer==0.10.6
+outlines==0.0.46
+```
+
 ## vllm
 Default vllm setting are used. Version: `0.5.3-post1`.
 
@@ -46,13 +50,17 @@ crippling its performance significantly.
 | Llama2-7B(fp16) | order_json      | 0.23                                            | 5.24                                                     |
 
 ## Transformers
-Default transformers setting with flash attention v2 enabled. Version: `4.43.2`
+Default transformers setting with flash attention v2 enabled. Version: `4.43.2`.
 
-| model           | schema          | Formatron overhead per token(with warm-up) / ms | lm format enforcer overhead(with warm-up) per token / ms |
-|-----------------|-----------------|-------------------------------------------------|----------------------------------------------------------|
-| Llama3-8B(bf16) | address_json    | 0.65                                            | 9.3                                                      |
-| Llama3-8B(bf16) | linkedlist_json | 0.70                                            | 3.5                                                      |
-| Llama3-8B(bf16) | order_json      | 0.69                                            | 6.1                                                      |
-| Llama2-7B(fp16) | address_json    | 0.41                                            | 1.4                                                      |
-| Llama2-7B(fp16) | linkedlist_json | 0.54                                            | 0.58                                                     |
-| Llama2-7B(fp16) | order_json      | 0.44                                            | 0.96                                                     |
+Note that `outlines` logits processor huggingface integration [does not work](https://github.com/outlines-dev/outlines/issues/1115) and their
+wrapper over huggingface does not provide a way to measure token per second. Their own benchmark
+only measures the total time taken.
+
+| model           | schema          | Formatron overhead per token(with warm-up) / ms | lm format enforcer overhead(with warm-up) per token / ms | outlines overhead(with warm-up) per token / ms |
+|-----------------|-----------------|-------------------------------------------------|----------------------------------------------------------|------------------------------------------------|
+| Llama3-8B(bf16) | address_json    | 0.65                                            | 9.3                                                      | N/A                                            |
+| Llama3-8B(bf16) | linkedlist_json | 0.70                                            | 3.5                                                      | N/A                                            |
+| Llama3-8B(bf16) | order_json      | 0.69                                            | 6.1                                                      | N/A                                            |
+| Llama2-7B(fp16) | address_json    | 0.41                                            | 1.4                                                      | N/A                                            |
+| Llama2-7B(fp16) | linkedlist_json | 0.54                                            | 0.58                                                     | N/A                                            |
+| Llama2-7B(fp16) | order_json      | 0.44                                            | 0.96                                                     | N/A                                            |
