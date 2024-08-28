@@ -26,14 +26,14 @@ outlines==0.0.46
 ## vllm
 Default vllm setting are used. Version: `0.5.3-post1`.
 
-| model           | schema          | Formatron overhead per token(with warm-up) / ms | lm format enforcer overhead(with warm-up) per token / ms |
-|-----------------|-----------------|-------------------------------------------------|----------------------------------------------------------|
-| Llama3-8B(bf16) | address_json    | 0.59                                            | 2.31                                                     |
-| Llama3-8B(bf16) | linkedlist_json | 0.66                                            | 0.26                                                     |
-| Llama3-8B(bf16) | order_json      | 0.64                                            | 0.92                                                     |
-| Llama2-7B(fp16) | address_json    | 0.33                                            | 0.33                                                     |
-| Llama2-7B(fp16) | linkedlist_json | 0.45                                            | 0.36                                                     |
-| Llama2-7B(fp16) | order_json      | 0.40                                            | 0.34                                                     |
+| model           | schema          | Formatron overhead per token(with warm-up) / ms | lm format enforcer overhead(with warm-up) per token / ms | outlines overhead(with warm-up) per token / ms |
+|-----------------|-----------------|-------------------------------------------------|----------------------------------------------------------|------------------------------------------------|
+| Llama3-8B(bf16) | address_json    | 0.66                                            | 2.39                                                     | 0.20                                           |
+| Llama3-8B(bf16) | linkedlist_json | 0.66                                            | 0.26                                                     | N/A                                            |
+| Llama3-8B(bf16) | order_json      | 0.64                                            | 0.92                                                     | 0.17                                           |
+| Llama2-7B(fp16) | address_json    | 0.33                                            | 0.33                                                     | 0.13                                           |
+| Llama2-7B(fp16) | linkedlist_json | 0.45                                            | 0.36                                                     | N/A                                            |
+| Llama2-7B(fp16) | order_json      | 0.40                                            | 0.34                                                     | 0.10                                           |
 ## Exllamav2
 Default exllamav2 setting are used. Version: `0.1.9`.
 
