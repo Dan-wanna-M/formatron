@@ -1,21 +1,20 @@
 import gc
-import json
 from timeit import timeit
-
 import torch
 from formatron.grammar_generators.json_generator import JsonGenerator
+from lmformatenforcer.integrations.vllm import build_vllm_logits_processor
 from vllm import LLM, SamplingParams
 from vllm.distributed import destroy_model_parallel, destroy_distributed_environment
 
-from utils import load_address, load_linkedlist, load_orders
-from utils import address_lfe, linked_list_lfe, order_lfe
 from formatter import FormatterBuilder
 from integrations.vllm import create_formatters_logits_processor, FormattersLogitsProcessor
 from utils import Address
 from utils import BenchResult, Context
 from utils import LinkedList
 from utils import Order, log
-from lmformatenforcer.integrations.vllm import build_vllm_logits_processor
+from utils import address_lfe, linked_list_lfe, order_lfe
+from utils import load_address, load_linkedlist, load_orders
+from outlines.integrations.vllm import JSONLogitsProcessor
 
 def execute():
     prompts = [
@@ -42,6 +41,11 @@ def lfe_vllm_address():
     sampling_params = SamplingParams(temperature=0.8, top_p=0.95, max_tokens=100, logits_processors=[logits_processor])
     return sampling_params
 
+def outlines_address():
+    logits_processor = JSONLogitsProcessor(Address, llm)
+    sampling_params = SamplingParams(temperature=0.8, top_p=0.95, max_tokens=100, logits_processors=[logits_processor])
+    return sampling_params
+
 def formatron_vllm_linkedlist():
     f = FormatterBuilder()
     f.append_line(f"{f.schema(LinkedList, JsonGenerator(), capture_name='json')}")
@@ -63,6 +67,11 @@ def formatron_vllm_order():
 
 def lfe_vllm_order():
     logits_processor = build_vllm_logits_processor(llm, order_lfe)
+    sampling_params = SamplingParams(temperature=0.8, top_p=0.95, max_tokens=350, logits_processors=[logits_processor])
+    return sampling_params
+
+def outlines_order():
+    logits_processor = JSONLogitsProcessor(Order, llm)
     sampling_params = SamplingParams(temperature=0.8, top_p=0.95, max_tokens=350, logits_processors=[logits_processor])
     return sampling_params
 
@@ -98,7 +107,7 @@ if __name__ == "__main__":
                 Extract information into json format: """
         tail = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
         import os
-        os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+        os.environ["CUDA_VISIBLE_DEVICES"] = "7"
         llm = LLM(model="NurtureAI/Meta-Llama-3-8B-Instruct-32k", max_model_len=4096)
         # --------------------------------------------------------------------------------------------------------------
         inputs = load_address()
@@ -106,6 +115,8 @@ if __name__ == "__main__":
         bench(data, context, execute, "formatron_llama3_8b_address", f)
         sampling_params = lfe_vllm_address()
         bench(data, context, execute, "lm_format_enforcer_llama3_8b_address", f)
+        sampling_params = outlines_address()
+        bench(data, context, execute, "outlines_llama3_8b_address", f)
         # --------------------------------------------------------------------------------------------------------------
         sampling_params = formatron_vllm_linkedlist()
         inputs = load_linkedlist()
@@ -118,6 +129,8 @@ if __name__ == "__main__":
         bench(data, context, execute, "formatron_llama3_8b_orders", f)
         sampling_params = lfe_vllm_order()
         bench(data, context, execute, "lm_format_enforcer_llama3_8b_order", f)
+        sampling_params = outlines_order()
+        bench(data, context, execute, "outlines_llama3_8b_order", f)
         # --------------------------------------------------------------------------------------------------------------
         destroy_model_parallel()
         destroy_distributed_environment()
@@ -137,6 +150,8 @@ if __name__ == "__main__":
         bench(data, context,execute, "formatron_llama2_7b_address", f)
         sampling_params = lfe_vllm_address()
         bench(data, context,execute, "lm_format_enforcer_llama2_7b_address", f)
+        sampling_params = outlines_address()
+        bench(data, context, execute, "outlines_llama2_7b_address", f)
         # --------------------------------------------------------------------------------------------------------------
         sampling_params = formatron_vllm_linkedlist()
         inputs = load_linkedlist()
@@ -149,3 +164,5 @@ if __name__ == "__main__":
         bench(data, context, execute, "formatron_llama2_7b_orders", f)
         sampling_params = lfe_vllm_order()
         bench(data, context, execute, "lm_format_enforcer_llama2_7b_orders", f)
+        sampling_params = outlines_order()
+        bench(data, context, execute, "outlines_llama2_7b_order", f)

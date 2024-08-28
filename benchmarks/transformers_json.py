@@ -1,8 +1,5 @@
 import os
 
-import outlines
-from outlines.models.transformers import TransformerTokenizer
-
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 import gc
 from timeit import timeit
@@ -10,14 +7,14 @@ from timeit import timeit
 import torch
 from formatron.formatter import FormatterBuilder
 from lmformatenforcer.integrations.transformers import build_transformers_prefix_allowed_tokens_fn
-from transformers import AutoModelForCausalLM, AutoTokenizer, LogitsProcessorList
+from transformers import AutoModelForCausalLM, AutoTokenizer
 from utils import load_address, load_linkedlist, load_orders, address_lfe, linked_list_lfe, order_lfe
 from grammar_generators.json_generator import JsonGenerator
 from integrations.transformers import create_formatter_logits_processor_list, FormattersLogitsProcessor
 from test_grammar_gen import LinkedList
 from utils import BenchResult, Context, Address, log
 from utils import Order
-from outlines.processors import JSONLogitsProcessor
+
 
 def get_llama3_8b_tokenizer_and_model():
     model = AutoModelForCausalLM.from_pretrained("NurtureAI/Meta-Llama-3-8B-Instruct-32k",
