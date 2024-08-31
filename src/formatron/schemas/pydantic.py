@@ -8,10 +8,10 @@ import typing
 import pydantic.fields
 from pydantic import BaseModel, validate_call, ConfigDict, Field
 
-from formatron.schemas import schema
+from formatron.schemas.schema import FieldInfo, Schema
 
 
-class FieldInfo(schema.FieldInfo):
+class FieldInfo(FieldInfo):
     """
     A wrapper for pydantic FieldInfo.
     """
@@ -38,7 +38,7 @@ class FieldInfo(schema.FieldInfo):
         return str(self._field)
 
 
-class ClassSchema(BaseModel, schema.Schema):
+class ClassSchema(BaseModel, Schema):
     """
     A wrapper for pydantic BaseModel that implements the Schema interface.
     """
@@ -122,7 +122,7 @@ def callable_schema(func: CallableT, /, *, config: ConfigDict = None, validate_r
 
     _class = type(
         f'{func.__qualname__}_PydanticSchema_{id(func)}',
-        (schema.Schema,),
+        (Schema,),
         {
             "_func": pydantic_wrapper,
             'fields': lambda: fields,

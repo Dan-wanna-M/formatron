@@ -3,10 +3,8 @@ This module integrates the vllm library by providing convenience utilities.
 """
 import collections.abc
 import typing
-
 import kbnf
 from vllm import LLM
-
 from formatron.config import EngineGenerationConfig
 from formatron.formatter import FormatterBase, FormatterBuilder
 from formatron.integrations._utils import get_original_characters
@@ -18,7 +16,7 @@ class FormattersLogitsProcessor:
     """
 
     def __init__(self, formatters: typing.Sequence[FormatterBase], eos_token_id: int,
-                 configs: typing.Sequence[EngineGenerationConfig] = None):
+                 configs: typing.Sequence[EngineGenerationConfig] | None = None):
         self._formatters = formatters
         self._eos_token_id = eos_token_id
         self._last_input_id_length = 0
@@ -34,7 +32,7 @@ class FormattersLogitsProcessor:
     def formatters_captures(self) -> list[dict[str, typing.Any]]:
         return [f.captures for f in self._formatters]
 
-    def reset(self)->None:
+    def reset(self) -> None:
         for f in self._formatters:
             f.reset()
         self._to_next_batch_step()
@@ -89,7 +87,7 @@ def create_engine_vocabulary(llm: LLM) -> kbnf.Vocabulary:
     vocab = tokenizer.get_vocab()
     new_vocab = get_original_characters(vocab)
     return kbnf.Vocabulary({v: kbnf.Token(k) for k, v in new_vocab.items()}, {
-        v:k for k,v in vocab.items()})
+        v: k for k, v in vocab.items()})
 
 
 def create_formatters_logits_processor(llm: LLM,
@@ -103,5 +101,6 @@ def create_formatters_logits_processor(llm: LLM,
     vocab = create_engine_vocabulary(llm)
     if not isinstance(formatter_builders, collections.abc.Sequence):
         formatter_builders = [formatter_builders]
-    formatters = [i.build(vocab, lambda tokens: tokenizer.decode(tokens)) for i in formatter_builders]
+    formatters = [i.build(vocab, lambda tokens: tokenizer.decode(tokens))
+                  for i in formatter_builders]
     return FormattersLogitsProcessor(formatters, tokenizer.eos_token_id, configs)

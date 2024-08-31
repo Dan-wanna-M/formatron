@@ -8,7 +8,7 @@ import typing
 
 class Extractor(abc.ABC):
     """
-    An abstract extractor that extracts data from a string.
+    An abstract extractor that extracts data from a string and offers its KBNF rules definition.
     """
 
     def __init__(self, capture_name: typing.Optional[str] = None):
@@ -32,25 +32,54 @@ class Extractor(abc.ABC):
         :param input_str: The input string.
         :return: The remaining string and the extracted data, or `None` if the extraction failed.
         """
-        pass
 
     @property
     @abc.abstractmethod
-    def kbnf_representation(self) -> str:
+    def kbnf_reference(self) -> str:
         """
-        Get the KBNF representation of the extractor in the generated grammar of a Formatter.
+        Get the KBNF reference of the extractor in the generated grammar of a Formatter.
         """
-        pass
+
+    def __str__(self):
+        return f"${{{self.kbnf_reference}}}"
+
+    @property
+    @abc.abstractmethod
+    def kbnf_definition(self) -> str:
+        """
+        Get the KBNF definition of the extractor in the generated grammar of a Formatter.
+
+        The difference between kbnf_reference and kbnf_definition is that kbnf_reference is how the extractor is referenced in other rules,
+        while kbnf_definition is the definition of the extractor itself, similar to a C header file. If kbnf_reference does not need extra definition,
+        you can just return an empty string.
+        """
+
+
+class NonterminalExtractor(Extractor):
+    """
+    An extractor that extracts data corresponding to a nonterminal.
+    """
+
+    def __init__(self, nonterminal: str, capture_name: typing.Optional[str] = None):
+        """
+        Initialize the nonterminal extractor.
+        """
+        super().__init__(capture_name)
+        if capture_name is None:
+            self._nonterminal = nonterminal
+        else:
+            self._nonterminal = f"{nonterminal}_{capture_name}"
 
     @property
     def nonterminal(self) -> str:
         """
-        Get the nonterminal representing the extractor.
+        Get the nonterminal of the extractor.
         """
-        raise NotImplementedError("This extractor does not have a corresponding nonterminal.")
+        return self._nonterminal
 
-    def __str__(self):
-        return f"${{{self.nonterminal}}}"
+    @property
+    def kbnf_reference(self) -> str:
+        return self._nonterminal
 
 
 class LiteralExtractor(Extractor):
@@ -77,14 +106,15 @@ class LiteralExtractor(Extractor):
         return input_str[pos + len(self._literal):], self._literal
 
     @property
-    def kbnf_representation(self) -> str:
+    def kbnf_reference(self) -> str:
         return repr(self._literal)
 
-    def __str__(self):
-        return f"${{{self.kbnf_representation}}}"
+    @property
+    def kbnf_definition(self) -> str:
+        return ""
 
 
-class RegexExtractor(Extractor):
+class RegexExtractor(NonterminalExtractor):
     """
     An extractor that extracts a string using a regular expression.
     """
@@ -97,9 +127,8 @@ class RegexExtractor(Extractor):
         :param capture_name: The name of the capture, or `None` if the extractor does not capture.
         :param nonterminal: The nonterminal representing the extractor.
         """
-        super().__init__(capture_name)
+        super().__init__(nonterminal, capture_name)
         self._regex = re.compile(regex)
-        self._nonterminal = nonterminal
 
     def extract(self, input_str: str) -> typing.Optional[tuple[str, re.Match | None]]:
         """
@@ -114,15 +143,11 @@ class RegexExtractor(Extractor):
         return input_str[matched.span()[1]:], matched
 
     @property
-    def kbnf_representation(self) -> str:
-        return self._nonterminal
-
-    @property
-    def nonterminal(self) -> str:
-        return self._nonterminal
+    def kbnf_definition(self) -> str:
+        return f"{self.nonterminal} ::= #{repr(self._regex.pattern)};"
 
 
-class ChoiceExtractor(Extractor):
+class ChoiceExtractor(NonterminalExtractor):
     """
     An extractor that uses multiple extractors to extract data. It stops at the first succeeding extractor.
     """
@@ -135,9 +160,8 @@ class ChoiceExtractor(Extractor):
         :param capture_name: The name of the capture, or `None` if the extractor does not capture.
         :param nonterminal: The nonterminal representing the extractor.
         """
-        super().__init__(capture_name)
+        super().__init__(nonterminal, capture_name)
         self._choices = choices
-        self._nonterminal = nonterminal
 
     def extract(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
         for choice in self._choices:
@@ -147,9 +171,5 @@ class ChoiceExtractor(Extractor):
         return None
 
     @property
-    def kbnf_representation(self) -> str:
-        return self._nonterminal
-
-    @property
-    def nonterminal(self) -> str:
-        return self._nonterminal
+    def kbnf_definition(self) -> str:
+        return f"{self.nonterminal} ::= {' | '.join([i.kbnf_reference for i in self._choices])};"

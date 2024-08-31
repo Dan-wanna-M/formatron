@@ -32,7 +32,8 @@ def create_formatter_logits_processor(tokenizer: PreTrainedTokenizerBase,
     vocab = create_engine_vocabulary(tokenizer)
     if not isinstance(formatter_builders, collections.abc.Sequence):
         formatter_builders = [formatter_builders]
-    formatters = [i.build(vocab, lambda tokens: tokenizer.decode(tokens)) for i in formatter_builders]
+    formatters = [i.build(vocab, lambda tokens: tokenizer.decode(tokens))
+                  for i in formatter_builders]
     return FormattersLogitsProcessor(formatters, tokenizer.eos_token_id, configs)
 
 
@@ -63,13 +64,13 @@ class FormattersLogitsProcessor(LogitsProcessor):
             f"Number of formatters({len(formatters)}) must match number of configs({len(configs)})"
         self.configs = configs
 
-    def reset(self)->None:
+    def reset(self) -> None:
         self._last_input_id_length = None
         for f in self._formatters:
             f.reset()
 
     @property
-    def formatters_captures(self)->list[dict[str,typing.Any]]:
+    def formatters_captures(self) -> list[dict[str, typing.Any]]:
         return [f.captures for f in self._formatters]
 
     def __call__(self, input_ids, scores):
@@ -99,5 +100,6 @@ class FormattersLogitsProcessor(LogitsProcessor):
             # this is significantly faster on huggingface. I don't know why.
             score = scores[i, :].numpy(force=True)
             new_score = formatter.mask_logits(score)
-            scores[i, :] = torch.tensor(new_score, dtype=scores.dtype, device=scores.device)
+            scores[i, :] = torch.tensor(
+                new_score, dtype=scores.dtype, device=scores.device)
         return scores

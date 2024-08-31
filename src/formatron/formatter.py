@@ -6,13 +6,10 @@ import re
 import textwrap
 import typing
 from copy import copy
-from json import JSONDecodeError
-
 import kbnf
-from grammar_generators.grammar_generator import GrammarGenerator
-from kbnf import AcceptTokenResult, Engine
-import schemas.schema
-from extractor import Extractor, LiteralExtractor, RegexExtractor, ChoiceExtractor
+from formatron.formats.json import JsonExtractor, create_json_extractor
+from formatron.schemas.schema import Schema
+from formatron.extractor import Extractor, LiteralExtractor, NonterminalExtractor, RegexExtractor, ChoiceExtractor
 
 
 class FormatterBase(abc.ABC):
@@ -27,14 +24,19 @@ class FormatterBase(abc.ABC):
         :param token_id: The token ID.
         :return: The result of accepting the token.
         """
-        pass
+
+    @abc.abstractmethod
+    def accept_bytes(self, _bytes: bytes):
+        """
+        Accept a bytes object from the language model.
+        :param _bytes: The bytes object.
+        """
 
     @abc.abstractmethod
     def compute_allowed_tokens(self) -> None:
         """
         Compute the allowed tokens based on the current state.
         """
-        pass
 
     @abc.abstractmethod
     def mask_logits(self, logits) -> typing.Any:
@@ -43,7 +45,6 @@ class FormatterBase(abc.ABC):
         :param logits: The logits to mask.
         :return: The masked logits.
         """
-        pass
 
     @abc.abstractmethod
     def get_allowed_tokens_since_last_computation(self) -> typing.Sequence[int]:
@@ -51,21 +52,18 @@ class FormatterBase(abc.ABC):
         Get the allowed tokens since the last computation(in other words, the last call to `compute_allowed_tokens`).
         :return: The allowed tokens.
         """
-        pass
 
     @abc.abstractmethod
     def is_completed(self) -> bool:
         """
         Check if the generated string satisfies the format and hence the generation is completed.
         """
-        pass
 
     @abc.abstractmethod
     def on_completion(self, generated_output: str) -> None:
         """
         Perform actions when the generation is completed.
         """
-        pass
 
     @property
     @abc.abstractmethod
@@ -73,14 +71,12 @@ class FormatterBase(abc.ABC):
         """
         Get the captures from the generated string.
         """
-        pass
 
     @abc.abstractmethod
     def reset(self) -> None:
         """
         Reset the formatter to the initial state.
         """
-        pass
 
 
 class Formatter(FormatterBase):
@@ -114,7 +110,7 @@ class Formatter(FormatterBase):
     def accept_token(self, token_id: int):
         result = self._engine.try_accept_new_token(token_id)
         self._token_ids.append(token_id)
-        if result == AcceptTokenResult.Finished:
+        if result == kbnf.AcceptTokenResult.Finished:
             output = self._decode_callback(self._token_ids)
             self.on_completion(output)
         return result
@@ -143,7 +139,8 @@ class Formatter(FormatterBase):
                 generated_output, captured = matcher.extract(generated_output)
             if matcher.capture_name:
                 if matcher.capture_name in self._captures:
-                    self._captures[matcher.capture_name] = [self._captures[matcher.capture_name]]
+                    self._captures[matcher.capture_name] = [
+                        self._captures[matcher.capture_name]]
                     self._captures[matcher.capture_name].append(captured)
                 else:
                     self._captures[matcher.capture_name] = captured
@@ -179,6 +176,7 @@ class FormatterBuilder:
         self._extractors = []
         self._instance_id = self.__class__._formatter_builder_counter
         self.__class__._formatter_builder_counter += 1
+
 
     def _assert_capture_name_valid(self, capture_name: str):
         assert capture_name.isidentifier(), (f"capture_name {capture_name}"
@@ -235,7 +233,8 @@ class FormatterBuilder:
                 if char == "}":
                     state = "normal"
                     self._main_rule.append(string[last:i])
-                    self._extractors.append(self._nonterminal_to_extractor[string[last:i]])
+                    self._extractors.append(
+                        self._nonterminal_to_extractor[string[last:i]])
                     last = i + 1
             elif char == "\\":
                 state = "escaped"
@@ -243,15 +242,16 @@ class FormatterBuilder:
                 state = "normal"
         append_literal(len(string))
 
-    def _create_nonterminal(self, capture_name: typing.Optional[str], name: str) -> str:
-        if capture_name is not None:
-            self._assert_capture_name_valid(capture_name)
-            self._capture_names.add(capture_name)
-            nonterminal = f"__{name}_{capture_name}_{self._instance_id}"
-        else:
-            nonterminal = f"__{name}_{self._counter}_{self._instance_id}"
-            self._counter += 1
+    def _create_nonterminal(self, name: str) -> str:
+        nonterminal = f"__{name}_{self._counter}_{self._instance_id}"
+        self._counter += 1
         return nonterminal
+
+    def _add_capture_name(self, extractor: NonterminalExtractor) -> None:
+        if extractor.capture_name is None:
+            return None
+        self._assert_capture_name_valid(extractor.capture_name)
+        self._capture_names.add(extractor.capture_name)
 
     def choose(self, *extractors: Extractor | str, capture_name: str = None) -> ChoiceExtractor:
         """
@@ -266,30 +266,36 @@ class FormatterBuilder:
                 new_extractors.append(LiteralExtractor(extractor))
             else:
                 new_extractors.append(extractor)
-        return self._add_extractor(capture_name, "choice",
-                                   lambda nonterminal: ChoiceExtractor(new_extractors, capture_name, nonterminal),
-                                   lambda nonterminal:
-                                   f"{nonterminal} ::= {' | '.join([i.kbnf_representation for i in new_extractors])};")
+        return self._add_extractor("choice",
+                                   lambda nonterminal: ChoiceExtractor(new_extractors, capture_name, nonterminal))
 
-    def _add_extractor(self, capture_name: str, extractor_type: str,
-                       create_extractor: typing.Callable[[str], Extractor],
-                       create_rules: typing.Callable[[str], str]):
-        nonterminal = self._create_nonterminal(capture_name, extractor_type)
-        self._nonterminal_to_extractor[nonterminal] = create_extractor(nonterminal)
-        self._rules.append(create_rules(nonterminal))
-        return self._nonterminal_to_extractor[nonterminal]
+    def _add_extractor(self, extractor_type: str, create_extractor: typing.Callable[[str], Extractor]):
+        nonterminal = self._create_nonterminal(extractor_type)
+        extractor = create_extractor(nonterminal)
+        if isinstance(extractor, NonterminalExtractor):
+            self._add_capture_name(extractor)
+            nonterminal = extractor.nonterminal
+        self._nonterminal_to_extractor[nonterminal] = extractor
+        self._rules.append(extractor.kbnf_definition)
+        return extractor
 
-    def extractor(self, create_extractor: typing.Callable[[str], Extractor],
-                  create_rules: typing.Callable[[str], str], capture_name: str = None) -> Extractor:
+    def extractor(self, create_extractor: typing.Callable[[str], Extractor]) -> Extractor:
         """
         Create a custom extractor.
         :param create_extractor: callable with signature (extractor_nonterminal: str)->Extractor that create the extractor. extractor_nonterminal is the auto-generated nonterminal reference for the extractor.
-        :param create_rules: callable with signature (extractor_nonterminal: str)->str that create the KBNF rules for the extractor. It is separated from create_extractor to allow more flexibility. For example, you can reuse the same extractor with different rules.
         :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
         """
-        return self._add_extractor(capture_name, "extractor",
-                                   create_extractor,
-                                   create_rules)
+        return self._add_extractor("extractor", create_extractor)
+
+    def json(self, schema: Schema, *, capture_name: str = None) -> JsonExtractor:
+        """
+        Create a JSON extractor.
+        :param schema: The schema for extraction.
+        :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
+        :return: The JSON extractor.
+        """
+        return self._add_extractor("json",
+                                   lambda nonterminal: create_json_extractor(schema, nonterminal, capture_name))
 
     def regex(self, regex: str, *, capture_name: str = None) -> RegexExtractor:
         """
@@ -298,31 +304,8 @@ class FormatterBuilder:
         :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
         :return: The regex extractor.
         """
-        return self._add_extractor(capture_name, "regex",
-                                   lambda nonterminal: RegexExtractor(regex, capture_name, nonterminal),
-                                   lambda nonterminal: f"{nonterminal} ::= #{repr(regex)};")
-
-    def schema(self, schema: typing.Type[schemas.schema.Schema],
-               grammar_generator: GrammarGenerator, *,
-               capture_name: str = None) -> Extractor:
-        """
-        Create a schema extractor.
-        :param schema: The schema for extraction.
-        :param grammar_generator: The grammar generator to generate the grammar from the schema.
-        :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
-        :return: The schema extractor.
-        """
-        def to_json(json:str):
-            try:
-                return schema.from_json(json)
-            except JSONDecodeError: # make ChoiceExtractor work appropriately
-                return None
-
-        return self._add_extractor(capture_name, "schema",
-                                   lambda nonterminal: grammar_generator.get_extractor(nonterminal, capture_name,
-                                                                                       to_json),
-                                   lambda nonterminal: grammar_generator.generate(schema, nonterminal))
-
+        return self._add_extractor("regex",
+                                   lambda nonterminal: RegexExtractor(regex, capture_name, nonterminal))
 
     def str(self, *, stop: typing.Union[str, list[str]] = None,
             capture_name: typing.Optional[str] = None) -> RegexExtractor:
@@ -333,7 +316,7 @@ class FormatterBuilder:
         :return: The string extractor.
         """
         stop = [stop] if isinstance(stop, str) else stop or []
-        nonterminal = self._create_nonterminal(capture_name, "str")
+        nonterminal = self._create_nonterminal("str")
         if not stop:
             capture_regex = ".*"
             nonterminal_regex = "#'.*'"
@@ -342,8 +325,10 @@ class FormatterBuilder:
             capture_regex = f".*?(?:{'|'.join([i.replace(backslash, backslash * 2) for i in map(re.escape, stop)])})"
             nonterminal_regex = f"#e'{capture_regex}'"
         self._rules.append(f"{nonterminal} ::= {nonterminal_regex};")
-        self._nonterminal_to_extractor[nonterminal] = RegexExtractor(capture_regex, capture_name, nonterminal)
+        self._nonterminal_to_extractor[nonterminal] = RegexExtractor(
+            capture_regex, capture_name, nonterminal)
         return self._nonterminal_to_extractor[nonterminal]
+
 
     def build(self, vocabulary: kbnf.Vocabulary,
               decode: typing.Callable[[list[int]], str],
@@ -355,11 +340,12 @@ class FormatterBuilder:
         :param engine_config: The KBNF engine configuration.
         :return: The formatter.
         """
-        assert len(self._main_rule) != 0, "An empty formatter builder cannot build!"
+        assert len(
+            self._main_rule) != 0, "An empty formatter builder cannot build!"
         rules = copy(self._rules)
         rules.append(f"start ::= {' '.join(self._main_rule)};")
         grammar_str = "\n".join(rules)
-        engine = Engine(grammar_str, vocabulary, engine_config)
+        engine = kbnf.Engine(grammar_str, vocabulary, engine_config)
         extractors = copy(self._extractors)
         f = Formatter(extractors, engine, decode, grammar_str)
         return f

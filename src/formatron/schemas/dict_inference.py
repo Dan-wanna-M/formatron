@@ -7,7 +7,7 @@ from typing import Any, Type
 
 from pydantic import typing
 
-import formatron.schemas as schemas
+from formatron import schemas
 
 
 class FieldInfo(schemas.schema.FieldInfo):

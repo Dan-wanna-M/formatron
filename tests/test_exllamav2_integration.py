@@ -1,16 +1,16 @@
 from exllamav2 import ExLlamaV2, ExLlamaV2Config, ExLlamaV2Cache, ExLlamaV2Tokenizer
 from exllamav2.generator import ExLlamaV2DynamicGenerator
 
-from formatter import FormatterBuilder
-from integrations.exllamav2 import create_formatter_filter
+from formatron.formatter import FormatterBuilder
+from formatron.integrations.exllamav2 import create_formatter_filter
 
 
 def test_exllamav2_integration(snapshot):
-    model_dir = "local_assets/Llama-3-8B-exl2/"
+    model_dir = "local_assets/Meta-Llama-3-8B-Instruct-32k/"
     config = ExLlamaV2Config(model_dir)
     model = ExLlamaV2(config)
-    cache = ExLlamaV2Cache(model, max_seq_len = 65536, lazy = True)
-    model.load_autosplit(cache, progress = True)
+    cache = ExLlamaV2Cache(model, max_seq_len=4096, lazy=True)
+    model.load_autosplit(cache, progress=True)
     tokenizer = ExLlamaV2Tokenizer(config)
     f = FormatterBuilder()
     f.append_line("Hello, Exllamav2!")
@@ -28,12 +28,13 @@ def test_exllamav2_integration(snapshot):
     )
     snapshot.assert_match(output)
 
+
 def test_exllamav2_utf_8(snapshot):
-    model_dir = "local_assets/Llama-3-8B-exl2/"
+    model_dir = "local_assets/Meta-Llama-3-8B-Instruct-32k/"
     config = ExLlamaV2Config(model_dir)
     model = ExLlamaV2(config)
-    cache = ExLlamaV2Cache(model, max_seq_len = 65536, lazy = True)
-    model.load_autosplit(cache, progress = True)
+    cache = ExLlamaV2Cache(model, max_seq_len=4096, lazy=True)
+    model.load_autosplit(cache, progress=True)
     tokenizer = ExLlamaV2Tokenizer(config)
 
     f = FormatterBuilder()
@@ -52,12 +53,13 @@ def test_exllamav2_utf_8(snapshot):
     )
     snapshot.assert_match(output)
 
+
 def test_exllamav2_batched_inference(snapshot):
-    model_dir = "local_assets/Llama-3-8B-exl2/"
+    model_dir = "local_assets/Meta-Llama-3-8B-Instruct-32k/"
     config = ExLlamaV2Config(model_dir)
     model = ExLlamaV2(config)
-    cache = ExLlamaV2Cache(model, max_seq_len = 65536, lazy = True)
-    model.load_autosplit(cache, progress = True)
+    cache = ExLlamaV2Cache(model, max_seq_len=4096, lazy=True)
+    model.load_autosplit(cache, progress=True)
     tokenizer = ExLlamaV2Tokenizer(config)
     f = FormatterBuilder()
     f.append_line("Hello, Exllamav2!")
@@ -72,6 +74,6 @@ def test_exllamav2_batched_inference(snapshot):
         prompt=["Hello, cats! ", "Hello, dogs! "],
         max_new_tokens=200,
         add_bos=True,
-        filters=[[exllama_filter],[exllama_filter2]]
+        filters=[[exllama_filter], [exllama_filter2]]
     )
     snapshot.assert_match(output)
