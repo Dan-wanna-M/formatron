@@ -8,21 +8,18 @@ var annotated_dup =
         [ "ChoiceExtractor", "classformatron_1_1extractor_1_1ChoiceExtractor.html", "classformatron_1_1extractor_1_1ChoiceExtractor" ],
         [ "Extractor", "classformatron_1_1extractor_1_1Extractor.html", "classformatron_1_1extractor_1_1Extractor" ],
         [ "LiteralExtractor", "classformatron_1_1extractor_1_1LiteralExtractor.html", "classformatron_1_1extractor_1_1LiteralExtractor" ],
+        [ "NonterminalExtractor", "classformatron_1_1extractor_1_1NonterminalExtractor.html", "classformatron_1_1extractor_1_1NonterminalExtractor" ],
         [ "RegexExtractor", "classformatron_1_1extractor_1_1RegexExtractor.html", "classformatron_1_1extractor_1_1RegexExtractor" ]
+      ] ],
+      [ "formats", "namespaceformatron_1_1formats.html", [
+        [ "json", "namespaceformatron_1_1formats_1_1json.html", [
+          [ "JsonExtractor", "classformatron_1_1formats_1_1json_1_1JsonExtractor.html", "classformatron_1_1formats_1_1json_1_1JsonExtractor" ]
+        ] ]
       ] ],
       [ "formatter", "namespaceformatron_1_1formatter.html", [
         [ "Formatter", "classformatron_1_1formatter_1_1Formatter.html", "classformatron_1_1formatter_1_1Formatter" ],
         [ "FormatterBase", "classformatron_1_1formatter_1_1FormatterBase.html", "classformatron_1_1formatter_1_1FormatterBase" ],
         [ "FormatterBuilder", "classformatron_1_1formatter_1_1FormatterBuilder.html", "classformatron_1_1formatter_1_1FormatterBuilder" ]
-      ] ],
-      [ "grammar_generators", "namespaceformatron_1_1grammar__generators.html", [
-        [ "grammar_generator", "namespaceformatron_1_1grammar__generators_1_1grammar__generator.html", [
-          [ "GrammarGenerator", "classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator.html", "classformatron_1_1grammar__generators_1_1grammar__generator_1_1GrammarGenerator" ]
-        ] ],
-        [ "json_generator", "namespaceformatron_1_1grammar__generators_1_1json__generator.html", [
-          [ "JsonExtractor", "classformatron_1_1grammar__generators_1_1json__generator_1_1JsonExtractor.html", "classformatron_1_1grammar__generators_1_1json__generator_1_1JsonExtractor" ],
-          [ "JsonGenerator", "classformatron_1_1grammar__generators_1_1json__generator_1_1JsonGenerator.html", "classformatron_1_1grammar__generators_1_1json__generator_1_1JsonGenerator" ]
-        ] ]
       ] ],
       [ "integrations", "namespaceformatron_1_1integrations.html", [
         [ "exllamav2", "namespaceformatron_1_1integrations_1_1exllamav2.html", [

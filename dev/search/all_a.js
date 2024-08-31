@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['json_5fgenerator_2epy_0',['json_generator.py',['../json__generator_8py.html',1,'']]],
-  ['jsonextractor_1',['JsonExtractor',['../classformatron_1_1grammar__generators_1_1json__generator_1_1JsonExtractor.html',1,'formatron::grammar_generators::json_generator']]],
-  ['jsongenerator_2',['JsonGenerator',['../classformatron_1_1grammar__generators_1_1json__generator_1_1JsonGenerator.html',1,'formatron::grammar_generators::json_generator']]]
+  ['json_0',['json',['../classformatron_1_1formatter_1_1FormatterBuilder.html#a9e61c551189673d98c3d5496a2b7ae9c',1,'formatron::formatter::FormatterBuilder']]],
+  ['json_2epy_1',['json.py',['../json_8py.html',1,'']]],
+  ['jsonextractor_2',['JsonExtractor',['../classformatron_1_1formats_1_1json_1_1JsonExtractor.html',1,'formatron::formats::json']]]
 ];

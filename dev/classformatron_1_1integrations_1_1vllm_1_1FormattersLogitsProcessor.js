@@ -1,10 +1,10 @@
 var classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor =
 [
-    [ "__init__", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a4a38fc9665d5c675021704ed881d2d71", null ],
+    [ "__init__", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a0ffc9ce36927ce6f342fae018e958277", null ],
     [ "__call__", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#ad4a81bb45d259bb5408433cdb6cbafdd", null ],
     [ "_to_next_batch_step", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#ab87fea11f930a33130cecadd8cdf0cc6", null ],
     [ "formatters_captures", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#aa8c06fae8582941999d99e1b2a6e9989", null ],
-    [ "reset", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a3ec52b62abf3dc08ae69afadaf7cb3c7", null ],
+    [ "reset", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a697bbd642308e22804f46729935e101b", null ],
     [ "_configs", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#aef140b4278cf9892faa3644bd4c2ca99", null ],
     [ "_debug_counter", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a83ec1613155b800bd9d1b0f012dff371", null ],
     [ "_eos_token_id", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a9c18332e5d1133b7524a8dde402f2677", null ],

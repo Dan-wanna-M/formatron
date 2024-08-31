@@ -1,5 +1,6 @@
 var classformatron_1_1formatter_1_1FormatterBase =
 [
+    [ "accept_bytes", "classformatron_1_1formatter_1_1FormatterBase.html#acb598c98b451ad52374395c9065aede8", null ],
     [ "accept_token", "classformatron_1_1formatter_1_1FormatterBase.html#af36ebc850e9023fec46aa13c8244ee65", null ],
     [ "captures", "classformatron_1_1formatter_1_1FormatterBase.html#a30fcb075c22ce5d1e03cbd93bd26e987", null ],
     [ "compute_allowed_tokens", "classformatron_1_1formatter_1_1FormatterBase.html#a927b160d994d43c4e38807f94ea69069", null ],

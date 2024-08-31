@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['processors_0',['Processors',['../namespaceformatron_1_1integrations_1_1__utils.html#ad5e049a7fd2978958881877de9eb6c1a',1,'formatron::integrations::_utils']]]
+  ['grammar_5fheader_0',['GRAMMAR_HEADER',['../namespaceformatron_1_1formats_1_1json.html#ac81c86f8a6384cf3b11c47ddf2049ca7',1,'formatron::formats::json']]]
 ];
