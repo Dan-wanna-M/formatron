@@ -1,7 +1,7 @@
 from vllm import LLM, SamplingParams
 
-from formatter import FormatterBuilder
-from integrations.vllm import create_formatters_logits_processor
+from formatron.formatter import FormatterBuilder
+from formatron.integrations.vllm import create_formatters_logits_processor
 
 
 def test_vllm_integration(snapshot):

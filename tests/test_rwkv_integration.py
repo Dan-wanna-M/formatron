@@ -1,7 +1,7 @@
 from rwkv.model import RWKV
 
-from formatter import FormatterBuilder
-from integrations.RWKV import PIPELINE
+from formatron.formatter import FormatterBuilder
+from formatron.integrations.RWKV import PIPELINE
 
 
 def test_rwkv_integration(snapshot):

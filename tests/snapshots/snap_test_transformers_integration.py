@@ -7,8 +7,6 @@ from snapshottest import Snapshot
 
 snapshots = Snapshot()
 
-
-
 snapshots['test_transformers_batched_inference 1'] = [
     '''<|endoftext|><|endoftext|>I am GPT2. Hello, Huggingface!
 <|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|><|endoftext|>''',

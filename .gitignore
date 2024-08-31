@@ -153,3 +153,4 @@ cython_debug/
 
 # pyenv
 .python-version
+tests/local_assets

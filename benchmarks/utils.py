@@ -1,6 +1,11 @@
+import gc
+import json
 from dataclasses import dataclass
 from typing import Optional
+
+import torch
 from formatron.schemas.pydantic import ClassSchema
+from lmformatenforcer import JsonSchemaParser
 
 
 class Address(ClassSchema):
@@ -10,9 +15,13 @@ class Address(ClassSchema):
     postal_code: str
     country: str
 
+address_lfe = JsonSchemaParser(Address.model_json_schema())
+
 class LinkedList(ClassSchema):
     value: int
     next: Optional["LinkedList"]
+
+linked_list_lfe = JsonSchemaParser(LinkedList.model_json_schema())
 
 class OrderItem(ClassSchema):
     product_id: int
@@ -35,6 +44,8 @@ class Order(ClassSchema):
     total_amount: float
     status: str
 
+order_lfe = JsonSchemaParser(Order.model_json_schema())
+
 @dataclass
 class BenchResult:
     t1:int
@@ -54,3 +65,17 @@ def log(func_name:str, data:BenchResult,f):
     print(a)
     print(b)
     f.writelines([a,b])
+
+
+def load_address()->list[str]:
+    return json.load(open("address.json"))["sentences"]
+
+def load_linkedlist()->list[str]:
+    return json.load(open("linkedlist.json"))["sentences"]
+
+def load_orders()->list[str]:
+    return json.load(open("orders.json"))["orders"]
+
+def force_gc():
+    torch.cuda.empty_cache()
+    gc.collect()
