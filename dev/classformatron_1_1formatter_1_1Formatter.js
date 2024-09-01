@@ -2,6 +2,7 @@ var classformatron_1_1formatter_1_1Formatter =
 [
     [ "__init__", "classformatron_1_1formatter_1_1Formatter.html#a369269f53f32be2f1d92663670354515", null ],
     [ "__str__", "classformatron_1_1formatter_1_1Formatter.html#a827c993f0ac74abff6276b3af6058e3f", null ],
+    [ "_on_completion", "classformatron_1_1formatter_1_1Formatter.html#ac6f7e3f96c6318689c5cd0d44a1cdde7", null ],
     [ "accept_bytes", "classformatron_1_1formatter_1_1Formatter.html#a27eb6ae00126a5ddf0f9ac33cccf9787", null ],
     [ "accept_token", "classformatron_1_1formatter_1_1Formatter.html#acf88a6ecf552ef891e19fc5d3e2a2fc1", null ],
     [ "captures", "classformatron_1_1formatter_1_1Formatter.html#af69cc99bea2c85c4ca5af0ecc01c5db1", null ],
@@ -10,7 +11,6 @@ var classformatron_1_1formatter_1_1Formatter =
     [ "grammar_str", "classformatron_1_1formatter_1_1Formatter.html#a2519969e1338beb864169289a6f36bb9", null ],
     [ "is_completed", "classformatron_1_1formatter_1_1Formatter.html#ac15aeec180daa5c78ad3c9bd93bd2b5b", null ],
     [ "mask_logits", "classformatron_1_1formatter_1_1Formatter.html#a1068b4fa2167039fe04519ec4db65278", null ],
-    [ "on_completion", "classformatron_1_1formatter_1_1Formatter.html#af6d413529a074bd30579d27b42021702", null ],
     [ "reset", "classformatron_1_1formatter_1_1Formatter.html#a10ff1aac8dcd90e1bd983d2f6580a964", null ],
     [ "_captures", "classformatron_1_1formatter_1_1Formatter.html#a43964a72280fd307cd74528657beeca3", null ],
     [ "_decode_callback", "classformatron_1_1formatter_1_1Formatter.html#a9535e6eb6b8001d6f5fc90ee549ecacb", null ],

@@ -3,7 +3,7 @@ var searchData=
   ['callable_5fschema_0',['callable_schema',['../namespaceformatron_1_1schemas_1_1pydantic.html#a0b1aeb9a63626b0e782bc4b9e1ce18cf',1,'formatron::schemas::pydantic']]],
   ['callablet_1',['CallableT',['../namespaceformatron_1_1schemas_1_1pydantic.html#acf48165db355935623fdcd27fafe2b27',1,'formatron::schemas::pydantic']]],
   ['capture_5fname_2',['capture_name',['../classformatron_1_1extractor_1_1Extractor.html#abb72e0428a8b5835d075ebd889703e13',1,'formatron::extractor::Extractor']]],
-  ['captures_3',['captures',['../classformatron_1_1formatter_1_1FormatterBase.html#a30fcb075c22ce5d1e03cbd93bd26e987',1,'formatron.formatter.FormatterBase.captures()'],['../classformatron_1_1formatter_1_1Formatter.html#af69cc99bea2c85c4ca5af0ecc01c5db1',1,'formatron.formatter.Formatter.captures()']]],
+  ['captures_3',['captures',['../classformatron_1_1formatter_1_1FormatterBase.html#ab6682619840e83727264a945953fe964',1,'formatron.formatter.FormatterBase.captures()'],['../classformatron_1_1formatter_1_1Formatter.html#af69cc99bea2c85c4ca5af0ecc01c5db1',1,'formatron.formatter.Formatter.captures()']]],
   ['choiceextractor_4',['ChoiceExtractor',['../classformatron_1_1extractor_1_1ChoiceExtractor.html',1,'formatron::extractor']]],
   ['choose_5',['choose',['../classformatron_1_1formatter_1_1FormatterBuilder.html#a5594cefa0b28af7f159f374486e51618',1,'formatron::formatter::FormatterBuilder']]],
   ['classschema_6',['ClassSchema',['../classformatron_1_1schemas_1_1pydantic_1_1ClassSchema.html',1,'formatron::schemas::pydantic']]],

@@ -141,7 +141,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a569fc7895a82f4d4b59866719219d4e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize an extractor.  <br /></td></tr>
 <tr class="separator:a569fc7895a82f4d4b59866719219d4e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9efb2a75cf5fc5e0919c235aa1435469" id="r_a9efb2a75cf5fc5e0919c235aa1435469"><td class="memItemLeft" align="right" valign="top">typing.Optional[tuple[str, typing.Any]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9efb2a75cf5fc5e0919c235aa1435469">extract</a> (self, str input_str)</td></tr>
-<tr class="memdesc:a9efb2a75cf5fc5e0919c235aa1435469"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract data from the input string.  <br /></td></tr>
+<tr class="memdesc:a9efb2a75cf5fc5e0919c235aa1435469"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract data from the input string, or <code>None</code> if the extraction failed.  <br /></td></tr>
 <tr class="separator:a9efb2a75cf5fc5e0919c235aa1435469"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf347fc566ceca08b0845a5146347a5e" id="r_abf347fc566ceca08b0845a5146347a5e"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf347fc566ceca08b0845a5146347a5e">kbnf_reference</a> (self)</td></tr>
 <tr class="separator:abf347fc566ceca08b0845a5146347a5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -258,7 +258,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Extract data from the input string. </p>
+<p>Extract data from the input string, or <code>None</code> if the extraction failed. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">input_str</td><td>The input string. </td></tr>

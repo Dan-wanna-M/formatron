@@ -2,7 +2,7 @@ var searchData=
 [
   ['callable_5fschema_0',['callable_schema',['../namespaceformatron_1_1schemas_1_1pydantic.html#a0b1aeb9a63626b0e782bc4b9e1ce18cf',1,'formatron::schemas::pydantic']]],
   ['capture_5fname_1',['capture_name',['../classformatron_1_1extractor_1_1Extractor.html#abb72e0428a8b5835d075ebd889703e13',1,'formatron::extractor::Extractor']]],
-  ['captures_2',['captures',['../classformatron_1_1formatter_1_1FormatterBase.html#a30fcb075c22ce5d1e03cbd93bd26e987',1,'formatron.formatter.FormatterBase.captures()'],['../classformatron_1_1formatter_1_1Formatter.html#af69cc99bea2c85c4ca5af0ecc01c5db1',1,'formatron.formatter.Formatter.captures()']]],
+  ['captures_2',['captures',['../classformatron_1_1formatter_1_1FormatterBase.html#ab6682619840e83727264a945953fe964',1,'formatron.formatter.FormatterBase.captures()'],['../classformatron_1_1formatter_1_1Formatter.html#af69cc99bea2c85c4ca5af0ecc01c5db1',1,'formatron.formatter.Formatter.captures()']]],
   ['choose_3',['choose',['../classformatron_1_1formatter_1_1FormatterBuilder.html#a5594cefa0b28af7f159f374486e51618',1,'formatron::formatter::FormatterBuilder']]],
   ['clone_4',['clone',['../classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a6ea0f3a9197afc9dd2b5b808fac2f157',1,'formatron::integrations::exllamav2::FormatterFilter']]],
   ['compute_5fallowed_5ftokens_5',['compute_allowed_tokens',['../classformatron_1_1formatter_1_1FormatterBase.html#a927b160d994d43c4e38807f94ea69069',1,'formatron.formatter.FormatterBase.compute_allowed_tokens()'],['../classformatron_1_1formatter_1_1Formatter.html#a538f36e08b749716e6dd4c50679e2ee1',1,'formatron.formatter.Formatter.compute_allowed_tokens()']]],
