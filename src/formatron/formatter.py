@@ -9,7 +9,9 @@ from copy import copy
 import kbnf
 from formatron.formats.json import JsonExtractor, create_json_extractor
 from formatron.schemas.schema import Schema
-from formatron.extractor import Extractor, LiteralExtractor, NonterminalExtractor, RegexExtractor, ChoiceExtractor
+from formatron.extractor import Extractor, LiteralExtractor, NonterminalExtractor, ChoiceExtractor
+from formatron.formats.regex import RegexExtractor
+
 
 
 class FormatterBase(abc.ABC):
@@ -21,15 +23,18 @@ class FormatterBase(abc.ABC):
     def accept_token(self, token_id: int) -> typing.Any:
         """
         Accept a token from the language model.
-        :param token_id: The token ID.
-        :return: The result of accepting the token.
+        Args:
+            token_id: The token ID.
+        Returns:
+            The result of accepting the token.
         """
 
     @abc.abstractmethod
     def accept_bytes(self, _bytes: bytes):
         """
         Accept a bytes object from the language model.
-        :param _bytes: The bytes object.
+        Args:
+            _bytes: The bytes object.
         """
 
     @abc.abstractmethod
@@ -42,15 +47,18 @@ class FormatterBase(abc.ABC):
     def mask_logits(self, logits) -> typing.Any:
         """
         Mask the logits based on the current state.
-        :param logits: The logits to mask.
-        :return: The masked logits.
+        Args:
+            logits: The logits to mask.
+        Returns:
+            The masked logits.
         """
 
     @abc.abstractmethod
     def get_allowed_tokens_since_last_computation(self) -> typing.Sequence[int]:
         """
         Get the allowed tokens since the last computation(in other words, the last call to `compute_allowed_tokens`).
-        :return: The allowed tokens.
+        Returns:
+            The allowed tokens.
         """
 
     @abc.abstractmethod
@@ -90,10 +98,11 @@ class Formatter(FormatterBase):
                  decode_callback: typing.Callable[[list[int]], str], grammar_str: str):
         """
         Initialize the formatter.
-        :param extractors: The matchers to extract data from the generated string.
-        :param engine: The KBNF engine to enforce the format.
-        :param decode_callback: The callback to decode the token IDs to a string.
-        :param grammar_str: The KBNF grammar string.
+        Args:
+            extractors: The matchers to extract data from the generated string.
+            engine: The KBNF engine to enforce the format.
+            decode_callback: The callback to decode the token IDs to a string.
+            grammar_str: The KBNF grammar string.
         """
         self._extractors = extractors
         self._engine = engine
@@ -287,9 +296,11 @@ class FormatterBuilder:
         Create a choice extractor.
 
         Check out the ChoiceExtractor docs for more details.
-        :param extractors: The extractors to choose from.
-        :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
-        :return: The choice extractor.
+        Args:
+            extractors: The extractors to choose from.
+            capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
+        Returns:
+            The choice extractor.
         """
         new_extractors = []
         for extractor in extractors:
@@ -314,8 +325,9 @@ class FormatterBuilder:
         """
         Create a custom extractor.
 
-        :param create_extractor: callable with signature (extractor_nonterminal: str)->Extractor that create the extractor. extractor_nonterminal is the auto-generated nonterminal reference for the extractor.
-        :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
+        Args:
+            create_extractor: callable with signature (extractor_nonterminal: str)->Extractor that create the extractor. extractor_nonterminal is the auto-generated nonterminal reference for the extractor.
+            capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
         """
         return self._add_extractor("extractor", create_extractor)
 
@@ -323,9 +335,11 @@ class FormatterBuilder:
         """
         Create a JSON extractor. Check out the JsonExtractor docs for more details.
 
-        :param schema: The schema for extraction.
-        :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
-        :return: The JSON extractor.
+        Args:
+            schema: The schema for extraction.
+            capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
+        Returns:
+            The JSON extractor.
         """
         return self._add_extractor("json",
                                    lambda nonterminal: create_json_extractor(schema, nonterminal, capture_name))
@@ -335,9 +349,12 @@ class FormatterBuilder:
         Create a regex extractor.
 
         Check out the RegexExtractor docs for more details.
-        :param regex: The regular expression for extraction.
-        :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
-        :return: The regex extractor.
+
+        Args:
+            regex: The regular expression for extraction.
+            capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
+        Returns:
+            The regex extractor.
         """
         return self._add_extractor("regex",
                                    lambda nonterminal: RegexExtractor(regex, capture_name, nonterminal))
@@ -348,9 +365,12 @@ class FormatterBuilder:
         Create a string extractor.
 
         The extractor will extract all text until(inclusive) one of the stop strings is encountered. 
-        :param stop: The strings for the extractors to stop at. They will be included in text generation and extraction.
-        :param capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
-        :return: The string extractor.
+
+        Args:
+            stop: The strings for the extractors to stop at. They will be included in text generation and extraction.
+            capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
+        Returns:
+            The string extractor.
         """
         stop = [stop] if isinstance(stop, str) else stop or []
         nonterminal = self._create_nonterminal("str")
@@ -372,10 +392,13 @@ class FormatterBuilder:
               engine_config: kbnf.Config = None) -> Formatter:
         """
         Build a formatter from the builder. The builder will not be consumed and can be used again.
-        :param vocabulary: The KBNF engine vocabulary for the formatter.
-        :param decode: The callback to decode the token IDs to a string.
-        :param engine_config: The KBNF engine configuration.
-        :return: The formatter.
+
+        Args:
+            vocabulary: The KBNF engine vocabulary for the formatter.
+            decode: The callback to decode the token IDs to a string.
+            engine_config: The KBNF engine configuration.
+        Returns:
+            The formatter.
         """
         assert len(
             self._main_rule) != 0, "An empty formatter builder cannot build!"

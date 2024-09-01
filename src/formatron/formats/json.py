@@ -1,5 +1,5 @@
 """
-The module defines the `JsonGenerator` class, a KBNF grammar generator for JSON format.
+The module defines the `JsonExtractor` class, which is used to extract data from a string in JSON format.
 """
 import collections
 import decimal
@@ -234,7 +234,22 @@ class JsonExtractor(extractor.NonterminalExtractor):
     def __init__(self, nonterminal: str, capture_name: typing.Optional[str], schema: schemas.schema.Schema,
                  to_object: typing.Callable[[str, ], schemas.schema.Schema]):
         """
-        Create an extractor.
+        Create a json extractor from a given schema.
+
+        Currently, the following data types are supported:
+
+        - bool
+        - int
+        - float
+        - string
+        - NoneType
+        - typing.Any
+        - Subclasses of collections.abc.Mapping[str,T] and typing.Mapping[str,T] where T is a supported type,
+        - Subclasses of collections.abc.Sequence[T] and typing.Sequence[T] where T is a supported type.
+        - tuple[T1,T2,...] where T1,T2,... are supported types. The order, type and number of elements will be preserved.
+        - typing.Literal[x1,x2,...] where x1, x2, ... are instances of int, string, bool or NoneType, or another typing.Literal[y1,y2,...]
+        - typing.Union[T1,T2,...] where T1,T2,... are supported types.
+        - schemas.Schema where all its fields' data types are supported. Recursive schema definitions are supported as well.
 
         Args:
             nonterminal: The nonterminal representing the extractor.
@@ -306,22 +321,7 @@ def create_json_extractor(schema: schemas.schema.Schema,
                           start_nonterminal: str,
                           capture_name: typing.Optional[str] = None) -> JsonExtractor:
     """
-    Create a json extractor from a given schema.
-
-    Currently, the following data types are supported:
-
-    - bool
-    - int
-    - float
-    - string
-    - NoneType
-    - typing.Any
-    - Subclasses of collections.abc.Mapping[str,T] and typing.Mapping[str,T] where T is a supported type,
-    - Subclasses of collections.abc.Sequence[T] and typing.Sequence[T] where T is a supported type.
-    - tuple[T1,T2,...] where T1,T2,... are supported types. The order, type and number of elements will be preserved.
-    - typing.Literal[x1,x2,...] where x1, x2, ... are instances of int, string, bool or NoneType, or another typing.Literal[y1,y2,...]
-    - typing.Union[T1,T2,...] where T1,T2,... are supported types.
-    - schemas.Schema where all its fields' data types are supported. Recursive schema definitions are supported as well.
+    
     """
 
     def to_json(json: str):

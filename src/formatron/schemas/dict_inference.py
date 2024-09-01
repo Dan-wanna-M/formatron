@@ -17,7 +17,8 @@ class FieldInfo(schemas.schema.FieldInfo):
         """
         Initialize the field information.
 
-        :param annotation: The type annotation of the field.
+        Args:
+            annotation: The type annotation of the field.
         """
         self._annotation = annotation
 
