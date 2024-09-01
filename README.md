@@ -1,11 +1,14 @@
 ![Logo](logo.svg)
 ---
+
 [![PyPI](https://img.shields.io/pypi/v/formatron.svg)](https://pypi.python.org/pypi/formatron)
 
 Formatron allows users to control the output format of language models
 with minimal overhead. It is lightweight, user-friendly,
 and seamlessly integrates into existing codebases and frameworks.
+
 ## Installation
+
 `pip install formatron`
 
 ## Features
@@ -21,14 +24,15 @@ Formatron is a flexible library that can be embedded anywhere.
 - **📜 Regex and CFG Support**:
 Effortlessly interleave regular expressions and context-free grammars (CFG) in formats.
 - **⚙️ Efficient JSON Generation**: Feature-complete JSON generation based on Pydantic models or json schemas.
-- **📤 Batched Inference**: 
+- **📤 Batched Inference**:
 Freely specify different formats for each sequence in one batch!
-- **🚀 Minimal Runtime Overhead**: 
+- **🚀 Minimal Runtime Overhead**:
 With Leo optimization, a specialized compacting algorithm,
 and CFG caches across generations, Earley algorithm implemented in Rust is
 aymptotically and practically the fastest algorithm.
 - **🔧 Customizable**: Everything is configurable, including schema generation,
 grammar generation, and post-generation processing (such as function calls).
+
 ## Comparison to other libraries
 
 | Capability                                   | Formatron                          | [LM Format Enforcer](https://github.com/noamgat/lm-format-enforcer)                           | [Guidance](https://github.com/guidance-ai/guidance) | [Outlines](https://github.com/outlines-dev/outlines)                                    | [LMQL](https://github.com/eth-sri/lmql)                                                         |
@@ -50,8 +54,11 @@ grammar generation, and post-generation processing (such as function calls).
 | JSON Schema with recursive classes           | ✅                                  | ✅                                                                                             | ❌                                                   | ❌                                                                                       | ❌                                                                                               |
 
 Feel free to open up an [issue](https://github.com/Dan-wanna-M/formatron/issues) if something is missing or incorrect!
+
 ## Examples
+
 ### Regex-constrained Generation
+
 ```python
 import torch
 from transformers import AutoModelForCausalLM
@@ -80,11 +87,15 @@ print(logits_processor[0].formatters_captures)
 # possible output:
 # [{'digit': [<re.Match object; span=(0, 2), match='42'>, <re.Match object; span=(0, 2), match='42'>]}]
 ```
+
 Note that only
 [Rust regex's syntax](https://docs.rs/regex/latest/regex/#syntax) is supported, which notably
-does not include arbitrary lookaheads. 
+does not include arbitrary lookaheads.
+
 ### Json Generation
+
 #### Pydantic Model
+
 ```python
 import torch
 from transformers import AutoModelForCausalLM
@@ -119,7 +130,9 @@ print(logits_processor[0].formatters_captures)
 # possible output:
 # [{'json': Goods(name='apples', price=14.4, remaining=14)}]
 ```
+
 #### Json Example
+
 ```python
 import torch
 from transformers import AutoModelForCausalLM
@@ -149,7 +162,9 @@ print(logits_processor[0].formatters_captures)
 # possible output:
 # [{'json': {'name': '周明瑞', 'age': 34}}]
 ```
+
 ### Batched Inference
+
 ```python
 import transformers
 from transformers import GPT2LMHeadModel
@@ -173,7 +188,9 @@ print(tokenizer.batch_decode(model.generate(**inputs,
                                             logits_processor=logits_processor),
                              skip_special_tokens=True))
 ```
+
 ### Function Calls
+
 ```python
 from formatron import schemas
 from formatron.formatter import FormatterBuilder
@@ -203,9 +220,12 @@ print(logits_processor[0].formatters_captures)
 # possible output:
 # [{'json': 14}]
 ```
+
 ### CFG-Constrained generation
+
 Context free grammars use [kbnf's syntax](https://docs.rs/kbnf/latest/kbnf/#kbnf-grammar) which is a variant of EBNF.
 Since formatron uses [kbnf](https://github.com/Dan-wanna-M/kbnf?tab=readme-ov-file#features) under the hood, all kbnf's claims on performance hold.
+
 ```python
 from formatron import extractor
 from formatron.formatter import FormatterBuilder
@@ -273,24 +293,35 @@ print(tokenizer.batch_decode(model.generate(**inputs, top_p=0.5, temperature=1,
 print(logits_processor[0].formatters_captures)
 # possible output: [{'json': '(((32+43)*(114-514)))*1.5'}]
 ```
-### Json Schema
-You can use [pydantic's code generator](https://docs.pydantic.dev/latest/integrations/datamodel_code_generator/)
-to generate pydantic models from json schema. 
 
-Formatron may natively support json schema in the future. 
+### Json Schema
+
+You can use [pydantic's code generator](https://docs.pydantic.dev/latest/integrations/datamodel_code_generator/)
+to generate pydantic models from json schema.
+
+Formatron may natively support json schema in the future.
+
 ### Integrations
+
 Check out integration examples in the [tests](https://github.com/Dan-wanna-M/formatron/tree/master/tests) directory.
 You may also want to check the minimum compatible version in [pyproject.toml](https://github.com/Dan-wanna-M/formatron/blob/master/pyproject.toml).
+
 ## API Reference
+
 Check out the API reference [here](https://dan-wanna-m.github.io/formatron/).
+
 ## Benchmark
+
 Check out the benchmark [here](benchmarks/readme.md).
+
 ## What Formatron Won't Do
+
 ### Implement an End-to-End Inference Pipeline
+
 Every library related to large language models(LLM) must consider that LLMs
 are rapidly evolving. Many libraries, such as Guidance, Outlines, and LMQL,
 address this by offering their own end-to-end inference pipelines,
-which are constantly updated to incorporate the latest techniques. 
+which are constantly updated to incorporate the latest techniques.
 
 Formatron, however, takes a different approach.
 Rather than providing a full-fledged inference pipeline,
@@ -298,17 +329,24 @@ Formatron focuses on being modular and easily embeddable into existing
 and future pipelines.
 While this may require users to write a bit more code initially,
 it makes maintaining and updating the pipeline painless in the long run.
+
 ## What Formatron Can't Do Now
+
 ### Support OpenAI or in general API-based LLM solutions
+
 They don't support efficient logits masking per token, nullifying most benefits
 of constrained decoding.
+
 ### Semantic Validation
+
 Although constrained decoding can enforce certain formats
 in generated text, they cannot guarantee that the output aligns
 with the users' intention. In other words, if the model is inadequate
 or the prompt is poorly written, it's possible to generate well-formatted
 but meaningless output.
+
 ### Context-Sensitive Validation
+
 Unfortunately, many formats require context-sensitive validation.
 For example, two keys in a JSON object must not be equal to each other.
 Unlike CFGs, there is no efficient, generic algorithm to validate
@@ -323,7 +361,7 @@ This approach allows for more efficient generation and validation
 but also means that the AST of a given format is not available.
 In most cases, this is not a problem,
 as it is usually possible to extract the format from the generated string
-using simple algorithms and then parse it with a parser.
+using simple algorithms and then parse it with an existing parser.
 However, in some cases, obtaining the AST might be necessary.
 In a future release, Formatron will support AST construction.
 
@@ -331,7 +369,7 @@ In a future release, Formatron will support AST construction.
 
 While it is *technically possible* to process batch logits in parallel CPU threads
 since Formatron uses Rust internally, most frameworks sequentially
-call Formatron's plugin for each logits in a batch. Altering 
+call Formatron's plugin for each logits in a batch. Altering
 this behaviour requires a breaking change to the frameworks' API or letting
 Formatron take over the control flow. Both options imply
 substantial work.
