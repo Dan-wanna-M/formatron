@@ -28,7 +28,7 @@ class Extractor(abc.ABC):
     @abc.abstractmethod
     def extract(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
         """
-        Extract data from the input string.
+        Extract data from the input string, or `None` if the extraction failed.
         :param input_str: The input string.
         :return: The remaining string and the extracted data, or `None` if the extraction failed.
         """
@@ -98,7 +98,7 @@ class LiteralExtractor(Extractor):
 
     def extract(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
         """
-        Extract the literal from the input string.
+        Extract the literal from the input string, or `None` if the literal is not found.
         """
         pos = input_str.find(self._literal)
         if pos == -1:
@@ -133,6 +133,7 @@ class RegexExtractor(NonterminalExtractor):
     def extract(self, input_str: str) -> typing.Optional[tuple[str, re.Match | None]]:
         """
         Extract the string using the regular expression.
+        Specifically, the first match(if any) of the regex pattern in the input string is returned. 
 
         :param input_str: The input string.
         :return: The remaining string and the extracted `re.Match` object, or `None` if the extraction failed.
@@ -164,6 +165,12 @@ class ChoiceExtractor(NonterminalExtractor):
         self._choices = choices
 
     def extract(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
+        """
+        Extract data from the input string using the first succeeding extractor.
+
+        :param input_str: The input string.
+        :return: The remaining string and the extracted data, or `None` if all extractors failed.
+        """
         for choice in self._choices:
             matched = choice.extract(input_str)
             if matched:

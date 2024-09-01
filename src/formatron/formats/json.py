@@ -263,19 +263,31 @@ class JsonExtractor(extractor.NonterminalExtractor):
         # Variables to track the balance of brackets and the position in the string
         bracket_count = 0
         position = 0
+        in_string = False
+        escape_next = False
 
         # Iterate over the string to find where the JSON object ends
         for char in input_str:
-            if char == '{':
-                bracket_count += 1
-            elif char == '}':
-                bracket_count -= 1
+            if not in_string:
+                if char == '{':
+                    bracket_count += 1
+                elif char == '}':
+                    bracket_count -= 1
+                elif char == '"':
+                    in_string = True
+            else:
+                if char == '"' and not escape_next:
+                    in_string = False
+                elif char == '\\':
+                    escape_next = not escape_next
+                else:
+                    escape_next = False
 
             # Move to the next character
             position += 1
 
-            # If brackets are balanced, stop processing
-            if bracket_count == 0:
+            # If brackets are balanced and we're not in a string, stop processing
+            if bracket_count == 0 and not in_string:
                 break
         else:
             return None
