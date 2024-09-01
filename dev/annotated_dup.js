@@ -8,12 +8,14 @@ var annotated_dup =
         [ "ChoiceExtractor", "classformatron_1_1extractor_1_1ChoiceExtractor.html", "classformatron_1_1extractor_1_1ChoiceExtractor" ],
         [ "Extractor", "classformatron_1_1extractor_1_1Extractor.html", "classformatron_1_1extractor_1_1Extractor" ],
         [ "LiteralExtractor", "classformatron_1_1extractor_1_1LiteralExtractor.html", "classformatron_1_1extractor_1_1LiteralExtractor" ],
-        [ "NonterminalExtractor", "classformatron_1_1extractor_1_1NonterminalExtractor.html", "classformatron_1_1extractor_1_1NonterminalExtractor" ],
-        [ "RegexExtractor", "classformatron_1_1extractor_1_1RegexExtractor.html", "classformatron_1_1extractor_1_1RegexExtractor" ]
+        [ "NonterminalExtractor", "classformatron_1_1extractor_1_1NonterminalExtractor.html", "classformatron_1_1extractor_1_1NonterminalExtractor" ]
       ] ],
       [ "formats", "namespaceformatron_1_1formats.html", [
         [ "json", "namespaceformatron_1_1formats_1_1json.html", [
           [ "JsonExtractor", "classformatron_1_1formats_1_1json_1_1JsonExtractor.html", "classformatron_1_1formats_1_1json_1_1JsonExtractor" ]
+        ] ],
+        [ "regex", "namespaceformatron_1_1formats_1_1regex.html", [
+          [ "RegexExtractor", "classformatron_1_1formats_1_1regex_1_1RegexExtractor.html", "classformatron_1_1formats_1_1regex_1_1RegexExtractor" ]
         ] ]
       ] ],
       [ "formatter", "namespaceformatron_1_1formatter.html", [

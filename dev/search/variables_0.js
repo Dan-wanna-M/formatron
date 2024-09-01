@@ -26,7 +26,7 @@ var searchData=
   ['_5fnonterminal_23',['_nonterminal',['../classformatron_1_1extractor_1_1NonterminalExtractor.html#a5c4c968b45e328b8caa4b2795ecc00fe',1,'formatron::extractor::NonterminalExtractor']]],
   ['_5fnonterminal_5fto_5fextractor_24',['_nonterminal_to_extractor',['../classformatron_1_1formatter_1_1FormatterBuilder.html#a870a5075cfd903c77e5ee58b6c304e03',1,'formatron::formatter::FormatterBuilder']]],
   ['_5fpass_5ftokens_25',['_pass_tokens',['../classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a370eaf641dd803b2759b4e5fc7f74a1c',1,'formatron::integrations::exllamav2::FormatterFilter']]],
-  ['_5fregex_26',['_regex',['../classformatron_1_1extractor_1_1RegexExtractor.html#a207689483d8ae65776a72686993dd78f',1,'formatron::extractor::RegexExtractor']]],
+  ['_5fregex_26',['_regex',['../classformatron_1_1formats_1_1regex_1_1RegexExtractor.html#a1df60401933eef6cf5a1ff041f11ec46',1,'formatron::formats::regex::RegexExtractor']]],
   ['_5frule_5fstr_27',['_rule_str',['../classformatron_1_1formats_1_1json_1_1JsonExtractor.html#aecf88428e414da080f11ed0ab1e13a65',1,'formatron::formats::json::JsonExtractor']]],
   ['_5frules_28',['_rules',['../classformatron_1_1formatter_1_1FormatterBuilder.html#a62c61ad02e40526b73ca460d0cf1d12c',1,'formatron::formatter::FormatterBuilder']]],
   ['_5fto_5fobject_29',['_to_object',['../classformatron_1_1formats_1_1json_1_1JsonExtractor.html#a2e72d806c8dffc0136231b81eb724355',1,'formatron::formats::json::JsonExtractor']]],

@@ -119,7 +119,7 @@ $(function(){initNavTree('namespaceformatron_1_1formats_1_1json.html',''); initR
 </div><!--header-->
 <div class="contents">
 
-<p>The module defines the <code>JsonGenerator</code> class, a KBNF grammar generator for JSON format.  
+<p>The module defines the <code><a class="el" href="classformatron_1_1formats_1_1json_1_1JsonExtractor.html" title="An extractor that loads json data to an object from a string.">JsonExtractor</a></code> class, which is used to extract data from a string in JSON format.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
@@ -139,7 +139,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:a9db894db5fad7d38a837b74bb773ab6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a KBNF grammar string from a schema for JSON format.  <br /></td></tr>
 <tr class="separator:a9db894db5fad7d38a837b74bb773ab6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fd060876806823b65d0b906f83aec3c" id="r_a9fd060876806823b65d0b906f83aec3c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classformatron_1_1formats_1_1json_1_1JsonExtractor.html">JsonExtractor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9fd060876806823b65d0b906f83aec3c">create_json_extractor</a> (<a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a> schema, str start_nonterminal, typing.Optional[str] capture_name=None)</td></tr>
-<tr class="memdesc:a9fd060876806823b65d0b906f83aec3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a json extractor from a given schema.  <br /></td></tr>
 <tr class="separator:a9fd060876806823b65d0b906f83aec3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -152,7 +151,7 @@ Variables</h2></td></tr>
 <tr class="separator:a003a1dac95634ac70f86d51e768945a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The module defines the <code>JsonGenerator</code> class, a KBNF grammar generator for JSON format. </p>
+<div class="textblock"><p>The module defines the <code><a class="el" href="classformatron_1_1formats_1_1json_1_1JsonExtractor.html" title="An extractor that loads json data to an object from a string.">JsonExtractor</a></code> class, which is used to extract data from a string in JSON format. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a9db894db5fad7d38a837b74bb773ab6c" name="a9db894db5fad7d38a837b74bb773ab6c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9db894db5fad7d38a837b74bb773ab6c">&#9670;&#160;</a></span>_generate_kbnf_grammar()</h2>
@@ -245,23 +244,6 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Create a json extractor from a given schema. </p>
-<p>Currently, the following data types are supported:</p>
-<div class="fragment"><div class="line">- bool</div>
-<div class="line">- int</div>
-<div class="line">- float</div>
-<div class="line">- string</div>
-<div class="line">- NoneType</div>
-<div class="line">- typing.Any</div>
-</div><!-- fragment --><ul>
-<li>Subclasses of collections.abc.Mapping[str,T] and typing.Mapping[str,T] where T is a supported type,</li>
-<li>Subclasses of collections.abc.Sequence[T] and typing.Sequence[T] where T is a supported type.</li>
-<li>tuple[T1,T2,...] where T1,T2,... are supported types. The order, type and number of elements will be preserved.</li>
-<li>typing.Literal[x1,x2,...] where x1, x2, ... are instances of int, string, bool or NoneType, or another typing.Literal[y1,y2,...]</li>
-<li>typing.Union[T1,T2,...] where T1,T2,... are supported types.</li>
-<li>schemas.Schema where all its fields' data types are supported. Recursive schema definitions are supported as well. </li>
-</ul>
 
 <p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00340">340</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
 
