@@ -2,9 +2,8 @@
 Extractors for extracting data from generated strings.
 """
 import abc
-import re
 import typing
-
+__all__ = ["Extractor", "ChoiceExtractor", "NonterminalExtractor"]
 
 class Extractor(abc.ABC):
     """

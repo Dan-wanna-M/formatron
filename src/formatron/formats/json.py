@@ -3,13 +3,12 @@ The module defines the `JsonExtractor` class, which is used to extract data from
 """
 import collections
 import decimal
-from json import JSONDecodeError
 import types
 import typing
 
 from formatron import extractor, schemas
 
-__all__ = ["create_json_extractor", "JsonExtractor"]
+__all__ = ["JsonExtractor"]
 
 SPACE_NONTERMINAL = "(\\u0020|\\u000A|\\u000D|\\u0009)*"
 
@@ -232,7 +231,7 @@ class JsonExtractor(extractor.NonterminalExtractor):
     """
 
     def __init__(self, nonterminal: str, capture_name: typing.Optional[str], schema: schemas.schema.Schema,
-                 to_object: typing.Callable[[str, ], schemas.schema.Schema]):
+                 to_object: typing.Callable[[str], schemas.schema.Schema]):
         """
         Create a json extractor from a given schema.
 
@@ -315,21 +314,6 @@ class JsonExtractor(extractor.NonterminalExtractor):
     @property
     def kbnf_definition(self):
         return self._rule_str
-
-
-def create_json_extractor(schema: schemas.schema.Schema,
-                          start_nonterminal: str,
-                          capture_name: typing.Optional[str] = None) -> JsonExtractor:
-    """
-    
-    """
-
-    def to_json(json: str):
-        try:
-            return schema.from_json(json)
-        except JSONDecodeError:  # make ChoiceExtractor work appropriately
-            return None
-    return JsonExtractor(start_nonterminal, capture_name, schema, to_json)
 
 
 _register_all_predefined_types()

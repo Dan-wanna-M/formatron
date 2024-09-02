@@ -2,12 +2,13 @@
 This module contains the Formatter class and its related classes.
 """
 import abc
+from json import JSONDecodeError
 import re
 import textwrap
 import typing
 from copy import copy
 import kbnf
-from formatron.formats.json import JsonExtractor, create_json_extractor
+from formatron.formats.json import JsonExtractor
 from formatron.schemas.schema import Schema
 from formatron.extractor import Extractor, LiteralExtractor, NonterminalExtractor, ChoiceExtractor
 from formatron.formats.regex import RegexExtractor
@@ -341,8 +342,13 @@ class FormatterBuilder:
         Returns:
             The JSON extractor.
         """
+        def to_json(json: str):
+            try:
+                return schema.from_json(json)
+            except JSONDecodeError:  # make ChoiceExtractor work appropriately
+                return None
         return self._add_extractor("json",
-                                   lambda nonterminal: create_json_extractor(schema, nonterminal, capture_name))
+                                   lambda nonterminal: JsonExtractor(nonterminal, capture_name,schema, to_json))
 
     def regex(self, regex: str, *, capture_name: str = None) -> RegexExtractor:
         """
