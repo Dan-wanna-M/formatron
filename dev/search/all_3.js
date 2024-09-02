@@ -15,6 +15,5 @@ var searchData=
   ['create_5fformatter_5ffilter_12',['create_formatter_filter',['../namespaceformatron_1_1integrations_1_1exllamav2.html#a8fb6a829f6fb28c956693fb2e4b39b63',1,'formatron::integrations::exllamav2']]],
   ['create_5fformatter_5flogits_5fprocessor_13',['create_formatter_logits_processor',['../namespaceformatron_1_1integrations_1_1transformers.html#afffe60e04b19e9b75d4b15c8330a1914',1,'formatron::integrations::transformers']]],
   ['create_5fformatter_5flogits_5fprocessor_5flist_14',['create_formatter_logits_processor_list',['../namespaceformatron_1_1integrations_1_1transformers.html#aedac0d446b75c83068265569ce04c5b8',1,'formatron::integrations::transformers']]],
-  ['create_5fformatters_5flogits_5fprocessor_15',['create_formatters_logits_processor',['../namespaceformatron_1_1integrations_1_1vllm.html#a12fbb11b247c84e1c280924e7b6b5a60',1,'formatron::integrations::vllm']]],
-  ['create_5fjson_5fextractor_16',['create_json_extractor',['../namespaceformatron_1_1formats_1_1json.html#a9fd060876806823b65d0b906f83aec3c',1,'formatron::formats::json']]]
+  ['create_5fformatters_5flogits_5fprocessor_15',['create_formatters_logits_processor',['../namespaceformatron_1_1integrations_1_1vllm.html#a12fbb11b247c84e1c280924e7b6b5a60',1,'formatron::integrations::vllm']]]
 ];
