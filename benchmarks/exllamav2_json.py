@@ -3,7 +3,6 @@ import formatron.integrations.exllamav2
 from exllamav2 import ExLlamaV2, ExLlamaV2Config, ExLlamaV2Cache, ExLlamaV2Tokenizer
 from exllamav2.generator import ExLlamaV2DynamicGenerator, ExLlamaV2Sampler
 from formatron.formatter import FormatterBuilder
-from formatron.grammar_generators.json_generator import JsonGenerator
 from formatron.integrations.exllamav2 import create_formatter_filter
 from lmformatenforcer.integrations.exllamav2 import ExLlamaV2TokenEnforcerFilter
 from utils import load_address, load_linkedlist, load_orders, force_gc, address_lfe, linked_list_lfe, \
@@ -45,7 +44,7 @@ def create_exllamav2_4bpw_llama2_7b():
 
 def f_get_address_filter():
     f = FormatterBuilder()
-    f.append_line(f"{f.schema(Address, JsonGenerator(), capture_name='json')}")
+    f.append_line(f"{f.json(Address, capture_name='json')}")
     exllama_filter = create_formatter_filter(
         generator.model, generator.tokenizer, f)
     return exllama_filter
@@ -59,8 +58,7 @@ def lfe_get_address_filter():
 
 def f_get_linkedlist_filter():
     f = FormatterBuilder()
-    f.append_line(
-        f"{f.schema(LinkedList, JsonGenerator(), capture_name='json')}")
+    f.append_line(f"{f.json(LinkedList, capture_name='json')}")
     exllama_filter = create_formatter_filter(
         generator.model, generator.tokenizer, f)
     return exllama_filter
@@ -74,7 +72,7 @@ def lfe_get_linkedlist_filter():
 
 def f_get_order_filter():
     f = FormatterBuilder()
-    f.append_line(f"{f.schema(Order, JsonGenerator(), capture_name='json')}")
+    f.append_line(f"{f.json(Order, capture_name='json')}")
     exllama_filter = create_formatter_filter(
         generator.model, generator.tokenizer, f)
     return exllama_filter

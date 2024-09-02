@@ -2,7 +2,6 @@ from utils import Order
 from utils import BenchResult, Context, Address, log
 from utils import LinkedList
 from formatron.integrations.transformers import create_formatter_logits_processor_list, FormattersLogitsProcessor
-from formatron.grammar_generators.json_generator import JsonGenerator
 from utils import load_address, load_linkedlist, load_orders, address_lfe, linked_list_lfe, order_lfe
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from lmformatenforcer.integrations.transformers import build_transformers_prefix_allowed_tokens_fn
@@ -11,8 +10,7 @@ import torch
 from timeit import timeit
 import gc
 import os
-
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "6"
 
 
 def get_llama3_8b_tokenizer_and_model():
@@ -39,7 +37,7 @@ def get_llama2_7b_tokenizer_and_model():
 
 def get_address_schema():
     f = FormatterBuilder()
-    f.append_line(f"{f.schema(Address, JsonGenerator(), capture_name='json')}")
+    f.append_line(f"{f.json(Address, capture_name='json')}")
     return create_formatter_logits_processor_list(tokenizer, f)
 
 
@@ -49,8 +47,7 @@ def lfe_address_prefix():
 
 def get_linkedlist_schema():
     f = FormatterBuilder()
-    f.append_line(
-        f"{f.schema(LinkedList, JsonGenerator(), capture_name='json')}")
+    f.append_line(f"{f.json(LinkedList, capture_name='json')}")
     return create_formatter_logits_processor_list(tokenizer, f)
 
 
@@ -60,7 +57,7 @@ def lfe_linkedlist_prefix():
 
 def get_order_schema():
     f = FormatterBuilder()
-    f.append_line(f"{f.schema(Order, JsonGenerator(), capture_name='json')}")
+    f.append_line(f"{f.json(Order, capture_name='json')}")
     return create_formatter_logits_processor_list(tokenizer, f)
 
 
@@ -135,15 +132,16 @@ if __name__ == "__main__":
             bench(data, context, execute,
                   "lm_format_enforcer_llama3_8b_address_json", f)
             # ----------------------------------------------------------------------------------------------------------
+            max_new_tokens = 100
             inputs = load_linkedlist()
             logits_processor = get_linkedlist_schema()
-            max_new_tokens = 256
             bench(data, context, execute,
                   "formatron_llama3_8b_linkedlist_json", f)
             logits_processor = None
             prefix_fn = lfe_linkedlist_prefix()
             bench(data, context, execute,
                   "lm_format_enforcer_llama3_8b_linkedlist_json", f)
+            max_new_tokens = 256
             # ----------------------------------------------------------------------------------------------------------
             inputs = load_orders()
             logits_processor = get_order_schema()
@@ -187,7 +185,7 @@ if __name__ == "__main__":
             # ----------------------------------------------------------------------------------------------------------
             inputs = load_orders()
             logits_processor = get_order_schema()
-            max_new_tokens = 300
+            max_new_tokens = 350
             bench(data, context, execute, "formatron_llama2_7b_order_json", f)
             logits_processor = None
             prefix_fn = lfe_order_prefix()

@@ -97,9 +97,5 @@ class FormattersLogitsProcessor(LogitsProcessor):
                 scores[i, self._eos_token_id] = 0.0
                 continue
             formatter.compute_allowed_tokens()
-            # this is significantly faster on huggingface. I don't know why.
-            score = scores[i, :].numpy(force=True)
-            new_score = formatter.mask_logits(score)
-            scores[i, :] = torch.tensor(
-                new_score, dtype=scores.dtype, device=scores.device)
+            formatter.mask_logits(scores[i, :])
         return scores

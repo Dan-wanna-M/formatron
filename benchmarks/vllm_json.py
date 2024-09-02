@@ -31,8 +31,7 @@ def execute():
 
 def formatron_vllm_address():
     f = FormatterBuilder()
-    f.append_line(
-        f"\n{f.json(Address, capture_name='json')}")
+    f.append_line(f"{f.json(Address, capture_name='json')}")
     logits_processor = create_formatters_logits_processor(llm, [f])
     sampling_params = SamplingParams(
         temperature=0.8, top_p=0.95, max_tokens=100, logits_processors=[logits_processor])
@@ -47,7 +46,7 @@ def lfe_vllm_address():
 
 
 def outlines_address():
-    logits_processor = JSONLogitsProcessor(Address, llm)
+    logits_processor = JSONLogitsProcessor(Address, llm, whitespace_pattern=r"[ \t\n\r]*")
     sampling_params = SamplingParams(
         temperature=0.8, top_p=0.95, max_tokens=100, logits_processors=[logits_processor])
     return sampling_params
@@ -87,7 +86,7 @@ def lfe_vllm_order():
 
 
 def outlines_order():
-    logits_processor = JSONLogitsProcessor(Order, llm)
+    logits_processor = JSONLogitsProcessor(Order, llm, whitespace_pattern=r"[ \t\n\r]*")
     sampling_params = SamplingParams(
         temperature=0.8, top_p=0.95, max_tokens=350, logits_processors=[logits_processor])
     return sampling_params
