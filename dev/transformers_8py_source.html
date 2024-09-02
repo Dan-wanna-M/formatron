@@ -227,12 +227,8 @@ $(function(){initNavTree('transformers_8py_source.html',''); initResizable(true)
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                scores[i, self.<a class="code hl_variable" href="classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a7731ed1ab6807c0de6c29ebfefd6975f">_eos_token_id</a>] = 0.0</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                <span class="keywordflow">continue</span></div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            formatter.compute_allowed_tokens()</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            <span class="comment"># this is significantly faster on huggingface. I don&#39;t know why.</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            score = scores[i, :].numpy(force=<span class="keyword">True</span>)</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            new_score = formatter.mask_logits(score)</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            scores[i, :] = torch.tensor(</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                new_score, dtype=scores.dtype, device=scores.device)</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">return</span> scores</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            formatter.mask_logits(scores[i, :])</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">return</span> scores</div>
 </div>
 </div>
 <div class="ttc" id="aclassformatron_1_1config_1_1EngineGenerationConfig_html"><div class="ttname"><a href="classformatron_1_1config_1_1EngineGenerationConfig.html">formatron.config.EngineGenerationConfig</a></div><div class="ttdoc">Configuration for how an KBNF engine should be used in text generation.</div><div class="ttdef"><b>Definition</b> <a href="config_8py_source.html#l00014">config.py:14</a></div></div>
