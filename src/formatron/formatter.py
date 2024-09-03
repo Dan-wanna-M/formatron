@@ -9,10 +9,10 @@ from copy import copy
 from json import JSONDecodeError
 
 import kbnf
-from grammar_generators.grammar_generator import GrammarGenerator
+from formatron.grammar_generators.grammar_generator import GrammarGenerator
 from kbnf import AcceptTokenResult, Engine
-import schemas.schema
-from extractor import Extractor, LiteralExtractor, RegexExtractor, ChoiceExtractor
+import formatron.schemas as schemas
+from formatron.extractor import Extractor, LiteralExtractor, RegexExtractor, ChoiceExtractor
 
 
 class FormatterBase(abc.ABC):
