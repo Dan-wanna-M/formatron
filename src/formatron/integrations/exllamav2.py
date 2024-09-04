@@ -13,7 +13,6 @@ from formatron.integrations._utils import get_original_characters
 from functools import lru_cache
 
 
-@lru_cache()
 def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer) -> kbnf.Vocabulary:
     """
     Create a vocabulary for the KBNF engine.
