@@ -51,6 +51,19 @@ def test_formatter_str(snapshot):
         pipeline.generate("My name is Van. ", token_count=256, args=formatron.integrations.RWKV.PIPELINE_ARGS(top_p=0.5)))
     snapshot.assert_match(pipeline.formatter.captures)
 
+def test_formatter_substr(snapshot):
+    FormatterBuilder._formatter_builder_counter = 0
+    f = FormatterBuilder()
+    f.append_str(f"{f.substr('Name: Umbrella; Price: 114.514 dollars;', extract_empty_substring=True, capture_name='substr')}<eos>")
+    model = RWKV(
+        "assets/RWKV-5-World-0.4B-v2-20231113-ctx4096.pth", 'cuda fp16')
+    pipeline = formatron.integrations.RWKV.PIPELINE(model, "rwkv_vocab_v20230424", f)
+    np.random.seed(42)
+    snapshot.assert_match(pipeline.formatter.grammar_str)
+    snapshot.assert_match(pipeline.generate("Umbrella Price: 114.514 dollars. The price of the umbrella is",
+                                             token_count=256, args=formatron.integrations.RWKV.PIPELINE_ARGS(top_p=0.5)))
+    snapshot.assert_match(pipeline.formatter.captures)
+
 
 def test_formatter_dict_inference(snapshot):
     FormatterBuilder._formatter_builder_counter = 0

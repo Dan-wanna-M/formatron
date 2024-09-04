@@ -10,7 +10,7 @@ from copy import copy
 import kbnf
 from formatron.formats.json import JsonExtractor
 from formatron.schemas.schema import Schema
-from formatron.extractor import Extractor, LiteralExtractor, NonterminalExtractor, ChoiceExtractor
+from formatron.extractor import Extractor, LiteralExtractor, NonterminalExtractor, ChoiceExtractor, SubstringExtractor
 from formatron.formats.regex import RegexExtractor
 
 
@@ -391,7 +391,23 @@ class FormatterBuilder:
         self._nonterminal_to_extractor[nonterminal] = RegexExtractor(
             capture_regex, capture_name, nonterminal)
         return self._nonterminal_to_extractor[nonterminal]
+    
+    def substr(self, string: str, *, capture_name: str = None, extract_empty_substring: bool = False) -> Extractor:
+        """
+        Create a substring extractor.
 
+        The extractor will extract a substring of the input string.
+
+        Args:
+            string: The string to extract.
+            capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
+            extract_empty_substring: Whether to extract an empty substring as a valid substring.
+        Returns:
+            The substring extractor.
+        """
+        return self._add_extractor("substr",
+                                   lambda nonterminal: SubstringExtractor(string, capture_name, nonterminal,
+                                                                           extract_empty_substring=extract_empty_substring))
 
     def build(self, vocabulary: kbnf.Vocabulary,
               decode: typing.Callable[[list[int]], str],

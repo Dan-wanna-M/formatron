@@ -3,6 +3,8 @@ Extractors for extracting data from generated strings.
 """
 import abc
 import typing
+
+from general_sam import GeneralSam
 __all__ = ["Extractor", "ChoiceExtractor", "NonterminalExtractor"]
 
 class Extractor(abc.ABC):
@@ -100,7 +102,7 @@ class LiteralExtractor(Extractor):
         super().__init__(None)
         self._literal = literal
 
-    def extract(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
+    def extract(self, input_str: str) -> typing.Optional[tuple[str, str]]:
         """
         Extract the literal from the input string, or `None` if the literal is not found.
         """
@@ -153,3 +155,47 @@ class ChoiceExtractor(NonterminalExtractor):
     @property
     def kbnf_definition(self) -> str:
         return f"{self.nonterminal} ::= {' | '.join([i.kbnf_reference for i in self._choices])};"
+    
+
+class SubstringExtractor(NonterminalExtractor):
+    """
+    An extractor that extracts a substring of a given string from the input string.
+    """
+
+    def __init__(self, string: str, capture_name: str, nonterminal: str, *, extract_empty_substring: bool = False):
+        """
+        Initialize the substring extractor.
+        Args:
+            string: The string to extract.
+            capture_name: The name of the capture, or `None` if the extractor does not capture.
+            extract_empty_substring: Whether to extract empty substring as a valid substring.
+        """
+        super().__init__(nonterminal, capture_name)
+        self._suffix_automaton = GeneralSam.from_bytes(string.encode("UTF-8"))
+        self._string = string
+        self.extract_empty_substring = extract_empty_substring
+
+    def extract(self, input_str: str) -> typing.Optional[tuple[str, str]]:
+        """
+        Extract the longest substring of a given string from the input string. 
+        If extract_empty_substring is True, empty string is always a valid substring, so the returned string could be empty and `None` will never be returned.
+        Otherwise, empty string is not a valid substring,
+        so the returned string could not be empty and `None` will be returned if the input string does not contain the given string.
+        """
+        current_state = self._suffix_automaton.get_root_state()
+        longest_match = 0
+        for char in input_str:
+            current_state.feed_bytes(char.encode('utf-8'))
+            if current_state.is_nil():
+                break
+            longest_match += 1
+        
+        if longest_match > 0 or self.extract_empty_substring:
+            extracted = input_str[:longest_match]
+            remaining = input_str[longest_match:]
+            return remaining, extracted
+        return None
+    
+    @property
+    def kbnf_definition(self) -> str:
+        return f"{self.nonterminal} ::= #substrs{repr(self._string)};"
