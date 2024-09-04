@@ -39,7 +39,7 @@ def get_original_characters(vocab: typing.Dict[str, int]) -> typing.Dict[bytes, 
         else:
             raise ValueError(f"{i} is not a valid processor name!")
     # Create a regular expression from the dictionary keys
-    regex = re.compile(b"(%s)" % b"(%s)" % b"|".join(map(re.escape, old_char_to_new_char.keys())))
+    regex = re.compile(b"(%s)" % b"|".join(map(re.escape, old_char_to_new_char.keys())))
     new_vocab = {}
     for k in vocab:
         token_id = vocab[k]
