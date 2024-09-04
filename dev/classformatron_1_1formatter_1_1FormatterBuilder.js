@@ -14,6 +14,7 @@ var classformatron_1_1formatter_1_1FormatterBuilder =
     [ "json", "classformatron_1_1formatter_1_1FormatterBuilder.html#a9e61c551189673d98c3d5496a2b7ae9c", null ],
     [ "regex", "classformatron_1_1formatter_1_1FormatterBuilder.html#af34f97f7f62d2a1de4f9e863b1834619", null ],
     [ "str", "classformatron_1_1formatter_1_1FormatterBuilder.html#ad467a40f82a47dff9bb2b95d1300ace0", null ],
+    [ "substr", "classformatron_1_1formatter_1_1FormatterBuilder.html#ab98ad2c47fcb7be56521d3eadb4e643b", null ],
     [ "_capture_names", "classformatron_1_1formatter_1_1FormatterBuilder.html#a68daf6b6bbd2f32843352dc6ea1f4b8f", null ],
     [ "_counter", "classformatron_1_1formatter_1_1FormatterBuilder.html#a937af7ea452c8183053dc3e12cd44e1c", null ],
     [ "_extractors", "classformatron_1_1formatter_1_1FormatterBuilder.html#a4c10094d828cde5bf73bbd5d3d11e582", null ],

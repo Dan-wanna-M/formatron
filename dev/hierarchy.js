@@ -5,6 +5,7 @@ var hierarchy =
         [ "formatron.extractor.LiteralExtractor", "classformatron_1_1extractor_1_1LiteralExtractor.html", null ],
         [ "formatron.extractor.NonterminalExtractor", "classformatron_1_1extractor_1_1NonterminalExtractor.html", [
           [ "formatron.extractor.ChoiceExtractor", "classformatron_1_1extractor_1_1ChoiceExtractor.html", null ],
+          [ "formatron.extractor.SubstringExtractor", "classformatron_1_1extractor_1_1SubstringExtractor.html", null ],
           [ "formatron.formats.json.JsonExtractor", "classformatron_1_1formats_1_1json_1_1JsonExtractor.html", null ],
           [ "formatron.formats.regex.RegexExtractor", "classformatron_1_1formats_1_1regex_1_1RegexExtractor.html", null ]
         ] ]

@@ -32,7 +32,8 @@
    <div id="projectname">Formatron<span id="projectnumber">&#160;dev</span>
      <!-- Version Selector -->
      <select id="versionSelector" onchange="location = this.value;">
-       <option value="../v0.3.3/index.html" >v0.3.3</option>
+       <option value="../v0.3.4/index.html" >v0.3.4</option>
+<option value="../v0.3.3/index.html" >v0.3.3</option>
 <option value="../v0.3.2/index.html" >v0.3.2</option>
 <option value="../v0.3.1/index.html" >v0.3.1</option>
 <option value="../v0.3.0/index.html" >v0.3.0</option>
@@ -127,10 +128,11 @@ Inheritance diagram for formatron.extractor.NonterminalExtractor:</div>
  <div class="center">
   <img src="classformatron_1_1extractor_1_1NonterminalExtractor.png" usemap="#formatron.extractor.NonterminalExtractor_map" alt=""/>
   <map id="formatron.extractor.NonterminalExtractor_map" name="formatron.extractor.NonterminalExtractor_map">
-<area href="classformatron_1_1extractor_1_1Extractor.html" title="An abstract extractor that extracts data from a string and offers its KBNF rules definition." alt="formatron.extractor.Extractor" shape="rect" coords="252,56,494,80"/>
+<area href="classformatron_1_1extractor_1_1Extractor.html" title="An abstract extractor that extracts data from a string and offers its KBNF rules definition." alt="formatron.extractor.Extractor" shape="rect" coords="378,56,620,80"/>
 <area href="classformatron_1_1extractor_1_1ChoiceExtractor.html" title="An extractor that uses multiple extractors to extract data." alt="formatron.extractor.ChoiceExtractor" shape="rect" coords="0,168,242,192"/>
-<area href="classformatron_1_1formats_1_1json_1_1JsonExtractor.html" title="An extractor that loads json data to an object from a string." alt="formatron.formats.json.JsonExtractor" shape="rect" coords="252,168,494,192"/>
-<area href="classformatron_1_1formats_1_1regex_1_1RegexExtractor.html" title="An extractor that extracts a string using a regular expression." alt="formatron.formats.regex.RegexExtractor" shape="rect" coords="504,168,746,192"/>
+<area href="classformatron_1_1extractor_1_1SubstringExtractor.html" title="An extractor that extracts a substring of a given string from the input string." alt="formatron.extractor.SubstringExtractor" shape="rect" coords="252,168,494,192"/>
+<area href="classformatron_1_1formats_1_1json_1_1JsonExtractor.html" title="An extractor that loads json data to an object from a string." alt="formatron.formats.json.JsonExtractor" shape="rect" coords="504,168,746,192"/>
+<area href="classformatron_1_1formats_1_1regex_1_1RegexExtractor.html" title="An extractor that extracts a string using a regular expression." alt="formatron.formats.regex.RegexExtractor" shape="rect" coords="756,168,998,192"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -169,7 +171,7 @@ Protected Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An extractor that extracts data corresponding to a nonterminal. </p>
 
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00096">96</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00098">98</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a45c14f79c14b539837ebdd26c3b5567b" name="a45c14f79c14b539837ebdd26c3b5567b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a45c14f79c14b539837ebdd26c3b5567b">&#9670;&#160;</a></span>__init__()</h2>
@@ -199,9 +201,9 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1extractor_1_1Extractor.html#a569fc7895a82f4d4b59866719219d4e0">formatron.extractor.Extractor</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a1a91b31475c7348a3cf9fab97c6d26f0">formatron.extractor.ChoiceExtractor</a>, <a class="el" href="classformatron_1_1formats_1_1json_1_1JsonExtractor.html#a366985fe26333f2c2f83c94c9c870c36">formatron.formats.json.JsonExtractor</a>, and <a class="el" href="classformatron_1_1formats_1_1regex_1_1RegexExtractor.html#a6fc2f05d044cce49935c415248de5e5a">formatron.formats.regex.RegexExtractor</a>.</p>
+<p>Reimplemented in <a class="el" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a1a91b31475c7348a3cf9fab97c6d26f0">formatron.extractor.ChoiceExtractor</a>, <a class="el" href="classformatron_1_1extractor_1_1SubstringExtractor.html#a843997315c77b9c7c6eb84ba7e02ff83">formatron.extractor.SubstringExtractor</a>, <a class="el" href="classformatron_1_1formats_1_1json_1_1JsonExtractor.html#a366985fe26333f2c2f83c94c9c870c36">formatron.formats.json.JsonExtractor</a>, and <a class="el" href="classformatron_1_1formats_1_1regex_1_1RegexExtractor.html#a6fc2f05d044cce49935c415248de5e5a">formatron.formats.regex.RegexExtractor</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00101">101</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00103">103</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 
 </div>
 </div>
@@ -223,7 +225,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1extractor_1_1Extractor.html#abf347fc566ceca08b0845a5146347a5e">formatron.extractor.Extractor</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00132">132</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00134">134</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 
 </div>
 </div>
@@ -244,7 +246,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Get the nonterminal of the extractor. </p>
 
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00119">119</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00121">121</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 
 </div>
 </div>
@@ -269,7 +271,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00104">104</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="extractor_8py_source.html#l00106">106</a> of file <a class="el" href="extractor_8py_source.html">extractor.py</a>.</p>
 
 </div>
 </div>
