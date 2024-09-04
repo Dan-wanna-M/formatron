@@ -10,8 +10,10 @@ from exllamav2.generator.base import ExLlamaV2Filter
 from formatron.config import EngineGenerationConfig
 from formatron.formatter import FormatterBase, FormatterBuilder
 from formatron.integrations._utils import get_original_characters
+from functools import lru_cache
 
 
+@lru_cache()
 def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer) -> kbnf.Vocabulary:
     """
     Create a vocabulary for the KBNF engine.

@@ -3,9 +3,7 @@ import typing
 from functools import lru_cache
 
 
-def _multiple_replace(replacements, text):
-    # Create a regular expression from the dictionary keys
-    regex = re.compile(b"(%s)" % b"|".join(map(re.escape, replacements.keys())))
+def _multiple_replace(replacements, regex, text):
     # For each match, look-up corresponding value in dictionary
     return regex.sub(lambda mo: replacements.get(mo.group(), b""), text)
 
@@ -40,11 +38,13 @@ def get_original_characters(vocab: typing.Dict[str, int]) -> typing.Dict[bytes, 
                 old_char_to_new_char[("<0x" + f"{j:02x}".upper() + ">").encode("UTF-8")] = bytes([j])
         else:
             raise ValueError(f"{i} is not a valid processor name!")
+    # Create a regular expression from the dictionary keys
+    regex = re.compile(b"(%s)" % b"(%s)" % b"|".join(map(re.escape, old_char_to_new_char.keys())))
     new_vocab = {}
     for k in vocab:
         token_id = vocab[k]
         k = k.encode("UTF-8")
-        new_k = _multiple_replace(old_char_to_new_char, k)
+        new_k = _multiple_replace(old_char_to_new_char, regex, k)
         new_vocab[new_k] = token_id
     return new_vocab
 
