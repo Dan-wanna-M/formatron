@@ -27,11 +27,12 @@ var searchData=
   ['_5fnonterminal_5fto_5fextractor_24',['_nonterminal_to_extractor',['../classformatron_1_1formatter_1_1FormatterBuilder.html#a870a5075cfd903c77e5ee58b6c304e03',1,'formatron::formatter::FormatterBuilder']]],
   ['_5fpass_5ftokens_25',['_pass_tokens',['../classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a370eaf641dd803b2759b4e5fc7f74a1c',1,'formatron::integrations::exllamav2::FormatterFilter']]],
   ['_5fregex_26',['_regex',['../classformatron_1_1formats_1_1regex_1_1RegexExtractor.html#a1df60401933eef6cf5a1ff041f11ec46',1,'formatron::formats::regex::RegexExtractor']]],
-  ['_5frule_5fstr_27',['_rule_str',['../classformatron_1_1formats_1_1json_1_1JsonExtractor.html#aecf88428e414da080f11ed0ab1e13a65',1,'formatron::formats::json::JsonExtractor']]],
-  ['_5frules_28',['_rules',['../classformatron_1_1formatter_1_1FormatterBuilder.html#a62c61ad02e40526b73ca460d0cf1d12c',1,'formatron::formatter::FormatterBuilder']]],
-  ['_5fstring_29',['_string',['../classformatron_1_1extractor_1_1SubstringExtractor.html#a3781b75c6c8c12f89fd70ea405e11293',1,'formatron::extractor::SubstringExtractor']]],
-  ['_5fsuffix_5fautomaton_30',['_suffix_automaton',['../classformatron_1_1extractor_1_1SubstringExtractor.html#a97cb3468674873adfc85bc17ff1a9a97',1,'formatron::extractor::SubstringExtractor']]],
-  ['_5fto_5fobject_31',['_to_object',['../classformatron_1_1formats_1_1json_1_1JsonExtractor.html#a2e72d806c8dffc0136231b81eb724355',1,'formatron::formats::json::JsonExtractor']]],
-  ['_5ftoken_5fids_32',['_token_ids',['../classformatron_1_1formatter_1_1Formatter.html#af1cd76082444827cbf12be735085dad7',1,'formatron::formatter::Formatter']]],
-  ['_5ftype_5fto_5fnonterminals_33',['_type_to_nonterminals',['../namespaceformatron_1_1formats_1_1json.html#a003a1dac95634ac70f86d51e768945a4',1,'formatron::formats::json']]]
+  ['_5frequired_27',['_required',['../classformatron_1_1schemas_1_1json__schema_1_1FieldInfo.html#a8ac1acf32bb578e121ef28a433857726',1,'formatron::schemas::json_schema::FieldInfo']]],
+  ['_5frule_5fstr_28',['_rule_str',['../classformatron_1_1formats_1_1json_1_1JsonExtractor.html#aecf88428e414da080f11ed0ab1e13a65',1,'formatron::formats::json::JsonExtractor']]],
+  ['_5frules_29',['_rules',['../classformatron_1_1formatter_1_1FormatterBuilder.html#a62c61ad02e40526b73ca460d0cf1d12c',1,'formatron::formatter::FormatterBuilder']]],
+  ['_5fstring_30',['_string',['../classformatron_1_1extractor_1_1SubstringExtractor.html#a3781b75c6c8c12f89fd70ea405e11293',1,'formatron::extractor::SubstringExtractor']]],
+  ['_5fsuffix_5fautomaton_31',['_suffix_automaton',['../classformatron_1_1extractor_1_1SubstringExtractor.html#a97cb3468674873adfc85bc17ff1a9a97',1,'formatron::extractor::SubstringExtractor']]],
+  ['_5fto_5fobject_32',['_to_object',['../classformatron_1_1formats_1_1json_1_1JsonExtractor.html#a2e72d806c8dffc0136231b81eb724355',1,'formatron::formats::json::JsonExtractor']]],
+  ['_5ftoken_5fids_33',['_token_ids',['../classformatron_1_1formatter_1_1Formatter.html#af1cd76082444827cbf12be735085dad7',1,'formatron::formatter::Formatter']]],
+  ['_5ftype_5fto_5fnonterminals_34',['_type_to_nonterminals',['../namespaceformatron_1_1formats_1_1json.html#a003a1dac95634ac70f86d51e768945a4',1,'formatron::formats::json']]]
 ];

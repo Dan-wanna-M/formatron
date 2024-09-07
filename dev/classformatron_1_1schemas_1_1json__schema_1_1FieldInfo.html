@@ -131,15 +131,17 @@ Inheritance diagram for formatron.schemas.json_schema.FieldInfo:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a95d115285a2aa369740b94f1d6afc509" id="r_a95d115285a2aa369740b94f1d6afc509"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95d115285a2aa369740b94f1d6afc509">__init__</a> (self, typing.Type <a class="el" href="#a28f43dedc0eaf02cd16423172440208a">annotation</a>)</td></tr>
-<tr class="memdesc:a95d115285a2aa369740b94f1d6afc509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the field information.  <br /></td></tr>
-<tr class="separator:a95d115285a2aa369740b94f1d6afc509"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc61867418b7f30a3545e71c9b28e708" id="r_abc61867418b7f30a3545e71c9b28e708"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc61867418b7f30a3545e71c9b28e708">__init__</a> (self, typing.Type <a class="el" href="#a28f43dedc0eaf02cd16423172440208a">annotation</a>, bool <a class="el" href="#af25ae318725070cd198febebe07e5efa">required</a>)</td></tr>
+<tr class="memdesc:abc61867418b7f30a3545e71c9b28e708"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the field information.  <br /></td></tr>
+<tr class="separator:abc61867418b7f30a3545e71c9b28e708"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classformatron_1_1schemas_1_1schema_1_1FieldInfo"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classformatron_1_1schemas_1_1schema_1_1FieldInfo')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html">formatron.schemas.schema.FieldInfo</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a82c87a6773b72ee766add0dc893482b0" id="r_a82c87a6773b72ee766add0dc893482b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82c87a6773b72ee766add0dc893482b0">_annotation</a></td></tr>
 <tr class="separator:a82c87a6773b72ee766add0dc893482b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ac1acf32bb578e121ef28a433857726" id="r_a8ac1acf32bb578e121ef28a433857726"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ac1acf32bb578e121ef28a433857726">_required</a></td></tr>
+<tr class="separator:a8ac1acf32bb578e121ef28a433857726"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Properties</h2></td></tr>
 <tr class="memitem:a28f43dedc0eaf02cd16423172440208a" id="r_a28f43dedc0eaf02cd16423172440208a"><td class="memItemLeft" align="right" valign="top">typing.Type[typing.Any]|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28f43dedc0eaf02cd16423172440208a">annotation</a> (self)</td></tr>
@@ -153,8 +155,8 @@ Protected Attributes</h2></td></tr>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00019">19</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a95d115285a2aa369740b94f1d6afc509" name="a95d115285a2aa369740b94f1d6afc509"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95d115285a2aa369740b94f1d6afc509">&#9670;&#160;</a></span>__init__()</h2>
+<a id="abc61867418b7f30a3545e71c9b28e708" name="abc61867418b7f30a3545e71c9b28e708"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc61867418b7f30a3545e71c9b28e708">&#9670;&#160;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -167,7 +169,12 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">typing.Type</td>          <td class="paramname"><span class="paramname"><em>annotation</em></span>&#160;)</td>
+          <td class="paramtype">typing.Type</td>          <td class="paramname"><span class="paramname"><em>annotation</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>required</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -204,7 +211,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html#a5c7b1d8b8d8d52426e95a3f326cf3e75">formatron.schemas.schema.FieldInfo</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00042">42</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00043">43</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -227,7 +234,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html#ac0d64035ccdc78e44a4cf6165d56081b">formatron.schemas.schema.FieldInfo</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00058">58</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00059">59</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -253,6 +260,30 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00029">29</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+
+</div>
+</div>
+<a id="a8ac1acf32bb578e121ef28a433857726" name="a8ac1acf32bb578e121ef28a433857726"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ac1acf32bb578e121ef28a433857726">&#9670;&#160;</a></span>_required</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">formatron.schemas.json_schema.FieldInfo._required</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00030">30</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>

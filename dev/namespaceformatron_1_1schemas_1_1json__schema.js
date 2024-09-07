@@ -14,7 +14,6 @@ var namespaceformatron_1_1schemas_1_1json__schema =
     [ "_resolve_new_url", "namespaceformatron_1_1schemas_1_1json__schema.html#a9dc9dc267e5dd7b6581e2367e9238152", null ],
     [ "_resolve_reference", "namespaceformatron_1_1schemas_1_1json__schema.html#a24b516494672cc5dbbf7300ea65479b1", null ],
     [ "_validate_json_schema", "namespaceformatron_1_1schemas_1_1json__schema.html#a51aa68e29951e6b295844b13177b7d6a", null ],
-    [ "_validate_literal", "namespaceformatron_1_1schemas_1_1json__schema.html#a7bc46cc213000413aa0ee1dea2c6f80a", null ],
     [ "create_schema", "namespaceformatron_1_1schemas_1_1json__schema.html#a68bc0c91757fd95f6bba01f0c4da2e26", null ],
     [ "_counter", "namespaceformatron_1_1schemas_1_1json__schema.html#a63e9b97210ccf01282f81aa529a86e50", null ]
 ];

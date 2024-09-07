@@ -14,7 +14,6 @@ var json__schema_8py =
     [ "_resolve_new_url", "json__schema_8py.html#a9dc9dc267e5dd7b6581e2367e9238152", null ],
     [ "_resolve_reference", "json__schema_8py.html#a24b516494672cc5dbbf7300ea65479b1", null ],
     [ "_validate_json_schema", "json__schema_8py.html#a51aa68e29951e6b295844b13177b7d6a", null ],
-    [ "_validate_literal", "json__schema_8py.html#a7bc46cc213000413aa0ee1dea2c6f80a", null ],
     [ "create_schema", "json__schema_8py.html#a68bc0c91757fd95f6bba01f0c4da2e26", null ],
     [ "_counter", "json__schema_8py.html#a63e9b97210ccf01282f81aa529a86e50", null ]
 ];
