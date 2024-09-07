@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['_5fannotation_0',['_annotation',['../classformatron_1_1schemas_1_1dict__inference_1_1FieldInfo.html#af85ec1a61b7ef87729757cef077c4df4',1,'formatron::schemas::dict_inference::FieldInfo']]],
+  ['_5fannotation_0',['_annotation',['../classformatron_1_1schemas_1_1dict__inference_1_1FieldInfo.html#af85ec1a61b7ef87729757cef077c4df4',1,'formatron.schemas.dict_inference.FieldInfo._annotation'],['../classformatron_1_1schemas_1_1json__schema_1_1FieldInfo.html#a82c87a6773b72ee766add0dc893482b0',1,'formatron.schemas.json_schema.FieldInfo._annotation']]],
   ['_5fcapture_5fname_1',['_capture_name',['../classformatron_1_1extractor_1_1Extractor.html#a3299dc34a7276ab8ab553513048211d3',1,'formatron::extractor::Extractor']]],
   ['_5fcapture_5fnames_2',['_capture_names',['../classformatron_1_1formatter_1_1FormatterBuilder.html#a68daf6b6bbd2f32843352dc6ea1f4b8f',1,'formatron::formatter::FormatterBuilder']]],
   ['_5fcaptures_3',['_captures',['../classformatron_1_1formatter_1_1Formatter.html#a43964a72280fd307cd74528657beeca3',1,'formatron::formatter::Formatter']]],
   ['_5fchoices_4',['_choices',['../classformatron_1_1extractor_1_1ChoiceExtractor.html#a6ea971d4c6915dc2b5ece64cd010a087',1,'formatron::extractor::ChoiceExtractor']]],
   ['_5fconfig_5',['_config',['../classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#ae43a79de8cc0fb018df02e7edab028ee',1,'formatron::integrations::exllamav2::FormatterFilter']]],
   ['_5fconfigs_6',['_configs',['../classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#aef140b4278cf9892faa3644bd4c2ca99',1,'formatron::integrations::vllm::FormattersLogitsProcessor']]],
-  ['_5fcounter_7',['_counter',['../classformatron_1_1formatter_1_1FormatterBuilder.html#a937af7ea452c8183053dc3e12cd44e1c',1,'formatron::formatter::FormatterBuilder']]],
+  ['_5fcounter_7',['_counter',['../classformatron_1_1formatter_1_1FormatterBuilder.html#a937af7ea452c8183053dc3e12cd44e1c',1,'formatron.formatter.FormatterBuilder._counter'],['../namespaceformatron_1_1schemas_1_1json__schema.html#a63e9b97210ccf01282f81aa529a86e50',1,'formatron.schemas.json_schema._counter']]],
   ['_5fdebug_5fcounter_8',['_debug_counter',['../classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a83ec1613155b800bd9d1b0f012dff371',1,'formatron::integrations::vllm::FormattersLogitsProcessor']]],
   ['_5fdecode_5fcallback_9',['_decode_callback',['../classformatron_1_1formatter_1_1Formatter.html#a9535e6eb6b8001d6f5fc90ee549ecacb',1,'formatron::formatter::Formatter']]],
   ['_5fengine_10',['_engine',['../classformatron_1_1formatter_1_1Formatter.html#a73ef6ac966b418215e6c216a90520860',1,'formatron::formatter::Formatter']]],

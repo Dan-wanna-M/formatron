@@ -261,12 +261,12 @@ $(function(){initNavTree('pydantic_8py_source.html',''); initResizable(true); })
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        (Schema,),</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        {</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            <span class="stringliteral">&quot;_func&quot;</span>: pydantic_wrapper,</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            <span class="stringliteral">&#39;fields&#39;</span>: <span class="keyword">lambda</span>: fields,</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            <span class="stringliteral">&#39;__new__&#39;</span>: <span class="keyword">lambda</span> cls, *args, **kwargs: pydantic_wrapper(*args, **kwargs),</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            <span class="stringliteral">&#39;__call__&#39;</span>: <span class="keyword">lambda</span> *args, **kwargs: pydantic_wrapper(*args, **kwargs)  <span class="comment"># make duck typer happy</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        }</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    )</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    _class.from_json = classmethod(from_json)</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            <span class="stringliteral">&#39;__new__&#39;</span>: <span class="keyword">lambda</span> cls, *args, **kwargs: pydantic_wrapper(*args, **kwargs),</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            <span class="stringliteral">&#39;__call__&#39;</span>: <span class="keyword">lambda</span> *args, **kwargs: pydantic_wrapper(*args, **kwargs)  <span class="comment"># make duck typer happy</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        }</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    )</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    _class.from_json = classmethod(from_json)</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    _class.fields = classmethod(<span class="keyword">lambda</span> cls: fields)</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordflow">return</span> _class</div>
 </div>
 <div class="ttc" id="aclassformatron_1_1schemas_1_1pydantic_1_1ClassSchema_html"><div class="ttname"><a href="classformatron_1_1schemas_1_1pydantic_1_1ClassSchema.html">formatron.schemas.pydantic.ClassSchema</a></div><div class="ttdoc">A wrapper for pydantic BaseModel that implements the Schema interface.</div><div class="ttdef"><b>Definition</b> <a href="#l00063">pydantic.py:63</a></div></div>

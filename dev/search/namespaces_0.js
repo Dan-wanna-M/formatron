@@ -15,6 +15,7 @@ var searchData=
   ['formatron_3a_3aintegrations_3a_3avllm_12',['vllm',['../namespaceformatron_1_1integrations_1_1vllm.html',1,'formatron::integrations']]],
   ['formatron_3a_3aschemas_13',['schemas',['../namespaceformatron_1_1schemas.html',1,'formatron']]],
   ['formatron_3a_3aschemas_3a_3adict_5finference_14',['dict_inference',['../namespaceformatron_1_1schemas_1_1dict__inference.html',1,'formatron::schemas']]],
-  ['formatron_3a_3aschemas_3a_3apydantic_15',['pydantic',['../namespaceformatron_1_1schemas_1_1pydantic.html',1,'formatron::schemas']]],
-  ['formatron_3a_3aschemas_3a_3aschema_16',['schema',['../namespaceformatron_1_1schemas_1_1schema.html',1,'formatron::schemas']]]
+  ['formatron_3a_3aschemas_3a_3ajson_5fschema_15',['json_schema',['../namespaceformatron_1_1schemas_1_1json__schema.html',1,'formatron::schemas']]],
+  ['formatron_3a_3aschemas_3a_3apydantic_16',['pydantic',['../namespaceformatron_1_1schemas_1_1pydantic.html',1,'formatron::schemas']]],
+  ['formatron_3a_3aschemas_3a_3aschema_17',['schema',['../namespaceformatron_1_1schemas_1_1schema.html',1,'formatron::schemas']]]
 ];

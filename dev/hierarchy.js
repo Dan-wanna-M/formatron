@@ -14,7 +14,8 @@ var hierarchy =
         [ "formatron.formatter.Formatter", "classformatron_1_1formatter_1_1Formatter.html", null ]
       ] ],
       [ "formatron.schemas.schema.FieldInfo", "classformatron_1_1schemas_1_1schema_1_1FieldInfo.html", [
-        [ "formatron.schemas.dict_inference.FieldInfo", "classformatron_1_1schemas_1_1dict__inference_1_1FieldInfo.html", null ]
+        [ "formatron.schemas.dict_inference.FieldInfo", "classformatron_1_1schemas_1_1dict__inference_1_1FieldInfo.html", null ],
+        [ "formatron.schemas.json_schema.FieldInfo", "classformatron_1_1schemas_1_1json__schema_1_1FieldInfo.html", null ]
       ] ],
       [ "formatron.schemas.schema.Schema", "classformatron_1_1schemas_1_1schema_1_1Schema.html", [
         [ "formatron.schemas.pydantic.ClassSchema", "classformatron_1_1schemas_1_1pydantic_1_1ClassSchema.html", null ]

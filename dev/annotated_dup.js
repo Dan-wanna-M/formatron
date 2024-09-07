@@ -43,6 +43,9 @@ var annotated_dup =
         [ "dict_inference", "namespaceformatron_1_1schemas_1_1dict__inference.html", [
           [ "FieldInfo", "classformatron_1_1schemas_1_1dict__inference_1_1FieldInfo.html", "classformatron_1_1schemas_1_1dict__inference_1_1FieldInfo" ]
         ] ],
+        [ "json_schema", "namespaceformatron_1_1schemas_1_1json__schema.html", [
+          [ "FieldInfo", "classformatron_1_1schemas_1_1json__schema_1_1FieldInfo.html", "classformatron_1_1schemas_1_1json__schema_1_1FieldInfo" ]
+        ] ],
         [ "pydantic", "namespaceformatron_1_1schemas_1_1pydantic.html", [
           [ "ClassSchema", "classformatron_1_1schemas_1_1pydantic_1_1ClassSchema.html", "classformatron_1_1schemas_1_1pydantic_1_1ClassSchema" ],
           [ "FieldInfo", "classformatron_1_1schemas_1_1pydantic_1_1FieldInfo.html", "classformatron_1_1schemas_1_1pydantic_1_1FieldInfo" ]
