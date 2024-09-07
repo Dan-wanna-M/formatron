@@ -18,7 +18,7 @@ from referencing import Registry, Resource
 class FieldInfo(schemas.schema.FieldInfo):
     __slots__ = ("_annotation",)
 
-    def __init__(self, annotation: typing.Type):
+    def __init__(self, annotation: typing.Type, required:bool):
         """
         Initialize the field information.
 
@@ -26,6 +26,7 @@ class FieldInfo(schemas.schema.FieldInfo):
             annotation: The type annotation of the field.
         """
         self._annotation = annotation
+        self._required = required
 
     @property
     def annotation(self) -> typing.Type[typing.Any] | None:
@@ -39,7 +40,7 @@ class FieldInfo(schemas.schema.FieldInfo):
         """
         Check if the field is required for the schema.
         """
-        return True
+        return self._required
     
 _counter = 0
 
@@ -59,6 +60,7 @@ def create_schema(schemas: dict[str, typing.Any]|typing.Iterable[dict[str, typin
     memo = set()
     result = []
     for schema in resources:
+        schema = schema.contents
         _recursive_resolve_reference(schema["$id"], schema, registry)
         _merge_referenced_schema(schema,memo)
         result.append(_convert_json_schema_to_our_schema(schema,json_schema_id_to_schema))
@@ -89,8 +91,9 @@ def _convert_json_schema_to_our_schema(schema: dict[str, typing.Any], json_schem
         if "properties" in schema:
             fields = _extract_fields_from_object_type(json_schema_id_to_schema[schema_id])
             properties = schema["properties"]
+            required = schema.get("required", [])
             for _property in properties:
-                fields[_property] = _convert_json_schema_to_our_schema(properties[_property], json_schema_id_to_schema)
+                fields[_property] = FieldInfo(_convert_json_schema_to_our_schema(properties[_property], json_schema_id_to_schema), required=_property in required)
         return _inferred_type
     
 def _extract_fields_from_object_type(object_type:typing.Type):
@@ -105,7 +108,8 @@ def _infer_type(schema: dict[str, typing.Any], json_schema_id_to_schema: dict[in
     Infer more specific types.
     """
     obtained_type = _obtain_type(schema, json_schema_id_to_schema)
-    if obtained_type is None or obtained_type is object:
+    args = typing.get_args(obtained_type)
+    if obtained_type is None or obtained_type is object or object in args:
         return _create_custom_type(obtained_type, schema, json_schema_id_to_schema)
     if obtained_type is typing.List and "items" in schema:
         item_type = _convert_json_schema_to_our_schema(schema["items"], json_schema_id_to_schema)
@@ -119,15 +123,12 @@ def _get_literal(schema: dict[str, typing.Any]) -> typing.Any:
     return tuple(schema["enum"]) if "enum" in schema else schema.get("const")
 
 def _handle_literal(literal: typing.Any, obtained_type: typing.Type, schema: dict[str, typing.Any], json_schema_id_to_schema: dict[int, typing.Type]) -> typing.Type:
-    if obtained_type is not None:
-        _validate_literal(literal, obtained_type)
+    # TODO: validate literal against obtained_type
+    if not isinstance(literal, tuple):
+        literal = (literal,)
+    literal = frozendict.deepfreeze(literal)
     literal_type = typing.Literal[literal]
     return literal_type
-
-def _validate_literal(literal: typing.Any, obtained_type: typing.Type) -> None:
-    mismatched_items = [item for item in (literal if isinstance(literal, tuple) else [literal]) if not isinstance(item, obtained_type)]
-    if mismatched_items:
-        raise ValueError(f"Literal values {mismatched_items} in JSON schema do not match the obtained type {obtained_type}")
 
 def _create_custom_type(obtained_type: typing.Type|None, schema: dict[str, typing.Any], json_schema_id_to_schema: dict[int, typing.Type]) -> typing.Type:
     global _counter
@@ -140,8 +141,10 @@ def _create_custom_type(obtained_type: typing.Type|None, schema: dict[str, typin
     
     if obtained_type is None:
         json_schema_id_to_schema[id(schema)] = typing.Union[str, float, int, bool, None, typing.List[typing.Any], new_type]
+    elif object in typing.get_args(obtained_type):
+        json_schema_id_to_schema[id(schema)] = typing.Union[tuple(item for item in typing.get_args(obtained_type) if item is not object)+(new_type,)]
     else:
-        json_schema_id_to_schema[id(schema)] = new_type
+        json_schema_id_to_schema[id(schema)] = obtained_type
     return json_schema_id_to_schema[id(schema)]
 
 

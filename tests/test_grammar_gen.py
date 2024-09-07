@@ -4,7 +4,8 @@ import typing
 
 from pydantic import Field
 
-from formatron.formats.json import create_json_extractor
+from formatron.formats.json import JsonExtractor
+from formatron.schemas import json_schema
 import formatron.schemas.pydantic
 from formatron.schemas.dict_inference import infer_mapping
 
@@ -27,12 +28,57 @@ class LinkedList(formatron.schemas.pydantic.ClassSchema):
 
 
 def test_pydantic_class(snapshot):
-    result = create_json_extractor(Test, "start").kbnf_definition
+    result = JsonExtractor("start", None,Test,lambda x:x).kbnf_definition
+    snapshot.assert_match(result)
+
+def test_json_schema(snapshot):
+    schema = {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://example.com/random-schema.json",
+        "type": ["object", "number"],
+        "properties": {
+            "name": {
+                "type": ["string", "number"],
+                "description": "The name of the item"
+            },
+            "price": {
+                "type": "number",
+                "minimum": 0,
+                "description": "The price of the item"
+            },
+            "tags": {
+                "type": "array",
+                "items": {
+                    "type": ["string", "number"]
+                },
+                "minItems": 1,
+                "uniqueItems": True,
+                "description": "Tags associated with the item"
+            },
+            "inStock": {
+                "type": "boolean",
+                "description": "Whether the item is in stock"
+            },
+            "category": {
+                "type": ["string","integer", "number", "null"],
+                "enum": ["electronics", 114, 514.1, None, ['114', 514, 514.1, True], {"a":1, "b":2.3}],
+                "description": "The category of the item"
+            },
+            "sku": {
+                "type": "string",
+                "const": "ITEM-001",
+                "description": "The stock keeping unit (SKU) of the item"
+            }
+        },
+        "required": ["name", "price", "category", "sku"]
+    }
+    schema = json_schema.create_schema(schema)
+    result = JsonExtractor("start", None,schema,lambda x:x).kbnf_definition
     snapshot.assert_match(result)
 
 
 def test_pydantic_class_linked_list(snapshot):
-    result = create_json_extractor(LinkedList, "start").kbnf_definition
+    result = JsonExtractor("start", None,LinkedList,lambda x:x).kbnf_definition
     snapshot.assert_match(result)
 
 
@@ -41,12 +87,12 @@ def test_pydantic_callable(snapshot):
     def foo(a: int, b: typing.Annotated[int, Field(gt=10), "1124"] = 2):
         return a + b
 
-    result = create_json_extractor(foo, "start").kbnf_definition
+    result = JsonExtractor("start", None,foo,lambda x:x).kbnf_definition
     snapshot.assert_match(result)
 
 
 def test_infer_mapping(snapshot):
-    result = create_json_extractor(infer_mapping(json.loads("""
+    result = JsonExtractor("start", None,infer_mapping(json.loads("""
     {
       "mode": "xx",
       "title": "xx",
@@ -55,5 +101,5 @@ def test_infer_mapping(snapshot):
       "concepts": ["xx", "xx", "xx"],
       "urls": ["xx", "xx", "xx"]
     }
-    """)), "start").kbnf_definition
+    """)),lambda x:x).kbnf_definition
     snapshot.assert_match(result)

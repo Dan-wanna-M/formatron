@@ -6,6 +6,8 @@ import decimal
 import types
 import typing
 
+from frozendict import frozendict
+
 from formatron import extractor, schemas
 
 __all__ = ["JsonExtractor"]
@@ -138,13 +140,27 @@ def _register_all_predefined_types():
             result = []
             for i, arg in enumerate(args):
                 if isinstance(arg, str):
-                    new_nonterminals.append(f"{repr(arg)}")
+                    new_nonterminals.append(f'"{repr(arg)}"')
                 elif isinstance(arg, bool):
-                    new_nonterminals.append(f"'{str(arg)}'")
+                    new_nonterminals.append(f'"{str(arg).lower()}"')
                 elif isinstance(arg, int):
-                    new_nonterminals.append(f"'{str(arg)}'")
+                    new_nonterminals.append(f'"{str(arg)}"')
+                elif isinstance(arg, float):
+                    new_nonterminals.append(f'"{str(arg)}"')
                 elif arg is None:
                     new_nonterminals.append("null")
+                elif isinstance(arg, tuple):
+                    for j,item in enumerate(arg):
+                        new_nonterminal = f"{nonterminal}_{i}_{j}"
+                        result.append((typing.Literal[item], new_nonterminal))
+                    new_nonterminal = f"(array_begin {' comma '.join(map(lambda x:x[1], result))} array_end)"
+                    new_nonterminals.append(new_nonterminal)
+                elif isinstance(arg, frozendict):
+                    for key, value in arg.items():
+                        new_nonterminal = f"{nonterminal}_{i}_{key}"
+                        result.append((typing.Literal[value], new_nonterminal))
+                    new_nonterminal = f"object_begin {' comma '.join(map(lambda x:x[1], result))} object_end"
+                    new_nonterminals.append(new_nonterminal)
                 else:
                     new_nonterminal = f"{nonterminal}_{i}"
                     result.append((arg, new_nonterminal))
