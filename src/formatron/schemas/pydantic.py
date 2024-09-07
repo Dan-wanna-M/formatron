@@ -125,10 +125,10 @@ def callable_schema(func: CallableT, /, *, config: ConfigDict = None, validate_r
         (Schema,),
         {
             "_func": pydantic_wrapper,
-            'fields': lambda: fields,
             '__new__': lambda cls, *args, **kwargs: pydantic_wrapper(*args, **kwargs),
             '__call__': lambda *args, **kwargs: pydantic_wrapper(*args, **kwargs)  # make duck typer happy
         }
     )
     _class.from_json = classmethod(from_json)
+    _class.fields = classmethod(lambda cls: fields)
     return _class

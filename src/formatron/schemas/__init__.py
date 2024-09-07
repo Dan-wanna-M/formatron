@@ -5,3 +5,4 @@ This subpackage contains modules that define schemas creation from various sourc
 from . import schema
 from . import pydantic
 from . import dict_inference
+from . import json_schema

@@ -9,7 +9,7 @@ authors = [
 ]
 description = "Formatron empowers everyone to control the output format of language models with minimal overhead."
 readme = "README.md"
-dependencies = ["pydantic>=2,<3","kbnf>=0.3.8,<0.4.0", "general-sam>=1,<2"]
+dependencies = ["pydantic>=2,<3","kbnf>=0.3.8,<0.4.0", "general-sam>=1,<2", "jsonschema>=4,<5", "frozendict>=2,<3"]
 license = {file = "LICENSE"}
 keywords = ["deep learning", "language model", "guided generation", "structured generation","constrained decoding"]
 requires-python = ">=3.10"
