@@ -10,10 +10,10 @@ var json__schema_8py =
     [ "_merge_key", "json__schema_8py.html#a5fcddd43a5f64374b5b75d4aafeb9135", null ],
     [ "_merge_referenced_schema", "json__schema_8py.html#a45c9b97319a58c2013b8e3f10ad78c30", null ],
     [ "_obtain_type", "json__schema_8py.html#a544d74edf1fdccbad9e216d9ff028a20", null ],
-    [ "_recursive_resolve_reference", "json__schema_8py.html#a92974ea6c89c09af08cee659f610efa7", null ],
+    [ "_recursive_resolve_reference", "json__schema_8py.html#aaba012c79d101be93f4d96588c9f8cc2", null ],
     [ "_resolve_new_url", "json__schema_8py.html#a9dc9dc267e5dd7b6581e2367e9238152", null ],
     [ "_resolve_reference", "json__schema_8py.html#a24b516494672cc5dbbf7300ea65479b1", null ],
     [ "_validate_json_schema", "json__schema_8py.html#a51aa68e29951e6b295844b13177b7d6a", null ],
-    [ "create_schema", "json__schema_8py.html#a68bc0c91757fd95f6bba01f0c4da2e26", null ],
+    [ "create_schema", "json__schema_8py.html#ab2aeae10eb93ef3a3ca1c50013c6b380", null ],
     [ "_counter", "json__schema_8py.html#a63e9b97210ccf01282f81aa529a86e50", null ]
 ];

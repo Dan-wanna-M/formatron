@@ -130,8 +130,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a68bc0c91757fd95f6bba01f0c4da2e26" id="r_a68bc0c91757fd95f6bba01f0c4da2e26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>|typing.Iterable[dict[str, typing.Any]]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68bc0c91757fd95f6bba01f0c4da2e26">create_schema</a> (dict[str, typing.Any]|typing.Iterable[dict[str, typing.Any]] schemas, registry=Registry())</td></tr>
-<tr class="separator:a68bc0c91757fd95f6bba01f0c4da2e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2aeae10eb93ef3a3ca1c50013c6b380" id="r_ab2aeae10eb93ef3a3ca1c50013c6b380"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2aeae10eb93ef3a3ca1c50013c6b380">create_schema</a> (dict[str, typing.Any] schema, registry=Registry())</td></tr>
+<tr class="memdesc:ab2aeae10eb93ef3a3ca1c50013c6b380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a Schema object from a JSON schema object.  <br /></td></tr>
+<tr class="separator:ab2aeae10eb93ef3a3ca1c50013c6b380"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9dc9dc267e5dd7b6581e2367e9238152" id="r_a9dc9dc267e5dd7b6581e2367e9238152"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9dc9dc267e5dd7b6581e2367e9238152">_resolve_new_url</a> (str uri, str ref)</td></tr>
 <tr class="memdesc:a9dc9dc267e5dd7b6581e2367e9238152"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adapted from <a href="https://github.com/python-jsonschema/referencing/blob/main/referencing/_core.py#L667">https://github.com/python-jsonschema/referencing/blob/main/referencing/_core.py#L667</a>.  <br /></td></tr>
 <tr class="separator:a9dc9dc267e5dd7b6581e2367e9238152"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,8 +159,8 @@ Functions</h2></td></tr>
 <tr class="separator:a45c9b97319a58c2013b8e3f10ad78c30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fcddd43a5f64374b5b75d4aafeb9135" id="r_a5fcddd43a5f64374b5b75d4aafeb9135"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5fcddd43a5f64374b5b75d4aafeb9135">_merge_key</a> (dict[str, typing.Any] schema, str ref_key, typing.Any reference_value)</td></tr>
 <tr class="separator:a5fcddd43a5f64374b5b75d4aafeb9135"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92974ea6c89c09af08cee659f610efa7" id="r_a92974ea6c89c09af08cee659f610efa7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92974ea6c89c09af08cee659f610efa7">_recursive_resolve_reference</a> (str base_uri, typing.Any schema, Registry registry)</td></tr>
-<tr class="separator:a92974ea6c89c09af08cee659f610efa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaba012c79d101be93f4d96588c9f8cc2" id="r_aaba012c79d101be93f4d96588c9f8cc2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaba012c79d101be93f4d96588c9f8cc2">_recursive_resolve_reference</a> (str base_uri, typing.Any schema, Registry registry, set[int] memo)</td></tr>
+<tr class="separator:aaba012c79d101be93f4d96588c9f8cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24b516494672cc5dbbf7300ea65479b1" id="r_a24b516494672cc5dbbf7300ea65479b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24b516494672cc5dbbf7300ea65479b1">_resolve_reference</a> (dict[str, typing.Any] schema, str key, typing.Any resolver)</td></tr>
 <tr class="separator:a24b516494672cc5dbbf7300ea65479b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -200,7 +201,7 @@ Variables</h2></td></tr>
 
 <p>Recursively handle all types needed to fully determine the type of a schema. </p>
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00111">111</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00137">137</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -236,7 +237,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00164">164</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00190">190</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -263,7 +264,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00128">128</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00154">154</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -290,7 +291,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00151">151</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00177">177</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -331,7 +332,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00156">156</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00182">182</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -364,7 +365,7 @@ Variables</h2></td></tr>
 
 <p>Infer more specific types. </p>
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00140">140</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00166">166</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -400,7 +401,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00245">245</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00270">270</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -431,7 +432,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00225">225</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00251">251</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -464,12 +465,12 @@ Variables</h2></td></tr>
 
 <p>Directly obtain type information from this schema level. </p>
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00187">187</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00213">213</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
-<a id="a92974ea6c89c09af08cee659f610efa7" name="a92974ea6c89c09af08cee659f610efa7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92974ea6c89c09af08cee659f610efa7">&#9670;&#160;</a></span>_recursive_resolve_reference()</h2>
+<a id="aaba012c79d101be93f4d96588c9f8cc2" name="aaba012c79d101be93f4d96588c9f8cc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaba012c79d101be93f4d96588c9f8cc2">&#9670;&#160;</a></span>_recursive_resolve_reference()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -490,7 +491,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Registry</td>          <td class="paramname"><span class="paramname"><em>registry</em></span>&#160;)</td>
+          <td class="paramtype">Registry</td>          <td class="paramname"><span class="paramname"><em>registry</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">set[int]</td>          <td class="paramname"><span class="paramname"><em>memo</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -500,7 +506,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00256">256</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00289">289</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -533,7 +539,7 @@ Variables</h2></td></tr>
 
 <p>Adapted from <a href="https://github.com/python-jsonschema/referencing/blob/main/referencing/_core.py#L667">https://github.com/python-jsonschema/referencing/blob/main/referencing/_core.py#L667</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00098">98</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00124">124</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -569,7 +575,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00276">276</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00311">311</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -596,20 +602,20 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00103">103</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00129">129</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
-<a id="a68bc0c91757fd95f6bba01f0c4da2e26" name="a68bc0c91757fd95f6bba01f0c4da2e26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68bc0c91757fd95f6bba01f0c4da2e26">&#9670;&#160;</a></span>create_schema()</h2>
+<a id="ab2aeae10eb93ef3a3ca1c50013c6b380" name="ab2aeae10eb93ef3a3ca1c50013c6b380"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2aeae10eb93ef3a3ca1c50013c6b380">&#9670;&#160;</a></span>create_schema()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"> <a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a>|typing.Iterable[dict[str, typing.Any]] formatron.schemas.json_schema.create_schema </td>
+          <td class="memname"> <a class="el" href="classformatron_1_1schemas_1_1schema_1_1Schema.html">schemas.schema.Schema</a> formatron.schemas.json_schema.create_schema </td>
           <td>(</td>
-          <td class="paramtype">dict[str, typing.Any]|typing.Iterable[dict[str, typing.Any]]</td>          <td class="paramname"><span class="paramname"><em>schemas</em></span>, </td>
+          <td class="paramtype">dict[str, typing.Any]</td>          <td class="paramname"><span class="paramname"><em>schema</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -619,7 +625,56 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00072">72</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p>Create a Schema object from a JSON schema object. </p>
+<p>This function takes a JSON schema and converts it into a Schema object that can be used for data validation and serialization. Currently, only the following JSON Schema features are supported:</p>
+<ul>
+<li><code>type</code> keyword</li>
+<li><code>items</code> keyword</li>
+<li><code>properties</code> keyword<ul>
+<li>Due to implementation limitations, we always assume <code>additionalProperties</code> is false.</li>
+</ul>
+</li>
+<li><code>enum</code> and <code>const</code> keyword<ul>
+<li>This includes advanced enum types such as array and object.</li>
+<li>Note that if both <code>enum</code>(or <code>const</code>) and <code>type</code> are present, <code>type</code> will be ignored.</li>
+</ul>
+</li>
+<li><code>required</code> keyword</li>
+<li>Schema references ($ref and $dynamicRef)<ul>
+<li>Hence, all types of schema identifications(<code>$defs</code>, <code>$id</code>, <code>$anchor</code>, <code>$dynamicAnchor</code>) are supported.</li>
+<li>This includes recursive schema references.</li>
+<li>Due to implementation limitations, duplicate constraint keywords in both referrers and referents are not allowed.<ul>
+<li>This bound is expected to be loosened in future versions of Formatron where "easily mergeable" constraint keywords will be merged.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<dl class="section user"><dt>Requirements</dt><dd><ul>
+<li>The input schema must be a valid JSON Schema according to the JSON Schema Draft 2020-12 standard</li>
+<li>The schema must have a valid '$id' and '$schema' fields</li>
+<li>All references must be resolvable within the given schema and registry</li>
+</ul>
+</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">schema</td><td>A dictionary representing a valid JSON schema. </td></tr>
+    <tr><td class="paramname">registry</td><td>A Registry object containing additional schema definitions. Defaults to an empty Registry.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+schemas A Schema object representing the input JSON schema.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">jsonschema</td><td>If the input schema is not a valid JSON Schema. </td></tr>
+    <tr><td class="paramname">ValueError</td><td>If there are issues with schema references or constraints. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00106">106</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
