@@ -136,36 +136,36 @@ def _register_all_predefined_types():
         if typing.get_origin(current) is typing.Literal:
             args = typing.get_args(current)
             assert args, f"{current} from {nonterminal} cannot be an empty literal!"
-            new_nonterminals = []
+            new_items = []
             result = []
             for i, arg in enumerate(args):
                 if isinstance(arg, str):
-                    new_nonterminals.append(f'"{repr(arg)}"')
+                    new_items.append(f'"{repr(arg)}"')
                 elif isinstance(arg, bool):
-                    new_nonterminals.append(f'"{str(arg).lower()}"')
+                    new_items.append(f'"{str(arg).lower()}"')
                 elif isinstance(arg, int):
-                    new_nonterminals.append(f'"{str(arg)}"')
+                    new_items.append(f'"{str(arg)}"')
                 elif isinstance(arg, float):
-                    new_nonterminals.append(f'"{str(arg)}"')
+                    new_items.append(f'"{str(arg)}"')
                 elif arg is None:
-                    new_nonterminals.append("null")
+                    new_items.append("null")
                 elif isinstance(arg, tuple):
                     for j,item in enumerate(arg):
                         new_nonterminal = f"{nonterminal}_{i}_{j}"
                         result.append((typing.Literal[item], new_nonterminal))
-                    new_nonterminal = f"(array_begin {' comma '.join(map(lambda x:x[1], result))} array_end)"
-                    new_nonterminals.append(new_nonterminal)
+                    new_item = f"(array_begin {' comma '.join(map(lambda x:x[1], result))} array_end)"
+                    new_items.append(new_item)
                 elif isinstance(arg, frozendict):
                     for key, value in arg.items():
                         new_nonterminal = f"{nonterminal}_{i}_{key}"
                         result.append((typing.Literal[value], new_nonterminal))
-                    new_nonterminal = f"object_begin {' comma '.join(map(lambda x:x[1], result))} object_end"
-                    new_nonterminals.append(new_nonterminal)
+                    new_item = f"object_begin {' comma '.join(map(lambda x:x[1], result))} object_end"
+                    new_items.append(new_item)
                 else:
                     new_nonterminal = f"{nonterminal}_{i}"
                     result.append((arg, new_nonterminal))
-                    new_nonterminals.append(new_nonterminal)
-            return f"{nonterminal} ::= {' | '.join(new_nonterminals)};\n", result
+                    new_items.append(new_nonterminal)
+            return f"{nonterminal} ::= {' | '.join(new_items)};\n", result
 
     def builtin_simple_types(current: typing.Type, nonterminal: str):
         if isinstance(current, type) and issubclass(current, bool):
