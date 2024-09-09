@@ -257,7 +257,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00225">225</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00226">226</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
 
 </div>
 </div>
@@ -382,13 +382,16 @@ Protected Attributes</h2></td></tr>
 <p>Note that the captures are only available for one extractor if:</p><ul>
 <li>The extractor has a capture name.</li>
 <li><a class="el" href="#ac15aeec180daa5c78ad3c9bd93bd2b5b" title="Check if the generation is completed.">Formatter.is_completed()</a> returns True.</li>
-<li>The extractor successfully extracts the data.</li>
+<li>The extractor successfully extracts the data.<ul>
+<li>This means the extractor identifies the correct string span to extract and whatever post-processing the extractor does on the extracted string is successful.</li>
+</ul>
+</li>
 </ul>
 <p>Captures are obtained by calling <code><a class="el" href="classformatron_1_1extractor_1_1Extractor.html#a9efb2a75cf5fc5e0919c235aa1435469" title="Extract data from the input string, or None if the extraction failed.">Extractor.extract</a></code> method on the generated string in the sequence of extractors appended to the formatter. Note that the previous extractors does not 'see' the semantics of the later extractors. For example, consider the following formatter: <code>python @code f = FormatterBuilder() f.append_line(f"{f.regex('.*?', capture_name='a')}{f.regex('.*', capture_name='b')}") f = f.build() @endcode </code> The <code>b</code> extractor will always corresponding to <code>None</code> because the <code>a</code> extractor will always extract the whole string. This behavior is different from what a typical regular expression engine would do! </p>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1formatter_1_1FormatterBase.html#ab6682619840e83727264a945953fe964">formatron.formatter.FormatterBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00215">215</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00216">216</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
 
 </div>
 </div>
@@ -537,7 +540,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1formatter_1_1FormatterBase.html#a522c78b1404697a99313f9edffa7a2a4">formatron.formatter.FormatterBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00220">220</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00221">221</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
 
 </div>
 </div>
