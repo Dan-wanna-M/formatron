@@ -1,3 +1,4 @@
+from formatron.schemas import json_schema
 from formatron.schemas.dict_inference import infer_mapping
 from formatron.formatter import FormatterBuilder
 import formatron.schemas.pydantic
@@ -79,6 +80,34 @@ def test_formatter_dict_inference(snapshot):
         pipeline.generate("This is a random json: ", token_count=256, args=formatron.integrations.RWKV.PIPELINE_ARGS(top_p=0.5)))
     snapshot.assert_match(pipeline.formatter.captures)
 
+def test_formatter_json_schema(snapshot):
+    FormatterBuilder._formatter_builder_counter = 0
+    f = FormatterBuilder()
+    schema = {
+        "$id": "https://example.com/person.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "age": {
+                "type": "integer"
+            }
+        },
+        "required": ["name", "age"]
+    }
+    schema = json_schema.create_schema(schema)
+    f.append_line(
+        f"{f.json(schema, capture_name='json')}")
+    model = RWKV(
+        "assets/RWKV-5-World-0.4B-v2-20231113-ctx4096.pth", 'cuda fp16')
+    pipeline = formatron.integrations.RWKV.PIPELINE(model, "rwkv_vocab_v20230424", f)
+    np.random.seed(42)
+    snapshot.assert_match(
+        pipeline.generate("This is a random json: ", token_count=256, args=formatron.integrations.RWKV.PIPELINE_ARGS(top_p=0.5)))
+    snapshot.assert_match(pipeline.formatter.captures)
+    snapshot.assert_match(pipeline.formatter.grammar_str)
 
 def test_formatter_callable_schema(snapshot):
     @formatron.schemas.pydantic.callable_schema

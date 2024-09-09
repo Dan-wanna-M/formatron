@@ -63,10 +63,11 @@ def create_schema(schema: dict[str, typing.Any], registry=Registry()) -> schemas
       - Hence, all types of schema identifications(`$defs`, `$id`, `$anchor`, `$dynamicAnchor`) are supported.
       - This includes recursive schema references.
       - Due to implementation limitations, duplicate constraint keywords in both referrers and referents are not allowed.
-        - This bound is expected to be loosened in future versions of Formatron where "easily mergeable" constraint keywords will be merged.
-
+        - This bound is expected to be loosened in future versions of Formatron where "easily mergeable" constraint keywords will be merged.    
+        
     Requirements:
     - The input schema must be a valid JSON Schema according to the JSON Schema Draft 2020-12 standard
+    - The root schema's type must be exactly "object"
     - The schema must have a valid '$id' and '$schema' fields
     - All references must be resolvable within the given schema and registry
 
@@ -80,7 +81,7 @@ def create_schema(schema: dict[str, typing.Any], registry=Registry()) -> schemas
 
     Raises:
         jsonschema.exceptions.ValidationError: If the input schema is not a valid JSON Schema.
-        ValueError: If there are issues with schema references or constraints.
+        ValueError: If there are issues with schema references, constraints or requirements.
     """
     registry = copy.deepcopy(registry)
     schema = copy.deepcopy(schema)
@@ -103,6 +104,8 @@ def _resolve_new_url(uri: str, ref: str) -> str:
     return uri
 
 def _validate_json_schema(schema: dict[str, typing.Any]) -> None:
+    if "type" not in schema or schema["type"] != "object":
+        raise ValueError("Root schema must have type 'object'")
     jsonschema.validate(instance=schema, schema=jsonschema.validators.Draft202012Validator.META_SCHEMA)
 
 def _convert_json_schema_to_our_schema(schema: dict[str, typing.Any], json_schema_id_to_schema: dict[int, typing.Type])->typing.Type:

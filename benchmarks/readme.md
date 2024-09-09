@@ -37,16 +37,16 @@ transformers==4.43.2
 
 ## vllm
 
-Default vllm setting are used.
+Default vllm setting are used. `Outlines` whitespace pattern is set to `[ \t\n\r]*` to align with the whitespace patterns used by `Formatron` and `lm-format-enforcer`.
 
 | model           | schema          | Formatron overhead per token(with warm-up) / ms | lm format enforcer overhead(with warm-up) per token / ms | outlines overhead(with warm-up) per token / ms |
 |-----------------|-----------------|-------------------------------------------------|----------------------------------------------------------|------------------------------------------------|
-| Llama3-8B(bf16) | address_json    | 0.66                                            | 2.39                                                     | 0.20                                           |
-| Llama3-8B(bf16) | linkedlist_json | 0.66                                            | 0.26                                                     | N/A                                            |
-| Llama3-8B(bf16) | order_json      | 0.64                                            | 0.92                                                     | 0.17                                           |
-| Llama2-7B(fp16) | address_json    | 0.33                                            | 0.33                                                     | 0.13                                           |
-| Llama2-7B(fp16) | linkedlist_json | 0.45                                            | 0.36                                                     | N/A                                            |
-| Llama2-7B(fp16) | order_json      | 0.40                                            | 0.34                                                     | 0.10                                           |
+| Llama3-8B(bf16) | address_json    | 0.23                                            | 2.41                                                     | 0.27                                          |
+| Llama3-8B(bf16) | linkedlist_json | 0.25                                            | 0.29                                                     | N/A                                            |
+| Llama3-8B(bf16) | order_json      | 0.31                                            | 0.81                                                     | 0.20                                           |
+| Llama2-7B(fp16) | address_json    | 0.38                                            | 0.47                                                     | 0.07                                           |
+| Llama2-7B(fp16) | linkedlist_json | 0.38                                            | 0.48                                                     | N/A                                            |
+| Llama2-7B(fp16) | order_json      | 0.40                                            | 0.50                                                     | 0.11                                           |
 
 ## Exllamav2
 
@@ -68,15 +68,13 @@ crippling its performance significantly. Also, `outlines` exllamav2 integration 
 
 Default transformers setting with flash attention v2 enabled.
 
-Note that `outlines` logits processor huggingface integration [does not work](https://github.com/outlines-dev/outlines/issues/1115) and their
-wrapper over huggingface does not provide a way to measure token per second. Their own benchmark
-only measures the total time taken.
+Note that `outlines` logits processor huggingface integration in the latest published version(`0.0.46`) [does not work](https://github.com/outlines-dev/outlines/issues/1115) and their wrapper over huggingface does not provide a way to measure token per second. Their own benchmark only measures the total time taken.
 
 | model           | schema          | Formatron overhead per token(with warm-up) / ms | lm format enforcer overhead(with warm-up) per token / ms | outlines overhead(with warm-up) per token / ms |
 |-----------------|-----------------|-------------------------------------------------|----------------------------------------------------------|------------------------------------------------|
-| Llama3-8B(bf16) | address_json    | 0.65                                            | 9.3                                                      | N/A                                            |
-| Llama3-8B(bf16) | linkedlist_json | 0.70                                            | 3.5                                                      | N/A                                            |
-| Llama3-8B(bf16) | order_json      | 0.69                                            | 6.1                                                      | N/A                                            |
-| Llama2-7B(fp16) | address_json    | 0.41                                            | 1.4                                                      | N/A                                            |
-| Llama2-7B(fp16) | linkedlist_json | 0.54                                            | 0.58                                                     | N/A                                            |
-| Llama2-7B(fp16) | order_json      | 0.44                                            | 0.96                                                     | N/A                                            |
+| Llama3-8B(bf16) | address_json    | 0.34                                            | 9.85                                                      | N/A                                            |
+| Llama3-8B(bf16) | linkedlist_json | 0.53                                            | 3.80                                                      | N/A                                            |
+| Llama3-8B(bf16) | order_json      | 0.59                                            | 6.84                                                      | N/A                                            |
+| Llama2-7B(fp16) | address_json    | 0.28                                            | 2.83                                                      | N/A                                            |
+| Llama2-7B(fp16) | linkedlist_json | 0.29                                            | 0.93                                                     | N/A                                            |
+| Llama2-7B(fp16) | order_json      | 0.40                                            | 1.51                                                     | N/A                                            |

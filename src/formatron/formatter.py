@@ -169,6 +169,7 @@ class Formatter(FormatterBase):
         - The extractor has a capture name.
         - Formatter.is_completed() returns True.
         - The extractor successfully extracts the data.
+          - This means the extractor identifies the correct string span to extract and whatever post-processing the extractor does on the extracted string is successful.
         
         Captures are obtained by calling `Extractor.extract` method on the generated string in the sequence of extractors appended to the formatter.
         Note that the previous extractors does not 'see' the semantics of the later extractors. For example,
@@ -226,6 +227,8 @@ class FormatterBuilder:
     def append_line(self, line: str) -> None:
         """
         Append a line to the format. Specifically, a newline character is appended to the input.
+
+        Note that if you need a literal `$`, you need to escape it by adding a backslash: `\\$`.
         """
         self.append_str(line + '\n')
 
@@ -238,6 +241,8 @@ class FormatterBuilder:
         the lines " hello" and "\\thello" are considered to have no common leading whitespace.
 
         Entirely blank lines are normalized to a newline character.
+
+        Note that if you need a literal `$`, you need to escape it by adding a backslash: `\\$`.
         """
         first = lines.find('\n')
         self.append_str(lines[:first + 1] + textwrap.dedent(lines[first + 1:]))
@@ -245,6 +250,8 @@ class FormatterBuilder:
     def append_str(self, string: str) -> None:
         """
         Append a string to the format without any post-processing.
+
+        Note that if you need a literal `$`, you need to escape it by adding a backslash: `\\$`.
         """
         state = "normal"
         last = 0
