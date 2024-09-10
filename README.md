@@ -61,16 +61,16 @@ Feel free to open up an [issue](https://github.com/Dan-wanna-M/formatron/issues)
 
 ```python
 import torch
+from formatron.integrations.transformers import create_formatter_logits_processor_list
+from formatron.formatter import FormatterBuilder
 from transformers import AutoModelForCausalLM
 import transformers
-from formatron.formatter import FormatterBuilder
-from formatron.integrations.transformers import create_formatter_logits_processor_list
-
 torch.manual_seed(514)
 model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
-                                             device_map="cuda",
-                                             torch_dtype=torch.float16)
-tokenizer = transformers.AutoTokenizer.from_pretrained("microsoft/Phi-3-mini-128k-instruct")
+                                                device_map="cuda",
+                                                torch_dtype=torch.float16)
+tokenizer = transformers.AutoTokenizer.from_pretrained(
+    "microsoft/Phi-3-mini-128k-instruct")
 
 f = FormatterBuilder()
 digit = f.regex('([1-9][0-9]*)', capture_name='digit')
@@ -81,9 +81,9 @@ inputs = tokenizer(["""<|system|>
 You are a helpful assistant.<|end|>
 <|user|>Which integer is your favourite?<|end|>
 <|assistant|>"""], return_tensors="pt").to("cuda")
-print(tokenizer.batch_decode(model.generate(**inputs,top_p=0.5, temperature=1,
-                                          max_new_tokens=100, logits_processor=logits_processor)))
-print(logits_processor[0].formatters_captures) 
+print(tokenizer.batch_decode(model.generate(**inputs, top_p=0.5, temperature=1,
+                                            max_new_tokens=100, logits_processor=logits_processor)))
+print(logits_processor[0].formatters_captures)
 # possible output:
 # [{'digit': [<re.Match object; span=(0, 2), match='42'>, <re.Match object; span=(0, 2), match='42'>]}]
 ```
@@ -98,69 +98,68 @@ does not include arbitrary lookaheads.
 
 ```python
 import torch
+from formatron.integrations.transformers import create_formatter_logits_processor_list
+from formatron.formatter import FormatterBuilder
 from transformers import AutoModelForCausalLM
 import transformers
-from formatron.formatter import FormatterBuilder
-from formatron.integrations.transformers import create_formatter_logits_processor_list
-from formatron.schemas.pydantic import ClassSchema
-from formatron.grammar_generators.json_generator import JsonGenerator
-
-class Goods(ClassSchema):
-    name:str
-    price:float
-    remaining:int
-
-torch.manual_seed(520)
-model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
-                                             device_map="cuda",
-                                             torch_dtype=torch.float16)
-tokenizer = transformers.AutoTokenizer.from_pretrained("microsoft/Phi-3-mini-128k-instruct")
-
-f = FormatterBuilder()
-schema = Goods
-f.append_line(f"{f.schema(schema, JsonGenerator(), capture_name='json')}")
-logits_processor = create_formatter_logits_processor_list(tokenizer, f)
-inputs = tokenizer(["""<|system|>
-You are a helpful assistant.<|end|>
-<|user|>We have 14 apples left with each price 14.4$. Extract information from this sentence into json.<|end|>
-<|assistant|>"""], return_tensors="pt").to("cuda")
-print(tokenizer.batch_decode(model.generate(**inputs,top_p=0.5, temperature=1,
-                                          max_new_tokens=100, logits_processor=logits_processor)))
-print(logits_processor[0].formatters_captures)
-# possible output:
-# [{'json': Goods(name='apples', price=14.4, remaining=14)}]
-```
-
-#### Json Example
-
-```python
-import torch
-from transformers import AutoModelForCausalLM
-import transformers
-from formatron.formatter import FormatterBuilder
-from formatron.integrations.transformers import create_formatter_logits_processor_list
-from formatron.grammar_generators.json_generator import JsonGenerator
 from formatron.schemas.dict_inference import infer_mapping
-
 torch.manual_seed(520)
 model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
-                                             device_map="cuda",
-                                             torch_dtype=torch.float16)
-tokenizer = transformers.AutoTokenizer.from_pretrained("microsoft/Phi-3-mini-128k-instruct")
+                                                device_map="cuda",
+                                                torch_dtype=torch.float16)
+tokenizer = transformers.AutoTokenizer.from_pretrained(
+    "microsoft/Phi-3-mini-128k-instruct")
 
 f = FormatterBuilder()
-schema = infer_mapping({"name":"foo", "age": 28})
-f.append_line(f"{f.schema(schema, JsonGenerator(), capture_name='json')}")
+schema = infer_mapping({"name": "foo", "age": 28})
+f.append_line(f"{f.json(schema, capture_name='json')}")
 logits_processor = create_formatter_logits_processor_list(tokenizer, f)
 inputs = tokenizer(["""<|system|>
 You are a helpful assistant.<|end|>
 <|user|>I am 周明瑞. My age is 24. Extract information from this sentence into json.<|end|>
 <|assistant|>"""], return_tensors="pt").to("cuda")
-print(tokenizer.batch_decode(model.generate(**inputs,top_p=0.5, temperature=1,
-                                          max_new_tokens=100, logits_processor=logits_processor)))
+print(tokenizer.batch_decode(model.generate(**inputs, top_p=0.5, temperature=1,
+                                            max_new_tokens=100, logits_processor=logits_processor)))
 print(logits_processor[0].formatters_captures)
 # possible output:
 # [{'json': {'name': '周明瑞', 'age': 34}}]
+```
+
+#### Json Example
+
+```python
+from formatron.schemas.pydantic import ClassSchema
+from formatron.integrations.transformers import create_formatter_logits_processor_list
+from formatron.formatter import FormatterBuilder
+from transformers import AutoModelForCausalLM
+import transformers
+import torch
+
+class Goods(ClassSchema):
+    name: str
+    price: float
+    remaining: int
+
+torch.manual_seed(520)
+model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
+                                                device_map="cuda",
+                                                torch_dtype=torch.float16)
+tokenizer = transformers.AutoTokenizer.from_pretrained(
+    "microsoft/Phi-3-mini-128k-instruct")
+
+f = FormatterBuilder()
+schema = Goods
+f.append_line(f"{f.json(schema, capture_name='json')}")
+logits_processor = create_formatter_logits_processor_list(tokenizer, f)
+inputs = tokenizer(["""<|system|>
+You are a helpful assistant.<|end|>
+<|user|>We have 14 apples left with each price 14.4$. Extract information from this sentence into json.<|end|>
+<|assistant|>"""], return_tensors="pt").to("cuda")
+print(tokenizer.batch_decode(model.generate(**inputs, top_p=0.5, temperature=1,
+                                            max_new_tokens=100, logits_processor=logits_processor)))
+print(logits_processor[0].formatters_captures)
+# possible output:
+# [{'json': Goods(name='apples', price=14.4, remaining=14)}]
 ```
 
 ### Batched Inference
@@ -192,27 +191,28 @@ print(tokenizer.batch_decode(model.generate(**inputs,
 ### Function Calls
 
 ```python
+import torch
 from formatron import schemas
 from formatron.formatter import FormatterBuilder
 from transformers import AutoModelForCausalLM
 import transformers
-from formatron.grammar_generators.json_generator import JsonGenerator
 from formatron.integrations.transformers import create_formatter_logits_processor_list
-import torch
+
 @schemas.pydantic.callable_schema
 def add(a: int, b: int, /, *, c: int):
     return a + b + c
 
 model = AutoModelForCausalLM.from_pretrained("NurtureAI/Meta-Llama-3-8B-Instruct-32k",
-                                             device_map="cuda",
-                                             torch_dtype=torch.float16)
-tokenizer = transformers.AutoTokenizer.from_pretrained("NurtureAI/Meta-Llama-3-8B-Instruct-32k")
+                                                device_map="cuda",
+                                                torch_dtype=torch.float16)
+tokenizer = transformers.AutoTokenizer.from_pretrained(
+    "NurtureAI/Meta-Llama-3-8B-Instruct-32k")
 inputs = tokenizer(["""<|system|>
 You are a helpful assistant.<|end|>
 <|user|>a is 1, b is 6 and c is 7. Generate a json containing them.<|end|>
 <|assistant|>"""], return_tensors="pt").to("cuda")
 f = FormatterBuilder()
-f.append_line(f"{f.schema(add, JsonGenerator(), capture_name='json')}")
+f.append_line(f"{f.json(add, capture_name='json')}")
 logits_processor = create_formatter_logits_processor_list(tokenizer, f)
 print(tokenizer.batch_decode(model.generate(**inputs, top_p=0.5, temperature=1,
                                             max_new_tokens=100, logits_processor=logits_processor)))
@@ -227,23 +227,17 @@ Context free grammars use [kbnf's syntax](https://docs.rs/kbnf/latest/kbnf/#kbnf
 Since formatron uses [kbnf](https://github.com/Dan-wanna-M/kbnf?tab=readme-ov-file#features) under the hood, all kbnf's claims on performance hold.
 
 ```python
-from formatron import extractor
+import torch
 from formatron.formatter import FormatterBuilder
 from transformers import AutoModelForCausalLM
 import transformers
-import typing
 from formatron.integrations.transformers import create_formatter_logits_processor_list
-import torch
-rules = """
-expression ::=  term { ("+" | "-") term };
-term       ::= factor { ("*" | "/") factor };
-factor     ::= number | "(" expression ")";
-number     ::= #"[0-9]+(\\\\.[0-9]+)?";
-"""
-class ArithmeticExpressionExtractor(extractor.Extractor):
-    def __init__(self,nonterminal:str, capture_name: typing.Optional[str] = None):
-        super().__init__(capture_name)
-        self._nonterminal = nonterminal
+from formatron.extractor import NonterminalExtractor
+import typing
+
+class ArithmeticExpressionExtractor(NonterminalExtractor):
+    def __init__(self, nonterminal: str, capture_name: typing.Optional[str] = None):
+        super().__init__(nonterminal, capture_name)
 
     def extract(self, input_str: str) -> typing.Optional[tuple[str, typing.Any]]:
         i = 0
@@ -267,17 +261,19 @@ class ArithmeticExpressionExtractor(extractor.Extractor):
         return input_str[i:], input_str[:i]
 
     @property
-    def nonterminal(self) -> str:
-        return self._nonterminal
-
-    @property
-    def kbnf_representation(self) -> str:
-        return self._nonterminal
+    def kbnf_definition(self) -> str:
+        return  """
+expression ::=  term { ("+" | "-") term };
+term       ::= factor { ("*" | "/") factor };
+factor     ::= number | "(" expression ")";
+number     ::= #"[0-9]+(\\\\.[0-9]+)?";
+""".replace("expression", self.nonterminal)
 
 model = AutoModelForCausalLM.from_pretrained("NurtureAI/Meta-Llama-3-8B-Instruct-32k",
-                                             device_map="cuda",
-                                             torch_dtype=torch.float16)
-tokenizer = transformers.AutoTokenizer.from_pretrained("NurtureAI/Meta-Llama-3-8B-Instruct-32k")
+                                                device_map="cuda",
+                                                torch_dtype=torch.float16)
+tokenizer = transformers.AutoTokenizer.from_pretrained(
+    "NurtureAI/Meta-Llama-3-8B-Instruct-32k")
 inputs = tokenizer(["""<|system|>
     You are a helpful assistant.<|end|>
     <|user|>Repeat it: ((32+43)*114)<|end|>
@@ -286,7 +282,7 @@ inputs = tokenizer(["""<|system|>
     <|assistant|>"""], return_tensors="pt").to("cuda")
 f = FormatterBuilder()
 f.append_line(
-f"{f.extractor(lambda nonterminal: ArithmeticExpressionExtractor(nonterminal, 'json'),lambda nonterminal: rules.replace('expression', nonterminal), capture_name='json')}")
+    f"{f.extractor(lambda nonterminal: ArithmeticExpressionExtractor(nonterminal, 'json'))}")
 logits_processor = create_formatter_logits_processor_list(tokenizer, f)
 print(tokenizer.batch_decode(model.generate(**inputs, top_p=0.5, temperature=1,
                                             max_new_tokens=100, logits_processor=logits_processor)))
@@ -296,10 +292,51 @@ print(logits_processor[0].formatters_captures)
 
 ### Json Schema
 
-You can use [pydantic's code generator](https://docs.pydantic.dev/latest/integrations/datamodel_code_generator/)
-to generate pydantic models from json schema.
+Starting from `0.4.0`, Formatron supports some basic json schemas natively.
 
-Formatron may natively support json schema in the future.
+```python
+from formatron.schemas import json_schema
+from formatron.integrations.transformers import create_formatter_logits_processor_list
+from formatron.formatter import FormatterBuilder
+from transformers import AutoModelForCausalLM
+import transformers
+import torch
+
+schema = {
+    "$id": "https://example.com/person.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "age": {
+            "type": "integer"
+        }
+    },
+    "required": ["name", "age"]
+}
+schema = json_schema.create_schema(schema)
+torch.manual_seed(520)
+model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
+                                                device_map="cuda",
+                                                torch_dtype=torch.float16)
+tokenizer = transformers.AutoTokenizer.from_pretrained(
+    "microsoft/Phi-3-mini-128k-instruct")
+
+f = FormatterBuilder()
+f.append_line(f"{f.json(schema, capture_name='json')}")
+logits_processor = create_formatter_logits_processor_list(tokenizer, f)
+inputs = tokenizer(["""<|system|>
+You are a helpful assistant.<|end|>
+<|user|>Extract information from this sentence into json: my name is Genov and I am 28 years old.<|end|>
+<|assistant|>```"""], return_tensors="pt").to("cuda")
+print(tokenizer.batch_decode(model.generate(**inputs, top_p=0.5, temperature=1,
+                                            max_new_tokens=100, logits_processor=logits_processor)))
+print(logits_processor[0].formatters_captures)
+# possible output:
+# [{'json': {'name': 'Genov', 'age': 28}}]
+```
 
 ### Integrations
 
@@ -308,7 +345,7 @@ You may also want to check the minimum compatible version in [pyproject.toml](ht
 
 ## API Reference
 
-Check out the API reference [here](https://dan-wanna-m.github.io/formatron/).
+Check out the API reference [here](https://dan-wanna-m.github.io/formatron/). 
 
 ## Benchmark
 

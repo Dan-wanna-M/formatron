@@ -185,8 +185,52 @@ number     ::= #"[0-9]+(\\\\.[0-9]+)?";
     print(logits_processor[0].formatters_captures)
     # possible output: [{'json': '(((32+43)*(114-514)))*1.5'}]
 
+def test_readme_example6():
+    from formatron.schemas import json_schema
+    from formatron.integrations.transformers import create_formatter_logits_processor_list
+    from formatron.formatter import FormatterBuilder
+    from transformers import AutoModelForCausalLM
+    import transformers
+    import torch
+
+    schema = {
+        "$id": "https://example.com/person.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "age": {
+                "type": "integer"
+            }
+        },
+        "required": ["name", "age"]
+    }
+    schema = json_schema.create_schema(schema)
+    torch.manual_seed(520)
+    model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
+                                                 device_map="cuda",
+                                                 torch_dtype=torch.float16)
+    tokenizer = transformers.AutoTokenizer.from_pretrained(
+        "microsoft/Phi-3-mini-128k-instruct")
+
+    f = FormatterBuilder()
+    f.append_line(f"{f.json(schema, capture_name='json')}")
+    logits_processor = create_formatter_logits_processor_list(tokenizer, f)
+    inputs = tokenizer(["""<|system|>
+You are a helpful assistant.<|end|>
+<|user|>Extract information from this sentence into json: my name is Genov and I am 28 years old.<|end|>
+<|assistant|>```"""], return_tensors="pt").to("cuda")
+    print(tokenizer.batch_decode(model.generate(**inputs, top_p=0.5, temperature=1,
+                                                max_new_tokens=100, logits_processor=logits_processor)))
+    print(logits_processor[0].formatters_captures)
+    # possible output:
+    # [{'json': {'name': 'Genov', 'age': 28}}]
+
 test_readme_example()
 test_readme_example2()
 test_readme_example3()
 test_readme_example4()
 test_readme_example5()
+test_readme_example6()
