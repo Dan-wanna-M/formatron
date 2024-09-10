@@ -23,7 +23,6 @@ def execute():
     context.index += 1
     outputs = llm.generate(prompts, sampling_params)
     context.tokens += len(outputs[0].outputs[0].token_ids)
-    print(repr(outputs[0].outputs[0].text))
     logits_processor = sampling_params.logits_processors
     if logits_processor and isinstance(logits_processor[0], FormattersLogitsProcessor):
         logits_processor[0].reset()

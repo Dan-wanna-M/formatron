@@ -188,7 +188,7 @@ if __name__ == '__main__':
         You are a helpful AI assistant for information extraction<|eot_id|><|start_header_id|>user<|end_header_id|>
 
         Extract information into json format: """
-        tail = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+        tail = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>```"
         settings = ExLlamaV2Sampler.Settings()
         # --------------------------------------------------------------------------------------------------------------
         inputs = load_address()
@@ -231,7 +231,7 @@ if __name__ == '__main__':
                     You are a helpful AI assistant for information extraction.
 
                     Extract information into json format: """
-        tail = "[/INST]"
+        tail = "[/INST]```"
         # --------------------------------------------------------------------------------------------------------------
         inputs = load_address()
         context.filters = [f_get_address_filter()]
