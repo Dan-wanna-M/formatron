@@ -2,6 +2,7 @@
 This module integrates the vllm library by providing convenience utilities.
 """
 import collections.abc
+import time
 import typing
 import kbnf
 from vllm import LLM
@@ -64,6 +65,8 @@ class FormattersLogitsProcessor:
             self._last_input_id_length += 1
         formatter, _ = result
         while formatter.is_completed():
+            if generated_tokens[-1] == self._eos_token_id:
+                return logits
             formatter, _ = next(self._iter)
         if len(generated_tokens) != 0:  # accept new token
             input_id = generated_tokens[-1]

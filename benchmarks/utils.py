@@ -62,9 +62,11 @@ def log(func_name:str, data:BenchResult,f):
     a = f"{func_name} generated {data.t1} tokens with {data.t1 / data.s1} tps (with warm up)\n"
     b = (f"{func_name} unconstrained generated {data.t2} tokens with"
           f" {data.t2 / data.s2} tps\n")
+    c = f"{func_name} overhead per token: {((data.s1 / data.t1) - (data.s2 / data.t2)) * 1000:.2f} ms\n"
     print(a)
     print(b)
-    f.writelines([a,b])
+    print(c)
+    f.writelines([a,b,c])
 
 
 def load_address()->list[str]:

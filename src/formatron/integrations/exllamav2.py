@@ -80,14 +80,29 @@ class FormatterFilter(ExLlamaV2Filter):
             return None
         self._formatter.accept_token(token)
 
-    def next(self) -> typing.Tuple[typing.Set[int], typing.Set[int]]:
+    # adapted from https://github.com/Dan-wanna-M/formatron/issues/14
+    # Old version for compatibility
+    def next_set(self) -> typing.Tuple[typing.Set[int], typing.Set[int]]:
         if self._formatter.is_completed():
             return {self.tokenizer.eos_token_id}, {self.tokenizer.eos_token_id}
         self._formatter.compute_allowed_tokens()
         self._pass_tokens.clear()
-        self._pass_tokens.update(
-            self._formatter.get_allowed_tokens_since_last_computation())
+        self._pass_tokens.update(self._formatter.get_allowed_tokens_since_last_computation())
         return self._pass_tokens, set()
+
+    # adapted from https://github.com/Dan-wanna-M/formatron/issues/14
+    def next(self) -> typing.Tuple[typing.Sequence[int], typing.Sequence[int]]:
+        # Kludge to maintain compatibility with exllamav2 <= 0.2.0
+        if not hasattr(self, "allow_return_type_list"):
+            return self.next_set()
+        if self._formatter.is_completed():
+            return [self.tokenizer.eos_token_id], [self.tokenizer.eos_token_id]
+        self._formatter.compute_allowed_tokens()
+        return self._formatter.get_allowed_tokens_since_last_computation(), []
+    
+    # adapted from https://github.com/Dan-wanna-M/formatron/issues/14
+    def use_background_worker(self) -> bool:
+        return True
 
     @property
     def formatter_captures(self) -> dict[str, typing.Any]:

@@ -37,7 +37,7 @@ transformers==4.43.2
 
 ## vllm
 
-Default vllm setting are used. `Outlines` whitespace pattern is set to `[ \t\n\r]*` to align with the whitespace patterns used by `Formatron` and `lm-format-enforcer`.
+Default vllm setting are used.
 
 | model           | schema          | Formatron overhead per token(with warm-up) / ms | lm format enforcer overhead(with warm-up) per token / ms | outlines overhead(with warm-up) per token / ms |
 |-----------------|-----------------|-------------------------------------------------|----------------------------------------------------------|------------------------------------------------|
@@ -57,12 +57,12 @@ crippling its performance significantly. Also, `outlines` exllamav2 integration 
 
 | model           | schema          | Formatron overhead per token(with warm-up) / ms | lm format enforcer overhead(with warm-up) per token / ms | outlines overhead(with warm-up) per token / ms |
 |-----------------|-----------------|-------------------------------------------------|----------------------------------------------------------|:-----------------------------------------------|
-| Llama3-8B(bf16) | address_json    | 2.83                                            | 11.7                                                     | N/A                                            |
-| Llama3-8B(bf16) | linkedlist_json | 0.85                                            | 25.7                                                     | N/A                                            |
-| Llama3-8B(bf16) | order_json      | 0.68                                            | 18.2                                                     | N/A                                            |
-| Llama2-7B(fp16) | address_json    | 0.96                                            | 7.98                                                     | N/A                                            |
-| Llama2-7B(fp16) | linkedlist_json | 0.41                                            | 6.4                                                      | N/A                                            |
-| Llama2-7B(fp16) | order_json      | 0.23                                            | 5.24                                                     | N/A                                            |
+| Llama3-8B(bf16) | address_json    | 1.46                                            | 5.81                                                     | N/A                                            |
+| Llama3-8B(bf16) | linkedlist_json | 0.81                                            | 16.65                                                     | N/A                                            |
+| Llama3-8B(bf16) | order_json      | 0.44                                            | 10.62                                                     | N/A                                            |
+| Llama2-7B(fp16) | address_json    | 0.75                                            | 7.28                                                     | N/A                                            |
+| Llama2-7B(fp16) | linkedlist_json | 0.41                                            | 6.18                                                      | N/A                                            |
+| Llama2-7B(fp16) | order_json      | 0.17                                            | 4.77                                                     | N/A                                            |
 
 ## Transformers
 

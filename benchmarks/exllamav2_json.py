@@ -1,6 +1,7 @@
 from timeit import timeit
 import formatron.integrations.exllamav2
 from exllamav2 import ExLlamaV2, ExLlamaV2Config, ExLlamaV2Cache, ExLlamaV2Tokenizer
+from exllamav2.generator.base import ExLlamaV2Filter
 from exllamav2.generator import ExLlamaV2DynamicGenerator, ExLlamaV2Sampler
 from formatron.formatter import FormatterBuilder
 from formatron.integrations.exllamav2 import create_formatter_filter
@@ -49,10 +50,42 @@ def f_get_address_filter():
         generator.model, generator.tokenizer, f)
     return exllama_filter
 
+# adapted from https://gist.github.com/floer32/a928b801ca5c7705e94e
+def bind(instance, func, as_name):
+    """ Turn a function to a bound method on an instance
+    .. doctest::
+        >>> class Foo(object):
+        ...     def __init__(self, x, y):
+        ...         self.x = x
+        ...         self.y = y
+        >>> foo = Foo(2, 3)
+        >>> my_unbound_method = lambda self: self.x * self.y
+        >>> bind(foo, my_unbound_method, 'multiply')
+        >>> # noinspection PyUnresolvedReferences
+        ... foo.multiply()
+        6
+    :param instance: some object
+    :param func: unbound method (i.e. a function that takes `self` argument, that you now
+        want to be bound to this class as a method)
+    :param as_name: name of the method to create on the object
+    SIDE EFFECTS:
+        - creates the new bound method on this instance, like you asked for
+    """
+    setattr(instance, as_name, func.__get__(instance, instance.__class__))
+
+def monkey_patch_lfe(exllama_filter: ExLlamaV2TokenEnforcerFilter):
+    exllama_filter.background_result = None
+    use_background_worker = lambda self: True
+    bind(exllama_filter, use_background_worker, "use_background_worker")
+    bind(exllama_filter, ExLlamaV2Filter.background_next, "background_next")
+    bind(exllama_filter, ExLlamaV2Filter.background_drop, "background_drop")
+    bind(exllama_filter, ExLlamaV2Filter.get_next, "get_next")
+
 
 def lfe_get_address_filter():
     exllama_filter = ExLlamaV2TokenEnforcerFilter(
         address_lfe, generator.tokenizer)
+    monkey_patch_lfe(exllama_filter)
     return exllama_filter
 
 
@@ -67,6 +100,7 @@ def f_get_linkedlist_filter():
 def lfe_get_linkedlist_filter():
     exllama_filter = ExLlamaV2TokenEnforcerFilter(
         linked_list_lfe, generator.tokenizer)
+    monkey_patch_lfe(exllama_filter)
     return exllama_filter
 
 
@@ -81,6 +115,7 @@ def f_get_order_filter():
 def lfe_get_order_filter():
     exllama_filter = ExLlamaV2TokenEnforcerFilter(
         order_lfe, generator.tokenizer)
+    monkey_patch_lfe(exllama_filter)
     return exllama_filter
 
 

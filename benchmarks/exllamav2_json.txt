@@ -1,24 +1,36 @@
-formatron_llama3_8b_6pw_exl2_address_json_exllamav2 generated 852 tokens with 36.6745027745243 tps (with warm up)
-formatron_llama3_8b_6pw_exl2_address_json_exllamav2 unconstrained generated 1000 tokens with 41.05903561591561 tps
-lm_format_enforcer_llama3_8b_6pw_exl2_address_json_exllamav2 generated 992 tokens with 27.01041109832539 tps (with warm up)
-lm_format_enforcer_llama3_8b_6pw_exl2_address_json_exllamav2 unconstrained generated 1000 tokens with 40.82205665609361 tps
-formatron_llama3_8b_6pw_exl2_linkedlist_json_exllamav2 generated 1127 tokens with 39.80931925691112 tps (with warm up)
-formatron_llama3_8b_6pw_exl2_linkedlist_json_exllamav2 unconstrained generated 2000 tokens with 41.23792562319979 tps
-lm_format_enforcer_llama3_8b_6pw_exl2_linkedlist_json_exllamav2 generated 1268 tokens with 19.386923448069634 tps (with warm up)
-lm_format_enforcer_llama3_8b_6pw_exl2_linkedlist_json_exllamav2 unconstrained generated 2000 tokens with 41.353878131344935 tps
-formatron_llama3_8b_6pw_exl2_orders_json_exllamav2 generated 4138 tokens with 39.98103178543297 tps (with warm up)
-formatron_llama3_8b_6pw_exl2_orders_json_exllamav2 unconstrained generated 5120 tokens with 41.30925614484239 tps
-lm_format_enforcer_llama3_8b_6pw_exl2_orders_json_exllamav2 generated 4286 tokens with 23.236198704449208 tps (with warm up)
-lm_format_enforcer_llama3_8b_6pw_exl2_orders_json_exllamav2 unconstrained generated 5120 tokens with 41.38216926526831 tps
-formatron_llama2_7b_4pw_exl2_address_json_exllamav2 generated 1298 tokens with 41.80329114781633 tps (with warm up)
-formatron_llama2_7b_4pw_exl2_address_json_exllamav2 unconstrained generated 2000 tokens with 43.71213257246622 tps
-lm_format_enforcer_llama2_7b_4pw_exl2_address_json_exllamav2 generated 1530 tokens with 32.35058573962305 tps (with warm up)
-lm_format_enforcer_llama2_7b_4pw_exl2_address_json_exllamav2 unconstrained generated 2000 tokens with 43.66864107282692 tps
-formatron_llama2_7b_4pw_exl2_linkedlist_json_exllamav2 generated 1355 tokens with 42.90383772437073 tps (with warm up)
-formatron_llama2_7b_4pw_exl2_linkedlist_json_exllamav2 unconstrained generated 2000 tokens with 43.71581924259208 tps
-lm_format_enforcer_llama2_7b_4pw_exl2_linkedlist_json_exllamav2 generated 1576 tokens with 34.06732755599732 tps (with warm up)
-lm_format_enforcer_llama2_7b_4pw_exl2_linkedlist_json_exllamav2 unconstrained generated 2000 tokens with 43.65752463311508 tps
-formatron_llama2_7b_4pw_exl2_orders_json_exllamav2 generated 5572 tokens with 43.23319771971842 tps (with warm up)
-formatron_llama2_7b_4pw_exl2_orders_json_exllamav2 unconstrained generated 7000 tokens with 43.775237509170005 tps
-lm_format_enforcer_llama2_7b_4pw_exl2_orders_json_exllamav2 generated 5798 tokens with 35.50860218752982 tps (with warm up)
-lm_format_enforcer_llama2_7b_4pw_exl2_orders_json_exllamav2 unconstrained generated 7000 tokens with 43.771816180962155 tps
+formatron_llama3_8b_6pw_exl2_address_json_exllamav2 generated 855 tokens with 38.76276184385867 tps (with warm up)
+formatron_llama3_8b_6pw_exl2_address_json_exllamav2 unconstrained generated 1000 tokens with 41.086632339598374 tps
+formatron_llama3_8b_6pw_exl2_address_json_exllamav2 overhead per token: 1.46 ms
+lm_format_enforcer_llama3_8b_6pw_exl2_address_json_exllamav2 generated 1000 tokens with 33.16099035835655 tps (with warm up)
+lm_format_enforcer_llama3_8b_6pw_exl2_address_json_exllamav2 unconstrained generated 1000 tokens with 41.07210889418724 tps
+lm_format_enforcer_llama3_8b_6pw_exl2_address_json_exllamav2 overhead per token: 5.81 ms
+formatron_llama3_8b_6pw_exl2_linkedlist_json_exllamav2 generated 1128 tokens with 40.06762061194288 tps (with warm up)
+formatron_llama3_8b_6pw_exl2_linkedlist_json_exllamav2 unconstrained generated 2000 tokens with 41.415778895440035 tps
+formatron_llama3_8b_6pw_exl2_linkedlist_json_exllamav2 overhead per token: 0.81 ms
+lm_format_enforcer_llama3_8b_6pw_exl2_linkedlist_json_exllamav2 generated 1281 tokens with 24.501477144216558 tps (with warm up)
+lm_format_enforcer_llama3_8b_6pw_exl2_linkedlist_json_exllamav2 unconstrained generated 2000 tokens with 41.37581650634218 tps
+lm_format_enforcer_llama3_8b_6pw_exl2_linkedlist_json_exllamav2 overhead per token: 16.65 ms
+formatron_llama3_8b_6pw_exl2_orders_json_exllamav2 generated 4138 tokens with 40.67334215308579 tps (with warm up)
+formatron_llama3_8b_6pw_exl2_orders_json_exllamav2 unconstrained generated 5120 tokens with 41.40981568700948 tps
+formatron_llama3_8b_6pw_exl2_orders_json_exllamav2 overhead per token: 0.44 ms
+lm_format_enforcer_llama3_8b_6pw_exl2_orders_json_exllamav2 generated 4287 tokens with 28.756482474282922 tps (with warm up)
+lm_format_enforcer_llama3_8b_6pw_exl2_orders_json_exllamav2 unconstrained generated 5120 tokens with 41.39495958699177 tps
+lm_format_enforcer_llama3_8b_6pw_exl2_orders_json_exllamav2 overhead per token: 10.62 ms
+formatron_llama2_7b_4pw_exl2_address_json_exllamav2 generated 1298 tokens with 42.390919101830804 tps (with warm up)
+formatron_llama2_7b_4pw_exl2_address_json_exllamav2 unconstrained generated 2000 tokens with 43.774062324736 tps
+formatron_llama2_7b_4pw_exl2_address_json_exllamav2 overhead per token: 0.75 ms
+lm_format_enforcer_llama2_7b_4pw_exl2_address_json_exllamav2 generated 1530 tokens with 33.18348106710488 tps (with warm up)
+lm_format_enforcer_llama2_7b_4pw_exl2_address_json_exllamav2 unconstrained generated 2000 tokens with 43.74905531904784 tps
+lm_format_enforcer_llama2_7b_4pw_exl2_address_json_exllamav2 overhead per token: 7.28 ms
+formatron_llama2_7b_4pw_exl2_linkedlist_json_exllamav2 generated 1355 tokens with 43.02560158100071 tps (with warm up)
+formatron_llama2_7b_4pw_exl2_linkedlist_json_exllamav2 unconstrained generated 2000 tokens with 43.80342136265851 tps
+formatron_llama2_7b_4pw_exl2_linkedlist_json_exllamav2 overhead per token: 0.41 ms
+lm_format_enforcer_llama2_7b_4pw_exl2_linkedlist_json_exllamav2 generated 1573 tokens with 34.495540590441685 tps (with warm up)
+lm_format_enforcer_llama2_7b_4pw_exl2_linkedlist_json_exllamav2 unconstrained generated 2000 tokens with 43.84061400555498 tps
+lm_format_enforcer_llama2_7b_4pw_exl2_linkedlist_json_exllamav2 overhead per token: 6.18 ms
+formatron_llama2_7b_4pw_exl2_orders_json_exllamav2 generated 5572 tokens with 43.55183147398156 tps (with warm up)
+formatron_llama2_7b_4pw_exl2_orders_json_exllamav2 unconstrained generated 7000 tokens with 43.88132546360725 tps
+formatron_llama2_7b_4pw_exl2_orders_json_exllamav2 overhead per token: 0.17 ms
+lm_format_enforcer_llama2_7b_4pw_exl2_orders_json_exllamav2 generated 5798 tokens with 36.30904541546516 tps (with warm up)
+lm_format_enforcer_llama2_7b_4pw_exl2_orders_json_exllamav2 unconstrained generated 7000 tokens with 43.91926290340538 tps
+lm_format_enforcer_llama2_7b_4pw_exl2_orders_json_exllamav2 overhead per token: 4.77 ms

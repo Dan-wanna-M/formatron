@@ -23,7 +23,7 @@ def execute():
     context.index += 1
     outputs = llm.generate(prompts, sampling_params)
     context.tokens += len(outputs[0].outputs[0].token_ids)
-    # print(repr(outputs[0].outputs[0].text))
+    print(repr(outputs[0].outputs[0].text))
     logits_processor = sampling_params.logits_processors
     if logits_processor and isinstance(logits_processor[0], FormattersLogitsProcessor):
         logits_processor[0].reset()
@@ -120,9 +120,9 @@ if __name__ == "__main__":
                 You are a helpful AI assistant for information extraction.<|eot_id|><|start_header_id|>user<|end_header_id|>
 
                 Extract information into json format: """
-        tail = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+        tail = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>```\n"
         import os
-        os.environ["CUDA_VISIBLE_DEVICES"] = "7"
+        os.environ["CUDA_VISIBLE_DEVICES"] = "0"
         llm = LLM(model="NurtureAI/Meta-Llama-3-8B-Instruct-32k",
                   max_model_len=4096)
         # --------------------------------------------------------------------------------------------------------------
@@ -158,7 +158,7 @@ if __name__ == "__main__":
             You are a helpful AI assistant for information extraction.
 
             Extract information into json format: """
-        tail = "[/INST]"
+        tail = "[/INST]```\n"
         llm = LLM(model="mistralai/Mistral-7B-Instruct-v0.3",
                   max_model_len=4096)
         # --------------------------------------------------------------------------------------------------------------
