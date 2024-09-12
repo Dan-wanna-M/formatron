@@ -97,5 +97,5 @@ class FormattersLogitsProcessor(LogitsProcessor):
                 scores[i, self._eos_token_id] = 0.0
                 continue
             formatter.compute_allowed_tokens()
-            formatter.mask_logits(scores[i, :])
+            scores[i, :] = formatter.mask_logits(scores[i, :])
         return scores

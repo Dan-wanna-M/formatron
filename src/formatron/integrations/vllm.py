@@ -5,6 +5,7 @@ import collections.abc
 import time
 import typing
 import kbnf
+import torch
 from vllm import LLM
 from formatron.config import EngineGenerationConfig
 from formatron.formatter import FormatterBase, FormatterBuilder

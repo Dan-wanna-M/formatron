@@ -74,10 +74,10 @@ def execute():
     context.index += 1
     if logits_processor is not None:
         outputs = model.generate(**prompts, logits_processor=logits_processor,
-                                 max_new_tokens=max_new_tokens)
+                                 max_new_tokens=max_new_tokens, temperature=1, top_p=0.5, do_sample=True)
     else:
         outputs = model.generate(**prompts, prefix_allowed_tokens_fn=prefix_fn,
-                                 max_new_tokens=max_new_tokens)
+                                 max_new_tokens=max_new_tokens, temperature=1, top_p=0.5, do_sample=True)
     # print(repr(tokenizer.decode(outputs[0][input_len:], skip_special_tokens=False))) # for debug purpose
     context.tokens += outputs.shape[-1]-input_len
     if logits_processor and isinstance(logits_processor[0], FormattersLogitsProcessor):

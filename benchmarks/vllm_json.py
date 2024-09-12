@@ -1,4 +1,5 @@
 import gc
+import time
 from timeit import timeit
 import torch
 from lmformatenforcer.integrations.vllm import build_vllm_logits_processor
@@ -23,71 +24,74 @@ def execute():
     context.index += 1
     outputs = llm.generate(prompts, sampling_params)
     context.tokens += len(outputs[0].outputs[0].token_ids)
+    # print(repr(outputs[0].outputs[0].text))
     logits_processor = sampling_params.logits_processors
     if logits_processor and isinstance(logits_processor[0], FormattersLogitsProcessor):
+        # print(logits_processor[0]._formatters[0]._token_ids)
         logits_processor[0].reset()
+
 
 
 def formatron_vllm_address():
     f = FormatterBuilder()
-    f.append_line(f"{f.json(Address, capture_name='json')}")
+    f.append_str(f"{f.json(Address, capture_name='json')}")
     logits_processor = create_formatters_logits_processor(llm, [f])
     sampling_params = SamplingParams(
-        temperature=0.8, top_p=0.95, max_tokens=100, logits_processors=[logits_processor])
+        temperature=1, top_p=0.5, max_tokens=100, logits_processors=[logits_processor])
     return sampling_params
 
 
 def lfe_vllm_address():
     logits_processor = build_vllm_logits_processor(llm, address_lfe)
     sampling_params = SamplingParams(
-        temperature=0.8, top_p=0.95, max_tokens=100, logits_processors=[logits_processor])
+        temperature=1, top_p=0.5, max_tokens=100, logits_processors=[logits_processor])
     return sampling_params
 
 
 def outlines_address():
     logits_processor = JSONLogitsProcessor(Address, llm, whitespace_pattern=r"[ \t\n\r]*")
     sampling_params = SamplingParams(
-        temperature=0.8, top_p=0.95, max_tokens=100, logits_processors=[logits_processor])
+        temperature=1, top_p=0.5, max_tokens=100, logits_processors=[logits_processor])
     return sampling_params
 
 
 def formatron_vllm_linkedlist():
     f = FormatterBuilder()
-    f.append_line(
+    f.append_str(
         f"{f.json(LinkedList, capture_name='json')}")
     logits_processor = create_formatters_logits_processor(llm, [f])
     sampling_params = SamplingParams(
-        temperature=0.8, top_p=0.95, max_tokens=100, logits_processors=[logits_processor])
+        temperature=1, top_p=0.5, max_tokens=100, logits_processors=[logits_processor])
     return sampling_params
 
 
 def lfe_vllm_linkedlist():
     logits_processor = build_vllm_logits_processor(llm, linked_list_lfe)
     sampling_params = SamplingParams(
-        temperature=0.8, top_p=0.95, max_tokens=100, logits_processors=[logits_processor])
+        temperature=1, top_p=0.5, max_tokens=100, logits_processors=[logits_processor])
     return sampling_params
 
 
 def formatron_vllm_order():
     f = FormatterBuilder()
-    f.append_line(f"{f.json(Order, capture_name='json')}")
+    f.append_str(f"{f.json(Order, capture_name='json')}")
     logits_processor = create_formatters_logits_processor(llm, [f])
     sampling_params = SamplingParams(
-        temperature=0.8, top_p=0.95, max_tokens=350, logits_processors=[logits_processor])
+        temperature=1, top_p=0.5, max_tokens=350, logits_processors=[logits_processor])
     return sampling_params
 
 
 def lfe_vllm_order():
     logits_processor = build_vllm_logits_processor(llm, order_lfe)
     sampling_params = SamplingParams(
-        temperature=0.8, top_p=0.95, max_tokens=350, logits_processors=[logits_processor])
+        temperature=1, top_p=0.5, max_tokens=350, logits_processors=[logits_processor])
     return sampling_params
 
 
 def outlines_order():
     logits_processor = JSONLogitsProcessor(Order, llm, whitespace_pattern=r"[ \t\n\r]*")
     sampling_params = SamplingParams(
-        temperature=0.8, top_p=0.95, max_tokens=350, logits_processors=[logits_processor])
+        temperature=1, top_p=0.5, max_tokens=350, logits_processors=[logits_processor])
     return sampling_params
 
 
@@ -120,8 +124,6 @@ if __name__ == "__main__":
 
                 Extract information into json format: """
         tail = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>```\n"
-        import os
-        os.environ["CUDA_VISIBLE_DEVICES"] = "0"
         llm = LLM(model="NurtureAI/Meta-Llama-3-8B-Instruct-32k",
                   max_model_len=4096)
         # --------------------------------------------------------------------------------------------------------------

@@ -12,7 +12,7 @@ from formatron import extractor, schemas
 
 __all__ = ["JsonExtractor"]
 
-SPACE_NONTERMINAL = "(\\u0020|\\u000A|\\u000D|\\u0009)*"
+SPACE_NONTERMINAL = "[ \t\n\r]*"
 
 GRAMMAR_HEADER = rf"""integer ::= #"-?(0|[1-9]\\d*)";
 number ::= #"-?(0|[1-9]\\d*)(\\.\\d+)?([eE][+-]?\\d+)?";

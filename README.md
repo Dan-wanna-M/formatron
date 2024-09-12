@@ -345,7 +345,7 @@ You may also want to check the minimum compatible version in [pyproject.toml](ht
 
 ## API Reference
 
-Check out the API reference [here](https://dan-wanna-m.github.io/formatron/). 
+Check out the API reference [here](https://dan-wanna-m.github.io/formatron/).
 
 ## Benchmark
 

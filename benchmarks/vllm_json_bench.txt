@@ -1,48 +1,48 @@
-formatron_llama3_8b_address generated 989 tokens with 41.01743224879016 tps (with warm up)
-formatron_llama3_8b_address unconstrained generated 1212 tokens with 41.88258683005212 tps
-formatron_llama3_8b_address overhead per token: 0.50 ms
-lm_format_enforcer_llama3_8b_address generated 990 tokens with 37.982553263626976 tps (with warm up)
-lm_format_enforcer_llama3_8b_address unconstrained generated 1276 tokens with 41.64936577848175 tps
-lm_format_enforcer_llama3_8b_address overhead per token: 2.32 ms
-outlines_llama3_8b_address generated 882 tokens with 41.16623904384603 tps (with warm up)
-outlines_llama3_8b_address unconstrained generated 1214 tokens with 41.7684114171166 tps
-outlines_llama3_8b_address overhead per token: 0.35 ms
-formatron_llama3_8b_linkedlist generated 1148 tokens with 40.94963816337475 tps (with warm up)
-formatron_llama3_8b_linkedlist unconstrained generated 1315 tokens with 41.843360329137234 tps
-formatron_llama3_8b_linkedlist overhead per token: 0.52 ms
-lm_format_enforcer_llama3_8b_linkedlist generated 1214 tokens with 41.15920969813555 tps (with warm up)
-lm_format_enforcer_llama3_8b_linkedlist unconstrained generated 1361 tokens with 41.726059418021954 tps
-lm_format_enforcer_llama3_8b_linkedlist overhead per token: 0.33 ms
-formatron_llama3_8b_orders generated 4178 tokens with 40.96530830027079 tps (with warm up)
-formatron_llama3_8b_orders unconstrained generated 4745 tokens with 41.88157990272972 tps
-formatron_llama3_8b_orders overhead per token: 0.53 ms
-lm_format_enforcer_llama3_8b_order generated 4303 tokens with 40.543791903224 tps (with warm up)
-lm_format_enforcer_llama3_8b_order unconstrained generated 4590 tokens with 41.82894187769121 tps
-lm_format_enforcer_llama3_8b_order overhead per token: 0.76 ms
-outlines_llama3_8b_order generated 4133 tokens with 41.724876066546024 tps (with warm up)
-outlines_llama3_8b_order unconstrained generated 4594 tokens with 41.93242027719833 tps
-outlines_llama3_8b_order overhead per token: 0.12 ms
-formatron_llama2_7b_address generated 1539 tokens with 43.358027446194434 tps (with warm up)
-formatron_llama2_7b_address unconstrained generated 1784 tokens with 44.26734152822538 tps
-formatron_llama2_7b_address overhead per token: 0.47 ms
-lm_format_enforcer_llama2_7b_address generated 1513 tokens with 43.24389748401652 tps (with warm up)
-lm_format_enforcer_llama2_7b_address unconstrained generated 1774 tokens with 44.207510619267715 tps
-lm_format_enforcer_llama2_7b_address overhead per token: 0.50 ms
-outlines_llama2_7b_address generated 1249 tokens with 44.00112686946241 tps (with warm up)
-outlines_llama2_7b_address unconstrained generated 1686 tokens with 44.229090596118816 tps
-outlines_llama2_7b_address overhead per token: 0.12 ms
-formatron_llama2_7b_linkedlist generated 1626 tokens with 43.32323103877846 tps (with warm up)
-formatron_llama2_7b_linkedlist unconstrained generated 1964 tokens with 44.32742201567164 tps
-formatron_llama2_7b_linkedlist overhead per token: 0.52 ms
-lm_format_enforcer_llama2_7b_linkedlist generated 1581 tokens with 43.28306617983097 tps (with warm up)
-lm_format_enforcer_llama2_7b_linkedlist unconstrained generated 2000 tokens with 44.310677833053404 tps
-lm_format_enforcer_llama2_7b_linkedlist overhead per token: 0.54 ms
-formatron_llama2_7b_orders generated 6312 tokens with 43.31872450995378 tps (with warm up)
-formatron_llama2_7b_orders unconstrained generated 5830 tokens with 44.20182408194301 tps
-formatron_llama2_7b_orders overhead per token: 0.46 ms
-lm_format_enforcer_llama2_7b_orders generated 5808 tokens with 43.27305005713112 tps (with warm up)
-lm_format_enforcer_llama2_7b_orders unconstrained generated 6003 tokens with 44.18535722907625 tps
-lm_format_enforcer_llama2_7b_orders overhead per token: 0.48 ms
-outlines_llama2_7b_order generated 5578 tokens with 44.12989757464711 tps (with warm up)
-outlines_llama2_7b_order unconstrained generated 5894 tokens with 44.21098994394429 tps
-outlines_llama2_7b_order overhead per token: 0.04 ms
+formatron_llama3_8b_address generated 882 tokens with 41.58014233027746 tps (with warm up)
+formatron_llama3_8b_address unconstrained generated 1097 tokens with 41.74960697160017 tps
+formatron_llama3_8b_address overhead per token: 0.10 ms
+lm_format_enforcer_llama3_8b_address generated 1013 tokens with 38.49706294372843 tps (with warm up)
+lm_format_enforcer_llama3_8b_address unconstrained generated 1075 tokens with 41.44015671874397 tps
+lm_format_enforcer_llama3_8b_address overhead per token: 1.84 ms
+outlines_llama3_8b_address generated 880 tokens with 41.378356665631905 tps (with warm up)
+outlines_llama3_8b_address unconstrained generated 1093 tokens with 41.6702585051756 tps
+outlines_llama3_8b_address overhead per token: 0.17 ms
+formatron_llama3_8b_linkedlist generated 1142 tokens with 41.69605457908301 tps (with warm up)
+formatron_llama3_8b_linkedlist unconstrained generated 1421 tokens with 41.8637550084712 tps
+formatron_llama3_8b_linkedlist overhead per token: 0.10 ms
+lm_format_enforcer_llama3_8b_linkedlist generated 1291 tokens with 41.28170456718716 tps (with warm up)
+lm_format_enforcer_llama3_8b_linkedlist unconstrained generated 1490 tokens with 41.76622949016146 tps
+lm_format_enforcer_llama3_8b_linkedlist overhead per token: 0.28 ms
+formatron_llama3_8b_orders generated 4181 tokens with 41.74771088662727 tps (with warm up)
+formatron_llama3_8b_orders unconstrained generated 4619 tokens with 41.84846842260856 tps
+formatron_llama3_8b_orders overhead per token: 0.06 ms
+lm_format_enforcer_llama3_8b_order generated 4326 tokens with 40.65240655882235 tps (with warm up)
+lm_format_enforcer_llama3_8b_order unconstrained generated 4625 tokens with 41.68949023473975 tps
+lm_format_enforcer_llama3_8b_order overhead per token: 0.61 ms
+outlines_llama3_8b_order generated 4181 tokens with 41.61058913358467 tps (with warm up)
+outlines_llama3_8b_order unconstrained generated 4619 tokens with 41.790567194192455 tps
+outlines_llama3_8b_order overhead per token: 0.10 ms
+formatron_llama2_7b_address generated 1138 tokens with 43.89089628540627 tps (with warm up)
+formatron_llama2_7b_address unconstrained generated 1714 tokens with 44.13610984720788 tps
+formatron_llama2_7b_address overhead per token: 0.13 ms
+lm_format_enforcer_llama2_7b_address generated 1488 tokens with 43.165820074106584 tps (with warm up)
+lm_format_enforcer_llama2_7b_address unconstrained generated 1720 tokens with 44.061810816802385 tps
+lm_format_enforcer_llama2_7b_address overhead per token: 0.47 ms
+outlines_llama2_7b_address generated 1249 tokens with 43.86803424383285 tps (with warm up)
+outlines_llama2_7b_address unconstrained generated 1721 tokens with 44.11696324128483 tps
+outlines_llama2_7b_address overhead per token: 0.13 ms
+formatron_llama2_7b_linkedlist generated 1036 tokens with 43.75487566282725 tps (with warm up)
+formatron_llama2_7b_linkedlist unconstrained generated 1964 tokens with 44.2038637790056 tps
+formatron_llama2_7b_linkedlist overhead per token: 0.23 ms
+lm_format_enforcer_llama2_7b_linkedlist generated 1591 tokens with 43.20899409705097 tps (with warm up)
+lm_format_enforcer_llama2_7b_linkedlist unconstrained generated 1969 tokens with 44.175113431366924 tps
+lm_format_enforcer_llama2_7b_linkedlist overhead per token: 0.51 ms
+formatron_llama2_7b_orders generated 6419 tokens with 44.07407563180127 tps (with warm up)
+formatron_llama2_7b_orders unconstrained generated 5823 tokens with 44.08194994116738 tps
+formatron_llama2_7b_orders overhead per token: 0.00 ms
+lm_format_enforcer_llama2_7b_orders generated 5806 tokens with 43.18685281407355 tps (with warm up)
+lm_format_enforcer_llama2_7b_orders unconstrained generated 5841 tokens with 44.05463788024016 tps
+lm_format_enforcer_llama2_7b_orders overhead per token: 0.46 ms
+outlines_llama2_7b_order generated 5577 tokens with 44.01748467201647 tps (with warm up)
+outlines_llama2_7b_order unconstrained generated 5809 tokens with 44.08426316901305 tps
+outlines_llama2_7b_order overhead per token: 0.03 ms
