@@ -1,5 +1,6 @@
-![Logo](logo.svg)
----
+<p align='center'>
+<image src="logo.svg">
+</p>
 
 [![PyPI](https://img.shields.io/pypi/v/formatron.svg)](https://pypi.python.org/pypi/formatron)
 
