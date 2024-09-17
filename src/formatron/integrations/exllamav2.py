@@ -53,6 +53,12 @@ class FormatterFilter(ExLlamaV2Filter):
         self._config = config
         self._pass_tokens = set()
 
+    def is_completed(self) -> bool:
+        """
+        Check if the formatter is completed.
+        """
+        return self._formatter.is_completed()
+
     def clone(self, c=None) -> "FormatterFilter":
         if c is None:
             c = FormatterFilter.__new__(FormatterFilter)

@@ -34,6 +34,13 @@ class FormattersLogitsProcessor:
     def formatters_captures(self) -> list[dict[str, typing.Any]]:
         return [f.captures for f in self._formatters]
 
+    def is_completed(self) -> list[bool]:
+        """
+        Check if the formatters are completed. Each boolean in the list corresponds to the
+        completion status of the formatter at the same index.
+        """
+        return [f.is_completed() for f in self._formatters]
+
     def reset(self) -> None:
         for f in self._formatters:
             f.reset()

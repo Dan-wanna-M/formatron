@@ -5,7 +5,6 @@ import collections
 import typing
 
 import kbnf
-import torch
 from transformers import LogitsProcessor, PreTrainedTokenizerBase, LogitsProcessorList
 
 from formatron.config import EngineGenerationConfig
@@ -71,7 +70,17 @@ class FormattersLogitsProcessor(LogitsProcessor):
 
     @property
     def formatters_captures(self) -> list[dict[str, typing.Any]]:
+        """
+        Get the captures of the formatters.
+        """
         return [f.captures for f in self._formatters]
+
+    def is_completed(self) -> list[bool]:
+        """
+        Check if the formatters are completed. Each boolean in the list corresponds to the
+        completion status of the formatter at the same index.
+        """
+        return [f.is_completed() for f in self._formatters]
 
     def __call__(self, input_ids, scores):
         assert input_ids.shape[0] == len(self._formatters), (f"Number of formatters({len(self._formatters)})"
