@@ -4,6 +4,7 @@ var classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor =
     [ "__call__", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#ad4a81bb45d259bb5408433cdb6cbafdd", null ],
     [ "_to_next_batch_step", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#ab87fea11f930a33130cecadd8cdf0cc6", null ],
     [ "formatters_captures", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#aa8c06fae8582941999d99e1b2a6e9989", null ],
+    [ "is_completed", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a7164c29599929e65fcfaafcb14e7b4dc", null ],
     [ "reset", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a697bbd642308e22804f46729935e101b", null ],
     [ "_configs", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#aef140b4278cf9892faa3644bd4c2ca99", null ],
     [ "_debug_counter", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a83ec1613155b800bd9d1b0f012dff371", null ],

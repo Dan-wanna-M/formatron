@@ -5,6 +5,7 @@ var classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter =
     [ "clone", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a6ea0f3a9197afc9dd2b5b808fac2f157", null ],
     [ "feed", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a6896753ca9ce0cdb5cf998edd379123e", null ],
     [ "formatter_captures", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#ac1b4fa75c9e9009bd9990686efe1c2f5", null ],
+    [ "is_completed", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#adadb3652b5250cf08dfe7cc8824e2ec0", null ],
     [ "next", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#aaf7f64e93e611f4fc0ca9b7c2196c2f2", null ],
     [ "next_set", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#ac6f22aff80d80035bdd2118feff9f965", null ],
     [ "reset", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a984bc61ef20d16e88ffb40aa2f5afcc3", null ],

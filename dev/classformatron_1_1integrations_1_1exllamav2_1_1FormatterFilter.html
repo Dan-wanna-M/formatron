@@ -135,6 +135,9 @@ Inheritance diagram for formatron.integrations.exllamav2.FormatterFilter:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa28fd2ca5bbe8f04499316f7c46744c0" id="r_aa28fd2ca5bbe8f04499316f7c46744c0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa28fd2ca5bbe8f04499316f7c46744c0">__init__</a> (self, model, tokenizer, <a class="el" href="classformatron_1_1formatter_1_1FormatterBase.html">FormatterBase</a> formatter, <a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a> config=None)</td></tr>
 <tr class="separator:aa28fd2ca5bbe8f04499316f7c46744c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adadb3652b5250cf08dfe7cc8824e2ec0" id="r_adadb3652b5250cf08dfe7cc8824e2ec0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adadb3652b5250cf08dfe7cc8824e2ec0">is_completed</a> (self)</td></tr>
+<tr class="memdesc:adadb3652b5250cf08dfe7cc8824e2ec0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the formatter is completed.  <br /></td></tr>
+<tr class="separator:adadb3652b5250cf08dfe7cc8824e2ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ea0f3a9197afc9dd2b5b808fac2f157" id="r_a6ea0f3a9197afc9dd2b5b808fac2f157"><td class="memItemLeft" align="right" valign="top">&quot;FormatterFilter&quot;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ea0f3a9197afc9dd2b5b808fac2f157">clone</a> (self, c=None)</td></tr>
 <tr class="separator:a6ea0f3a9197afc9dd2b5b808fac2f157"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31967e1c243ae325d5bf288c73e6635e" id="r_a31967e1c243ae325d5bf288c73e6635e"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31967e1c243ae325d5bf288c73e6635e">begin</a> (self, str prefix_str)</td></tr>
@@ -226,7 +229,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00069">69</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00075">75</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -249,7 +252,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00057">57</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00063">63</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -272,7 +275,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00079">79</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00085">85</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -291,7 +294,28 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00116">116</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00122">122</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+
+</div>
+</div>
+<a id="adadb3652b5250cf08dfe7cc8824e2ec0" name="adadb3652b5250cf08dfe7cc8824e2ec0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adadb3652b5250cf08dfe7cc8824e2ec0">&#9670;&#160;</a></span>is_completed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool formatron.integrations.exllamav2.FormatterFilter.is_completed </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if the formatter is completed. </p>
+
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00060">60</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -310,7 +334,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00095">95</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00101">101</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -329,7 +353,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00086">86</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00092">92</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -348,7 +372,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00076">76</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00082">82</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -367,7 +391,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00105">105</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00111">111</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
