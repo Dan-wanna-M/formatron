@@ -17,7 +17,7 @@ class FormattersLogitsProcessor:
     Logit processor that uses formatters to mask batch logits.
     """
 
-    def __init__(self, formatters: typing.Sequence[FormatterBase], eos_token_id: int,
+    def __init__(self, formatters: typing.Sequence[FormatterBase | None], eos_token_id: int,
                  configs: typing.Sequence[EngineGenerationConfig] | None = None):
         self._formatters = formatters
         self._eos_token_id = eos_token_id
@@ -31,19 +31,20 @@ class FormattersLogitsProcessor:
         self._debug_counter = 0
 
     @property
-    def formatters_captures(self) -> list[dict[str, typing.Any]]:
-        return [f.captures for f in self._formatters]
+    def formatters_captures(self) -> list[dict[str, typing.Any] | None]:
+        return [f.captures if f is not None else None for f in self._formatters]
 
-    def is_completed(self) -> list[bool]:
+    def is_completed(self) -> list[bool | None]:
         """
         Check if the formatters are completed. Each boolean in the list corresponds to the
         completion status of the formatter at the same index.
         """
-        return [f.is_completed() for f in self._formatters]
+        return [f.is_completed() if f is not None else None for f in self._formatters]
 
     def reset(self) -> None:
         for f in self._formatters:
-            f.reset()
+            if f is not None:
+                f.reset()
         self._to_next_batch_step()
         self._last_input_id_length = 0
 
@@ -60,6 +61,8 @@ class FormattersLogitsProcessor:
         if len(generated_tokens) == 0:  # First iteration
             self._debug_counter += 1
             formatter, config = result
+            if formatter is None:
+                return logits
             if config.reset_at_beginning and formatter.is_completed():
                 formatter.reset()
             if config.read_prompt:
@@ -72,10 +75,14 @@ class FormattersLogitsProcessor:
             result = next(self._iter)
             self._last_input_id_length += 1
         formatter, _ = result
+        if formatter is None:
+            return logits
         while formatter.is_completed():
             if generated_tokens[-1] == self._eos_token_id:
                 return logits
             formatter, _ = next(self._iter)
+            if formatter is None:
+                return logits
         if len(generated_tokens) != 0:  # accept new token
             input_id = generated_tokens[-1]
             if input_id != self._eos_token_id:
@@ -102,7 +109,7 @@ def create_engine_vocabulary(llm: LLM) -> kbnf.Vocabulary:
 
 
 def create_formatters_logits_processor(llm: LLM,
-                                       formatter_builders: typing.Sequence[FormatterBuilder] | FormatterBuilder,
+                                       formatter_builders: typing.Sequence[FormatterBuilder | None] | FormatterBuilder,
                                        configs: typing.Sequence[EngineGenerationConfig] = None) \
         -> FormattersLogitsProcessor:
     """
@@ -112,6 +119,6 @@ def create_formatters_logits_processor(llm: LLM,
     vocab = create_engine_vocabulary(llm)
     if not isinstance(formatter_builders, collections.abc.Sequence):
         formatter_builders = [formatter_builders]
-    formatters = [i.build(vocab, lambda tokens: tokenizer.decode(tokens))
+    formatters = [i.build(vocab, lambda tokens: tokenizer.decode(tokens)) if i is not None else None
                   for i in formatter_builders]
     return FormattersLogitsProcessor(formatters, tokenizer.eos_token_id, configs)

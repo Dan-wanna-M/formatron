@@ -23,7 +23,7 @@ def create_engine_vocabulary(tokenizer: PreTrainedTokenizerBase) -> kbnf.Vocabul
 
 
 def create_formatter_logits_processor(tokenizer: PreTrainedTokenizerBase,
-                                      formatter_builders: typing.Sequence[FormatterBuilder] | FormatterBuilder,
+                                      formatter_builders: typing.Sequence[FormatterBuilder | None] | FormatterBuilder,
                                       configs: typing.Sequence[EngineGenerationConfig] = None) -> LogitsProcessor:
     """
     Create a formatter logits processor.
@@ -31,13 +31,13 @@ def create_formatter_logits_processor(tokenizer: PreTrainedTokenizerBase,
     vocab = create_engine_vocabulary(tokenizer)
     if not isinstance(formatter_builders, collections.abc.Sequence):
         formatter_builders = [formatter_builders]
-    formatters = [i.build(vocab, lambda tokens: tokenizer.decode(tokens))
+    formatters = [i.build(vocab, lambda tokens: tokenizer.decode(tokens)) if i is not None else None
                   for i in formatter_builders]
     return FormattersLogitsProcessor(formatters, tokenizer.eos_token_id, configs)
 
 
 def create_formatter_logits_processor_list(tokenizer: PreTrainedTokenizerBase,
-                                           formatter_builders: typing.Sequence[FormatterBuilder] | FormatterBuilder,
+                                           formatter_builders: typing.Sequence[FormatterBuilder | None] | FormatterBuilder,
                                            configs: typing.Sequence[EngineGenerationConfig] = None) \
         -> LogitsProcessorList:
     """
@@ -52,7 +52,7 @@ class FormattersLogitsProcessor(LogitsProcessor):
     Logit processor that uses formatters to mask batch logits.
     """
 
-    def __init__(self, formatters: typing.Sequence[FormatterBase], eos_token_id: int,
+    def __init__(self, formatters: typing.Sequence[FormatterBase | None], eos_token_id: int,
                  configs: typing.Sequence[EngineGenerationConfig] = None):
         self._formatters = formatters
         self._eos_token_id = eos_token_id
@@ -66,21 +66,25 @@ class FormattersLogitsProcessor(LogitsProcessor):
     def reset(self) -> None:
         self._last_input_id_length = None
         for f in self._formatters:
-            f.reset()
+            if f is not None:
+                f.reset()
 
     @property
-    def formatters_captures(self) -> list[dict[str, typing.Any]]:
+    def formatters_captures(self) -> list[dict[str, typing.Any] | None]:
         """
-        Get the captures of the formatters.
+        Get the captures of the formatters. Each element in the list corresponds to the
+        captures of the formatter at the same index. If the formatter is None, the element
+        is None.
         """
-        return [f.captures for f in self._formatters]
+        return [f.captures if f is not None else None for f in self._formatters]
 
-    def is_completed(self) -> list[bool]:
+    def is_completed(self) -> list[bool | None]:
         """
         Check if the formatters are completed. Each boolean in the list corresponds to the
-        completion status of the formatter at the same index.
+        completion status of the formatter at the same index. If the formatter is None,
+        the element is None.
         """
-        return [f.is_completed() for f in self._formatters]
+        return [f.is_completed() if f is not None else None for f in self._formatters]
 
     def __call__(self, input_ids, scores):
         assert input_ids.shape[0] == len(self._formatters), (f"Number of formatters({len(self._formatters)})"
@@ -88,6 +92,8 @@ class FormattersLogitsProcessor(LogitsProcessor):
         if self._last_input_id_length is None:  # First iteration
             self._last_input_id_length = input_ids.shape[1]
             for formatter, config, prompt in zip(self._formatters, self.configs, input_ids):
+                if formatter is None:
+                    continue
                 if config.reset_at_beginning:
                     formatter.reset()
                 if config.read_prompt:
@@ -98,9 +104,11 @@ class FormattersLogitsProcessor(LogitsProcessor):
                                                                           " must add exactly one token.")
             self._last_input_id_length += 1
             for formatter, input_id in zip(self._formatters, input_ids[:, -1]):
-                if input_id != self._eos_token_id:
+                if input_id != self._eos_token_id and formatter is not None:
                     formatter.accept_token(input_id)
         for i, formatter in enumerate(self._formatters):
+            if formatter is None:
+                continue
             if formatter.is_completed():
                 scores[i, :] = float("-inf")
                 scores[i, self._eos_token_id] = 0.0
