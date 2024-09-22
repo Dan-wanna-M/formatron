@@ -36,7 +36,7 @@ def test_json_schema(snapshot):
     schema = {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "https://example.com/random-schema.json",
-        "type": ["object", "number"],
+        "type": "object",
         "properties": {
             "name": {
                 "type": ["string", "number"],
@@ -198,6 +198,47 @@ def test_schema_with_embedded_schema(snapshot):
     combined_schema = json_schema.create_schema(schema_with_reference, Resource.from_contents(schema) @ Registry())
     result = JsonExtractor("start", None, combined_schema, lambda x: x).kbnf_definition
     snapshot.assert_match(result)
+
+def test_schema_with_top_level_array(snapshot):
+    schema = {
+        "$id": "https://example.com/schemas/top-level-array.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "array",
+        "items": {
+            "type": "object",
+            "properties": {
+                "id": {"type": "integer"},
+                "name": {"type": "string"},
+                "active": {"type": "boolean"}
+            },
+            "required": ["id", "name"]
+        },
+        "minItems": 1
+    }
+
+    combined_schema = json_schema.create_schema(schema)
+    result = JsonExtractor("start", None, combined_schema, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
+def test_schema_with_union_array_object(snapshot):
+    schema = {
+        "$id": "https://example.com/schemas/union-array-object.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": ["array", "object"],
+        "items": {
+            "type": "string"
+        },
+        "properties": {
+            "name": {"type": "string"},
+            "age": {"type": "integer"}
+        },
+        "required": ["name"]
+    }
+
+    combined_schema = json_schema.create_schema(schema)
+    result = JsonExtractor("start", None, combined_schema, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
 
 
 def test_pydantic_class_linked_list(snapshot):

@@ -2,7 +2,9 @@
 This module contains the Formatter class and its related classes.
 """
 import abc
+import collections
 from json import JSONDecodeError
+import json
 import re
 import textwrap
 import typing
@@ -339,7 +341,7 @@ class FormatterBuilder:
         """
         return self._add_extractor("extractor", create_extractor)
 
-    def json(self, schema: Schema, *, capture_name: str = None) -> JsonExtractor:
+    def json(self, schema: typing.Type[Schema]|collections.abc.Sequence, *, capture_name: str = None) -> JsonExtractor:
         """
         Create a JSON extractor. Check out the JsonExtractor docs for more details.
 
@@ -349,11 +351,17 @@ class FormatterBuilder:
         Returns:
             The JSON extractor.
         """
-        def to_json(json: str):
-            try:
-                return schema.from_json(json)
-            except JSONDecodeError:  # make ChoiceExtractor work appropriately
-                return None
+        def to_json(_json: str):
+            if isinstance(schema, type) and issubclass(schema, Schema):
+                try:
+                    return schema.from_json(_json)
+                except JSONDecodeError:  # make ChoiceExtractor work appropriately
+                    return None
+            else:
+                try:
+                    return json.loads(_json)
+                except JSONDecodeError:
+                    return None
         return self._add_extractor("json",
                                    lambda nonterminal: JsonExtractor(nonterminal, capture_name,schema, to_json))
 

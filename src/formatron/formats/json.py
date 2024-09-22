@@ -195,8 +195,7 @@ def _register_all_predefined_types():
     register_generate_nonterminal_def(builtin_list)
     register_generate_nonterminal_def(builtin_dict)
 
-
-def _generate_kbnf_grammar(schema: schemas.schema.Schema, start_nonterminal: str) -> str:
+def _generate_kbnf_grammar(schema: schemas.schema.Schema|collections.abc.Sequence, start_nonterminal: str) -> str:
     """
     Generate a KBNF grammar string from a schema for JSON format.
 
@@ -246,10 +245,10 @@ class JsonExtractor(extractor.NonterminalExtractor):
     An extractor that loads json data to an object from a string.
     """
 
-    def __init__(self, nonterminal: str, capture_name: typing.Optional[str], schema: schemas.schema.Schema,
+    def __init__(self, nonterminal: str, capture_name: typing.Optional[str], schema: schemas.schema.Schema|collections.abc.Sequence,
                  to_object: typing.Callable[[str], schemas.schema.Schema]):
         """
-        Create a json extractor from a given schema.
+        Create a json extractor from a given schema or a list of supported types.
 
         Currently, the following data types are supported:
 
@@ -285,9 +284,9 @@ class JsonExtractor(extractor.NonterminalExtractor):
             A tuple of the remaining string and the extracted schema instance, or `None` if extraction failed.
         """
 
-        # Ensure the input string starts with '{' after stripping leading whitespace
+        # Ensure the input string starts with '{' or '[' after stripping leading whitespace
         input_str = input_str.lstrip()
-        if not input_str.startswith('{'):
+        if not input_str.startswith(('{', '[')):
             return None
 
         # Variables to track the balance of brackets and the position in the string
@@ -295,13 +294,15 @@ class JsonExtractor(extractor.NonterminalExtractor):
         position = 0
         in_string = False
         escape_next = False
+        start_char = input_str[0]
+        end_char = '}' if start_char == '{' else ']'
 
-        # Iterate over the string to find where the JSON object ends
+        # Iterate over the string to find where the JSON object or array ends
         for char in input_str:
             if not in_string:
-                if char == '{':
+                if char == start_char:
                     bracket_count += 1
-                elif char == '}':
+                elif char == end_char:
                     bracket_count -= 1
                 elif char == '"':
                     in_string = True

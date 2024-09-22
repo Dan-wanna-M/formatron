@@ -67,7 +67,7 @@ def create_schema(schema: dict[str, typing.Any], registry=Registry()) -> schemas
         
     Requirements:
     - The input schema must be a valid JSON Schema according to the JSON Schema Draft 2020-12 standard
-    - The root schema's type must be exactly "object"
+    - The root schema's type must be exactly "object" or "array" or both
     - The schema must have a valid '$id' and '$schema' fields
     - All references must be resolvable within the given schema and registry
 
@@ -104,8 +104,16 @@ def _resolve_new_url(uri: str, ref: str) -> str:
     return uri
 
 def _validate_json_schema(schema: dict[str, typing.Any]) -> None:
-    if "type" not in schema or schema["type"] != "object":
-        raise ValueError("Root schema must have type 'object'")
+    if "type" in schema:
+        root_type = schema["type"]
+        if isinstance(root_type, str):
+            if root_type not in ["object", "array"]:
+                raise ValueError("Root schema type must be 'object' or 'array'")
+        elif isinstance(root_type, list):
+            if not set(root_type).issubset({"object", "array"}):
+                raise ValueError("Root schema type must be 'object', 'array', or both")
+        else:
+            raise ValueError("Invalid 'type' specification in root schema")
     jsonschema.validate(instance=schema, schema=jsonschema.validators.Draft202012Validator.META_SCHEMA)
 
 def _convert_json_schema_to_our_schema(schema: dict[str, typing.Any], json_schema_id_to_schema: dict[int, typing.Type])->typing.Type:
@@ -140,9 +148,9 @@ def _infer_type(schema: dict[str, typing.Any], json_schema_id_to_schema: dict[in
     args = typing.get_args(obtained_type)
     if obtained_type is None or obtained_type is object or object in args:
         obtained_type = _create_custom_type(obtained_type, schema, json_schema_id_to_schema)
-    if obtained_type is typing.List and "items" in schema:
+    if obtained_type is list and "items" in schema:
         item_type = _convert_json_schema_to_our_schema(schema["items"], json_schema_id_to_schema)
-        obtained_type = typing.List[item_type]
+        obtained_type = list[item_type]
     json_schema_id_to_schema[id(schema)] = obtained_type
     return obtained_type
 
@@ -169,7 +177,7 @@ def _create_custom_type(obtained_type: typing.Type|None, schema: dict[str, typin
     _counter += 1
     
     if obtained_type is None:
-        json_schema_id_to_schema[id(schema)] = typing.Union[str, float, int, bool, None, typing.List[typing.Any], new_type]
+        json_schema_id_to_schema[id(schema)] = typing.Union[str, float, int, bool, None, list[typing.Any], new_type]
     elif object in typing.get_args(obtained_type):
         json_schema_id_to_schema[id(schema)] = typing.Union[tuple(item for item in typing.get_args(obtained_type) if item is not object)+(new_type,)]
     else:
@@ -197,7 +205,7 @@ def _obtain_type(schema: dict[str, typing.Any], json_schema_id_to_schema:dict[in
         elif json_type == "null":
             obtained_type = type(None)
         elif json_type == "array":
-            obtained_type = typing.List
+            obtained_type = list
         elif json_type == "object":
             obtained_type = object
         elif isinstance(json_type, collections.abc.Sequence):
