@@ -140,8 +140,7 @@ def _register_all_predefined_types():
             result = []
             for i, arg in enumerate(args):
                 if isinstance(arg, str):
-                    arg = arg.replace('"', '\\"')
-                    new_items.append(f'"\\\"{arg}\\\""')
+                    new_items.append(f'"\\\"{repr(arg)[1:-1]}\\\""')
                 elif isinstance(arg, bool):
                     new_items.append(f'"{str(arg).lower()}"')
                 elif isinstance(arg, int):
