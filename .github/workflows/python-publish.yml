@@ -41,8 +41,8 @@ jobs:
         run: |
           python docs/index_gen.py --version ${{ github.ref_name }}
       - name: Update index.html
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
+        uses: JamesIves/github-pages-deploy-action@v4.6.4 # https://github.com/detekt/detekt/pull/7685
+        with: 
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
           folder: docs/index/
