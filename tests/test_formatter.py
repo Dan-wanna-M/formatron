@@ -1,3 +1,4 @@
+from typing import Literal
 from formatron.schemas import json_schema
 from formatron.schemas.dict_inference import infer_mapping
 from formatron.formatter import FormatterBuilder
@@ -149,6 +150,22 @@ def test_formatter_callable_schema(snapshot):
     f = FormatterBuilder()
     f.append_line(
         f"{f.json(add, capture_name='json')}")
+    model = RWKV(
+        "assets/RWKV-5-World-0.4B-v2-20231113-ctx4096.pth", 'cuda fp16')
+    pipeline = formatron.integrations.RWKV.PIPELINE(model, "rwkv_vocab_v20230424", f)
+    np.random.seed(42)
+    snapshot.assert_match(pipeline.formatter.grammar_str)
+    snapshot.assert_match(
+        pipeline.generate("This is a random json: ", token_count=256, args=formatron.integrations.RWKV.PIPELINE_ARGS(top_p=0.5)))
+    snapshot.assert_match(pipeline.formatter.captures)
+
+def test_grammar_literal(snapshot):
+    FormatterBuilder._formatter_builder_counter = 0
+    f = FormatterBuilder()
+    class A(formatron.schemas.pydantic.ClassSchema):
+        a: Literal['114', '514']
+    f.append_line(
+        f"{f.json(A, capture_name='json')}")
     model = RWKV(
         "assets/RWKV-5-World-0.4B-v2-20231113-ctx4096.pth", 'cuda fp16')
     pipeline = formatron.integrations.RWKV.PIPELINE(model, "rwkv_vocab_v20230424", f)

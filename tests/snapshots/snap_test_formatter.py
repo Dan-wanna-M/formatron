@@ -41,7 +41,7 @@ __json_4_0_json_name ::= string;
 start ::= \'Today, I want to eat \' __choice_0_0_food \'\\n\' "My food\'s ID is " __choice_3_0_ID \'.\\n\' "\\nWhat\'s more, indentations\\nare handled\\nappropriately." \'My weight is 14.4kg and my color is pink. This is my personal info json: \' __json_4_0_json \'\\n\';'''
 
 snapshots['test_formatter 2'] = '''Today, I want to eat banana
-My food's ID is sweet.
+My food's ID is a.
 
 What's more, indentations
 are handled
@@ -49,7 +49,7 @@ appropriately.My weight is 14.4kg and my color is pink. This is my personal info
 '''
 
 snapshots['test_formatter 3'] = {
-    'ID': GenericRepr("<re.Match object; span=(0, 5), match='sweet'>"),
+    'ID': GenericRepr("<re.Match object; span=(0, 1), match='a'>"),
     'food': 'banana',
     'json': GenericRepr("Test(name='Van', weight=1.4, color='red')")
 }
@@ -118,23 +118,23 @@ __json_0_0_json_name ::= string;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_dict_inference 2'] = '''{"name":"example","gender":"male"}
+snapshots['test_formatter_dict_inference 2'] = '''{"name":"admin","gender":"male"}
 '''
 
 snapshots['test_formatter_dict_inference 3'] = {
     'json': {
         'gender': 'male',
-        'name': 'example'
+        'name': 'admin'
     }
 }
 
-snapshots['test_formatter_json_schema 1'] = '''{"name":"mahmood","age":18}
+snapshots['test_formatter_json_schema 1'] = '''{"name":"123","age":180}
 '''
 
 snapshots['test_formatter_json_schema 2'] = {
     'json': {
-        'age': 18,
-        'name': 'mahmood'
+        'age': 180,
+        'name': '123'
     }
 }
 
@@ -169,7 +169,7 @@ start ::= __json_0_0_json '\\n';'''
 snapshots['test_formatter_str 1'] = '''__str_0_0 ::= #e'.*?(?:\\\\.)';
 start ::= __str_0_0 '\\n';'''
 
-snapshots['test_formatter_str 2'] = '''请问这个词的典故是什么？如果没有，请提供上上文，便可以。如果提到的“典故”指的是文学作品，那么这个词可能是：A lost book, a lost song, or a lost play.
+snapshots['test_formatter_str 2'] = '''🤔" I replied.
 '''
 
 snapshots['test_formatter_str 3'] = {
@@ -215,7 +215,7 @@ __json_0_0_json_value_id ::= integer;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_top_level_array_json_schema 2'] = '''[{"id": 1, "name": "A", "active": true}, {"id": 2, "name": "B", "active": true}, {"id": 3, "name": "C", "active": true}, {"id": 4, "name": "D", "active": true}]
+snapshots['test_formatter_top_level_array_json_schema 2'] = '''[{"id": 1, "name": "Tom", "active": true}, {"id": 2, "name": "Mike", "active": true}, {"id": 3, "name": "John", "active": true}]
 '''
 
 snapshots['test_formatter_top_level_array_json_schema 3'] = {
@@ -223,22 +223,51 @@ snapshots['test_formatter_top_level_array_json_schema 3'] = {
         {
             'active': True,
             'id': 1,
-            'name': 'A'
+            'name': 'Tom'
         },
         {
             'active': True,
             'id': 2,
-            'name': 'B'
+            'name': 'Mike'
         },
         {
             'active': True,
             'id': 3,
-            'name': 'C'
-        },
-        {
-            'active': True,
-            'id': 4,
-            'name': 'D'
+            'name': 'John'
         }
     ]
+}
+
+snapshots['test_grammar_literal 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
+number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"[ \t
+\r]*,[ \t
+\r]*";
+colon ::= #"[ \t
+\r]*:[ \t
+\r]*";
+object_begin ::= #"\\\\{[ \t
+\r]*";
+object_end ::= #"[ \t
+\r]*\\\\}";
+array_begin ::= #"\\\\[[ \t
+\r]*";
+array_end ::= #"[ \t
+\r]*\\\\]";
+__json_0_0_json ::= object_begin \'"a"\' colon __json_0_0_json_a object_end;
+__json_0_0_json_a ::= "\\"114\\"" | "\\"514\\"";
+
+start ::= __json_0_0_json '\\n';'''
+
+snapshots['test_grammar_literal 2'] = '''{"a":"114"}
+'''
+
+snapshots['test_grammar_literal 3'] = {
+    'json': GenericRepr("A(a='114')")
 }
