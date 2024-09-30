@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['use_5fbackground_5fworker_0',['use_background_worker',['../classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a9aa83a5922cefce88197d2cc3822a0c6',1,'formatron::integrations::exllamav2::FormatterFilter']]]
+  ['str_0',['str',['../classformatron_1_1formatter_1_1FormatterBuilder.html#ad467a40f82a47dff9bb2b95d1300ace0',1,'formatron::formatter::FormatterBuilder']]],
+  ['substr_1',['substr',['../classformatron_1_1formatter_1_1FormatterBuilder.html#ab98ad2c47fcb7be56521d3eadb4e643b',1,'formatron::formatter::FormatterBuilder']]]
 ];

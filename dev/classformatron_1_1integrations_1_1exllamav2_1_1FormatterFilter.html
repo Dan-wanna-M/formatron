@@ -119,6 +119,7 @@ $(function(){initNavTree('classformatron_1_1integrations_1_1exllamav2_1_1Formatt
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">formatron.integrations.exllamav2.FormatterFilter Class Reference</div></div>
@@ -155,6 +156,17 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aaf7f64e93e611f4fc0ca9b7c2196c2f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9aa83a5922cefce88197d2cc3822a0c6" id="r_a9aa83a5922cefce88197d2cc3822a0c6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9aa83a5922cefce88197d2cc3822a0c6">use_background_worker</a> (self)</td></tr>
 <tr class="separator:a9aa83a5922cefce88197d2cc3822a0c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1269fb97cabd3381473bbd15ee59324" id="r_ad1269fb97cabd3381473bbd15ee59324"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1269fb97cabd3381473bbd15ee59324">can_mask_logits</a> (self)</td></tr>
+<tr class="separator:ad1269fb97cabd3381473bbd15ee59324"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb7f169a9c36b793867682069f00e928" id="r_aeb7f169a9c36b793867682069f00e928"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb7f169a9c36b793867682069f00e928">prepare_logit_mask</a> (self)</td></tr>
+<tr class="separator:aeb7f169a9c36b793867682069f00e928"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a0e2e459eccf822cf79457a121a3a74" id="r_a7a0e2e459eccf822cf79457a121a3a74"><td class="memItemLeft" align="right" valign="top">torch.Tensor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a0e2e459eccf822cf79457a121a3a74">mask_logits</a> (self, torch.Tensor logits)</td></tr>
+<tr class="separator:a7a0e2e459eccf822cf79457a121a3a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a16819bffd3e4b1bb48e05ac7f696592a" id="r_a16819bffd3e4b1bb48e05ac7f696592a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16819bffd3e4b1bb48e05ac7f696592a">eos_logits</a></td></tr>
+<tr class="separator:a16819bffd3e4b1bb48e05ac7f696592a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -232,7 +244,26 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00075">75</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00076">76</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+
+</div>
+</div>
+<a id="ad1269fb97cabd3381473bbd15ee59324" name="ad1269fb97cabd3381473bbd15ee59324"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1269fb97cabd3381473bbd15ee59324">&#9670;&#160;</a></span>can_mask_logits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool formatron.integrations.exllamav2.FormatterFilter.can_mask_logits </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00116">116</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -255,7 +286,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00063">63</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00064">64</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -278,7 +309,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00085">85</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00086">86</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -297,7 +328,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00122">122</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00139">139</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -318,7 +349,30 @@ Protected Attributes</h2></td></tr>
 
 <p>Check if the formatter is completed. </p>
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00060">60</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00061">61</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+
+</div>
+</div>
+<a id="a7a0e2e459eccf822cf79457a121a3a74" name="a7a0e2e459eccf822cf79457a121a3a74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a0e2e459eccf822cf79457a121a3a74">&#9670;&#160;</a></span>mask_logits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> torch.Tensor formatron.integrations.exllamav2.FormatterFilter.mask_logits </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">torch.Tensor</td>          <td class="paramname"><span class="paramname"><em>logits</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00123">123</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -337,7 +391,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00101">101</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00102">102</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -356,7 +410,26 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00092">92</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00093">93</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+
+</div>
+</div>
+<a id="aeb7f169a9c36b793867682069f00e928" name="aeb7f169a9c36b793867682069f00e928"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb7f169a9c36b793867682069f00e928">&#9670;&#160;</a></span>prepare_logit_mask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">formatron.integrations.exllamav2.FormatterFilter.prepare_logit_mask </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00119">119</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -375,7 +448,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00082">82</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00083">83</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -394,7 +467,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00111">111</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00112">112</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
@@ -468,6 +541,22 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00055">55</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+
+</div>
+</div>
+<a id="a16819bffd3e4b1bb48e05ac7f696592a" name="a16819bffd3e4b1bb48e05ac7f696592a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16819bffd3e4b1bb48e05ac7f696592a">&#9670;&#160;</a></span>eos_logits</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">formatron.integrations.exllamav2.FormatterFilter.eos_logits</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00056">56</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
