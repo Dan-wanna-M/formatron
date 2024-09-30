@@ -52,6 +52,7 @@ class FormatterFilter(ExLlamaV2Filter):
             config = EngineGenerationConfig()
         self._config = config
         self._pass_tokens = set()
+        self.eos_logits = None
 
     def is_completed(self) -> bool:
         """
@@ -109,6 +110,22 @@ class FormatterFilter(ExLlamaV2Filter):
     # adapted from https://github.com/Dan-wanna-M/formatron/issues/14
     def use_background_worker(self) -> bool:
         return True
+
+    # Used by ExLlamaV2 > 0.2.3
+    def can_mask_logits(self) -> bool:
+        return True
+
+    def prepare_logit_mask(self):
+        self._formatter.compute_allowed_tokens()
+        return True
+
+    def mask_logits(self, logits: torch.Tensor) -> torch.Tensor:
+        if self._formatter.is_completed():
+            if self.eos_logits is None:
+                self.eos_logits = torch.full_like(logits, float("-inf"))
+                self.eos_logits[self.tokenizer.eos_token_id] = 0
+            return self.eos_logits
+        return self._formatter.mask_logits(logits)
 
     @property
     def formatter_captures(self) -> dict[str, typing.Any]:
