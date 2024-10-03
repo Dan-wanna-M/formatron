@@ -18,7 +18,7 @@ def create_engine_vocabulary(tokenizer: PreTrainedTokenizerBase) -> kbnf.Vocabul
     """
     vocab = tokenizer.get_vocab()
     new_vocab = get_original_characters(vocab)
-    return kbnf.Vocabulary({v: kbnf.Token(k) for k, v in new_vocab.items()},
+    return kbnf.Vocabulary({k: kbnf.Token(v) for k, v in new_vocab.items()},
                            {v: k for k, v in vocab.items()})
 
 
@@ -53,7 +53,7 @@ class FormattersLogitsProcessor(LogitsProcessor):
     """
 
     def __init__(self, formatters: typing.Sequence[FormatterBase | None], eos_token_id: int,
-                 configs: typing.Sequence[EngineGenerationConfig] = None):
+                 configs: typing.Sequence[EngineGenerationConfig] | None = None):
         self._formatters = formatters
         self._eos_token_id = eos_token_id
         self._last_input_id_length = None

@@ -104,7 +104,7 @@ def create_engine_vocabulary(llm: LLM) -> kbnf.Vocabulary:
     tokenizer = llm.get_tokenizer()
     vocab = tokenizer.get_vocab()
     new_vocab = get_original_characters(vocab)
-    return kbnf.Vocabulary({v: kbnf.Token(k) for k, v in new_vocab.items()}, {
+    return kbnf.Vocabulary({k: kbnf.Token(v) for k, v in new_vocab.items()}, {
         v: k for k, v in vocab.items()})
 
 

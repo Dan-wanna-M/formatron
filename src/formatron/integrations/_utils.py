@@ -3,7 +3,7 @@ import typing
 from functools import lru_cache
 
 
-def _multiple_replace(replacements, regex, text):
+def _multiple_replace(replacements: typing.Dict[bytes, bytes], regex: re.Pattern[bytes], text: bytes) -> bytes:
     # For each match, look-up corresponding value in dictionary
     return regex.sub(lambda mo: replacements[mo.group()], text)
 
@@ -25,8 +25,9 @@ def _autodetect_processors(vocab: typing.Dict[str, int]):
     return result
 
 
-def get_original_characters(vocab: typing.Dict[str, int]) -> typing.Dict[bytes, int]:
+def get_original_characters(vocab: typing.Dict[str, int]) -> typing.Dict[int, bytes]:
     old_char_to_new_char = {}
+    assert len(set(vocab.values())) == len(vocab), "Vocabulary contains duplicate token IDs!"
     processors = _autodetect_processors(vocab)
     for i in processors:
         if i == "sentencepiece":
@@ -44,7 +45,7 @@ def get_original_characters(vocab: typing.Dict[str, int]) -> typing.Dict[bytes, 
     for k in vocab:
         token_id = vocab[k]
         new_k = _multiple_replace(old_char_to_new_char, regex, k.encode("UTF-8"))
-        new_vocab[new_k] = token_id
+        new_vocab[token_id] = new_k
     return new_vocab
 
 

@@ -23,8 +23,8 @@ def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer) -> kbnf.Vocabulary:
     vocab = {tokenizer.tokenizer_model.id_to_piece(
         i): i for i in range(tokenizer.tokenizer_model.vocab_size())}
     new_vocab = get_original_characters(vocab)
-    return kbnf.Vocabulary({v: kbnf.Token(k) for k, v in new_vocab.items()},
-                           {k: v for k, v in enumerate(vocab)})
+    return kbnf.Vocabulary({k: kbnf.Token(v) for k, v in new_vocab.items()},
+                           {v: k for k, v in vocab.items()})
 
 
 def create_formatter_filter(model: ExLlamaV2, tokenizer: ExLlamaV2Tokenizer,
