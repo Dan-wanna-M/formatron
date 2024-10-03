@@ -146,8 +146,8 @@ $(function(){initNavTree('exllamav2_8py_source.html',''); initResizable(true); }
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    vocab = {tokenizer.tokenizer_model.id_to_piece(</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        i): i <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(tokenizer.tokenizer_model.vocab_size())}</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    new_vocab = get_original_characters(vocab)</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">return</span> kbnf.Vocabulary({v: kbnf.Token(k) <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> new_vocab.items()},</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                           {k: v <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> enumerate(vocab)})</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">return</span> kbnf.Vocabulary({k: kbnf.Token(v) <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> new_vocab.items()},</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                           {v: k <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> vocab.items()})</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1exllamav2.html#a8fb6a829f6fb28c956693fb2e4b39b63">create_formatter_filter</a>(model: ExLlamaV2, tokenizer: ExLlamaV2Tokenizer,</div>

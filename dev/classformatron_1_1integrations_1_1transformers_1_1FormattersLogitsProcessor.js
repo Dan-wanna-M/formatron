@@ -1,6 +1,6 @@
 var classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor =
 [
-    [ "__init__", "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a9808b6b231010b3815c12550950b1591", null ],
+    [ "__init__", "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#aa70d2276eeb09fdf53066e4019df79df", null ],
     [ "__call__", "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#af5ec5643f3c51046cb3b5e73fbb04f2b", null ],
     [ "formatters_captures", "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a148e8818c8d198d37e167d7030fa5746", null ],
     [ "is_completed", "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a0bf8e8613df954fcad9fb5368d0f7025", null ],

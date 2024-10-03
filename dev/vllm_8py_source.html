@@ -238,7 +238,7 @@ $(function(){initNavTree('vllm_8py_source.html',''); initResizable(true); });
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    tokenizer = llm.get_tokenizer()</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    vocab = tokenizer.get_vocab()</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    new_vocab = get_original_characters(vocab)</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordflow">return</span> kbnf.Vocabulary({v: kbnf.Token(k) <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> new_vocab.items()}, {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordflow">return</span> kbnf.Vocabulary({k: kbnf.Token(v) <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> new_vocab.items()}, {</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        v: k <span class="keywordflow">for</span> k, v <span class="keywordflow">in</span> vocab.items()})</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
 </div>
