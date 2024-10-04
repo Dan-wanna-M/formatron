@@ -219,7 +219,7 @@ $(function(){initNavTree('vllm_8py_source.html',''); initResizable(true); });
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                <span class="keywordflow">return</span> logits</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordflow">if</span> len(generated_tokens) != 0:  <span class="comment"># accept new token</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            input_id = generated_tokens[-1]</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <span class="keywordflow">if</span> input_id != self.<a class="code hl_variable" href="classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#a9c18332e5d1133b7524a8dde402f2677">_eos_token_id</a>:</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> formatter.is_completed():</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                formatter.accept_token(input_id)</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">if</span> formatter.is_completed():</div>
