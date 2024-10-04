@@ -85,7 +85,7 @@ class FormattersLogitsProcessor:
                 return logits
         if len(generated_tokens) != 0:  # accept new token
             input_id = generated_tokens[-1]
-            if input_id != self._eos_token_id:
+            if not formatter.is_completed():
                 formatter.accept_token(input_id)
 
         if formatter.is_completed():

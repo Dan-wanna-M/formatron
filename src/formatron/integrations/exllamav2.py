@@ -45,7 +45,7 @@ class FormatterFilter(ExLlamaV2Filter):
     """
 
     def __init__(self, model, tokenizer, formatter: FormatterBase,
-                 config: EngineGenerationConfig = None):
+                 config: EngineGenerationConfig|None = None):
         super().__init__(model, tokenizer)
         self._formatter = formatter
         if config is None:

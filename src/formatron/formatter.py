@@ -394,18 +394,14 @@ class FormatterBuilder:
             The string extractor.
         """
         stop = [stop] if isinstance(stop, str) else stop or []
-        nonterminal = self._create_nonterminal("str")
         if not stop:
             capture_regex = ".*"
-            nonterminal_regex = "#'.*'"
         else:
             backslash = '\\'
             capture_regex = f".*?(?:{'|'.join([i.replace(backslash, backslash * 2) for i in map(re.escape, stop)])})"
-            nonterminal_regex = f"#e'{capture_regex}'"
-        self._rules.append(f"{nonterminal} ::= {nonterminal_regex};")
-        self._nonterminal_to_extractor[nonterminal] = RegexExtractor(
-            capture_regex, capture_name, nonterminal)
-        return self._nonterminal_to_extractor[nonterminal]
+        print(f"{capture_regex}")
+        return self._add_extractor("str",
+                                   lambda nonterminal: RegexExtractor(capture_regex, capture_name, nonterminal))
     
     def substr(self, string: str, *, capture_name: str = None, extract_empty_substring: bool = False) -> Extractor:
         """

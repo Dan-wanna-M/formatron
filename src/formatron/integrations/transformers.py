@@ -104,7 +104,7 @@ class FormattersLogitsProcessor(LogitsProcessor):
                                                                           " must add exactly one token.")
             self._last_input_id_length += 1
             for formatter, input_id in zip(self._formatters, input_ids[:, -1]):
-                if input_id != self._eos_token_id and formatter is not None:
+                if  formatter is not None and not formatter.is_completed():
                     formatter.accept_token(input_id)
         for i, formatter in enumerate(self._formatters):
             if formatter is None:
