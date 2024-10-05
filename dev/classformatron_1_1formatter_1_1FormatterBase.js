@@ -7,6 +7,7 @@ var classformatron_1_1formatter_1_1FormatterBase =
     [ "compute_allowed_tokens", "classformatron_1_1formatter_1_1FormatterBase.html#a927b160d994d43c4e38807f94ea69069", null ],
     [ "get_allowed_tokens_since_last_computation", "classformatron_1_1formatter_1_1FormatterBase.html#ab77855193118e33bf8247c5709a0f485", null ],
     [ "is_completed", "classformatron_1_1formatter_1_1FormatterBase.html#ac9af60077533ed0f3c9f42ee3a132899", null ],
+    [ "is_token_allowed", "classformatron_1_1formatter_1_1FormatterBase.html#aa8e7046320bf4b7009b94ff77c68cd82", null ],
     [ "mask_logits", "classformatron_1_1formatter_1_1FormatterBase.html#ae8db7e92a900322ae5aa603b5c8f386f", null ],
     [ "reset", "classformatron_1_1formatter_1_1FormatterBase.html#a522c78b1404697a99313f9edffa7a2a4", null ]
 ];

@@ -10,6 +10,7 @@ var classformatron_1_1formatter_1_1Formatter =
     [ "get_allowed_tokens_since_last_computation", "classformatron_1_1formatter_1_1Formatter.html#a5d565301d527fd3a56ca86a98df9afaf", null ],
     [ "grammar_str", "classformatron_1_1formatter_1_1Formatter.html#a2519969e1338beb864169289a6f36bb9", null ],
     [ "is_completed", "classformatron_1_1formatter_1_1Formatter.html#ac15aeec180daa5c78ad3c9bd93bd2b5b", null ],
+    [ "is_token_allowed", "classformatron_1_1formatter_1_1Formatter.html#adb0e7b169a13017fb3930a1de3dfde89", null ],
     [ "mask_logits", "classformatron_1_1formatter_1_1Formatter.html#a1068b4fa2167039fe04519ec4db65278", null ],
     [ "reset", "classformatron_1_1formatter_1_1Formatter.html#a10ff1aac8dcd90e1bd983d2f6580a964", null ],
     [ "_captures", "classformatron_1_1formatter_1_1Formatter.html#a43964a72280fd307cd74528657beeca3", null ],
