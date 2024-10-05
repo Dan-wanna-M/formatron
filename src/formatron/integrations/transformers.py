@@ -57,6 +57,9 @@ class FormattersLogitsProcessor(LogitsProcessor):
         self._formatters = formatters
         self._eos_token_id = eos_token_id
         self._last_input_id_length = None
+        self._last_token_maybe_eos = [False] * len(formatters)
+        # HACK: This is a hack to check if the last token is EOS because
+        # the transformers library does not send EOS token in the input_ids to the logits processor.
         if configs is None:
             configs = [EngineGenerationConfig() for _ in formatters]
         assert len(configs) == len(formatters), \
@@ -65,6 +68,7 @@ class FormattersLogitsProcessor(LogitsProcessor):
 
     def reset(self) -> None:
         self._last_input_id_length = None
+        self._last_token_maybe_eos = [False] * len(self._formatters)
         for f in self._formatters:
             if f is not None:
                 f.reset()
@@ -76,7 +80,16 @@ class FormattersLogitsProcessor(LogitsProcessor):
         captures of the formatter at the same index. If the formatter is None, the element
         is None.
         """
-        return [f.captures if f is not None else None for f in self._formatters]
+        result = []
+        for i, formatter in enumerate(self._formatters):
+            if formatter is None:
+                result.append(None)
+            else:
+                if not formatter.is_completed() and self._last_token_maybe_eos[i]:
+                    formatter.accept_token(self._eos_token_id)
+                    self._last_token_maybe_eos[i] = False
+                result.append(formatter.captures)
+        return result
 
     def is_completed(self) -> list[bool | None]:
         """
@@ -84,13 +97,26 @@ class FormattersLogitsProcessor(LogitsProcessor):
         completion status of the formatter at the same index. If the formatter is None,
         the element is None.
         """
-        return [f.is_completed() if f is not None else None for f in self._formatters]
+        result = []
+        for i, formatter in enumerate(self._formatters):
+            if formatter is None:
+                result.append(None)
+            elif formatter.is_completed():
+                result.append(True)
+            elif self._last_token_maybe_eos[i]:
+                formatter.accept_token(self._eos_token_id)
+                self._last_token_maybe_eos[i] = False
+                result.append(formatter.is_completed())
+            else:
+                result.append(False)
+        return result
 
     def __call__(self, input_ids, scores):
         assert input_ids.shape[0] == len(self._formatters), (f"Number of formatters({len(self._formatters)})"
                                                              f" must match batch size({input_ids.shape[0]})")
         if self._last_input_id_length is None:  # First iteration
             self._last_input_id_length = input_ids.shape[1]
+            self._last_token_maybe_eos = [False] * len(self._formatters)
             for formatter, config, prompt in zip(self._formatters, self.configs, input_ids):
                 if formatter is None:
                     continue
@@ -112,7 +138,12 @@ class FormattersLogitsProcessor(LogitsProcessor):
             if formatter.is_completed():
                 scores[i, :] = float("-inf")
                 scores[i, self._eos_token_id] = 0.0
+                self._last_token_maybe_eos[i] = False
                 continue
             formatter.compute_allowed_tokens()
             scores[i, :] = formatter.mask_logits(scores[i, :])
+            if formatter.is_token_allowed(self._eos_token_id):
+                self._last_token_maybe_eos[i] = True
+            else:
+                self._last_token_maybe_eos[i] = False
         return scores
