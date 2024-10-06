@@ -399,7 +399,6 @@ class FormatterBuilder:
         else:
             backslash = '\\'
             capture_regex = f".*?(?:{'|'.join([i.replace(backslash, backslash * 2) for i in map(re.escape, stop)])})"
-        print(f"{capture_regex}")
         return self._add_extractor("str",
                                    lambda nonterminal: RegexExtractor(capture_regex, capture_name, nonterminal))
     
