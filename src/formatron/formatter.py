@@ -89,12 +89,6 @@ class FormatterBase(abc.ABC):
         Reset the formatter to the initial state.
         """
 
-    @abc.abstractmethod
-    def is_token_allowed(self, token_id: int) -> bool:
-        """
-        Check if a token is allowed by the formatter.
-        """
-
 
 class Formatter(FormatterBase):
     """
@@ -154,12 +148,6 @@ class Formatter(FormatterBase):
         the generation is not considered completed by this method.
         """
         return self._engine.is_finished()
-
-    def is_token_allowed(self, token_id: int) -> bool:
-        """
-        Check if a token is allowed by the formatter.
-        """
-        return self._engine.check_if_token_is_allowed(token_id)
 
     def _on_completion(self, generated_output: str) -> None:
         for matcher in self._extractors:
