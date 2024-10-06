@@ -8,6 +8,5 @@ var classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor 
     [ "_eos_token_id", "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a7731ed1ab6807c0de6c29ebfefd6975f", null ],
     [ "_formatters", "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a50a0787df5f246965db8481f0700d0b4", null ],
     [ "_last_input_id_length", "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a24c02e28fdbae4450af7527f93400fa7", null ],
-    [ "_last_token_maybe_eos", "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#afae18f390d6579edd65d724102d642ed", null ],
     [ "configs", "classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a598fc8c32fb2670796d4ae2186f8a134", null ]
 ];
