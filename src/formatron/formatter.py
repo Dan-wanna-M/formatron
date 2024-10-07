@@ -134,7 +134,12 @@ class Formatter(FormatterBase):
         output = ""
         last_type = None
         def decode_buffer(buffer_type: type, buffer_content: list):
-            assert buffer_type in (int, bytes), f"Invalid type: {buffer_type}"
+            if buffer_type not in (int, bytes):
+                try:
+                    buffer_content = [int(item) for item in buffer_content]
+                    buffer_type = int
+                except ValueError:
+                    assert False, f"Invalid type: {buffer_type}. Unable to convert to int."
             if buffer_type is int:
                 return self._decode_callback(buffer_content)
             elif buffer_type is bytes:
@@ -427,7 +432,7 @@ class FormatterBuilder:
             capture_regex = ".*"
         else:
             backslash = '\\'
-            capture_regex = f".*?(?:{'|'.join([i.replace(backslash, backslash * 2) for i in map(re.escape, stop)])})"
+            capture_regex = f".*?(?:{'|'.join([re.escape(i.replace(backslash, backslash * 2)) for i in stop])})"
         return self._add_extractor("str",
                                    lambda nonterminal: RegexExtractor(capture_regex, capture_name, nonterminal))
     
