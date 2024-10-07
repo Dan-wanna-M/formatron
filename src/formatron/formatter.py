@@ -23,7 +23,7 @@ class FormatterBase(abc.ABC):
     """
 
     @abc.abstractmethod
-    def accept_token(self, token_id: int) -> typing.Any:
+    def accept_token(self, token_id: int):
         """
         Accept a token from the language model.
         Args:
@@ -33,7 +33,7 @@ class FormatterBase(abc.ABC):
         """
 
     @abc.abstractmethod
-    def accept_bytes(self, _bytes: bytes):
+    def accept_bytes(self, _bytes: bytes)->None:
         """
         Accept a bytes object from the language model.
         Args:
@@ -109,7 +109,7 @@ class Formatter(FormatterBase):
         """
         self._extractors = extractors
         self._engine = engine
-        self._token_ids = []
+        self._token_id_or_bytes = []
         self._decode_callback = decode_callback
         self._grammar_str = grammar_str
         self._captures = {}
@@ -121,16 +121,46 @@ class Formatter(FormatterBase):
         """
         return self._grammar_str
 
-    def accept_token(self, token_id: int):
+    def accept_token(self, token_id: int)->kbnf.AcceptTokenResult:
         result = self._engine.try_accept_new_token(token_id)
-        self._token_ids.append(token_id)
+        self._token_id_or_bytes.append(token_id)
         if result == kbnf.AcceptTokenResult.Finished:
-            output = self._decode_callback(self._token_ids)
+            output = self._obtain_accepted_output()
             self._on_completion(output)
         return result
+    
+    def _obtain_accepted_output(self)->str:
+        buffer = []
+        output = ""
+        last_type = None
+        def decode_buffer(buffer_type: type, buffer_content: list):
+            assert buffer_type in (int, bytes), f"Invalid type: {buffer_type}"
+            if buffer_type is int:
+                return self._decode_callback(buffer_content)
+            elif buffer_type is bytes:
+                return b"".join(buffer_content).decode()
 
-    def accept_bytes(self, _bytes: bytes):
-        self._engine.try_accept_new_bytes(_bytes)
+        for element in self._token_id_or_bytes:
+            if last_type is None:
+                last_type = type(element)
+            elif last_type != type(element):
+                output += decode_buffer(last_type, buffer)
+                buffer.clear()
+                last_type = type(element)
+            buffer.append(element)
+        
+        if buffer:
+            output += decode_buffer(last_type, buffer)
+        self._on_completion(output)
+        return output
+
+    def accept_bytes(self, _bytes: bytes)->kbnf.AcceptTokenResult:
+        result = self._engine.try_accept_new_bytes(_bytes)
+        self._token_id_or_bytes.append(_bytes)
+        if result == kbnf.AcceptTokenResult.Finished:
+            output = self._obtain_accepted_output()
+            self._on_completion(output)
+        return result
 
     def compute_allowed_tokens(self) -> None:
         self._engine.compute_allowed_token_ids()
