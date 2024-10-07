@@ -174,3 +174,28 @@ def test_grammar_literal(snapshot):
     snapshot.assert_match(
         pipeline.generate("This is a random json: ", token_count=256, args=formatron.integrations.RWKV.PIPELINE_ARGS(top_p=0.5)))
     snapshot.assert_match(pipeline.formatter.captures)
+
+
+def test_formatter_alternate_accept(snapshot):
+    FormatterBuilder._formatter_builder_counter = 0
+    f = FormatterBuilder()
+    f.append_str(f"Name: {f.str(stop=[','], capture_name='name')}")
+    f.append_str(f"Age: {f.regex('[0-9]+', capture_name='age')}")
+
+    model = RWKV(
+        "assets/RWKV-5-World-0.4B-v2-20231113-ctx4096.pth", 'cuda fp16')
+    pipeline = formatron.integrations.RWKV.PIPELINE(model, "rwkv_vocab_v20230424", f)
+    
+    formatter = pipeline.formatter
+    
+    # Simulate alternating between accept_token and accept_bytes
+    tokens = pipeline.tokenizer.encode("Name: John,")
+    for token in tokens:
+        formatter.accept_token(token)
+    formatter.accept_bytes(b"Age: ")
+    tokens = pipeline.tokenizer.encode("30")
+    for token in tokens:
+        formatter.accept_token(token)
+    
+    snapshot.assert_match(formatter.captures)
+

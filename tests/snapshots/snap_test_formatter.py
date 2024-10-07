@@ -41,17 +41,18 @@ __json_4_0_json_name ::= string;
 start ::= \'Today, I want to eat \' __choice_0_0_food \'\\n\' "My food\'s ID is " __choice_3_0_ID \'.\\n\' "\\nWhat\'s more, indentations\\nare handled\\nappropriately." \'My weight is 14.4kg and my color is pink. This is my personal info json: \' __json_4_0_json \'\\n\';'''
 
 snapshots['test_formatter 2'] = '''Today, I want to eat banana
-My food's ID is a.
+My food's ID is black.
 
 What's more, indentations
 are handled
-appropriately.My weight is 14.4kg and my color is pink. This is my personal info json: {"name":"Van","weight":1.4,"color":"red"}
-'''
+appropriately.My weight is 14.4kg and my color is pink. This is my personal info json: {                                                                                                                                                              '''
 
 snapshots['test_formatter 3'] = {
-    'ID': GenericRepr("<re.Match object; span=(0, 1), match='a'>"),
-    'food': 'banana',
-    'json': GenericRepr("Test(name='Van', weight=1.4, color='red')")
+}
+
+snapshots['test_formatter_alternate_accept 1'] = {
+    'age': GenericRepr("<re.Match object; span=(0, 2), match='30'>"),
+    'name': GenericRepr("<re.Match object; span=(0, 5), match='John,'>")
 }
 
 snapshots['test_formatter_callable_schema 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
@@ -118,23 +119,23 @@ __json_0_0_json_name ::= string;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_dict_inference 2'] = '''{"name":"admin","gender":"male"}
+snapshots['test_formatter_dict_inference 2'] = '''{"name":"aaa","gender":"male"}
 '''
 
 snapshots['test_formatter_dict_inference 3'] = {
     'json': {
         'gender': 'male',
-        'name': 'admin'
+        'name': 'aaa'
     }
 }
 
-snapshots['test_formatter_json_schema 1'] = '''{"name":"123","age":180}
+snapshots['test_formatter_json_schema 1'] = '''{"name":"String","age":20}
 '''
 
 snapshots['test_formatter_json_schema 2'] = {
     'json': {
-        'age': 180,
-        'name': '123'
+        'age': 20,
+        'name': 'String'
     }
 }
 
@@ -166,11 +167,10 @@ __json_0_0_json_name ::= string;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_str 1'] = '''__str_0_0 ::= #e'.*?(?:\\\\.)';
+snapshots['test_formatter_str 1'] = '''__str_0_0 ::= #'.*?(?:\\\\\\\\.)';
 start ::= __str_0_0 '\\n';'''
 
-snapshots['test_formatter_str 2'] = '''🤔" I replied.
-'''
+snapshots['test_formatter_str 2'] = '😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My name is Van. 😀 My'
 
 snapshots['test_formatter_str 3'] = {
 }
@@ -215,7 +215,7 @@ __json_0_0_json_value_id ::= integer;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_top_level_array_json_schema 2'] = '''[{"id": 1, "name": "Tom", "active": true}, {"id": 2, "name": "Mike", "active": true}, {"id": 3, "name": "John", "active": true}]
+snapshots['test_formatter_top_level_array_json_schema 2'] = '''[{"id":1,"name":"David","active":true},{"id":2,"name":"Tom","active":false},{"id":3,"name":"Mary","active":false}]
 '''
 
 snapshots['test_formatter_top_level_array_json_schema 3'] = {
@@ -223,17 +223,17 @@ snapshots['test_formatter_top_level_array_json_schema 3'] = {
         {
             'active': True,
             'id': 1,
+            'name': 'David'
+        },
+        {
+            'active': False,
+            'id': 2,
             'name': 'Tom'
         },
         {
-            'active': True,
-            'id': 2,
-            'name': 'Mike'
-        },
-        {
-            'active': True,
+            'active': False,
             'id': 3,
-            'name': 'John'
+            'name': 'Mary'
         }
     ]
 }

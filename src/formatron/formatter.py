@@ -151,7 +151,6 @@ class Formatter(FormatterBase):
         
         if buffer:
             output += decode_buffer(last_type, buffer)
-        self._on_completion(output)
         return output
 
     def accept_bytes(self, _bytes: bytes)->kbnf.AcceptTokenResult:
