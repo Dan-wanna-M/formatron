@@ -19,12 +19,13 @@ var searchData=
   ['_5fmerge_5fkey_16',['_merge_key',['../namespaceformatron_1_1schemas_1_1json__schema.html#a5fcddd43a5f64374b5b75d4aafeb9135',1,'formatron::schemas::json_schema']]],
   ['_5fmerge_5freferenced_5fschema_17',['_merge_referenced_schema',['../namespaceformatron_1_1schemas_1_1json__schema.html#a45c9b97319a58c2013b8e3f10ad78c30',1,'formatron::schemas::json_schema']]],
   ['_5fmultiple_5freplace_18',['_multiple_replace',['../namespaceformatron_1_1integrations_1_1__utils.html#abf64c53a323448aedc1361d01515226a',1,'formatron::integrations::_utils']]],
-  ['_5fobtain_5ftype_19',['_obtain_type',['../namespaceformatron_1_1schemas_1_1json__schema.html#a544d74edf1fdccbad9e216d9ff028a20',1,'formatron::schemas::json_schema']]],
-  ['_5fon_5fcompletion_20',['_on_completion',['../classformatron_1_1formatter_1_1FormatterBase.html#a469880a21192928e82823cc340a22ce2',1,'formatron.formatter.FormatterBase._on_completion()'],['../classformatron_1_1formatter_1_1Formatter.html#ac6f7e3f96c6318689c5cd0d44a1cdde7',1,'formatron.formatter.Formatter._on_completion()']]],
-  ['_5frecursive_5fresolve_5freference_21',['_recursive_resolve_reference',['../namespaceformatron_1_1schemas_1_1json__schema.html#aaba012c79d101be93f4d96588c9f8cc2',1,'formatron::schemas::json_schema']]],
-  ['_5fregister_5fall_5fpredefined_5ftypes_22',['_register_all_predefined_types',['../namespaceformatron_1_1formats_1_1json.html#a311b750cba3838aee622b9809888f051',1,'formatron::formats::json']]],
-  ['_5fresolve_5fnew_5furl_23',['_resolve_new_url',['../namespaceformatron_1_1schemas_1_1json__schema.html#a9dc9dc267e5dd7b6581e2367e9238152',1,'formatron::schemas::json_schema']]],
-  ['_5fresolve_5freference_24',['_resolve_reference',['../namespaceformatron_1_1schemas_1_1json__schema.html#a24b516494672cc5dbbf7300ea65479b1',1,'formatron::schemas::json_schema']]],
-  ['_5fto_5fnext_5fbatch_5fstep_25',['_to_next_batch_step',['../classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#ab87fea11f930a33130cecadd8cdf0cc6',1,'formatron::integrations::vllm::FormattersLogitsProcessor']]],
-  ['_5fvalidate_5fjson_5fschema_26',['_validate_json_schema',['../namespaceformatron_1_1schemas_1_1json__schema.html#a51aa68e29951e6b295844b13177b7d6a',1,'formatron::schemas::json_schema']]]
+  ['_5fobtain_5faccepted_5foutput_19',['_obtain_accepted_output',['../classformatron_1_1formatter_1_1Formatter.html#ae4be840a942f608c1a0c256dbf68901b',1,'formatron::formatter::Formatter']]],
+  ['_5fobtain_5ftype_20',['_obtain_type',['../namespaceformatron_1_1schemas_1_1json__schema.html#a544d74edf1fdccbad9e216d9ff028a20',1,'formatron::schemas::json_schema']]],
+  ['_5fon_5fcompletion_21',['_on_completion',['../classformatron_1_1formatter_1_1FormatterBase.html#a469880a21192928e82823cc340a22ce2',1,'formatron.formatter.FormatterBase._on_completion()'],['../classformatron_1_1formatter_1_1Formatter.html#ac6f7e3f96c6318689c5cd0d44a1cdde7',1,'formatron.formatter.Formatter._on_completion()']]],
+  ['_5frecursive_5fresolve_5freference_22',['_recursive_resolve_reference',['../namespaceformatron_1_1schemas_1_1json__schema.html#aaba012c79d101be93f4d96588c9f8cc2',1,'formatron::schemas::json_schema']]],
+  ['_5fregister_5fall_5fpredefined_5ftypes_23',['_register_all_predefined_types',['../namespaceformatron_1_1formats_1_1json.html#a311b750cba3838aee622b9809888f051',1,'formatron::formats::json']]],
+  ['_5fresolve_5fnew_5furl_24',['_resolve_new_url',['../namespaceformatron_1_1schemas_1_1json__schema.html#a9dc9dc267e5dd7b6581e2367e9238152',1,'formatron::schemas::json_schema']]],
+  ['_5fresolve_5freference_25',['_resolve_reference',['../namespaceformatron_1_1schemas_1_1json__schema.html#a24b516494672cc5dbbf7300ea65479b1',1,'formatron::schemas::json_schema']]],
+  ['_5fto_5fnext_5fbatch_5fstep_26',['_to_next_batch_step',['../classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#ab87fea11f930a33130cecadd8cdf0cc6',1,'formatron::integrations::vllm::FormattersLogitsProcessor']]],
+  ['_5fvalidate_5fjson_5fschema_27',['_validate_json_schema',['../namespaceformatron_1_1schemas_1_1json__schema.html#a51aa68e29951e6b295844b13177b7d6a',1,'formatron::schemas::json_schema']]]
 ];
