@@ -218,14 +218,14 @@ class Formatter(FormatterBase):
     def reset(self) -> None:
         self._captures.clear()
         self._engine.reset()
-        self._token_ids.clear()
+        self._token_id_or_bytes.clear()
 
     def __str__(self):
         return (f"Formatter(engine={self._engine}, "
                 f"captures={self._captures}, "
                 f"extractors={len(self._extractors)}, "
                 f"completed={self.is_completed()}, "
-                f"token_ids={len(self._token_ids)})"
+                f"token_ids={len(self._token_id_or_bytes)})"
                 f"grammar={self._grammar_str})")
 
 
