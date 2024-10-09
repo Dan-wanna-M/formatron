@@ -5,6 +5,7 @@ var json__schema_8py =
     [ "_create_custom_type", "json__schema_8py.html#a38fed431c5191f57f9db65d4a744a96e", null ],
     [ "_extract_fields_from_object_type", "json__schema_8py.html#af20251afc012b955e29c92922fcc83ef", null ],
     [ "_get_literal", "json__schema_8py.html#a096ea829025ebd26b9ae165c17cf8976", null ],
+    [ "_handle_anyOf", "json__schema_8py.html#a6f88bf4e3c48d96b060ccdcbd80b3328", null ],
     [ "_handle_literal", "json__schema_8py.html#a969bd30894a578428528b94b0f82f1ba", null ],
     [ "_infer_type", "json__schema_8py.html#ac742e1e581efccb6cc9742e7a23c25c2", null ],
     [ "_merge_key", "json__schema_8py.html#a5fcddd43a5f64374b5b75d4aafeb9135", null ],
