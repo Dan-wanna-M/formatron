@@ -239,6 +239,65 @@ def test_schema_with_union_array_object(snapshot):
     result = JsonExtractor("start", None, combined_schema, lambda x: x).kbnf_definition
     snapshot.assert_match(result)
 
+def test_schema_with_top_level_anyOf(snapshot):
+    schema = {
+        "$id": "https://example.com/schemas/top-level-anyOf.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "anyOf": [
+            {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "age": {"type": "integer"}
+                },
+                "required": ["name", "age"]
+            },
+            {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            },
+            {
+                "type": "string"
+            }
+        ]
+    }
+
+    combined_schema = json_schema.create_schema(schema)
+    result = JsonExtractor("start", None, combined_schema, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
+def test_schema_with_anyOf_inside_array(snapshot):
+    schema = {
+        "$id": "https://example.com/schemas/anyOf-inside-array.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+            "items": {
+                "type": "array",
+                "items": {
+                    "anyOf": [
+                        {"type": "string"},
+                        {
+                            "type": "object",
+                            "properties": {
+                                "name": {"type": "string"},
+                                "value": {"type": "number"}
+                            },
+                            "required": ["name", "value"]
+                        },
+                        {"type": "boolean"}
+                    ]
+                }
+            }
+        },
+        "required": ["items"]
+    }
+
+    combined_schema = json_schema.create_schema(schema)
+    result = JsonExtractor("start", None, combined_schema, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
 
 
 def test_pydantic_class_linked_list(snapshot):

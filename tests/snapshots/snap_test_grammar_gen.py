@@ -36,14 +36,14 @@ start_concepts ::= array_begin (start_concepts_value (comma start_concepts_value
 start_concepts_value ::= string;
 start_related_queries ::= array_begin (start_related_queries_value (comma start_related_queries_value)*)? array_end;
 start_related_queries_value ::= start_related_queries_value_0 | start_related_queries_value_1;
-start_related_queries_value_1 ::= object_begin \'"foo"\' colon start_related_queries_value_1_foo object_end;
-start_related_queries_value_1_foo ::= integer;
-start_related_queries_value_0 ::= string;
+start_related_queries_value_1 ::= string;
+start_related_queries_value_0 ::= object_begin \'"foo"\' colon start_related_queries_value_0_foo object_end;
+start_related_queries_value_0_foo ::= integer;
 start_queries ::= array_begin (start_queries_value (comma start_queries_value)*)? array_end;
 start_queries_value ::= start_queries_value_0 | start_queries_value_1 | start_queries_value_2;
-start_queries_value_2 ::= integer;
-start_queries_value_1 ::= boolean;
-start_queries_value_0 ::= string;
+start_queries_value_2 ::= boolean;
+start_queries_value_1 ::= string;
+start_queries_value_0 ::= integer;
 start_title ::= string;
 start_mode ::= string;
 '''
@@ -294,6 +294,38 @@ start_referencedObject_subProperty ::= integer;
 start_mainProperty ::= string;
 '''
 
+snapshots['test_schema_with_anyOf_inside_array 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
+number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"[ \t
+\r]*,[ \t
+\r]*";
+colon ::= #"[ \t
+\r]*:[ \t
+\r]*";
+object_begin ::= #"\\\\{[ \t
+\r]*";
+object_end ::= #"[ \t
+\r]*\\\\}";
+array_begin ::= #"\\\\[[ \t
+\r]*";
+array_end ::= #"[ \t
+\r]*\\\\]";
+start ::= object_begin \'"items"\' colon start_items object_end;
+start_items ::= array_begin (start_items_value (comma start_items_value)*)? array_end;
+start_items_value ::= start_items_value_0 | start_items_value_1 | start_items_value_2;
+start_items_value_2 ::= boolean;
+start_items_value_1 ::= object_begin \'"name"\' colon start_items_value_1_name comma \'"value"\' colon start_items_value_1_value object_end;
+start_items_value_1_value ::= number;
+start_items_value_1_name ::= string;
+start_items_value_0 ::= string;
+'''
+
 snapshots['test_schema_with_dynamic_ref 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
 number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
@@ -396,6 +428,37 @@ start_address_city ::= string;
 start_address_street ::= string;
 start_age ::= integer;
 start_name ::= string;
+'''
+
+snapshots['test_schema_with_top_level_anyOf 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
+number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"[ \t
+\r]*,[ \t
+\r]*";
+colon ::= #"[ \t
+\r]*:[ \t
+\r]*";
+object_begin ::= #"\\\\{[ \t
+\r]*";
+object_end ::= #"[ \t
+\r]*\\\\}";
+array_begin ::= #"\\\\[[ \t
+\r]*";
+array_end ::= #"[ \t
+\r]*\\\\]";
+start ::= start_0 | start_1 | start_2;
+start_2 ::= string;
+start_1 ::= array_begin (start_1_value (comma start_1_value)*)? array_end;
+start_1_value ::= string;
+start_0 ::= object_begin \'"name"\' colon start_0_name comma \'"age"\' colon start_0_age object_end;
+start_0_age ::= integer;
+start_0_name ::= string;
 '''
 
 snapshots['test_schema_with_top_level_array 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";

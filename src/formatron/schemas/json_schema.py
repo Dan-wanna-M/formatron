@@ -5,7 +5,6 @@ This module contains utilities for creating schemas from JSON schemas.
 import collections
 import collections.abc
 import copy
-import inspect
 import json
 from urllib.parse import urldefrag, urljoin
 import frozendict
@@ -59,6 +58,8 @@ def create_schema(schema: dict[str, typing.Any], registry=Registry()) -> schemas
       - This includes advanced enum types such as array and object.
       - Note that if both `enum`(or `const`) and `type` are present, `type` will be ignored.
     - `required` keyword
+    - `anyOf` keyword
+      - This currently does not support factoring out common parts of the subschemas(like https://json-schema.org/understanding-json-schema/reference/combining#factoringschemas)
     - Schema references ($ref and $dynamicRef)
       - Hence, all types of schema identifications(`$defs`, `$id`, `$anchor`, `$dynamicAnchor`) are supported.
       - This includes recursive schema references.
@@ -139,11 +140,21 @@ def _extract_fields_from_object_type(object_type:typing.Type):
         if isinstance(arg, type) and issubclass(arg, schemas.schema.Schema):
             return arg.fields()
     return object_type.fields()
-    
+
+def _handle_anyOf(schema: dict[str, typing.Any], json_schema_id_to_schema: dict[int, typing.Type]) -> typing.Type:
+    allowed_keys = {"anyOf", "$id", "$schema"}
+    assert set(schema.keys()).issubset(allowed_keys), "Only 'anyOf', '$id', and '$schema' are allowed when 'anyOf' is present"
+    new_list = []
+    for item in schema["anyOf"]:
+        new_list.append(_convert_json_schema_to_our_schema(item, json_schema_id_to_schema))
+    return typing.Union[tuple(new_list)]
+
 def _infer_type(schema: dict[str, typing.Any], json_schema_id_to_schema: dict[int, typing.Type]) -> typing.Type[typing.Any | None]:
     """
     Infer more specific types.
     """
+    if "anyOf" in schema:
+        return _handle_anyOf(schema, json_schema_id_to_schema)
     obtained_type = _obtain_type(schema, json_schema_id_to_schema)
     args = typing.get_args(obtained_type)
     if obtained_type is None or obtained_type is object or object in args:
@@ -187,9 +198,8 @@ def _create_custom_type(obtained_type: typing.Type|None, schema: dict[str, typin
 
 def _obtain_type(schema: dict[str, typing.Any], json_schema_id_to_schema:dict[int, typing.Type]) -> typing.Type[typing.Any|None]:
     """
-    Directly obtain type information from this schema level.
+    Directly obtain type information from this schema's type keyword.
     """
-    
     if "type" not in schema:
         obtained_type = None
     else:
