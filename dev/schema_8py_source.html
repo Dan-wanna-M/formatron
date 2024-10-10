@@ -148,28 +148,44 @@ $(function(){initNavTree('schema_8py_source.html',''); initResizable(true); });
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordflow">pass</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">class </span>Schema(abc.ABC):</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="stringliteral">    An abstract schema that describes some data.</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="preprocessor">@classmethod</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="preprocessor">@abc.abstractmethod</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">def </span>fields(cls) -&gt; dict[str, FieldInfo]:</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="stringliteral">        Get the fields of the schema.</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">pass</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">class </span>TypeWithMetadata:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">def </span>__init__(self, type: typing.Type[typing.Any], metadata: dict[str, typing.Any]|<span class="keywordtype">None</span>):</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        self._type = type</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        self._metadata = metadata</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="preprocessor">@property</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">def </span>type(self) -&gt; typing.Type[typing.Any]:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordflow">return</span> self._type</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="preprocessor">@property</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">def </span>metadata(self) -&gt; dict[str, typing.Any]|None:</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">return</span> self._metadata</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="preprocessor">@classmethod</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">class </span>Schema(abc.ABC):</div>
 <div class="foldopen" id="foldopen00039" data-start="" data-end="">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html#ac0d64035ccdc78e44a4cf6165d56081b">   39</a></span>    <span class="preprocessor">@abc.abstractmethod</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">def </span>from_json(cls, json: str) -&gt; <span class="stringliteral">&quot;Schema&quot;</span>:</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html#ac0d64035ccdc78e44a4cf6165d56081b">   39</a></span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="stringliteral">    An abstract schema that describes some data.</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="stringliteral">        Create a schema from a JSON string.</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">pass</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="preprocessor">@classmethod</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="preprocessor">@abc.abstractmethod</span></div>
+</div>
+<div class="foldopen" id="foldopen00044" data-start="" data-end="">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classformatron_1_1schemas_1_1schema_1_1TypeWithMetadata.html">   44</a></span>    <span class="keyword">def </span>fields(cls) -&gt; dict[str, FieldInfo]:</div>
+<div class="foldopen" id="foldopen00045" data-start="" data-end="">
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="classformatron_1_1schemas_1_1schema_1_1TypeWithMetadata.html#a0c3cf51ceb503d4d195f5623d57e160b">   45</a></span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="classformatron_1_1schemas_1_1schema_1_1TypeWithMetadata.html#a4d1ea7d59f700634eb2545ce3d6cf324">   46</a></span><span class="stringliteral">        Get the fields of the schema.</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="classformatron_1_1schemas_1_1schema_1_1TypeWithMetadata.html#a34312895f9d497d5c35cf372f9c498f3">   47</a></span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">pass</span></div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="preprocessor">@classmethod</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="preprocessor">@abc.abstractmethod</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">def </span>from_json(cls, json: str) -&gt; <span class="stringliteral">&quot;Schema&quot;</span>:</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="stringliteral">        Create a schema from a JSON string.</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordflow">pass</span></div>
 </div>
 <div class="ttc" id="aclassformatron_1_1schemas_1_1schema_1_1FieldInfo_html"><div class="ttname"><a href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html">formatron.schemas.schema.FieldInfo</a></div><div class="ttdef"><b>Definition</b> <a href="#l00009">schema.py:9</a></div></div>
 <div class="ttc" id="aclassformatron_1_1schemas_1_1schema_1_1FieldInfo_html_a5c7b1d8b8d8d52426e95a3f326cf3e75"><div class="ttname"><a href="classformatron_1_1schemas_1_1schema_1_1FieldInfo.html#a5c7b1d8b8d8d52426e95a3f326cf3e75">formatron.schemas.schema.FieldInfo.annotation</a></div><div class="ttdeci">typing.Type[typing.Any]|None annotation(self)</div><div class="ttdoc">Get the type annotation of the field.</div><div class="ttdef"><b>Definition</b> <a href="#l00022">schema.py:22</a></div></div>
