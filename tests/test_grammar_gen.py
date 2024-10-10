@@ -210,6 +210,30 @@ def test_schema_with_embedded_schema(snapshot):
     result = JsonExtractor("start", None, combined_schema, lambda x: x).kbnf_definition
     snapshot.assert_match(result)
 
+def test_schema_with_reference_to_number(snapshot):
+    schema = {
+        "$id": "https://example.com/schemas/number-reference.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+            "mainProperty": {"type": "string"},
+            "numberReference": {"$ref": "#/$defs/numberDef"}
+        },
+        "required": ["mainProperty", "numberReference"],
+        "$defs": {
+            "numberDef": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+            }
+        }
+    }
+
+    combined_schema = json_schema.create_schema(schema)
+    result = JsonExtractor("start", None, combined_schema, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
+
 def test_schema_with_top_level_array(snapshot):
     schema = {
         "$id": "https://example.com/schemas/top-level-array.json",

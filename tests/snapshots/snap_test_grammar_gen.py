@@ -459,6 +459,33 @@ start_age ::= integer;
 start_name ::= string;
 '''
 
+snapshots['test_schema_with_reference_to_number 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
+number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"[ \t
+\r]*,[ \t
+\r]*";
+colon ::= #"[ \t
+\r]*:[ \t
+\r]*";
+object_begin ::= #"\\\\{[ \t
+\r]*";
+object_end ::= #"[ \t
+\r]*\\\\}";
+array_begin ::= #"\\\\[[ \t
+\r]*";
+array_end ::= #"[ \t
+\r]*\\\\]";
+start ::= object_begin \'"mainProperty"\' colon start_mainProperty comma \'"numberReference"\' colon start_numberReference object_end;
+start_numberReference ::= number;
+start_mainProperty ::= string;
+'''
+
 snapshots['test_schema_with_top_level_anyOf 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
 number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
