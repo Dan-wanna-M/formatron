@@ -36,9 +36,9 @@ start_concepts ::= array_begin (start_concepts_value (comma start_concepts_value
 start_concepts_value ::= string;
 start_related_queries ::= array_begin (start_related_queries_value (comma start_related_queries_value)*)? array_end;
 start_related_queries_value ::= start_related_queries_value_0 | start_related_queries_value_1;
-start_related_queries_value_1 ::= string;
-start_related_queries_value_0 ::= object_begin \'"foo"\' colon start_related_queries_value_0_foo object_end;
-start_related_queries_value_0_foo ::= integer;
+start_related_queries_value_1 ::= object_begin \'"foo"\' colon start_related_queries_value_1_foo object_end;
+start_related_queries_value_1_foo ::= integer;
+start_related_queries_value_0 ::= string;
 start_queries ::= array_begin (start_queries_value (comma start_queries_value)*)? array_end;
 start_queries_value ::= start_queries_value_0 | start_queries_value_1 | start_queries_value_2;
 start_queries_value_2 ::= boolean;
@@ -191,6 +191,35 @@ start_next ::= start_next_0 | start_next_1;
 start_next_1 ::= null;
 start_next_0 ::= start;
 start_value ::= integer;
+'''
+
+snapshots['test_pydantic_string_constraints 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
+number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"[ \t
+\r]*,[ \t
+\r]*";
+colon ::= #"[ \t
+\r]*:[ \t
+\r]*";
+object_begin ::= #"\\\\{[ \t
+\r]*";
+object_end ::= #"[ \t
+\r]*\\\\}";
+array_begin ::= #"\\\\[[ \t
+\r]*";
+array_end ::= #"[ \t
+\r]*\\\\]";
+start ::= object_begin \'"min_length_str"\' colon start_min_length_str comma \'"max_length_str"\' colon start_max_length_str comma \'"pattern_str"\' colon start_pattern_str comma \'"combined_str"\' colon start_combined_str object_end;
+start_combined_str ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4}){2,5}"\';
+start_pattern_str ::= #\'"^[a-zA-Z0-9]+$"\';
+start_max_length_str ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4}){0,10}"\';
+start_min_length_str ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4}){3,}"\';
 '''
 
 snapshots['test_recursive_binary_tree_schema 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";

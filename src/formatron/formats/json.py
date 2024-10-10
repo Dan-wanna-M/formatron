@@ -68,10 +68,39 @@ def _register_all_predefined_types():
 
     def field_info(current: typing.Type, nonterminal: str):
         if isinstance(current, schemas.schema.FieldInfo):
+            annotation = current.annotation
             if current.required:
-                return "", [(current.annotation, nonterminal)]
+                return "", [(annotation, nonterminal)]
             new_nonterminal = f"{nonterminal}_required"
-            return f"{nonterminal} ::= {new_nonterminal}?;\n", [(current.annotation, new_nonterminal)]
+            return f"{nonterminal} ::= {new_nonterminal}?;\n", [(annotation, new_nonterminal)]
+        return None
+
+    def string_metadata(current: typing.Type, nonterminal: str):
+        min_length = current.metadata.get("min_length")
+        max_length = current.metadata.get("max_length")
+        pattern = current.metadata.get("pattern")
+        if pattern:
+            assert not (min_length or max_length), "pattern is mutually exclusive with min_length and max_length"
+        repetition = None
+        if min_length is not None and max_length is None:
+            repetition = f"{{{min_length},}}"
+        elif min_length is None and max_length is not None:
+            repetition = f"{{0,{max_length}}}"
+        elif min_length is not None and max_length is not None:
+            repetition = f"{{{min_length},{max_length}}}"
+        if repetition is not None:
+            return fr"""{nonterminal} ::= #'"([^\\\\"\u0000-\u001f]|\\\\["\\\\bfnrt/]|\\\\u[0-9A-Fa-f]{{4}}){repetition}"';
+""", []
+        if pattern is not None:
+            pattern = pattern.replace("'", "\\'")
+            return f"""{nonterminal} ::= #'"{pattern}"';\n""", []
+
+    def metadata(current: typing.Type, nonterminal: str):
+        if isinstance(current, schemas.schema.TypeWithMetadata):
+            if not current.metadata:
+                return "", [(current.type, nonterminal)]
+            if isinstance(current.type, type) and issubclass(current.type, str):
+                return string_metadata(current, nonterminal)
         return None
 
     def builtin_list(current: typing.Type, nonterminal: str):
@@ -189,6 +218,7 @@ def _register_all_predefined_types():
     register_generate_nonterminal_def(builtin_simple_types)
     register_generate_nonterminal_def(schema)
     register_generate_nonterminal_def(field_info)
+    register_generate_nonterminal_def(metadata)
     register_generate_nonterminal_def(builtin_tuple)
     register_generate_nonterminal_def(builtin_literal)
     register_generate_nonterminal_def(builtin_union)
@@ -255,7 +285,13 @@ class JsonExtractor(extractor.NonterminalExtractor):
         - bool
         - int
         - float
-        - string
+        - str
+          - with min_length, max_length and pattern constraints
+            - length is measured in UTF-8 character number
+            - *Warning*: too large difference between min_length and max_length can lead to enormous memory consumption!
+            - pattern is mutually exclusive with min_length and max_length
+            - pattern will be compiled to a regular expression so all caveats of regular expressions apply
+            - pattern currently is automatically anchored at both ends
         - NoneType
         - typing.Any
         - Subclasses of collections.abc.Mapping[str,T] and typing.Mapping[str,T] where T is a supported type,

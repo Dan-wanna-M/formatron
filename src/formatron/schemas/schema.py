@@ -22,6 +22,18 @@ class FieldInfo(abc.ABC):
         """
         pass
 
+class TypeWithMetadata:
+    def __init__(self, type: typing.Type[typing.Any], metadata: dict[str, typing.Any]|None):
+        self._type = type
+        self._metadata = metadata
+
+    @property
+    def type(self) -> typing.Type[typing.Any]:
+        return self._type
+
+    @property
+    def metadata(self) -> dict[str, typing.Any]|None:
+        return self._metadata
 
 class Schema(abc.ABC):
     """

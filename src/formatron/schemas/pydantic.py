@@ -8,7 +8,7 @@ import typing
 import pydantic.fields
 from pydantic import BaseModel, validate_call, ConfigDict, Field
 
-from formatron.schemas.schema import FieldInfo, Schema
+from formatron.schemas.schema import FieldInfo, Schema, TypeWithMetadata
 
 
 class FieldInfo(FieldInfo):
@@ -22,10 +22,19 @@ class FieldInfo(FieldInfo):
         Initialize the field information.
         """
         self._field = field
+        self._annotation = field.annotation
+        if field.metadata:
+            metadata = {}
+            for constraint in ["min_length", "max_length", "pattern"]:
+                value = next((getattr(m, constraint) for m in self._field.metadata if hasattr(m, constraint)), None)
+                if value is not None:
+                    metadata[constraint] = value
+            if metadata:
+                self._annotation = TypeWithMetadata(self._annotation, metadata)
 
     @property
     def annotation(self) -> typing.Type[typing.Any] | None:
-        return self._field.annotation
+        return self._annotation
 
     @property
     def required(self) -> bool:

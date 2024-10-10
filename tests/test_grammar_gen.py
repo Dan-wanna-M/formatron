@@ -32,6 +32,17 @@ def test_pydantic_class(snapshot):
     result = JsonExtractor("start", None,Test,lambda x:x).kbnf_definition
     snapshot.assert_match(result)
 
+def test_pydantic_string_constraints(snapshot):
+    class StringConstraints(formatron.schemas.pydantic.ClassSchema):
+        min_length_str: typing.Annotated[str, Field(min_length=3)]
+        max_length_str: typing.Annotated[str, Field(max_length=10)]
+        pattern_str: typing.Annotated[str, Field(pattern=r'^[a-zA-Z0-9]+$')]
+        combined_str: typing.Annotated[str, Field(min_length=2, max_length=5)]
+
+    result = JsonExtractor("start", None, StringConstraints, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
+
 def test_json_schema(snapshot):
     schema = {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
