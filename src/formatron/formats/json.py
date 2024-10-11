@@ -14,8 +14,8 @@ __all__ = ["JsonExtractor"]
 
 SPACE_NONTERMINAL = "[ \t\n\r]*"
 
-GRAMMAR_HEADER = rf"""integer ::= #"-?(0|[1-9]\\d*)";
-number ::= #"-?(0|[1-9]\\d*)(\\.\\d+)?([eE][+-]?\\d+)?";
+GRAMMAR_HEADER = rf"""integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #'"([^\\\\"\u0000-\u001f]|\\\\["\\\\bfnrt/]|\\\\u[0-9A-Fa-f]{{4}})*"';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -81,19 +81,40 @@ def _register_all_predefined_types():
         pattern = current.metadata.get("pattern")
         if pattern:
             assert not (min_length or max_length), "pattern is mutually exclusive with min_length and max_length"
-        repetition = None
-        if min_length is not None and max_length is None:
-            repetition = f"{{{min_length},}}"
-        elif min_length is None and max_length is not None:
-            repetition = f"{{0,{max_length}}}"
-        elif min_length is not None and max_length is not None:
-            repetition = f"{{{min_length},{max_length}}}"
+        repetition_map = {
+            (True, False): f"{{{min_length},}}",
+            (False, True): f"{{0,{max_length}}}",
+            (True, True): f"{{{min_length},{max_length}}}"
+        }
+        repetition = repetition_map.get((min_length is not None, max_length is not None))
         if repetition is not None:
             return fr"""{nonterminal} ::= #'"([^\\\\"\u0000-\u001f]|\\\\["\\\\bfnrt/]|\\\\u[0-9A-Fa-f]{{4}}){repetition}"';
 """, []
         if pattern is not None:
             pattern = pattern.replace("'", "\\'")
             return f"""{nonterminal} ::= #'"{pattern}"';\n""", []
+    
+    def number_metadata(current: typing.Type, nonterminal: str):
+        gt = current.metadata.get("gt")
+        ge = current.metadata.get("ge")
+        lt = current.metadata.get("lt")
+        le = current.metadata.get("le")
+        
+        prefix_map = {
+            (gt, 0): "",
+            (ge, 0): "0|",
+            (lt, 0): "-",
+            (le, 0): "0|-",
+        }
+        
+        for (condition, value), prefix in prefix_map.items():
+            if condition is not None and condition == value:
+                if issubclass(current.type, int):
+                    return f"""{nonterminal} ::= #'{prefix}[1-9][0-9]*';\n""", []
+                elif issubclass(current.type, float):
+                    return f"""{nonterminal} ::= #'{prefix}[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';\n""", []
+        
+        raise ValueError(f"{current.type.__name__} metadata {current.metadata} is not supported in json_generators!")
 
     def metadata(current: typing.Type, nonterminal: str):
         if isinstance(current, schemas.schema.TypeWithMetadata):
@@ -101,6 +122,8 @@ def _register_all_predefined_types():
                 return "", [(current.type, nonterminal)]
             if isinstance(current.type, type) and issubclass(current.type, str):
                 return string_metadata(current, nonterminal)
+            elif isinstance(current.type, type) and issubclass(current.type, (int, float)):
+                return number_metadata(current, nonterminal)
         return None
 
     def builtin_list(current: typing.Type, nonterminal: str):
@@ -284,10 +307,18 @@ class JsonExtractor(extractor.NonterminalExtractor):
 
         - bool
         - int
+          - positive int
+          - negative int
+          - nonnegative int
+          - nonpositive int
         - float
+          - positive float
+          - negative float
+          - nonnegative float
+          - nonpositive float
         - str
-          - with min_length, max_length and pattern constraints
-            - length is measured in UTF-8 character number
+          - optionally with min_length, max_length and pattern constraints
+            - length is measured in UTF-8 character number after json parsing
             - *Warning*: too large difference between min_length and max_length can lead to enormous memory consumption!
             - pattern is mutually exclusive with min_length and max_length
             - pattern will be compiled to a regular expression so all caveats of regular expressions apply

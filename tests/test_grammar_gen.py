@@ -2,7 +2,7 @@ import decimal
 import json
 import typing
 
-from pydantic import Field
+from pydantic import Field, NegativeFloat, NegativeInt, NonNegativeFloat, NonNegativeInt, NonPositiveFloat, NonPositiveInt, PositiveFloat, PositiveInt
 from referencing import Registry, Resource
 
 from formatron.formats.json import JsonExtractor
@@ -40,6 +40,92 @@ def test_pydantic_string_constraints(snapshot):
         combined_str: typing.Annotated[str, Field(min_length=2, max_length=5)]
 
     result = JsonExtractor("start", None, StringConstraints, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
+def test_pydantic_integer_constraints(snapshot):
+    class IntegerConstraints(formatron.schemas.pydantic.ClassSchema):
+        gt_int: typing.Annotated[int, Field(gt=0)]
+        ge_int: typing.Annotated[int, Field(ge=0)]
+        lt_int: typing.Annotated[int, Field(lt=0)]
+        le_int: typing.Annotated[int, Field(le=0)]
+        positive_int: PositiveInt
+        negative_int: NegativeInt
+        nonnegative_int: NonNegativeInt
+        nonpositive_int: NonPositiveInt
+
+    result = JsonExtractor("start", None, IntegerConstraints, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
+def test_pydantic_float_constraints(snapshot):
+    class FloatConstraints(formatron.schemas.pydantic.ClassSchema):
+        gt_float: typing.Annotated[float, Field(gt=0.0)]
+        ge_float: typing.Annotated[float, Field(ge=0.0)]
+        lt_float: typing.Annotated[float, Field(lt=0.0)]
+        le_float: typing.Annotated[float, Field(le=0.0)]
+        positive_float: PositiveFloat
+        negative_float: NegativeFloat
+        nonnegative_float: NonNegativeFloat
+        nonpositive_float: NonPositiveFloat
+
+    result = JsonExtractor("start", None, FloatConstraints, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
+def test_json_schema_integer_constraints(snapshot):
+    schema = {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://example.com/integer-constraints-schema.json",
+        "type": "object",
+        "properties": {
+            "gt_int": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+            },
+            "ge_int": {
+                "type": "integer",
+                "minimum": 0
+            },
+            "lt_int": {
+                "type": "integer",
+                "exclusiveMaximum": 0
+            },
+            "le_int": {
+                "type": "integer",
+                "maximum": 0
+            },
+        },
+        "required": ["gt_int", "ge_int", "lt_int", "le_int"]
+    }
+    schema = json_schema.create_schema(schema)
+    result = JsonExtractor("start", None, schema, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
+def test_json_schema_number_constraints(snapshot):
+    schema = {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://example.com/number-constraints-schema.json",
+        "type": "object",
+        "properties": {
+            "gt_number": {
+                "type": "number",
+                "exclusiveMinimum": 0
+            },
+            "ge_number": {
+                "type": "number",
+                "minimum": 0
+            },
+            "lt_number": {
+                "type": "number",
+                "exclusiveMaximum": 0
+            },
+            "le_number": {
+                "type": "number",
+                "maximum": 0
+            },
+        },
+        "required": ["gt_number", "ge_number", "lt_number", "le_number"]
+    }
+    schema = json_schema.create_schema(schema)
+    result = JsonExtractor("start", None, schema, lambda x: x).kbnf_definition
     snapshot.assert_match(result)
 
 
@@ -374,7 +460,7 @@ def test_pydantic_class_linked_list(snapshot):
 
 def test_pydantic_callable(snapshot):
     @formatron.schemas.pydantic.callable_schema
-    def foo(a: int, b: typing.Annotated[int, Field(gt=10), "1124"] = 2):
+    def foo(a: int, b: typing.Annotated[int, "1124"] = 2):
         return a + b
 
     result = JsonExtractor("start", None,foo,lambda x:x).kbnf_definition

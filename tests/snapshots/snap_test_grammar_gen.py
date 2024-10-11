@@ -7,8 +7,8 @@ from snapshottest import Snapshot
 
 snapshots = Snapshot()
 
-snapshots['test_infer_mapping 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_infer_mapping 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -36,9 +36,9 @@ start_concepts ::= array_begin (start_concepts_value (comma start_concepts_value
 start_concepts_value ::= string;
 start_related_queries ::= array_begin (start_related_queries_value (comma start_related_queries_value)*)? array_end;
 start_related_queries_value ::= start_related_queries_value_0 | start_related_queries_value_1;
-start_related_queries_value_1 ::= object_begin \'"foo"\' colon start_related_queries_value_1_foo object_end;
-start_related_queries_value_1_foo ::= integer;
-start_related_queries_value_0 ::= string;
+start_related_queries_value_1 ::= string;
+start_related_queries_value_0 ::= object_begin \'"foo"\' colon start_related_queries_value_0_foo object_end;
+start_related_queries_value_0_foo ::= integer;
 start_queries ::= array_begin (start_queries_value (comma start_queries_value)*)? array_end;
 start_queries_value ::= start_queries_value_0 | start_queries_value_1 | start_queries_value_2;
 start_queries_value_2 ::= boolean;
@@ -48,8 +48,8 @@ start_title ::= string;
 start_mode ::= string;
 '''
 
-snapshots['test_json_schema 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_json_schema 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -86,12 +86,70 @@ start_tags_required ::= array_begin (start_tags_required_value (comma start_tags
 start_tags_required_value ::= start_tags_required_value_0 | start_tags_required_value_1;
 start_tags_required_value_1 ::= number;
 start_tags_required_value_0 ::= string;
-start_price ::= number;
+start_price ::= #'0|[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
 start_name ::= start_tags_required_value;
 '''
 
-snapshots['test_pydantic_callable 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_json_schema_integer_constraints 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
+string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"[ \t
+\r]*,[ \t
+\r]*";
+colon ::= #"[ \t
+\r]*:[ \t
+\r]*";
+object_begin ::= #"\\\\{[ \t
+\r]*";
+object_end ::= #"[ \t
+\r]*\\\\}";
+array_begin ::= #"\\\\[[ \t
+\r]*";
+array_end ::= #"[ \t
+\r]*\\\\]";
+start ::= object_begin \'"gt_int"\' colon start_gt_int comma \'"ge_int"\' colon start_ge_int comma \'"lt_int"\' colon start_lt_int comma \'"le_int"\' colon start_le_int object_end;
+start_le_int ::= #'0|-[1-9][0-9]*';
+start_lt_int ::= #'-[1-9][0-9]*';
+start_ge_int ::= #'0|[1-9][0-9]*';
+start_gt_int ::= #'[1-9][0-9]*';
+'''
+
+snapshots['test_json_schema_number_constraints 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
+string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"[ \t
+\r]*,[ \t
+\r]*";
+colon ::= #"[ \t
+\r]*:[ \t
+\r]*";
+object_begin ::= #"\\\\{[ \t
+\r]*";
+object_end ::= #"[ \t
+\r]*\\\\}";
+array_begin ::= #"\\\\[[ \t
+\r]*";
+array_end ::= #"[ \t
+\r]*\\\\]";
+start ::= object_begin \'"gt_number"\' colon start_gt_number comma \'"ge_number"\' colon start_ge_number comma \'"lt_number"\' colon start_lt_number comma \'"le_number"\' colon start_le_number object_end;
+start_le_number ::= #'0|-[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
+start_lt_number ::= #'-[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
+start_ge_number ::= #'0|[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
+start_gt_number ::= #'[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
+'''
+
+snapshots['test_pydantic_callable 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -118,8 +176,8 @@ start_b_required ::= integer;
 start_a ::= integer;
 '''
 
-snapshots['test_pydantic_class 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_pydantic_class 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -164,8 +222,8 @@ start_a ::= start_a_required?;
 start_a_required ::= string;
 '''
 
-snapshots['test_pydantic_class_linked_list 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_pydantic_class_linked_list 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -193,8 +251,74 @@ start_next_0 ::= start;
 start_value ::= integer;
 '''
 
-snapshots['test_pydantic_string_constraints 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_pydantic_float_constraints 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
+string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"[ \t
+\r]*,[ \t
+\r]*";
+colon ::= #"[ \t
+\r]*:[ \t
+\r]*";
+object_begin ::= #"\\\\{[ \t
+\r]*";
+object_end ::= #"[ \t
+\r]*\\\\}";
+array_begin ::= #"\\\\[[ \t
+\r]*";
+array_end ::= #"[ \t
+\r]*\\\\]";
+start ::= object_begin \'"gt_float"\' colon start_gt_float comma \'"ge_float"\' colon start_ge_float comma \'"lt_float"\' colon start_lt_float comma \'"le_float"\' colon start_le_float comma \'"positive_float"\' colon start_positive_float comma \'"negative_float"\' colon start_negative_float comma \'"nonnegative_float"\' colon start_nonnegative_float comma \'"nonpositive_float"\' colon start_nonpositive_float object_end;
+start_nonpositive_float ::= #'0|-[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
+start_nonnegative_float ::= #'0|[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
+start_negative_float ::= #'-[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
+start_positive_float ::= #'[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
+start_le_float ::= #'0|-[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
+start_lt_float ::= #'-[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
+start_ge_float ::= #'0|[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
+start_gt_float ::= #'[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
+'''
+
+snapshots['test_pydantic_integer_constraints 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
+string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"[ \t
+\r]*,[ \t
+\r]*";
+colon ::= #"[ \t
+\r]*:[ \t
+\r]*";
+object_begin ::= #"\\\\{[ \t
+\r]*";
+object_end ::= #"[ \t
+\r]*\\\\}";
+array_begin ::= #"\\\\[[ \t
+\r]*";
+array_end ::= #"[ \t
+\r]*\\\\]";
+start ::= object_begin \'"gt_int"\' colon start_gt_int comma \'"ge_int"\' colon start_ge_int comma \'"lt_int"\' colon start_lt_int comma \'"le_int"\' colon start_le_int comma \'"positive_int"\' colon start_positive_int comma \'"negative_int"\' colon start_negative_int comma \'"nonnegative_int"\' colon start_nonnegative_int comma \'"nonpositive_int"\' colon start_nonpositive_int object_end;
+start_nonpositive_int ::= #'0|-[1-9][0-9]*';
+start_nonnegative_int ::= #'0|[1-9][0-9]*';
+start_negative_int ::= #'-[1-9][0-9]*';
+start_positive_int ::= #'[1-9][0-9]*';
+start_le_int ::= #'0|-[1-9][0-9]*';
+start_lt_int ::= #'-[1-9][0-9]*';
+start_ge_int ::= #'0|[1-9][0-9]*';
+start_gt_int ::= #'[1-9][0-9]*';
+'''
+
+snapshots['test_pydantic_string_constraints 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -222,8 +346,8 @@ start_max_length_str ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnr
 start_min_length_str ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4}){3,}"\';
 '''
 
-snapshots['test_recursive_binary_tree_schema 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_recursive_binary_tree_schema 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -262,8 +386,8 @@ start_left_required ::= start_right_required_left_required;
 start_value ::= number;
 '''
 
-snapshots['test_recursive_linked_list_schema 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_recursive_linked_list_schema 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -293,8 +417,8 @@ start_next_required_value ::= integer;
 start_value ::= integer;
 '''
 
-snapshots['test_schema_with_anchor_reference 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_schema_with_anchor_reference 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -323,8 +447,8 @@ start_referencedObject_subProperty ::= integer;
 start_mainProperty ::= string;
 '''
 
-snapshots['test_schema_with_anyOf_inside_array 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_schema_with_anyOf_inside_array 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -355,8 +479,8 @@ start_items_value_1_name ::= string;
 start_items_value_0 ::= string;
 '''
 
-snapshots['test_schema_with_dynamic_ref 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_schema_with_dynamic_ref 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -401,8 +525,8 @@ start_data ::= start_data_required?;
 start_data_required ::= string;
 '''
 
-snapshots['test_schema_with_embedded_schema 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_schema_with_embedded_schema 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -428,8 +552,8 @@ start_referencedEmbedded ::= object_begin \'"embeddedProperty"\' colon start_ref
 start_referencedEmbedded_embeddedProperty ::= integer;
 '''
 
-snapshots['test_schema_with_reference 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_schema_with_reference 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -459,8 +583,8 @@ start_age ::= integer;
 start_name ::= string;
 '''
 
-snapshots['test_schema_with_reference_to_number 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_schema_with_reference_to_number 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -482,12 +606,12 @@ array_begin ::= #"\\\\[[ \t
 array_end ::= #"[ \t
 \r]*\\\\]";
 start ::= object_begin \'"mainProperty"\' colon start_mainProperty comma \'"numberReference"\' colon start_numberReference object_end;
-start_numberReference ::= number;
+start_numberReference ::= #'0|[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
 start_mainProperty ::= string;
 '''
 
-snapshots['test_schema_with_string_metadata 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_schema_with_string_metadata 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -515,8 +639,8 @@ start_email ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\
 start_username ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4}){3,20}"\';
 '''
 
-snapshots['test_schema_with_top_level_anyOf 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_schema_with_top_level_anyOf 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -546,8 +670,8 @@ start_0_age ::= integer;
 start_0_name ::= string;
 '''
 
-snapshots['test_schema_with_top_level_array 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_schema_with_top_level_array 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";
@@ -576,8 +700,8 @@ start_value_name ::= string;
 start_value_id ::= integer;
 '''
 
-snapshots['test_schema_with_union_array_object 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
-number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+snapshots['test_schema_with_union_array_object 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
 string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
 boolean ::= "true"|"false";
 null ::= "null";

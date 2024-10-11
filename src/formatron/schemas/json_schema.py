@@ -52,6 +52,7 @@ def create_schema(schema: dict[str, typing.Any], registry=Registry()) -> schemas
 
     - `type` keyword
     - `minLength, maxLength, pattern` keywords for string type
+    - `minimum, maximum, exclusiveMinimum, exclusiveMaximum` keywords for number type and integer type
     - `items` keyword
     - `properties` keyword
       - Due to implementation limitations, we always assume `additionalProperties` is false.
@@ -172,6 +173,8 @@ def _infer_type(schema: dict[str, typing.Any], json_schema_id_to_schema: dict[in
             args[i] = _handle_list_metadata(obtained_type, schema, json_schema_id_to_schema)
         elif arg is str:
             args[i] = _handle_str_with_metadata(schema)
+        elif arg is int or arg is float:
+            args[i] = _handle_numeric_with_metadata(schema, arg)
     if typing.get_origin(obtained_type) is typing.Union:
         obtained_type = typing.Union[tuple(args)]
     elif typing.get_origin(obtained_type) is typing.Literal:
@@ -209,6 +212,25 @@ def _handle_str_with_metadata(schema: dict[str, typing.Any]) -> typing.Type:
     if metadata:
         return schemas.schema.TypeWithMetadata(str, metadata)
     return str
+
+def _handle_numeric_with_metadata(schema: dict[str, typing.Any], numeric_type: typing.Type) -> typing.Type:
+    """
+    Handle numeric types (int or float) with metadata such as minimum, maximum, exclusiveMinimum, and exclusiveMaximum.
+    """
+    metadata = {}
+    if "minimum" in schema:
+        metadata["ge"] = schema["minimum"]
+    if "maximum" in schema:
+        metadata["le"] = schema["maximum"]
+    if "exclusiveMinimum" in schema:
+        metadata["gt"] = schema["exclusiveMinimum"]
+    if "exclusiveMaximum" in schema:
+        metadata["lt"] = schema["exclusiveMaximum"]
+    
+    if metadata:
+        return schemas.schema.TypeWithMetadata(numeric_type, metadata)
+    return numeric_type
+
 
 
 def _create_custom_type(schema: dict[str, typing.Any], json_schema_id_to_schema: dict[int, typing.Type]) -> typing.Type:

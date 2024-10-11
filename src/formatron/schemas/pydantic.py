@@ -25,7 +25,7 @@ class FieldInfo(FieldInfo):
         self._annotation = field.annotation
         if field.metadata:
             metadata = {}
-            for constraint in ["min_length", "max_length", "pattern"]:
+            for constraint in ["min_length", "max_length", "pattern", "gt", "ge", "lt", "le"]:
                 value = next((getattr(m, constraint) for m in self._field.metadata if hasattr(m, constraint)), None)
                 if value is not None:
                     metadata[constraint] = value
