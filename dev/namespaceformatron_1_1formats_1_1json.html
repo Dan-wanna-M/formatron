@@ -195,7 +195,7 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The generated KBNF grammar string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00244">244</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00267">267</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
 
 </div>
 </div>
@@ -293,8 +293,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  rf<span class="stringliteral">&quot;&quot;&quot;integer ::= #&quot;-?(0|[1-9]\\d*)&quot;;</span></div>
-<div class="line"><span class="lineno">    2</span><span class="stringliteral">number ::= #&quot;-?(0|[1-9]\\d*)(\\.\\d+)?([eE][+-]?\\d+)?&quot;;</span></div>
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  rf<span class="stringliteral">&quot;&quot;&quot;integer ::= #&quot;-?(0|[1-9][0-9]*)&quot;;</span></div>
+<div class="line"><span class="lineno">    2</span><span class="stringliteral">number ::= #&quot;-?(0|[1-9][0-9]*)(\\.[0-9]+)?([eE][+-]?[0-9]+)?&quot;;</span></div>
 <div class="line"><span class="lineno">    3</span><span class="stringliteral">string ::= #&#39;&quot;([^\\\\&quot;\u0000-\u001f]|\\\\[&quot;\\\\bfnrt/]|\\\\u[0-9A-Fa-f]{{4}})*&quot;&#39;;</span></div>
 <div class="line"><span class="lineno">    4</span><span class="stringliteral">boolean ::= &quot;true&quot;|&quot;false&quot;;</span></div>
 <div class="line"><span class="lineno">    5</span><span class="stringliteral">null ::= &quot;null&quot;;</span></div>

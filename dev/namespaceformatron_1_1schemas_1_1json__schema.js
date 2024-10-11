@@ -8,6 +8,7 @@ var namespaceformatron_1_1schemas_1_1json__schema =
     [ "_handle_anyOf", "namespaceformatron_1_1schemas_1_1json__schema.html#a6f88bf4e3c48d96b060ccdcbd80b3328", null ],
     [ "_handle_list_metadata", "namespaceformatron_1_1schemas_1_1json__schema.html#aa80f28ccaf9ed4b404564f629139f9d1", null ],
     [ "_handle_literal", "namespaceformatron_1_1schemas_1_1json__schema.html#a969bd30894a578428528b94b0f82f1ba", null ],
+    [ "_handle_numeric_with_metadata", "namespaceformatron_1_1schemas_1_1json__schema.html#ad187a02f7616ccbb83c00462996a7fe1", null ],
     [ "_handle_str_with_metadata", "namespaceformatron_1_1schemas_1_1json__schema.html#a32e51b70be50d55d3944e6c700bbd1a5", null ],
     [ "_infer_type", "namespaceformatron_1_1schemas_1_1json__schema.html#ac742e1e581efccb6cc9742e7a23c25c2", null ],
     [ "_merge_key", "namespaceformatron_1_1schemas_1_1json__schema.html#a5fcddd43a5f64374b5b75d4aafeb9135", null ],

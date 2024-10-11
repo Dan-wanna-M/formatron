@@ -161,6 +161,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a32e51b70be50d55d3944e6c700bbd1a5" id="r_a32e51b70be50d55d3944e6c700bbd1a5"><td class="memItemLeft" align="right" valign="top">typing.Type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a32e51b70be50d55d3944e6c700bbd1a5">_handle_str_with_metadata</a> (dict[str, typing.Any] schema)</td></tr>
 <tr class="memdesc:a32e51b70be50d55d3944e6c700bbd1a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle string type with metadata such as maxLength, minLength, and pattern.  <br /></td></tr>
 <tr class="separator:a32e51b70be50d55d3944e6c700bbd1a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad187a02f7616ccbb83c00462996a7fe1" id="r_ad187a02f7616ccbb83c00462996a7fe1"><td class="memItemLeft" align="right" valign="top">typing.Type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad187a02f7616ccbb83c00462996a7fe1">_handle_numeric_with_metadata</a> (dict[str, typing.Any] schema, typing.Type numeric_type)</td></tr>
+<tr class="memdesc:ad187a02f7616ccbb83c00462996a7fe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle numeric types (int or float) with metadata such as minimum, maximum, exclusiveMinimum, and exclusiveMaximum.  <br /></td></tr>
+<tr class="separator:ad187a02f7616ccbb83c00462996a7fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15dc86b65c90ac8423c8989054f8c9e5" id="r_a15dc86b65c90ac8423c8989054f8c9e5"><td class="memItemLeft" align="right" valign="top">typing.Type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15dc86b65c90ac8423c8989054f8c9e5">_create_custom_type</a> (dict[str, typing.Any] schema, dict[int, typing.Type] json_schema_id_to_schema)</td></tr>
 <tr class="separator:a15dc86b65c90ac8423c8989054f8c9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa80f28ccaf9ed4b404564f629139f9d1" id="r_aa80f28ccaf9ed4b404564f629139f9d1"><td class="memItemLeft" align="right" valign="top">typing.Type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa80f28ccaf9ed4b404564f629139f9d1">_handle_list_metadata</a> (typing.Type obtained_type, dict[str, typing.Any] schema, dict[int, typing.Type] json_schema_id_to_schema)</td></tr>
@@ -215,7 +218,7 @@ Variables</h2></td></tr>
 
 <p>Recursively handle all types needed to fully determine the type of a schema. </p>
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00151">151</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00152">152</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -246,7 +249,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00247">247</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00271">271</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -273,7 +276,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00168">168</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00169">169</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -300,7 +303,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00215">215</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00218">218</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -331,7 +334,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00175">175</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00176">176</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -369,7 +372,7 @@ Variables</h2></td></tr>
 
 <p>Handle cases where the obtained type is a list. </p>
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00263">263</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00287">287</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -410,7 +413,40 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00220">220</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00223">223</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+
+</div>
+</div>
+<a id="ad187a02f7616ccbb83c00462996a7fe1" name="ad187a02f7616ccbb83c00462996a7fe1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad187a02f7616ccbb83c00462996a7fe1">&#9670;&#160;</a></span>_handle_numeric_with_metadata()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> typing.Type formatron.schemas.json_schema._handle_numeric_with_metadata </td>
+          <td>(</td>
+          <td class="paramtype">dict[str, typing.Any]</td>          <td class="paramname"><span class="paramname"><em>schema</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">typing.Type</td>          <td class="paramname"><span class="paramname"><em>numeric_type</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handle numeric types (int or float) with metadata such as minimum, maximum, exclusiveMinimum, and exclusiveMaximum. </p>
+
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00254">254</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -439,7 +475,7 @@ Variables</h2></td></tr>
 
 <p>Handle string type with metadata such as maxLength, minLength, and pattern. </p>
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00233">233</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00236">236</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -472,7 +508,7 @@ Variables</h2></td></tr>
 
 <p>Infer more specific types. </p>
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00188">188</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00189">189</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -508,7 +544,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00331">331</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00355">355</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -539,7 +575,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00312">312</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00336">336</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -572,7 +608,7 @@ Variables</h2></td></tr>
 
 <p>Directly obtain type information from this schema's type keyword. </p>
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00275">275</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00299">299</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -613,7 +649,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00350">350</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00374">374</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -646,7 +682,7 @@ Variables</h2></td></tr>
 
 <p>Adapted from <a href="https://github.com/python-jsonschema/referencing/blob/main/referencing/_core.py#L667">https://github.com/python-jsonschema/referencing/blob/main/referencing/_core.py#L667</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00128">128</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00129">129</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -682,7 +718,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00372">372</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00396">396</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -709,7 +745,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00133">133</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00134">134</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>
@@ -737,6 +773,7 @@ Variables</h2></td></tr>
 <ul>
 <li><code>type</code> keyword</li>
 <li><code>minLength, maxLength, pattern</code> keywords for string type</li>
+<li><code>minimum, maximum, exclusiveMinimum, exclusiveMaximum</code> keywords for number type and integer type</li>
 <li><code>items</code> keyword</li>
 <li><code>properties</code> keyword<ul>
 <li>Due to implementation limitations, we always assume <code>additionalProperties</code> is false.</li>
@@ -790,7 +827,7 @@ schemas A Schema object representing the input JSON schema.</dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00110">110</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json__schema_8py_source.html#l00111">111</a> of file <a class="el" href="json__schema_8py_source.html">json_schema.py</a>.</p>
 
 </div>
 </div>

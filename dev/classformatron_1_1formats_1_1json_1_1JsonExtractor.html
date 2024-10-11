@@ -180,7 +180,7 @@ Protected Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An extractor that loads json data to an object from a string. </p>
 
-<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00282">282</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00305">305</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7a51edd3cc7c24370c809d91e07771dc" name="a7a51edd3cc7c24370c809d91e07771dc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7a51edd3cc7c24370c809d91e07771dc">&#9670;&#160;</a></span>__init__()</h2>
@@ -220,11 +220,19 @@ Protected Attributes</h2></td></tr>
 <pre class="fragment">   Currently, the following data types are supported:
 </pre> <div class="fragment"><div class="line">- bool</div>
 <div class="line">- int</div>
-<div class="line">- float</div>
-<div class="line">- str</div>
 </div><!-- fragment --><ul>
-<li>with min_length, max_length and pattern constraints<ul>
-<li>length is measured in UTF-8 character number</li>
+<li>positive int</li>
+<li>negative int</li>
+<li>nonnegative int</li>
+<li>nonpositive int <div class="fragment"><div class="line">- float</div>
+</div><!-- fragment --></li>
+<li>positive float</li>
+<li>negative float</li>
+<li>nonnegative float</li>
+<li>nonpositive float <div class="fragment"><div class="line">- str</div>
+</div><!-- fragment --></li>
+<li>optionally with min_length, max_length and pattern constraints<ul>
+<li>length is measured in UTF-8 character number after json parsing</li>
 <li><em>Warning</em>: too large difference between min_length and max_length can lead to enormous memory consumption!</li>
 <li>pattern is mutually exclusive with min_length and max_length</li>
 <li>pattern will be compiled to a regular expression so all caveats of regular expressions apply</li>
@@ -256,7 +264,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1extractor_1_1NonterminalExtractor.html#a45c14f79c14b539837ebdd26c3b5567b">formatron.extractor.NonterminalExtractor</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00319">319</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00354">354</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
 
 </div>
 </div>
@@ -291,7 +299,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1extractor_1_1Extractor.html#a9efb2a75cf5fc5e0919c235aa1435469">formatron.extractor.Extractor</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00333">333</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00368">368</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
 
 </div>
 </div>
@@ -312,7 +320,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1extractor_1_1Extractor.html#ae9abcfb6c5bae5b352de8a97f94be049">formatron.extractor.Extractor</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00387">387</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00422">422</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
 
 </div>
 </div>
@@ -337,7 +345,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00323">323</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00358">358</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
 
 </div>
 </div>
@@ -361,7 +369,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00322">322</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00357">357</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
 
 </div>
 </div>

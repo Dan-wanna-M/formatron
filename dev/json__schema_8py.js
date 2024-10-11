@@ -8,6 +8,7 @@ var json__schema_8py =
     [ "_handle_anyOf", "json__schema_8py.html#a6f88bf4e3c48d96b060ccdcbd80b3328", null ],
     [ "_handle_list_metadata", "json__schema_8py.html#aa80f28ccaf9ed4b404564f629139f9d1", null ],
     [ "_handle_literal", "json__schema_8py.html#a969bd30894a578428528b94b0f82f1ba", null ],
+    [ "_handle_numeric_with_metadata", "json__schema_8py.html#ad187a02f7616ccbb83c00462996a7fe1", null ],
     [ "_handle_str_with_metadata", "json__schema_8py.html#a32e51b70be50d55d3944e6c700bbd1a5", null ],
     [ "_infer_type", "json__schema_8py.html#ac742e1e581efccb6cc9742e7a23c25c2", null ],
     [ "_merge_key", "json__schema_8py.html#a5fcddd43a5f64374b5b75d4aafeb9135", null ],
