@@ -53,7 +53,7 @@ var NAVTREEINDEX =
 [
 "RWKV_8py.html",
 "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#ac6f22aff80d80035bdd2118feff9f965",
-"regex_8py_source.html"
+"pydantic_8py_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -228,9 +228,13 @@ Protected Attributes</h2></td></tr>
 <li><em>Warning</em>: too large difference between min_length and max_length can lead to enormous memory consumption!</li>
 <li>pattern is mutually exclusive with min_length and max_length</li>
 <li>pattern will be compiled to a regular expression so all caveats of regular expressions apply</li>
-<li>pattern currently is automatically anchored at both ends <div class="fragment"><div class="line">- NoneType</div>
+<li>pattern currently is automatically anchored at both ends</li>
+<li>the generated json could be invalid if the pattern allows invalid content between the json string's quotes.<ul>
+<li>for example, <code>pattern=".*"</code> will allow '"' to appear in the json string which is forbidden by JSON standard. <div class="fragment"><div class="line">- NoneType</div>
 <div class="line">- typing.Any</div>
 </div><!-- fragment --></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -252,7 +256,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1extractor_1_1NonterminalExtractor.html#a45c14f79c14b539837ebdd26c3b5567b">formatron.extractor.NonterminalExtractor</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00317">317</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00319">319</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
 
 </div>
 </div>
@@ -287,7 +291,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1extractor_1_1Extractor.html#a9efb2a75cf5fc5e0919c235aa1435469">formatron.extractor.Extractor</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00331">331</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00333">333</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
 
 </div>
 </div>
@@ -308,7 +312,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classformatron_1_1extractor_1_1Extractor.html#ae9abcfb6c5bae5b352de8a97f94be049">formatron.extractor.Extractor</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00385">385</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00387">387</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
 
 </div>
 </div>
@@ -333,7 +337,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00321">321</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00323">323</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
 
 </div>
 </div>
@@ -357,7 +361,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00320">320</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="json_8py_source.html#l00322">322</a> of file <a class="el" href="json_8py_source.html">json.py</a>.</p>
 
 </div>
 </div>
