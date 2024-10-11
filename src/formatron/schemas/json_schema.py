@@ -63,6 +63,7 @@ def create_schema(schema: dict[str, typing.Any], registry=Registry()) -> schemas
     - Schema references ($ref and $dynamicRef)
       - Hence, all types of schema identifications(`$defs`, `$id`, `$anchor`, `$dynamicAnchor`) are supported.
       - This includes recursive schema references.
+        - Recursive array references(like \[\[\[\[...\]\]\]\]) are not supported yet.
       - Due to implementation limitations, duplicate constraint keywords in both referrers and referents are not allowed.
         - This bound is expected to be loosened in future versions of Formatron where "easily mergeable" constraint keywords will be merged.    
         
