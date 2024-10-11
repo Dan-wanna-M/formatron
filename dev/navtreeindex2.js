@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"regex_8py_source.html":[2,0,0,0,0,2],
+"schema_8py.html":[2,0,0,0,2,4],
 "schema_8py_source.html":[2,0,0,0,2,4],
 "schemas_2____init_____8py.html":[2,0,0,0,2,0],
 "schemas_2____init_____8py_source.html":[2,0,0,0,2,0],

@@ -6,6 +6,7 @@ var namespaceformatron_1_1schemas_1_1json__schema =
     [ "_extract_fields_from_object_type", "namespaceformatron_1_1schemas_1_1json__schema.html#af20251afc012b955e29c92922fcc83ef", null ],
     [ "_get_literal", "namespaceformatron_1_1schemas_1_1json__schema.html#a096ea829025ebd26b9ae165c17cf8976", null ],
     [ "_handle_anyOf", "namespaceformatron_1_1schemas_1_1json__schema.html#a6f88bf4e3c48d96b060ccdcbd80b3328", null ],
+    [ "_handle_list_and_union", "namespaceformatron_1_1schemas_1_1json__schema.html#aa83ea66f3e98cec63e9ff7d2788345af", null ],
     [ "_handle_literal", "namespaceformatron_1_1schemas_1_1json__schema.html#a969bd30894a578428528b94b0f82f1ba", null ],
     [ "_infer_type", "namespaceformatron_1_1schemas_1_1json__schema.html#ac742e1e581efccb6cc9742e7a23c25c2", null ],
     [ "_merge_key", "namespaceformatron_1_1schemas_1_1json__schema.html#a5fcddd43a5f64374b5b75d4aafeb9135", null ],
