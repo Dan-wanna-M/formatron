@@ -51,6 +51,7 @@ def create_schema(schema: dict[str, typing.Any], registry=Registry()) -> schemas
     for data validation and serialization. Currently, only the following JSON Schema features are supported:
 
     - `type` keyword
+    - `minLength, maxLength, pattern` keywords for string type
     - `items` keyword
     - `properties` keyword
       - Due to implementation limitations, we always assume `additionalProperties` is false.
@@ -157,12 +158,26 @@ def _infer_type(schema: dict[str, typing.Any], json_schema_id_to_schema: dict[in
     if "anyOf" in schema:
         return _handle_anyOf(schema, json_schema_id_to_schema)
     obtained_type = _obtain_type(schema, json_schema_id_to_schema)
-    args = typing.get_args(obtained_type)
     if obtained_type is None:
         obtained_type = typing.Union[str, float, int, bool, None, list[typing.Any]]
-    if obtained_type is object or object in args:
-        obtained_type = _create_custom_type(obtained_type, schema, json_schema_id_to_schema)
-    obtained_type = _handle_list_and_union(obtained_type, schema, json_schema_id_to_schema)
+    args = typing.get_args(obtained_type)
+    if not args:
+        args = [obtained_type]
+    else:
+        args = list(args)
+    for i, arg in enumerate(args):
+        if arg is object:
+            args[i] = _create_custom_type(schema, json_schema_id_to_schema)
+        elif arg is list:
+            args[i] = _handle_list_metadata(obtained_type, schema, json_schema_id_to_schema)
+        elif arg is str:
+            args[i] = _handle_str_with_metadata(schema)
+    if typing.get_origin(obtained_type) is typing.Union:
+        obtained_type = typing.Union[tuple(args)]
+    elif typing.get_origin(obtained_type) is typing.Literal:
+        obtained_type = typing.Literal[tuple(args)]
+    else:
+        obtained_type = args[0]
     json_schema_id_to_schema[id(schema)] = obtained_type
     return obtained_type
 
@@ -179,7 +194,24 @@ def _handle_literal(literal: typing.Any, obtained_type: typing.Type, schema: dic
     literal_type = typing.Literal[literal]
     return literal_type
 
-def _create_custom_type(obtained_type: typing.Type|None, schema: dict[str, typing.Any], json_schema_id_to_schema: dict[int, typing.Type]) -> typing.Type:
+def _handle_str_with_metadata(schema: dict[str, typing.Any]) -> typing.Type:
+    """
+    Handle string type with metadata such as maxLength, minLength, and pattern.
+    """
+    metadata = {}
+    if "maxLength" in schema:
+        metadata["max_length"] = schema["maxLength"]
+    if "minLength" in schema:
+        metadata["min_length"] = schema["minLength"]
+    if "pattern" in schema:
+        metadata["pattern"] = schema["pattern"]
+    
+    if metadata:
+        return schemas.schema.TypeWithMetadata(str, metadata)
+    return str
+
+
+def _create_custom_type(schema: dict[str, typing.Any], json_schema_id_to_schema: dict[int, typing.Type]) -> typing.Type:
     global _counter
     fields = {}
     new_type = type(f"__json_schema_{_counter}", (schemas.schema.Schema,), {
@@ -187,26 +219,16 @@ def _create_custom_type(obtained_type: typing.Type|None, schema: dict[str, typin
         "fields": classmethod(lambda cls: fields)
     })
     _counter += 1
-    
-    if object in typing.get_args(obtained_type):
-        json_schema_id_to_schema[id(schema)] = typing.Union[tuple(item for item in typing.get_args(obtained_type) if item is not object)+(new_type,)]
-    else:
-        json_schema_id_to_schema[id(schema)] = new_type
-    return json_schema_id_to_schema[id(schema)]
+    json_schema_id_to_schema[id(schema)] = new_type
+    return new_type
 
-def _handle_list_and_union(obtained_type: typing.Type, schema: dict[str, typing.Any], json_schema_id_to_schema: dict[int, typing.Type]) -> typing.Type:
+def _handle_list_metadata(obtained_type: typing.Type, schema: dict[str, typing.Any], json_schema_id_to_schema: dict[int, typing.Type]) -> typing.Type:
     """
-    Handle cases where the obtained type is a list or a union containing a list.
+    Handle cases where the obtained type is a list
     """
-    if obtained_type is list or (typing.get_origin(obtained_type) is typing.Union and list in typing.get_args(obtained_type)):
-        if "items" in schema:
-            item_type = _convert_json_schema_to_our_schema(schema["items"], json_schema_id_to_schema)
-            if obtained_type is list:
-                return list[item_type]
-            else:
-                args = typing.get_args(obtained_type)
-                new_args = tuple(list[item_type] if arg is list else arg for arg in args)
-                return typing.Union[new_args]
+    if "items" in schema:
+        item_type = _convert_json_schema_to_our_schema(schema["items"], json_schema_id_to_schema)
+        return list[item_type]
     return obtained_type
 
 

@@ -292,6 +292,8 @@ class JsonExtractor(extractor.NonterminalExtractor):
             - pattern is mutually exclusive with min_length and max_length
             - pattern will be compiled to a regular expression so all caveats of regular expressions apply
             - pattern currently is automatically anchored at both ends
+            - the generated json could be invalid if the pattern allows invalid content between the json string's quotes.
+              - for example, `pattern=".*"` will allow '\"' to appear in the json string which is forbidden by JSON standard.
         - NoneType
         - typing.Any
         - Subclasses of collections.abc.Mapping[str,T] and typing.Mapping[str,T] where T is a supported type,

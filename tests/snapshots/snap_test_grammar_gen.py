@@ -36,9 +36,9 @@ start_concepts ::= array_begin (start_concepts_value (comma start_concepts_value
 start_concepts_value ::= string;
 start_related_queries ::= array_begin (start_related_queries_value (comma start_related_queries_value)*)? array_end;
 start_related_queries_value ::= start_related_queries_value_0 | start_related_queries_value_1;
-start_related_queries_value_1 ::= string;
-start_related_queries_value_0 ::= object_begin \'"foo"\' colon start_related_queries_value_0_foo object_end;
-start_related_queries_value_0_foo ::= integer;
+start_related_queries_value_1 ::= object_begin \'"foo"\' colon start_related_queries_value_1_foo object_end;
+start_related_queries_value_1_foo ::= integer;
+start_related_queries_value_0 ::= string;
 start_queries ::= array_begin (start_queries_value (comma start_queries_value)*)? array_end;
 start_queries_value ::= start_queries_value_0 | start_queries_value_1 | start_queries_value_2;
 start_queries_value_2 ::= boolean;
@@ -484,6 +484,35 @@ array_end ::= #"[ \t
 start ::= object_begin \'"mainProperty"\' colon start_mainProperty comma \'"numberReference"\' colon start_numberReference object_end;
 start_numberReference ::= number;
 start_mainProperty ::= string;
+'''
+
+snapshots['test_schema_with_string_metadata 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";
+number ::= #"-?(0|[1-9]\\\\d*)(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?";
+string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"[ \t
+\r]*,[ \t
+\r]*";
+colon ::= #"[ \t
+\r]*:[ \t
+\r]*";
+object_begin ::= #"\\\\{[ \t
+\r]*";
+object_end ::= #"[ \t
+\r]*\\\\}";
+array_begin ::= #"\\\\[[ \t
+\r]*";
+array_end ::= #"[ \t
+\r]*\\\\]";
+start ::= object_begin \'"username"\' colon start_username comma \'"email"\' colon start_email comma \'"description"\' colon start_description comma \'"password"\' colon start_password object_end;
+start_password ::= #\'".*[A-Za-z].*"\';
+start_description ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4}){0,200}"\';
+start_email ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4}){3,}"\';
+start_username ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4}){3,20}"\';
 '''
 
 snapshots['test_schema_with_top_level_anyOf 1'] = '''integer ::= #"-?(0|[1-9]\\\\d*)";

@@ -303,6 +303,38 @@ def test_schema_with_top_level_anyOf(snapshot):
     result = JsonExtractor("start", None, combined_schema, lambda x: x).kbnf_definition
     snapshot.assert_match(result)
 
+def test_schema_with_string_metadata(snapshot):
+    schema = {
+        "$id": "https://example.com/schemas/string-with-metadata.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+            "username": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 20,
+            },
+            "email": {
+                "type": "string",
+                "minLength": 3
+            },
+            "description": {
+                "type": "string",
+                "maxLength": 200
+            },
+            "password": {
+                "type": "string",
+                "pattern": ".*[A-Za-z].*"
+            }
+        },
+        "required": ["username", "email", "description", "password"]
+    }
+
+    combined_schema = json_schema.create_schema(schema)
+    result = JsonExtractor("start", None, combined_schema, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
+
 def test_schema_with_anyOf_inside_array(snapshot):
     schema = {
         "$id": "https://example.com/schemas/anyOf-inside-array.json",
