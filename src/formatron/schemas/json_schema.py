@@ -250,6 +250,13 @@ def _handle_list_metadata(obtained_type: typing.Type, schema: dict[str, typing.A
     """
     if "items" in schema:
         item_type = _convert_json_schema_to_our_schema(schema["items"], json_schema_id_to_schema)
+        metadata = {}
+        if "minItems" in schema:
+            metadata["min_length"] = schema["minItems"]
+        if "maxItems" in schema:
+            metadata["max_length"] = schema["maxItems"]
+        if metadata:
+            return schemas.schema.TypeWithMetadata(list, metadata)
         return list[item_type]
     return obtained_type
 

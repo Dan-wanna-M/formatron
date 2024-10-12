@@ -70,6 +70,20 @@ def test_pydantic_float_constraints(snapshot):
     result = JsonExtractor("start", None, FloatConstraints, lambda x: x).kbnf_definition
     snapshot.assert_match(result)
 
+def test_pydantic_sequence_constraints(snapshot):
+    class SequenceConstraints(formatron.schemas.pydantic.ClassSchema):
+        min_2_list: typing.Annotated[typing.List[int], Field(min_length=2)]
+        max_5_list: typing.Annotated[typing.List[str], Field(max_length=5)]
+        min_1_max_3_list: typing.Annotated[typing.List[float], Field(min_length=1, max_length=3)]
+        min_2_tuple: typing.Annotated[typing.Tuple[int, ...], Field(min_length=2)]
+        max_5_tuple: typing.Annotated[typing.Tuple[str, ...], Field(max_length=5)]
+        min_1_max_3_tuple: typing.Annotated[typing.Tuple[float, ...], Field(min_length=1, max_length=3)]
+        empty_list: typing.Annotated[typing.List[typing.Any], Field(min_length=0)]
+
+    result = JsonExtractor("start", None, SequenceConstraints, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
+
 def test_json_schema_integer_constraints(snapshot):
     schema = {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -123,6 +137,35 @@ def test_json_schema_number_constraints(snapshot):
             },
         },
         "required": ["gt_number", "ge_number", "lt_number", "le_number"]
+    }
+    schema = json_schema.create_schema(schema)
+    result = JsonExtractor("start", None, schema, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
+def test_json_schema_array_min_max_items_constraints(snapshot):
+    schema = {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://example.com/array-constraints-schema.json",
+        "type": "object",
+        "properties": {
+            "min_items_array": {
+                "type": "array",
+                "items": {"type": "string"},
+                "minItems": 2
+            },
+            "max_items_array": {
+                "type": "array",
+                "items": {"type": "number"},
+                "maxItems": 3
+            },
+            "min_max_items_array": {
+                "type": "array",
+                "items": {"type": "boolean"},
+                "minItems": 1,
+                "maxItems": 4
+            },
+        },
+        "required": ["min_items_array", "max_items_array", "min_max_items_array"]
     }
     schema = json_schema.create_schema(schema)
     result = JsonExtractor("start", None, schema, lambda x: x).kbnf_definition

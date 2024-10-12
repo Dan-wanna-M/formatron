@@ -115,23 +115,91 @@ def _register_all_predefined_types():
                     return f"""{nonterminal} ::= #'{prefix}[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';\n""", []
         
         raise ValueError(f"{current.type.__name__} metadata {current.metadata} is not supported in json_generators!")
+    
+    def sequence_metadata(current: typing.Type, nonterminal: str):
+        min_items = current.metadata.get("min_length")
+        max_items = current.metadata.get("max_length")
+        if min_items is not None or max_items is not None:
+            new_nonterminal = f"{nonterminal}_item"
+            ebnf_rules = []
+            
+            if min_items is None:
+                min_items = 0
+            if min_items == 0 and max_items is None: # no special handling needed
+                return "", [(current.type, new_nonterminal)]
+            if max_items is None:
+                min_items_part = ' comma '.join([new_nonterminal] * (min_items - 1))
+                ebnf_rules.append(f"{nonterminal} ::= array_begin {min_items_part} comma {new_nonterminal}+ array_end;")
+            elif min_items == 0:
+                for i in range(min_items, max_items + 1):
+                    items = ' comma '.join([new_nonterminal] * i)
+                    ebnf_rules.append(f"{nonterminal} ::= array_begin {items} array_end;")
+            else:
+                min_items_part = ' comma '.join([new_nonterminal] * min_items)
+                ebnf_rules.append(f"{nonterminal}_min ::= {min_items_part};")
+                for i in range(1, max_items + 1 - min_items):
+                    items = ' comma '.join([new_nonterminal] * i)
+                    ebnf_rules.append(f"{nonterminal} ::= array_begin {nonterminal}_min comma {items} array_end;")
+            # Handle the item type
+            args = typing.get_args(current.type)
+            if args:
+                item_type = args[0]
+            else:
+                # If args is empty, default to Any
+                item_type = typing.Any
+            return "\n".join(ebnf_rules) + "\n", [(item_type, new_nonterminal)]
+        return None
+    
+    def is_sequence_like(current: typing.Type) -> bool:
+        """
+        Check if the given type is sequence-like.
+
+        This function returns True for:
+        - typing.Sequence
+        - typing.List
+        - typing.Tuple
+        - Any subclass of collections.abc.Sequence
+        - list
+        - tuple
+
+        Args:
+            current: The type to check.
+
+        Returns:
+            bool: True if the type is sequence-like, False otherwise.
+        """
+        original = typing.get_origin(current)
+        if original is None:
+            original = current
+        return (
+            original is typing.Sequence or
+            original is typing.List or
+            original is typing.Tuple or
+            (isinstance(original, type) and (issubclass(original, collections.abc.Sequence) or
+            issubclass(original, list) or
+            issubclass(original, tuple)))
+        )
 
     def metadata(current: typing.Type, nonterminal: str):
         if isinstance(current, schemas.schema.TypeWithMetadata):
+            original = typing.get_origin(current.type)
+            if original is None:
+                original = current.type
             if not current.metadata:
                 return "", [(current.type, nonterminal)]
             if isinstance(current.type, type) and issubclass(current.type, str):
                 return string_metadata(current, nonterminal)
             elif isinstance(current.type, type) and issubclass(current.type, (int, float)):
                 return number_metadata(current, nonterminal)
+            elif is_sequence_like(original):
+                return sequence_metadata(current, nonterminal)
         return None
 
-    def builtin_list(current: typing.Type, nonterminal: str):
+    def builtin_sequence(current: typing.Type, nonterminal: str):
         original = typing.get_origin(current)
         if original is None:
             original = current
-        if original is typing.Sequence or isinstance(original, type) \
-                and issubclass(original, collections.abc.Sequence):
+        if is_sequence_like(original):
             new_nonterminal = f"{nonterminal}_value"
             annotation = typing.get_args(current)
             if not annotation:
@@ -245,7 +313,7 @@ def _register_all_predefined_types():
     register_generate_nonterminal_def(builtin_tuple)
     register_generate_nonterminal_def(builtin_literal)
     register_generate_nonterminal_def(builtin_union)
-    register_generate_nonterminal_def(builtin_list)
+    register_generate_nonterminal_def(builtin_sequence)
     register_generate_nonterminal_def(builtin_dict)
 
 def _generate_kbnf_grammar(schema: schemas.schema.Schema|collections.abc.Sequence, start_nonterminal: str) -> str:

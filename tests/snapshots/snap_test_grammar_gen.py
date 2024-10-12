@@ -82,12 +82,49 @@ start_category_4_0 ::= "\\"114\\"";
 start_inStock ::= start_inStock_required?;
 start_inStock_required ::= boolean;
 start_tags ::= start_tags_required?;
-start_tags_required ::= array_begin (start_tags_required_value (comma start_tags_required_value)*)? array_end;
-start_tags_required_value ::= start_tags_required_value_0 | start_tags_required_value_1;
-start_tags_required_value_1 ::= number;
-start_tags_required_value_0 ::= string;
+start_tags_required ::= array_begin  comma start_tags_required_item+ array_end;
+start_tags_required_item ::= json_value;
 start_price ::= #'0|[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';
-start_name ::= start_tags_required_value;
+start_name ::= start_name_0 | start_name_1;
+start_name_1 ::= number;
+start_name_0 ::= string;
+'''
+
+snapshots['test_json_schema_array_min_max_items_constraints 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
+string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"[ \t
+\r]*,[ \t
+\r]*";
+colon ::= #"[ \t
+\r]*:[ \t
+\r]*";
+object_begin ::= #"\\\\{[ \t
+\r]*";
+object_end ::= #"[ \t
+\r]*\\\\}";
+array_begin ::= #"\\\\[[ \t
+\r]*";
+array_end ::= #"[ \t
+\r]*\\\\]";
+start ::= object_begin \'"min_items_array"\' colon start_min_items_array comma \'"max_items_array"\' colon start_max_items_array comma \'"min_max_items_array"\' colon start_min_max_items_array object_end;
+start_min_max_items_array_min ::= start_min_max_items_array_item;
+start_min_max_items_array ::= array_begin start_min_max_items_array_min comma start_min_max_items_array_item array_end;
+start_min_max_items_array ::= array_begin start_min_max_items_array_min comma start_min_max_items_array_item comma start_min_max_items_array_item array_end;
+start_min_max_items_array ::= array_begin start_min_max_items_array_min comma start_min_max_items_array_item comma start_min_max_items_array_item comma start_min_max_items_array_item array_end;
+start_min_max_items_array_item ::= json_value;
+start_max_items_array ::= array_begin  array_end;
+start_max_items_array ::= array_begin start_max_items_array_item array_end;
+start_max_items_array ::= array_begin start_max_items_array_item comma start_max_items_array_item array_end;
+start_max_items_array ::= array_begin start_max_items_array_item comma start_max_items_array_item comma start_max_items_array_item array_end;
+start_max_items_array_item ::= start_min_max_items_array_item;
+start_min_items_array ::= array_begin start_min_items_array_item comma start_min_items_array_item+ array_end;
+start_min_items_array_item ::= start_min_max_items_array_item;
 '''
 
 snapshots['test_json_schema_integer_constraints 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
@@ -315,6 +352,59 @@ start_le_int ::= #'0|-[1-9][0-9]*';
 start_lt_int ::= #'-[1-9][0-9]*';
 start_ge_int ::= #'0|[1-9][0-9]*';
 start_gt_int ::= #'[1-9][0-9]*';
+'''
+
+snapshots['test_pydantic_sequence_constraints 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
+string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"[ \t
+\r]*,[ \t
+\r]*";
+colon ::= #"[ \t
+\r]*:[ \t
+\r]*";
+object_begin ::= #"\\\\{[ \t
+\r]*";
+object_end ::= #"[ \t
+\r]*\\\\}";
+array_begin ::= #"\\\\[[ \t
+\r]*";
+array_end ::= #"[ \t
+\r]*\\\\]";
+start ::= object_begin \'"min_2_list"\' colon start_min_2_list comma \'"max_5_list"\' colon start_max_5_list comma \'"min_1_max_3_list"\' colon start_min_1_max_3_list comma \'"min_2_tuple"\' colon start_min_2_tuple comma \'"max_5_tuple"\' colon start_max_5_tuple comma \'"min_1_max_3_tuple"\' colon start_min_1_max_3_tuple comma \'"empty_list"\' colon start_empty_list object_end;
+start_empty_list_item ::= array_begin (start_empty_list_item_value (comma start_empty_list_item_value)*)? array_end;
+start_empty_list_item_value ::= json_value;
+start_min_1_max_3_tuple_min ::= start_min_1_max_3_tuple_item;
+start_min_1_max_3_tuple ::= array_begin start_min_1_max_3_tuple_min comma start_min_1_max_3_tuple_item array_end;
+start_min_1_max_3_tuple ::= array_begin start_min_1_max_3_tuple_min comma start_min_1_max_3_tuple_item comma start_min_1_max_3_tuple_item array_end;
+start_min_1_max_3_tuple_item ::= number;
+start_max_5_tuple ::= array_begin  array_end;
+start_max_5_tuple ::= array_begin start_max_5_tuple_item array_end;
+start_max_5_tuple ::= array_begin start_max_5_tuple_item comma start_max_5_tuple_item array_end;
+start_max_5_tuple ::= array_begin start_max_5_tuple_item comma start_max_5_tuple_item comma start_max_5_tuple_item array_end;
+start_max_5_tuple ::= array_begin start_max_5_tuple_item comma start_max_5_tuple_item comma start_max_5_tuple_item comma start_max_5_tuple_item array_end;
+start_max_5_tuple ::= array_begin start_max_5_tuple_item comma start_max_5_tuple_item comma start_max_5_tuple_item comma start_max_5_tuple_item comma start_max_5_tuple_item array_end;
+start_max_5_tuple_item ::= string;
+start_min_2_tuple ::= array_begin start_min_2_tuple_item comma start_min_2_tuple_item+ array_end;
+start_min_2_tuple_item ::= integer;
+start_min_1_max_3_list_min ::= start_min_1_max_3_list_item;
+start_min_1_max_3_list ::= array_begin start_min_1_max_3_list_min comma start_min_1_max_3_list_item array_end;
+start_min_1_max_3_list ::= array_begin start_min_1_max_3_list_min comma start_min_1_max_3_list_item comma start_min_1_max_3_list_item array_end;
+start_min_1_max_3_list_item ::= number;
+start_max_5_list ::= array_begin  array_end;
+start_max_5_list ::= array_begin start_max_5_list_item array_end;
+start_max_5_list ::= array_begin start_max_5_list_item comma start_max_5_list_item array_end;
+start_max_5_list ::= array_begin start_max_5_list_item comma start_max_5_list_item comma start_max_5_list_item array_end;
+start_max_5_list ::= array_begin start_max_5_list_item comma start_max_5_list_item comma start_max_5_list_item comma start_max_5_list_item array_end;
+start_max_5_list ::= array_begin start_max_5_list_item comma start_max_5_list_item comma start_max_5_list_item comma start_max_5_list_item comma start_max_5_list_item array_end;
+start_max_5_list_item ::= string;
+start_min_2_list ::= array_begin start_min_2_list_item comma start_min_2_list_item+ array_end;
+start_min_2_list_item ::= integer;
 '''
 
 snapshots['test_pydantic_string_constraints 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
@@ -692,12 +782,8 @@ array_begin ::= #"\\\\[[ \t
 \r]*";
 array_end ::= #"[ \t
 \r]*\\\\]";
-start ::= array_begin (start_value (comma start_value)*)? array_end;
-start_value ::= object_begin \'"id"\' colon start_value_id comma \'"name"\' colon start_value_name comma \'"active"\' colon start_value_active object_end;
-start_value_active ::= start_value_active_required?;
-start_value_active_required ::= boolean;
-start_value_name ::= string;
-start_value_id ::= integer;
+start ::= array_begin  comma start_item+ array_end;
+start_item ::= json_value;
 '''
 
 snapshots['test_schema_with_union_array_object 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
