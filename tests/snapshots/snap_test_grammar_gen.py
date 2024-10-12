@@ -122,9 +122,65 @@ start_max_items_array ::= array_begin  array_end;
 start_max_items_array ::= array_begin start_max_items_array_item array_end;
 start_max_items_array ::= array_begin start_max_items_array_item comma start_max_items_array_item array_end;
 start_max_items_array ::= array_begin start_max_items_array_item comma start_max_items_array_item comma start_max_items_array_item array_end;
-start_max_items_array_item ::= start_min_max_items_array_item;
+start_max_items_array_item ::= json_value;
 start_min_items_array ::= array_begin start_min_items_array_item comma start_min_items_array_item+ array_end;
-start_min_items_array_item ::= start_min_max_items_array_item;
+start_min_items_array_item ::= json_value;
+'''
+
+snapshots['test_json_schema_array_prefix_items 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
+string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"[ \t
+\r]*,[ \t
+\r]*";
+colon ::= #"[ \t
+\r]*:[ \t
+\r]*";
+object_begin ::= #"\\\\{[ \t
+\r]*";
+object_end ::= #"[ \t
+\r]*\\\\}";
+array_begin ::= #"\\\\[[ \t
+\r]*";
+array_end ::= #"[ \t
+\r]*\\\\]";
+start ::= object_begin \'"2_5_prefix_items"\' colon start_2_5_prefix_items comma \'"1_4_prefix_items"\' colon start_1_4_prefix_items comma \'"3__prefix_items"\' colon start_3__prefix_items comma \'"0_4_prefix_items"\' colon start_0_4_prefix_items comma \'"simple_prefix_items"\' colon start_simple_prefix_items object_end;
+start_simple_prefix_items ::= array_begin array_end;
+start_simple_prefix_items ::= array_begin start_simple_prefix_items_item_0 (comma start_simple_prefix_items_item)* array_end;
+start_simple_prefix_items_item ::= json_value;
+start_simple_prefix_items_item_0 ::= string;
+start_0_4_prefix_items ::= array_begin array_end;
+start_0_4_prefix_items ::= array_begin start_0_4_prefix_items_item_0 array_end;
+start_0_4_prefix_items_min ::= start_0_4_prefix_items_item_0;
+start_0_4_prefix_items ::= array_begin start_0_4_prefix_items_min comma start_0_4_prefix_items_item array_end;
+start_0_4_prefix_items ::= array_begin start_0_4_prefix_items_min comma start_0_4_prefix_items_item comma start_0_4_prefix_items_item array_end;
+start_0_4_prefix_items ::= array_begin start_0_4_prefix_items_min comma start_0_4_prefix_items_item comma start_0_4_prefix_items_item comma start_0_4_prefix_items_item array_end;
+start_0_4_prefix_items_item ::= json_value;
+start_0_4_prefix_items_item_0 ::= string;
+start_3__prefix_items ::= array_begin start_3__prefix_items_item_0 comma start_3__prefix_items_item_1  comma start_3__prefix_items_item+ array_end;
+start_3__prefix_items_item ::= json_value;
+start_3__prefix_items_item_1 ::= number;
+start_3__prefix_items_item_0 ::= string;
+start_1_4_prefix_items ::= array_begin start_1_4_prefix_items_item_0 array_end;
+start_1_4_prefix_items ::= array_begin start_1_4_prefix_items_item_0 comma start_1_4_prefix_items_item_1 array_end;
+start_1_4_prefix_items_min ::= start_1_4_prefix_items_item_0 comma start_1_4_prefix_items_item_1;
+start_1_4_prefix_items ::= array_begin start_1_4_prefix_items_min comma start_1_4_prefix_items_item array_end;
+start_1_4_prefix_items ::= array_begin start_1_4_prefix_items_min comma start_1_4_prefix_items_item comma start_1_4_prefix_items_item array_end;
+start_1_4_prefix_items_item ::= json_value;
+start_1_4_prefix_items_item_1 ::= number;
+start_1_4_prefix_items_item_0 ::= string;
+start_2_5_prefix_items ::= array_begin start_2_5_prefix_items_item_0 comma start_2_5_prefix_items_item_1 array_end;
+start_2_5_prefix_items ::= array_begin start_2_5_prefix_items_item_0 comma start_2_5_prefix_items_item_1 comma start_2_5_prefix_items_item_2 array_end;
+start_2_5_prefix_items_min ::= start_2_5_prefix_items_item_0 comma start_2_5_prefix_items_item_1 comma start_2_5_prefix_items_item_2;
+start_2_5_prefix_items_item ::= json_value;
+start_2_5_prefix_items_item_2 ::= boolean;
+start_2_5_prefix_items_item_1 ::= number;
+start_2_5_prefix_items_item_0 ::= string;
 '''
 
 snapshots['test_json_schema_integer_constraints 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
@@ -245,9 +301,9 @@ start_f_1 ::= integer;
 start_f_0 ::= boolean;
 start_e ::=array_begin start_e_0 comma start_e_1 comma start_e_2 comma start_e_3 comma start_e_4 array_end;
 start_e_4 ::= object_begin (string colon start_e_4_value (comma string colon start_e_4_value)*)? object_end;
-start_e_4_value ::= start_f_2;
+start_e_4_value ::= json_value;
 start_e_3 ::= object_begin (string colon start_e_3_value (comma string colon start_e_3_value)*)? object_end;
-start_e_3_value ::= start_f_2;
+start_e_3_value ::= json_value;
 start_e_2 ::= number;
 start_e_1 ::= string;
 start_e_0 ::= array_begin (start_e_0_value (comma start_e_0_value)*)? array_end;

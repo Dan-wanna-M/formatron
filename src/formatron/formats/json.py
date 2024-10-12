@@ -119,27 +119,67 @@ def _register_all_predefined_types():
     def sequence_metadata(current: typing.Type, nonterminal: str):
         min_items = current.metadata.get("min_length")
         max_items = current.metadata.get("max_length")
-        if min_items is not None or max_items is not None:
+        prefix_items = current.metadata.get("prefix_items")
+        additional_items = current.metadata.get("additional_items")
+        if max_items is not None and prefix_items is not None and max_items <= len(prefix_items): # truncate prefix items
+            prefix_items = prefix_items[:max_items+1]
+        if prefix_items:
+            if not min_items: # json schema defaults to 0
+                min_items = 0
+            if not additional_items:
+                if min_items > len(prefix_items):
+                    raise ValueError(f"min_items {min_items} is greater than the number of prefix_items {len(prefix_items)} and additional_items is not allowed")
+                max_items = len(prefix_items)
+        if min_items is not None or max_items is not None: # prefix items will set min
             new_nonterminal = f"{nonterminal}_item"
             ebnf_rules = []
-            
             if min_items is None:
                 min_items = 0
-            if min_items == 0 and max_items is None: # no special handling needed
+            if min_items == 0 and max_items is None and prefix_items is None: # no special handling needed
                 return "", [(current.type, new_nonterminal)]
-            if max_items is None:
-                min_items_part = ' comma '.join([new_nonterminal] * (min_items - 1))
-                ebnf_rules.append(f"{nonterminal} ::= array_begin {min_items_part} comma {new_nonterminal}+ array_end;")
-            elif min_items == 0:
+            prefix_items_nonterminals = [f"{new_nonterminal}_{i}" for i in range(len(prefix_items))] if prefix_items else []
+            prefix_items_parts = [] # contains the sequence of nonterminals for prefix items from min_items to len(prefix_items)
+            if prefix_items is not None:
+                for i in range(max(min_items,1), len(prefix_items)+1):
+                    prefix_items_parts.append(prefix_items_nonterminals[:i])
+                if min_items == 0:
+                    ebnf_rules.append(f"{nonterminal} ::= array_begin array_end;")
+            if max_items is None: # unbounded
+                if not prefix_items:
+                    min_items_part = ' comma '.join([new_nonterminal] * (min_items - 1))
+                    ebnf_rules.append(f"{nonterminal} ::= array_begin {min_items_part} comma {new_nonterminal}+ array_end;")
+                elif len(prefix_items_parts) >= min_items:
+                    for prefix_items_part in prefix_items_parts:
+                        prefix_items_part = ' comma '.join(prefix_items_part)
+                    ebnf_rules.append(f"{nonterminal} ::= array_begin {prefix_items_part} (comma {new_nonterminal})* array_end;")
+                else:
+                    min_items_part = ' comma '.join([new_nonterminal] * (min_items - len(prefix_items_nonterminals)-1))
+                    if  min_items_part:
+                        min_items_part = "comma " + min_items_part
+                    prefix_items_part = ' comma '.join(prefix_items_nonterminals)
+                    ebnf_rules.append(f"{nonterminal} ::= array_begin {prefix_items_part} {min_items_part} comma {new_nonterminal}+ array_end;")
+            elif min_items == 0 and not prefix_items:
                 for i in range(min_items, max_items + 1):
                     items = ' comma '.join([new_nonterminal] * i)
                     ebnf_rules.append(f"{nonterminal} ::= array_begin {items} array_end;")
             else:
-                min_items_part = ' comma '.join([new_nonterminal] * min_items)
-                ebnf_rules.append(f"{nonterminal}_min ::= {min_items_part};")
-                for i in range(1, max_items + 1 - min_items):
+                prefix_items_num = len(prefix_items_nonterminals)
+                if prefix_items:
+                    for prefix_items_part in prefix_items_parts:
+                        prefix_items_part = ' comma '.join(prefix_items_part)
+                        ebnf_rules.append(f"{nonterminal} ::= array_begin {prefix_items_part} array_end;")
+                min_items_part = ' comma '.join([new_nonterminal] * (min_items - prefix_items_num))
+                prefix_items_part = ' comma '.join(prefix_items_nonterminals)
+                if min_items_part and prefix_items_part:
+                    ebnf_rules.append(f"{nonterminal}_min ::= {prefix_items_part} comma {min_items_part};")
+                elif min_items_part:
+                    ebnf_rules.append(f"{nonterminal}_min ::= {min_items_part};")
+                elif prefix_items_part:
+                    ebnf_rules.append(f"{nonterminal}_min ::= {prefix_items_part};")
+                common = max(min_items, prefix_items_num)
+                for i in range(1, max_items + 1 - common):
                     items = ' comma '.join([new_nonterminal] * i)
-                    ebnf_rules.append(f"{nonterminal} ::= array_begin {nonterminal}_min comma {items} array_end;")
+                    ebnf_rules.append(f"{nonterminal} ::= array_begin {nonterminal}_min comma {items} array_end;")  
             # Handle the item type
             args = typing.get_args(current.type)
             if args:
@@ -147,6 +187,8 @@ def _register_all_predefined_types():
             else:
                 # If args is empty, default to Any
                 item_type = typing.Any
+            if prefix_items:
+                return "\n".join(ebnf_rules) + "\n", list(zip(prefix_items, prefix_items_nonterminals)) + [(item_type, new_nonterminal)]
             return "\n".join(ebnf_rules) + "\n", [(item_type, new_nonterminal)]
         return None
     
@@ -335,6 +377,7 @@ def _generate_kbnf_grammar(schema: schemas.schema.Schema|collections.abc.Sequenc
         id(type(None)): "null",
         id(list): "array",
         id(dict): "object",
+        id(typing.Any): "json_value",
     }
     result = [GRAMMAR_HEADER]
     nonterminals = set()

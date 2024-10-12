@@ -248,17 +248,26 @@ def _handle_list_metadata(obtained_type: typing.Type, schema: dict[str, typing.A
     """
     Handle cases where the obtained type is a list
     """
+    metadata = {}
+    if "minItems" in schema:
+        metadata["min_length"] = schema["minItems"]
+    if "maxItems" in schema:
+        metadata["max_length"] = schema["maxItems"]
+    if "prefixItems" in schema:
+        metadata["prefix_items"] = tuple(_convert_json_schema_to_our_schema(i, json_schema_id_to_schema) for i in schema["prefixItems"])
+    item_type = typing.Any
     if "items" in schema:
-        item_type = _convert_json_schema_to_our_schema(schema["items"], json_schema_id_to_schema)
-        metadata = {}
-        if "minItems" in schema:
-            metadata["min_length"] = schema["minItems"]
-        if "maxItems" in schema:
-            metadata["max_length"] = schema["maxItems"]
-        if metadata:
-            return schemas.schema.TypeWithMetadata(list, metadata)
-        return list[item_type]
-    return obtained_type
+        if schema["items"] == False:
+            metadata["additional_items"] = False
+        else:
+            item_type = _convert_json_schema_to_our_schema(schema["items"], json_schema_id_to_schema)
+            if item_type is None:
+                item_type = typing.Any
+    if metadata:
+        if "additional_items" not in metadata:
+            metadata["additional_items"] = True
+        return schemas.schema.TypeWithMetadata(list, metadata)
+    return list[item_type]
 
 
 def _obtain_type(schema: dict[str, typing.Any], json_schema_id_to_schema:dict[int, typing.Type]) -> typing.Type[typing.Any|None]:

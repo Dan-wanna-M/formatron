@@ -171,6 +171,57 @@ def test_json_schema_array_min_max_items_constraints(snapshot):
     result = JsonExtractor("start", None, schema, lambda x: x).kbnf_definition
     snapshot.assert_match(result)
 
+def test_json_schema_array_prefix_items(snapshot):
+    schema = {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://example.com/prefix-items-schema.json",
+        "type": "object",
+        "properties": {
+            "2_5_prefix_items": {
+                "type": "array",
+                "prefixItems": [
+                    {"type": "string"},
+                    {"type": "number"},
+                    {"type": "boolean"}
+                ],
+                "items": False,
+                "minItems": 2,
+                "maxItems": 5
+            },
+            "1_4_prefix_items": {
+                "type": "array",
+                "prefixItems": [
+                    {"type": "string"},
+                    {"type": "number"}
+                ],
+                "items": {"type": "boolean"},
+                "minItems": 1,
+                "maxItems": 4
+            },
+            "3__prefix_items": {
+                "type": "array",
+                "prefixItems": [
+                    {"type": "string"},
+                    {"type": "number"}
+                ],
+                "minItems": 3,
+            },
+            "0_4_prefix_items": {
+                "type": "array",
+                "prefixItems": [{"type": "string"}],
+                "maxItems": 4
+            },
+            "simple_prefix_items": {
+                "type": "array",
+                "prefixItems": [{"type": "string"}],
+            }
+        },
+        "required": ["2_5_prefix_items", "1_4_prefix_items", "3__prefix_items", "0_4_prefix_items", "simple_prefix_items"]
+    }
+    schema = json_schema.create_schema(schema)
+    result = JsonExtractor("start", None, schema, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
 
 def test_json_schema(snapshot):
     schema = {
