@@ -54,6 +54,7 @@ def create_schema(schema: dict[str, typing.Any], registry=Registry()) -> schemas
     - `minLength, maxLength, pattern` keywords for string type
     - `minimum, maximum, exclusiveMinimum, exclusiveMaximum` keywords for number type and integer type
     - `items` keyword
+      - optionally with `minItems`, `maxItems`, `prefixItems` constraints
     - `properties` keyword
       - Due to implementation limitations, we always assume `additionalProperties` is false.
     - `enum` and `const` keyword

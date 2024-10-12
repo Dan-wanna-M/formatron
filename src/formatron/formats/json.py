@@ -440,6 +440,9 @@ class JsonExtractor(extractor.NonterminalExtractor):
         - typing.Any
         - Subclasses of collections.abc.Mapping[str,T] and typing.Mapping[str,T] where T is a supported type,
         - Subclasses of collections.abc.Sequence[T] and typing.Sequence[T] where T is a supported type.
+          - optionally with `minItems`, `maxItems`, `prefixItems` constraints
+          - *Warning*: too large difference between minItems and maxItems can lead to very slow performance!
+          - *Warning*: By json schema definition, prefixItems by default allows additional items and missing items in the prefixItems, which may not be the desired behavior and can lead to very slow performance if prefixItems is long!
         - tuple[T1,T2,...] where T1,T2,... are supported types. The order, type and number of elements will be preserved.
         - typing.Literal[x1,x2,...] where x1, x2, ... are instances of int, string, bool or NoneType, or another typing.Literal[y1,y2,...]
         - typing.Union[T1,T2,...] where T1,T2,... are supported types.
