@@ -447,7 +447,7 @@ class JsonExtractor(extractor.NonterminalExtractor):
         - typing.Literal[x1,x2,...] where x1, x2, ... are instances of int, string, bool or NoneType, or another typing.Literal[y1,y2,...]
         - typing.Union[T1,T2,...] where T1,T2,... are supported types.
         - schemas.Schema where all its fields' data types are supported. Recursive schema definitions are supported as well.
-
+          - *Warning*: while not required field is supported, they can lead to very slow performance and/or enormous memory consumption if there are too many of them!
         Args:
             nonterminal: The nonterminal representing the extractor.
             capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
