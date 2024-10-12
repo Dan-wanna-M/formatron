@@ -256,7 +256,10 @@ Protected Attributes</h2></td></tr>
 <li>tuple[T1,T2,...] where T1,T2,... are supported types. The order, type and number of elements will be preserved.</li>
 <li>typing.Literal[x1,x2,...] where x1, x2, ... are instances of int, string, bool or NoneType, or another typing.Literal[y1,y2,...]</li>
 <li>typing.Union[T1,T2,...] where T1,T2,... are supported types.</li>
-<li>schemas.Schema where all its fields' data types are supported. Recursive schema definitions are supported as well.</li>
+<li>schemas.Schema where all its fields' data types are supported. Recursive schema definitions are supported as well.<ul>
+<li><em>Warning</em>: while not required field is supported, they can lead to very slow performance and/or enormous memory consumption if there are too many of them!</li>
+</ul>
+</li>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
