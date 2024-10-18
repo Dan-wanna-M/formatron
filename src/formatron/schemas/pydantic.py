@@ -8,10 +8,11 @@ import typing
 import pydantic.fields
 from pydantic import BaseModel, validate_call, ConfigDict, Field
 
-from formatron.schemas.schema import FieldInfo, Schema, TypeWithMetadata
+import formatron
+from formatron.schemas.schema import Schema, TypeWithMetadata
 
 
-class FieldInfo(FieldInfo):
+class FieldInfo(formatron.schemas.schema.FieldInfo):
     """
     A wrapper for pydantic FieldInfo.
     """

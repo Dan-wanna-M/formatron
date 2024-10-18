@@ -142,13 +142,13 @@ def _register_all_predefined_types():
             if prefix_items is not None:
                 for i in range(max(min_items,1), len(prefix_items)+1):
                     prefix_items_parts.append(prefix_items_nonterminals[:i])
-                if min_items == 0:
+                if min_items == 0: # EMPTY_PREFIX_ITEMS_ALLOWED
                     ebnf_rules.append(f"{nonterminal} ::= array_begin array_end;")
             if max_items is None: # unbounded
                 if not prefix_items:
                     min_items_part = ' comma '.join([new_nonterminal] * (min_items - 1))
                     ebnf_rules.append(f"{nonterminal} ::= array_begin {min_items_part} comma {new_nonterminal}+ array_end;")
-                elif len(prefix_items_parts) >= min_items:
+                elif len(prefix_items_parts) >= min_items: # this part assumes prefix items are not empty, so we need the EMPTY_PREFIX_ITEMS_ALLOWED check above
                     for prefix_items_part in prefix_items_parts:
                         prefix_items_part = ' comma '.join(prefix_items_part)
                     ebnf_rules.append(f"{nonterminal} ::= array_begin {prefix_items_part} (comma {new_nonterminal})* array_end;")
@@ -158,7 +158,7 @@ def _register_all_predefined_types():
                         min_items_part = "comma " + min_items_part
                     prefix_items_part = ' comma '.join(prefix_items_nonterminals)
                     ebnf_rules.append(f"{nonterminal} ::= array_begin {prefix_items_part} {min_items_part} comma {new_nonterminal}+ array_end;")
-            elif min_items == 0 and not prefix_items:
+            elif min_items == 0 and not prefix_items: # TAG: ONLY_MAX_ITEMS
                 for i in range(min_items, max_items + 1):
                     items = ' comma '.join([new_nonterminal] * i)
                     ebnf_rules.append(f"{nonterminal} ::= array_begin {items} array_end;")
@@ -176,6 +176,7 @@ def _register_all_predefined_types():
                     ebnf_rules.append(f"{nonterminal}_min ::= {min_items_part};")
                 elif prefix_items_part:
                     ebnf_rules.append(f"{nonterminal}_min ::= {prefix_items_part};")
+                # sanity check: if prefix_items_part and min_items_part are both empty, we will in ONLY_MAX_ITEMS branch above
                 common = max(min_items, prefix_items_num)
                 for i in range(1, max_items + 1 - common):
                     items = ' comma '.join([new_nonterminal] * i)
@@ -448,9 +449,11 @@ class JsonExtractor(extractor.NonterminalExtractor):
         - typing.Union[T1,T2,...] where T1,T2,... are supported types.
         - schemas.Schema where all its fields' data types are supported. Recursive schema definitions are supported as well.
           - *Warning*: while not required field is supported, they can lead to very slow performance and/or enormous memory consumption if there are too many of them!
+        
         Args:
             nonterminal: The nonterminal representing the extractor.
             capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
+            schema: The schema.
             to_object: A callable to convert the extracted string to a schema instance.
         """
         super().__init__(nonterminal, capture_name)

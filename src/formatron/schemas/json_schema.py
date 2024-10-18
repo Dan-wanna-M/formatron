@@ -23,6 +23,7 @@ class FieldInfo(schemas.schema.FieldInfo):
 
         Args:
             annotation: The type annotation of the field.
+            required: Whether the field is required for the schema.
         """
         self._annotation = annotation
         self._required = required

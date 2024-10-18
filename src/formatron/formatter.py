@@ -371,7 +371,6 @@ class FormatterBuilder:
 
         Args:
             create_extractor: callable with signature (extractor_nonterminal: str)->Extractor that create the extractor. extractor_nonterminal is the auto-generated nonterminal reference for the extractor.
-            capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
         """
         return self._add_extractor("extractor", create_extractor)
 

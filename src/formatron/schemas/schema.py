@@ -6,6 +6,9 @@ import typing
 
 
 class FieldInfo(abc.ABC):
+    """
+    An abstract field info that describes a data field in a schema.
+    """
     @property
     @abc.abstractmethod
     def annotation(self) -> typing.Type[typing.Any] | None:
@@ -23,16 +26,25 @@ class FieldInfo(abc.ABC):
         pass
 
 class TypeWithMetadata:
+    """
+    A type with metadata.
+    """
     def __init__(self, type: typing.Type[typing.Any], metadata: dict[str, typing.Any]|None):
         self._type = type
         self._metadata = metadata
 
     @property
     def type(self) -> typing.Type[typing.Any]:
+        """
+        Get the type of the type with metadata.
+        """
         return self._type
 
     @property
     def metadata(self) -> dict[str, typing.Any]|None:
+        """
+        Get the metadata of the type with metadata.
+        """
         return self._metadata
 
 class Schema(abc.ABC):

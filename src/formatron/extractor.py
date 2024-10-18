@@ -167,6 +167,7 @@ class SubstringExtractor(NonterminalExtractor):
         Initialize the substring extractor.
         Args:
             string: The string to extract.
+            nonterminal: The nonterminal representing the extractor.
             capture_name: The name of the capture, or `None` if the extractor does not capture.
             extract_empty_substring: Whether to extract empty substring as a valid substring.
         """
