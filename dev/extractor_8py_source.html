@@ -32,7 +32,8 @@
    <div id="projectname">Formatron<span id="projectnumber">&#160;dev</span>
      <!-- Version Selector -->
      <select id="versionSelector" onchange="location = this.value;">
-       <option value="../v0.4.5/index.html" >v0.4.5</option>
+       <option value="../v0.4.6/index.html" >v0.4.6</option>
+<option value="../v0.4.5/index.html" >v0.4.5</option>
 <option value="../v0.4.4/index.html" >v0.4.4</option>
 <option value="../v0.4.3/index.html" >v0.4.3</option>
 <option value="../v0.4.2/index.html" >v0.4.2</option>
@@ -317,44 +318,45 @@ $(function(){initNavTree('extractor_8py_source.html',''); initResizable(true); }
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="stringliteral">        Initialize the substring extractor.</span></div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="stringliteral">        Args:</span></div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="stringliteral">            string: The string to extract.</span></div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="stringliteral">            capture_name: The name of the capture, or `None` if the extractor does not capture.</span></div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="stringliteral">            extract_empty_substring: Whether to extract empty substring as a valid substring.</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="stringliteral">            nonterminal: The nonterminal representing the extractor.</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="stringliteral">            capture_name: The name of the capture, or `None` if the extractor does not capture.</span></div>
 <div class="foldopen" id="foldopen00172" data-start="" data-end="">
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1LiteralExtractor.html#acfc1bf5ad7fc06acef35ad8897ddf273">  172</a></span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        super().<a class="code hl_function" href="classformatron_1_1extractor_1_1LiteralExtractor.html#ab4da390ad7efaf5a3aab0e0ccb78fab3">__init__</a>(nonterminal, capture_name)</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        self._suffix_automaton = GeneralSam.from_bytes(string.encode(<span class="stringliteral">&quot;UTF-8&quot;</span>))</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1LiteralExtractor.html#acfc1bf5ad7fc06acef35ad8897ddf273">  172</a></span><span class="stringliteral">            extract_empty_substring: Whether to extract empty substring as a valid substring.</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        super().<a class="code hl_function" href="classformatron_1_1extractor_1_1LiteralExtractor.html#ab4da390ad7efaf5a3aab0e0ccb78fab3">__init__</a>(nonterminal, capture_name)</div>
 </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        self._string = string</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        self.extract_empty_substring = extract_empty_substring</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1extractor_1_1LiteralExtractor.html#af80f5dc8710b59ced091d9b12afd828c">extract</a>(self, input_str: str) -&gt; typing.Optional[tuple[str, str]]:</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="stringliteral">        Extract the longest substring of a given string from the input string. </span></div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="stringliteral">        If extract_empty_substring is True, empty string is always a valid substring, so the returned string could be empty and `None` will never be returned.</span></div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="stringliteral">        Otherwise, empty string is not a valid substring,</span></div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="stringliteral">        so the returned string could not be empty and `None` will be returned if the input string does not contain the given string.</span></div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        self._suffix_automaton = GeneralSam.from_bytes(string.encode(<span class="stringliteral">&quot;UTF-8&quot;</span>))</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        self._string = string</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        self.extract_empty_substring = extract_empty_substring</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1extractor_1_1LiteralExtractor.html#af80f5dc8710b59ced091d9b12afd828c">extract</a>(self, input_str: str) -&gt; typing.Optional[tuple[str, str]]:</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="stringliteral">        Extract the longest substring of a given string from the input string. </span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="stringliteral">        If extract_empty_substring is True, empty string is always a valid substring, so the returned string could be empty and `None` will never be returned.</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="stringliteral">        Otherwise, empty string is not a valid substring,</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="stringliteral">        so the returned string could not be empty and `None` will be returned if the input string does not contain the given string.</span></div>
 <div class="foldopen" id="foldopen00185" data-start="" data-end="">
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1LiteralExtractor.html#ada2b4df1008ae73880c5e1d35fca5939">  185</a></span>        current_state = self._suffix_automaton.get_root_state()</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        longest_match = 0</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="keywordflow">for</span> char <span class="keywordflow">in</span> input_str:</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1LiteralExtractor.html#ada2b4df1008ae73880c5e1d35fca5939">  185</a></span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        current_state = self._suffix_automaton.get_root_state()</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        longest_match = 0</div>
 </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            current_state.feed_bytes(char.encode(<span class="stringliteral">&#39;utf-8&#39;</span>))</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keywordflow">if</span> current_state.is_nil():</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                <span class="keywordflow">break</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <span class="keywordflow">for</span> char <span class="keywordflow">in</span> input_str:</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            current_state.feed_bytes(char.encode(<span class="stringliteral">&#39;utf-8&#39;</span>))</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            <span class="keywordflow">if</span> current_state.is_nil():</div>
 </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            longest_match += 1</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        </div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <span class="keywordflow">if</span> longest_match &gt; 0 <span class="keywordflow">or</span> self.extract_empty_substring:</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                <span class="keywordflow">break</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            longest_match += 1</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        </div>
 <div class="foldopen" id="foldopen00194" data-start="" data-end="">
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1ChoiceExtractor.html">  194</a></span>            extracted = input_str[:longest_match]</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            remaining = input_str[longest_match:]</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>            <span class="keywordflow">return</span> remaining, extracted</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    </div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="preprocessor">@property</span></div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a5fe06cd727f3313d5e52a7ea6b81d5c4">kbnf_definition</a>(self) -&gt; str:</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        <span class="keywordflow">return</span> f<span class="stringliteral">&quot;{self.nonterminal} ::= #substrs{repr(self._string)};&quot;</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="classformatron_1_1extractor_1_1ChoiceExtractor.html">  194</a></span>        <span class="keywordflow">if</span> longest_match &gt; 0 <span class="keywordflow">or</span> self.extract_empty_substring:</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            extracted = input_str[:longest_match]</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>            remaining = input_str[longest_match:]</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            <span class="keywordflow">return</span> remaining, extracted</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="preprocessor">@property</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keyword">def </span><a class="code hl_function" href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a5fe06cd727f3313d5e52a7ea6b81d5c4">kbnf_definition</a>(self) -&gt; str:</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="keywordflow">return</span> f<span class="stringliteral">&quot;{self.nonterminal} ::= #substrs{repr(self._string)};&quot;</span></div>
 </div>
 <div class="ttc" id="aclassformatron_1_1extractor_1_1ChoiceExtractor_html"><div class="ttname"><a href="classformatron_1_1extractor_1_1ChoiceExtractor.html">formatron.extractor.ChoiceExtractor</a></div><div class="ttdoc">An extractor that uses multiple extractors to extract data.</div><div class="ttdef"><b>Definition</b> <a href="#l00194">extractor.py:194</a></div></div>
 <div class="ttc" id="aclassformatron_1_1extractor_1_1ChoiceExtractor_html_a5fe06cd727f3313d5e52a7ea6b81d5c4"><div class="ttname"><a href="classformatron_1_1extractor_1_1ChoiceExtractor.html#a5fe06cd727f3313d5e52a7ea6b81d5c4">formatron.extractor.ChoiceExtractor.kbnf_definition</a></div><div class="ttdeci">str kbnf_definition(self)</div><div class="ttdef"><b>Definition</b> <a href="#l00231">extractor.py:231</a></div></div>

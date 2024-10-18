@@ -32,7 +32,8 @@
    <div id="projectname">Formatron<span id="projectnumber">&#160;dev</span>
      <!-- Version Selector -->
      <select id="versionSelector" onchange="location = this.value;">
-       <option value="../v0.4.5/index.html" >v0.4.5</option>
+       <option value="../v0.4.6/index.html" >v0.4.6</option>
+<option value="../v0.4.5/index.html" >v0.4.5</option>
 <option value="../v0.4.4/index.html" >v0.4.4</option>
 <option value="../v0.4.3/index.html" >v0.4.3</option>
 <option value="../v0.4.2/index.html" >v0.4.2</option>
@@ -123,6 +124,9 @@ $(function(){initNavTree('classformatron_1_1schemas_1_1schema_1_1FieldInfo.html'
   <div class="headertitle"><div class="title">formatron.schemas.schema.FieldInfo Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>An abstract field info that describes a data field in a schema.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for formatron.schemas.schema.FieldInfo:</div>
 <div class="dyncontent">
@@ -131,6 +135,7 @@ Inheritance diagram for formatron.schemas.schema.FieldInfo:</div>
   <map id="formatron.schemas.schema.FieldInfo_map" name="formatron.schemas.schema.FieldInfo_map">
 <area href="classformatron_1_1schemas_1_1dict__inference_1_1FieldInfo.html" alt="formatron.schemas.dict_inference.FieldInfo" shape="rect" coords="0,112,257,136"/>
 <area href="classformatron_1_1schemas_1_1json__schema_1_1FieldInfo.html" alt="formatron.schemas.json_schema.FieldInfo" shape="rect" coords="267,112,524,136"/>
+<area href="classformatron_1_1schemas_1_1pydantic_1_1FieldInfo.html" title="A wrapper for pydantic FieldInfo." alt="formatron.schemas.pydantic.FieldInfo" shape="rect" coords="534,112,791,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -143,8 +148,9 @@ Inheritance diagram for formatron.schemas.schema.FieldInfo:</div>
 <tr class="separator:ac0d64035ccdc78e44a4cf6165d56081b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="schema_8py_source.html#l00009">9</a> of file <a class="el" href="schema_8py_source.html">schema.py</a>.</p>
+<div class="textblock"><p>An abstract field info that describes a data field in a schema. </p>
+
+<p class="definition">Definition at line <a class="el" href="schema_8py_source.html#l00012">12</a> of file <a class="el" href="schema_8py_source.html">schema.py</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a5c7b1d8b8d8d52426e95a3f326cf3e75" name="a5c7b1d8b8d8d52426e95a3f326cf3e75"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c7b1d8b8d8d52426e95a3f326cf3e75">&#9670;&#160;</a></span>annotation()</h2>
@@ -163,9 +169,9 @@ Inheritance diagram for formatron.schemas.schema.FieldInfo:</div>
 
 <p>Get the type annotation of the field. </p>
 
-<p>Reimplemented in <a class="el" href="classformatron_1_1schemas_1_1dict__inference_1_1FieldInfo.html#a163fde7bbaa2e613b5af3a4a12b9152d">formatron.schemas.dict_inference.FieldInfo</a>, and <a class="el" href="classformatron_1_1schemas_1_1json__schema_1_1FieldInfo.html#a28f43dedc0eaf02cd16423172440208a">formatron.schemas.json_schema.FieldInfo</a>.</p>
+<p>Reimplemented in <a class="el" href="classformatron_1_1schemas_1_1dict__inference_1_1FieldInfo.html#a163fde7bbaa2e613b5af3a4a12b9152d">formatron.schemas.dict_inference.FieldInfo</a>, <a class="el" href="classformatron_1_1schemas_1_1json__schema_1_1FieldInfo.html#a28f43dedc0eaf02cd16423172440208a">formatron.schemas.json_schema.FieldInfo</a>, and <a class="el" href="classformatron_1_1schemas_1_1pydantic_1_1FieldInfo.html#ac9e5af7e4cb356a450e9e48f3af24cfe">formatron.schemas.pydantic.FieldInfo</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="schema_8py_source.html#l00022">22</a> of file <a class="el" href="schema_8py_source.html">schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="schema_8py_source.html#l00025">25</a> of file <a class="el" href="schema_8py_source.html">schema.py</a>.</p>
 
 </div>
 </div>
@@ -186,9 +192,9 @@ Inheritance diagram for formatron.schemas.schema.FieldInfo:</div>
 
 <p>Check if the field is required for the schema. </p>
 
-<p>Reimplemented in <a class="el" href="classformatron_1_1schemas_1_1dict__inference_1_1FieldInfo.html#acd5625095baa17d3cf8f2b9562be0e06">formatron.schemas.dict_inference.FieldInfo</a>, and <a class="el" href="classformatron_1_1schemas_1_1json__schema_1_1FieldInfo.html#af25ae318725070cd198febebe07e5efa">formatron.schemas.json_schema.FieldInfo</a>.</p>
+<p>Reimplemented in <a class="el" href="classformatron_1_1schemas_1_1dict__inference_1_1FieldInfo.html#acd5625095baa17d3cf8f2b9562be0e06">formatron.schemas.dict_inference.FieldInfo</a>, <a class="el" href="classformatron_1_1schemas_1_1json__schema_1_1FieldInfo.html#af25ae318725070cd198febebe07e5efa">formatron.schemas.json_schema.FieldInfo</a>, and <a class="el" href="classformatron_1_1schemas_1_1pydantic_1_1FieldInfo.html#aeae1e2e12ad15628c69d896fae9aa477">formatron.schemas.pydantic.FieldInfo</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="schema_8py_source.html#l00039">39</a> of file <a class="el" href="schema_8py_source.html">schema.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="schema_8py_source.html#l00042">42</a> of file <a class="el" href="schema_8py_source.html">schema.py</a>.</p>
 
 </div>
 </div>

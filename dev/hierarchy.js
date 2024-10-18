@@ -15,14 +15,14 @@ var hierarchy =
       ] ],
       [ "formatron.schemas.schema.FieldInfo", "classformatron_1_1schemas_1_1schema_1_1FieldInfo.html", [
         [ "formatron.schemas.dict_inference.FieldInfo", "classformatron_1_1schemas_1_1dict__inference_1_1FieldInfo.html", null ],
-        [ "formatron.schemas.json_schema.FieldInfo", "classformatron_1_1schemas_1_1json__schema_1_1FieldInfo.html", null ]
+        [ "formatron.schemas.json_schema.FieldInfo", "classformatron_1_1schemas_1_1json__schema_1_1FieldInfo.html", null ],
+        [ "formatron.schemas.pydantic.FieldInfo", "classformatron_1_1schemas_1_1pydantic_1_1FieldInfo.html", null ]
       ] ],
       [ "formatron.schemas.schema.Schema", "classformatron_1_1schemas_1_1schema_1_1Schema.html", [
         [ "formatron.schemas.pydantic.ClassSchema", "classformatron_1_1schemas_1_1pydantic_1_1ClassSchema.html", null ]
       ] ]
     ] ],
     [ "formatron.config.EngineGenerationConfig", "classformatron_1_1config_1_1EngineGenerationConfig.html", null ],
-    [ "formatron.schemas.pydantic.FieldInfo", "classformatron_1_1schemas_1_1pydantic_1_1FieldInfo.html", null ],
     [ "formatron.formatter.FormatterBuilder", "classformatron_1_1formatter_1_1FormatterBuilder.html", null ],
     [ "formatron.integrations.vllm.FormattersLogitsProcessor", "classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html", null ],
     [ "rwkv.utils.PIPELINE", null, [
