@@ -12,7 +12,7 @@ from formatron.formatter import FormatterBuilder, FormatterBase
 from formatron.integrations._utils import get_original_characters
 
 
-def create_engine_vocabulary(tokenizer: PreTrainedTokenizerBase, vocab_processors: typing.Optional[list[tuple[str, typing.Callable]]]) -> kbnf.Vocabulary:
+def create_engine_vocabulary(tokenizer: PreTrainedTokenizerBase, vocab_processors: typing.Optional[list[typing.Callable]] = None) -> kbnf.Vocabulary:
     """
     Create a vocabulary for the KBNF engine.
     """
@@ -25,7 +25,7 @@ def create_engine_vocabulary(tokenizer: PreTrainedTokenizerBase, vocab_processor
 def create_formatter_logits_processor(tokenizer: PreTrainedTokenizerBase,
                                       formatter_builders: typing.Sequence[FormatterBuilder | None] | FormatterBuilder,
                                       configs: typing.Sequence[EngineGenerationConfig] = None,
-                                      vocab_processors: typing.Optional[list[tuple[str, typing.Callable]]] = None) -> LogitsProcessor:
+                                      vocab_processors: typing.Optional[list[typing.Callable]] = None) -> LogitsProcessor:
     """
     Create a formatter logits processor.
     """

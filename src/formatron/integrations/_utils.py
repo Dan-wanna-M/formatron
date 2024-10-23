@@ -8,35 +8,11 @@ def _multiple_replace(replacements: typing.Dict[bytes, bytes], regex: re.Pattern
     return regex.sub(lambda mo: replacements[mo.group()], text)
 
 
-Processors = set[typing.Literal["sentencepiece", "<0xHH>", "dot_G"]]
-
-
-def _autodetect_processors(vocab: typing.Dict[str, int]) -> list[tuple[str, typing.Callable]]:
-    result = []
-    llama_present = any(i.find('<0xF0>') != -1 for i in vocab.keys())
-    underscore_present = (len([1 for i in vocab.keys() if i.find('\u2581') != -1]) / len(vocab)) > 0.2
-    g_present = (len([1 for i in vocab.keys() if i.find('\u0120') != -1]) / len(vocab)) > 0.2
-    if llama_present:
-        def update_vocab(old_char_to_new_char):
-            for j in range(256):
-                old_char_to_new_char[("<0x" + f"{j:02x}".upper() + ">").encode("UTF-8")] = bytes([j])
-        result.append(("<0xHH>", update_vocab))
-    if underscore_present:
-        def update_vocab(old_char_to_new_char):
-            old_char_to_new_char["\u2581".encode("UTF-8")] = b" "
-        result.append(("sentencepiece", update_vocab))
-    elif g_present:
-        def update_vocab(old_char_to_new_char):
-            old_char_to_new_char.update(huggingface_bytelevel_decoder())
-        result.append(("dot_G", update_vocab))
-    return result
-
-
-def get_original_characters(vocab: typing.Dict[str, int], processors: typing.Optional[list[tuple[str, typing.Callable]]] = None) -> typing.Dict[int, bytes]:
+def get_original_characters(vocab: typing.Dict[str, int], processors: typing.Optional[list[typing.Callable]] = None) -> typing.Dict[int, bytes]:
     old_char_to_new_char = {}
     assert len(set(vocab.values())) == len(vocab), "Vocabulary contains duplicate token IDs!"
     if processors is None:
-        processors = _autodetect_processors(vocab)
+        processors = autodetect_processors(vocab)
     for processor, update_vocab in processors:
         update_vocab(old_char_to_new_char)
     # Create a regular expression from the dictionary keys with longest keys first to avoid conflicts
@@ -47,6 +23,33 @@ def get_original_characters(vocab: typing.Dict[str, int], processors: typing.Opt
         new_k = _multiple_replace(old_char_to_new_char, regex, k.encode("UTF-8"))
         new_vocab[token_id] = new_k
     return new_vocab
+
+
+def autodetect_processors(vocab: typing.Dict[str, int]) -> list[typing.Callable]:
+    result = []
+    llama_present = any(i.find('<0xF0>') != -1 for i in vocab.keys())
+    underscore_present = (len([1 for i in vocab.keys() if i.find('\u2581') != -1]) / len(vocab)) > 0.2
+    g_present = (len([1 for i in vocab.keys() if i.find('\u0120') != -1]) / len(vocab)) > 0.2
+    if llama_present:
+        result.append(update_vocab_0xHH)
+    if underscore_present:
+        result.append(update_vocab_sentencepiece)
+    elif g_present:
+        result.append(update_vocab_dot_G)
+    return result
+
+
+def update_vocab_0xHH(old_char_to_new_char: typing.Dict[bytes, bytes]):
+    for j in range(256):
+        old_char_to_new_char[("<0x" + f"{j:02x}".upper() + ">").encode("UTF-8")] = bytes([j])
+
+
+def update_vocab_sentencepiece(old_char_to_new_char: typing.Dict[bytes, bytes]):
+    old_char_to_new_char["\u2581".encode("UTF-8")] = b" "
+
+
+def update_vocab_dot_G(old_char_to_new_char: typing.Dict[bytes, bytes]):
+    old_char_to_new_char.update(huggingface_bytelevel_decoder())
 
 
 @lru_cache()
