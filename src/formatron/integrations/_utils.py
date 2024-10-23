@@ -25,7 +25,7 @@ def get_original_characters(vocab: typing.Dict[str, int], processors: typing.Opt
     return new_vocab
 
 
-def autodetect_processors(vocab: typing.Dict[str, int]) -> list[typing.Callable]:
+def autodetect_processors(vocab: typing.Dict[str, int]) -> typing.List[typing.Callable]:
     result = []
     llama_present = any(i.find('<0xF0>') != -1 for i in vocab.keys())
     underscore_present = (len([1 for i in vocab.keys() if i.find('\u2581') != -1]) / len(vocab)) > 0.2
