@@ -31,6 +31,7 @@ var hierarchy =
     [ "rwkv.utils.PIPELINE_ARGS", null, [
       [ "formatron.integrations.RWKV.PIPELINE_ARGS", "classformatron_1_1integrations_1_1RWKV_1_1PIPELINE__ARGS.html", null ]
     ] ],
+    [ "formatron.schemas.schema.SubstringOf", "classformatron_1_1schemas_1_1schema_1_1SubstringOf.html", null ],
     [ "formatron.schemas.schema.TypeWithMetadata", "classformatron_1_1schemas_1_1schema_1_1TypeWithMetadata.html", null ],
     [ "BaseModel", null, [
       [ "formatron.schemas.pydantic.ClassSchema", "classformatron_1_1schemas_1_1pydantic_1_1ClassSchema.html", null ]
