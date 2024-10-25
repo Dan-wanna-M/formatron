@@ -28,6 +28,33 @@ class LinkedList(formatron.schemas.pydantic.ClassSchema):
     next: typing.Optional["LinkedList"]
 
 
+def test_pydantic_substring_constraint(snapshot):
+    class SubstringConstraints(formatron.schemas.pydantic.ClassSchema):
+        substring_str: typing.Annotated[str, Field(substring_of="Hello, world!")]
+
+    result = JsonExtractor("start", None, SubstringConstraints, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
+def test_json_schema_substring_constraint(snapshot):
+    schema = {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://example.com/substring-schema",
+        "type": "object",
+        "properties": {
+            "substring_str": {
+                "type": "string",
+                "substringOf": "Hello, world!"
+            },
+        },
+        "required": ["substring_str"]
+    }
+
+    SubstringSchema = json_schema.create_schema(schema)
+    result = JsonExtractor("start", None, SubstringSchema, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
+
+
+
 def test_pydantic_class(snapshot):
     result = JsonExtractor("start", None,Test,lambda x:x).kbnf_definition
     snapshot.assert_match(result)

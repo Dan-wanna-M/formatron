@@ -2,6 +2,7 @@
 This module contains the Schema abstract class and FieldInfo abstract class.
 """
 import abc
+from dataclasses import dataclass
 import typing
 
 
@@ -66,3 +67,10 @@ class Schema(abc.ABC):
         Create a schema from a JSON string.
         """
         pass
+
+@dataclass
+class SubstringOf:
+    """
+    A metadata class that indicates that the field is a substring of the given string.
+    """
+    substring_of: str

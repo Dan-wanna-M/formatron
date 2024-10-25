@@ -210,6 +210,8 @@ def _handle_str_with_metadata(schema: dict[str, typing.Any]) -> typing.Type:
         metadata["min_length"] = schema["minLength"]
     if "pattern" in schema:
         metadata["pattern"] = schema["pattern"]
+    if "substringOf" in schema:
+        metadata["substring_of"] = schema["substringOf"]
     
     if metadata:
         return schemas.schema.TypeWithMetadata(str, metadata)

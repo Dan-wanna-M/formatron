@@ -79,8 +79,11 @@ def _register_all_predefined_types():
         min_length = current.metadata.get("min_length")
         max_length = current.metadata.get("max_length")
         pattern = current.metadata.get("pattern")
+        substring_of = current.metadata.get("substring_of")
         if pattern:
-            assert not (min_length or max_length), "pattern is mutually exclusive with min_length and max_length"
+            assert not (min_length or max_length or substring_of), "pattern is mutually exclusive with min_length, max_length and substring_of"
+        if substring_of:
+            assert not (min_length or max_length or pattern), "substring_of is mutually exclusive with min_length, max_length and pattern"
         repetition_map = {
             (True, False): f"{{{min_length},}}",
             (False, True): f"{{0,{max_length}}}",
@@ -93,6 +96,8 @@ def _register_all_predefined_types():
         if pattern is not None:
             pattern = pattern.replace("'", "\\'")
             return f"""{nonterminal} ::= #'"{pattern}"';\n""", []
+        if substring_of is not None:
+            return f"""{nonterminal} ::= '"' #substrs{repr(substring_of)} '"';\n""", []
     
     def number_metadata(current: typing.Type, nonterminal: str):
         gt = current.metadata.get("gt")
