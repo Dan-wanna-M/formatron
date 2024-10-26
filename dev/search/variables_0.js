@@ -27,7 +27,7 @@ var searchData=
   ['_5fnonterminal_24',['_nonterminal',['../classformatron_1_1extractor_1_1NonterminalExtractor.html#a5c4c968b45e328b8caa4b2795ecc00fe',1,'formatron::extractor::NonterminalExtractor']]],
   ['_5fnonterminal_5fto_5fextractor_25',['_nonterminal_to_extractor',['../classformatron_1_1formatter_1_1FormatterBuilder.html#a870a5075cfd903c77e5ee58b6c304e03',1,'formatron::formatter::FormatterBuilder']]],
   ['_5fpass_5ftokens_26',['_pass_tokens',['../classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a370eaf641dd803b2759b4e5fc7f74a1c',1,'formatron::integrations::exllamav2::FormatterFilter']]],
-  ['_5fregex_27',['_regex',['../classformatron_1_1formats_1_1regex_1_1RegexExtractor.html#a1df60401933eef6cf5a1ff041f11ec46',1,'formatron::formats::regex::RegexExtractor']]],
+  ['_5fregex_27',['_regex',['../classformatron_1_1formats_1_1regex_1_1RegexExtractor.html#a1df60401933eef6cf5a1ff041f11ec46',1,'formatron.formats.regex.RegexExtractor._regex'],['../classformatron_1_1formats_1_1regex_1_1RegexComplementExtractor.html#a92339b2492a3591a412f177ba5c2e2ec',1,'formatron.formats.regex.RegexComplementExtractor._regex']]],
   ['_5frequired_28',['_required',['../classformatron_1_1schemas_1_1json__schema_1_1FieldInfo.html#a8ac1acf32bb578e121ef28a433857726',1,'formatron::schemas::json_schema::FieldInfo']]],
   ['_5frule_5fstr_29',['_rule_str',['../classformatron_1_1formats_1_1json_1_1JsonExtractor.html#aecf88428e414da080f11ed0ab1e13a65',1,'formatron::formats::json::JsonExtractor']]],
   ['_5frules_30',['_rules',['../classformatron_1_1formatter_1_1FormatterBuilder.html#a62c61ad02e40526b73ca460d0cf1d12c',1,'formatron::formatter::FormatterBuilder']]],

@@ -158,6 +158,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af34f97f7f62d2a1de4f9e863b1834619" id="r_af34f97f7f62d2a1de4f9e863b1834619"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classformatron_1_1formats_1_1regex_1_1RegexExtractor.html">RegexExtractor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af34f97f7f62d2a1de4f9e863b1834619">regex</a> (self, <a class="el" href="#ad467a40f82a47dff9bb2b95d1300ace0">str</a> regex, *, <a class="el" href="#ad467a40f82a47dff9bb2b95d1300ace0">str</a> capture_name=None)</td></tr>
 <tr class="memdesc:af34f97f7f62d2a1de4f9e863b1834619"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a regex extractor.  <br /></td></tr>
 <tr class="separator:af34f97f7f62d2a1de4f9e863b1834619"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60dedc5c21ecd24f6b0435bc0d936838" id="r_a60dedc5c21ecd24f6b0435bc0d936838"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classformatron_1_1formats_1_1regex_1_1RegexComplementExtractor.html">RegexComplementExtractor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60dedc5c21ecd24f6b0435bc0d936838">regex_complement</a> (self, <a class="el" href="#ad467a40f82a47dff9bb2b95d1300ace0">str</a> <a class="el" href="#af34f97f7f62d2a1de4f9e863b1834619">regex</a>, *, <a class="el" href="#ad467a40f82a47dff9bb2b95d1300ace0">str</a> capture_name=None)</td></tr>
+<tr class="memdesc:a60dedc5c21ecd24f6b0435bc0d936838"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a regex complement extractor.  <br /></td></tr>
+<tr class="separator:a60dedc5c21ecd24f6b0435bc0d936838"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad467a40f82a47dff9bb2b95d1300ace0" id="r_ad467a40f82a47dff9bb2b95d1300ace0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classformatron_1_1extractor_1_1Extractor.html">Extractor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad467a40f82a47dff9bb2b95d1300ace0">str</a> (self, *, typing.Union[str, list[str]] stop=None, typing.Optional[str] capture_name=None)</td></tr>
 <tr class="memdesc:ad467a40f82a47dff9bb2b95d1300ace0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a string extractor.  <br /></td></tr>
 <tr class="separator:ad467a40f82a47dff9bb2b95d1300ace0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -478,7 +481,7 @@ Static Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The formatter. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00502">502</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00519">519</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
 
 </div>
 </div>
@@ -640,6 +643,50 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a60dedc5c21ecd24f6b0435bc0d936838" name="a60dedc5c21ecd24f6b0435bc0d936838"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60dedc5c21ecd24f6b0435bc0d936838">&#9670;&#160;</a></span>regex_complement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="classformatron_1_1formats_1_1regex_1_1RegexComplementExtractor.html">RegexComplementExtractor</a> formatron.formatter.FormatterBuilder.regex_complement </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#ad467a40f82a47dff9bb2b95d1300ace0">str</a></td>          <td class="paramname"><span class="paramname"><em>regex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">*</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#ad467a40f82a47dff9bb2b95d1300ace0">str</a> </td>          <td class="paramname"><span class="paramname"><em>capture_name</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a regex complement extractor. </p>
+<p>This is roughly equivalent to 'extract a string that does not match the given regex anywhere'. </p><pre class="fragment">   Check out the RegexComplementExtractor docs for more details.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">regex</td><td>The regular expression for extraction. </td></tr>
+    <tr><td class="paramname">capture_name</td><td>The capture name of the extractor, or <code>None</code> if the extractor does not capture. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The regex complement extractor. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00464">464</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
+
+</div>
+</div>
 <a id="ad467a40f82a47dff9bb2b95d1300ace0" name="ad467a40f82a47dff9bb2b95d1300ace0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad467a40f82a47dff9bb2b95d1300ace0">&#9670;&#160;</a></span>str()</h2>
 
@@ -680,7 +727,7 @@ Static Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The string extractor. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00464">464</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00479">479</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
 
 </div>
 </div>
@@ -730,7 +777,7 @@ Static Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The substring extractor. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00487">487</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="formatter_8py_source.html#l00502">502</a> of file <a class="el" href="formatter_8py_source.html">formatter.py</a>.</p>
 
 </div>
 </div>

@@ -16,6 +16,7 @@ var annotated_dup =
           [ "JsonExtractor", "classformatron_1_1formats_1_1json_1_1JsonExtractor.html", "classformatron_1_1formats_1_1json_1_1JsonExtractor" ]
         ] ],
         [ "regex", "namespaceformatron_1_1formats_1_1regex.html", [
+          [ "RegexComplementExtractor", "classformatron_1_1formats_1_1regex_1_1RegexComplementExtractor.html", "classformatron_1_1formats_1_1regex_1_1RegexComplementExtractor" ],
           [ "RegexExtractor", "classformatron_1_1formats_1_1regex_1_1RegexExtractor.html", "classformatron_1_1formats_1_1regex_1_1RegexExtractor" ]
         ] ]
       ] ],
