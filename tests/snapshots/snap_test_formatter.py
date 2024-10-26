@@ -40,17 +40,17 @@ __json_4_0_json_name ::= string;
 
 start ::= \'Today, I want to eat \' __choice_0_0_food \'\\n\' "My food\'s ID is " __choice_3_0_ID \'.\\n\' "\\nWhat\'s more, indentations\\nare handled\\nappropriately." \'My weight is 14.4kg and my color is pink. This is my personal info json: \' __json_4_0_json \'\\n\';'''
 
-snapshots['test_formatter 2'] = '''Today, I want to eat banana
-My food's ID is not.
+snapshots['test_formatter 2'] = '''Today, I want to eat orange
+My food's ID is soo.
 
 What's more, indentations
 are handled
-appropriately.My weight is 14.4kg and my color is pink. This is my personal info json: {"name":"Van","weight":1.4,"color":"pink"}
+appropriately.My weight is 14.4kg and my color is pink. This is my personal info json: {  "name" : "Van" ,"weight" : 1.4, "color" : "pink"}
 '''
 
 snapshots['test_formatter 3'] = {
-    'ID': GenericRepr("<re.Match object; span=(0, 3), match='not'>"),
-    'food': 'banana',
+    'ID': GenericRepr("<re.Match object; span=(0, 3), match='soo'>"),
+    'food': 'orange',
     'json': GenericRepr("Test(name='Van', weight=1.4, color='pink')")
 }
 
@@ -123,23 +123,23 @@ __json_0_0_json_name ::= string;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_dict_inference 2'] = '''{"name":"MyName","gender":"male"}
+snapshots['test_formatter_dict_inference 2'] = '''{"name":"Tom","gender":"male"}
 '''
 
 snapshots['test_formatter_dict_inference 3'] = {
     'json': {
         'gender': 'male',
-        'name': 'MyName'
+        'name': 'Tom'
     }
 }
 
-snapshots['test_formatter_json_schema 1'] = '''{"name":"peter","age":30}
+snapshots['test_formatter_json_schema 1'] = '''{"name":"value","age":0}
 '''
 
 snapshots['test_formatter_json_schema 2'] = {
     'json': {
-        'age': 30,
-        'name': 'peter'
+        'age': 0,
+        'name': 'value'
     }
 }
 
@@ -171,10 +171,39 @@ __json_0_0_json_name ::= string;
 
 start ::= __json_0_0_json '\\n';'''
 
+snapshots['test_formatter_regex_complement 1'] = '''__regex_complement_0_0_non_numeric ::= #ex'[0-9]';
+__regex_1_0_numeric ::= #'[0-9]+';
+start ::= 'Text: ' __regex_complement_0_0_non_numeric 'Number: ' __regex_1_0_numeric '\\n';'''
+
+snapshots['test_formatter_regex_complement 2'] = '''Text: I got $l worth of money from $b.
+A: $l worth of money from $b is $l worth of money from $b.
+$l worth of money from $b is $l worth of money from $b.
+$l worth of money from $b is $l worth of money from $b.
+$l worth of money from $b is $l worth of money from $b.
+$l worth of money from $b is $l worth of money from $b.
+$l worth of money from $b is $l worth of money from $b.
+$l worth of money from $b is $l worth of money from $b.
+$l worth of money from $b is $l worth of money from $b.
+$l worth of money from $b is $l worth of money from $b.
+$l worth of money from $b is $l worth of money from $b.
+$l worth of money from $b is $l worth of money from $b.
+$l worth of money from $b is $l worth of money from $b.
+$l worth of money from $b is $l worth'''
+
+snapshots['test_formatter_regex_complement 3'] = {
+    'non_numeric': 'Hello, world! Number: ',
+    'numeric': GenericRepr("<re.Match object; span=(0, 2), match='42'>")
+}
+
+snapshots['test_formatter_regex_complement 4'] = {
+    'non_numeric': 'Hello, world! Number: ',
+    'numeric': GenericRepr("<re.Match object; span=(0, 2), match='42'>")
+}
+
 snapshots['test_formatter_str 1'] = '''__str_0_0 ::= #'.*?(?:\\\\.)';
 start ::= __str_0_0 '\\n';'''
 
-snapshots['test_formatter_str 2'] = '˝ she said. "I\'m from the International Union of Mine, Metal and Air-craft Workers. I\'m here to ask you for a place to stay for a while. I can\'t pay you, but I\'ll pay you back in installments. You\'ll be living with me and my family." I was about to protest, but she had already pulled out a business card. "I\'m sorry, but you have to come with me. My name is Angela, and I\'ll be your maid." She handed me the card and I thanked her. I walked over to her car and got in. She drove off. I looked at the address on the card. It was a town called Pleasant Valley. I knew that the building was the old prison camp. I wondered what happened to them all. The rest of the day was spent driving around looking for any sign of the men who were imprisoned there. After what seemed like an eternity, we arrived at the old prison camp. It was a long walk to the prison itself, but it was worth it. I looked around and saw that it was a very beautiful place. There were many trees and flowers everywhere. I looked around for a sign of the guards, but they weren\'t there. I started'
+snapshots['test_formatter_str 2'] = '请将上述英文翻译成中文，并且返回正确的翻译方式为英文，因为它不在这个问题中。Answer: 我的名字是Van。请问你想问什么？（我不知道你想问什么，所以我只能回答你）。这是一个简单的问题，你可以告诉我你想问什么。（我不知道你想问什么，所以我只能回答你）。请告诉我你想要了解的是什么？（我不知道你想要了解的是什么，所以我只能回答你）。这是一个有趣的问题，可以让我们聊天。（我不知道你想要聊什么，所以我只能回答你）。请告诉我你想要聊什么？（我不知道你想要聊什么，所以我只能回答你）。这是一个有趣的问题，可以让我们聊天。（我不知道你'
 
 snapshots['test_formatter_str 3'] = {
 }
@@ -210,34 +239,31 @@ array_begin ::= #"\\\\[[ \t
 \r]*";
 array_end ::= #"[ \t
 \r]*\\\\]";
-__json_0_0_json ::= array_begin (__json_0_0_json_value (comma __json_0_0_json_value)*)? array_end;
-__json_0_0_json_value ::= object_begin \'"id"\' colon __json_0_0_json_value_id comma \'"name"\' colon __json_0_0_json_value_name comma \'"active"\' colon __json_0_0_json_value_active object_end;
-__json_0_0_json_value_active ::= __json_0_0_json_value_active_required?;
-__json_0_0_json_value_active_required ::= boolean;
-__json_0_0_json_value_name ::= string;
-__json_0_0_json_value_id ::= integer;
+__json_0_0_json_min ::= __json_0_0_json_item;
+__json_0_0_json ::= array_begin __json_0_0_json_min comma __json_0_0_json_item array_end;
+__json_0_0_json ::= array_begin __json_0_0_json_min comma __json_0_0_json_item comma __json_0_0_json_item array_end;
+__json_0_0_json ::= array_begin __json_0_0_json_min comma __json_0_0_json_item comma __json_0_0_json_item comma __json_0_0_json_item array_end;
+__json_0_0_json ::= array_begin __json_0_0_json_min comma __json_0_0_json_item comma __json_0_0_json_item comma __json_0_0_json_item comma __json_0_0_json_item array_end;
+__json_0_0_json_item ::= json_value;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_top_level_array_json_schema 2'] = '''[{"id": 1, "name": "John", "active": true}, {"id": 2, "name": "Bob", "active": true}, {"id": 3, "name": "Charlie", "active": true}]
+snapshots['test_formatter_top_level_array_json_schema 2'] = '''[{"id": 1, "name": "John"}, {"id": 2, "name": "Jane"}, {"id": 3, "name": "Mary"}]
 '''
 
 snapshots['test_formatter_top_level_array_json_schema 3'] = {
     'json': [
         {
-            'active': True,
             'id': 1,
             'name': 'John'
         },
         {
-            'active': True,
             'id': 2,
-            'name': 'Bob'
+            'name': 'Jane'
         },
         {
-            'active': True,
             'id': 3,
-            'name': 'Charlie'
+            'name': 'Mary'
         }
     ]
 }

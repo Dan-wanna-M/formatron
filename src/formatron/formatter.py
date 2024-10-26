@@ -13,7 +13,7 @@ import kbnf
 from formatron.formats.json import JsonExtractor
 from formatron.schemas.schema import Schema
 from formatron.extractor import Extractor, LiteralExtractor, NonterminalExtractor, ChoiceExtractor, SubstringExtractor
-from formatron.formats.regex import RegexExtractor
+from formatron.formats.regex import RegexComplementExtractor, RegexExtractor
 
 
 
@@ -412,6 +412,21 @@ class FormatterBuilder:
         """
         return self._add_extractor("regex",
                                    lambda nonterminal: RegexExtractor(regex, capture_name, nonterminal))
+    
+    def regex_complement(self, regex: str, *, capture_name: str = None) -> RegexComplementExtractor:
+        """
+        Create a regex complement extractor. This is roughly equivalent to 'extract a string that does not match the given regex anywhere'.
+
+        Check out the RegexComplementExtractor docs for more details.
+
+        Args:
+            regex: The regular expression for extraction.
+            capture_name: The capture name of the extractor, or `None` if the extractor does not capture.
+        Returns:
+            The regex complement extractor.
+        """
+        return self._add_extractor("regex_complement",
+                                   lambda nonterminal: RegexComplementExtractor(regex, capture_name, nonterminal))
 
     def str(self, *, stop: typing.Union[str, list[str]] = None,
             capture_name: typing.Optional[str] = None) -> Extractor:
@@ -451,6 +466,8 @@ class FormatterBuilder:
         return self._add_extractor("substr",
                                    lambda nonterminal: SubstringExtractor(string, capture_name, nonterminal,
                                                                            extract_empty_substring=extract_empty_substring))
+
+    
 
     def build(self, vocabulary: kbnf.Vocabulary,
               decode: typing.Callable[[list[int]], str],

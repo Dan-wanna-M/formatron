@@ -199,3 +199,30 @@ def test_formatter_alternate_accept(snapshot):
     
     snapshot.assert_match(formatter.captures)
 
+
+def test_formatter_regex_complement(snapshot):
+    FormatterBuilder._formatter_builder_counter = 0
+    f = FormatterBuilder()
+    f.append_str(f"Text: {f.regex_complement('[0-9]', capture_name='non_numeric')}")
+    f.append_line(f"Number: {f.regex('[0-9]+', capture_name='numeric')}")
+
+    model = RWKV(
+        "assets/RWKV-5-World-0.4B-v2-20231113-ctx4096.pth", 'cuda fp16')
+    pipeline = formatron.integrations.RWKV.PIPELINE(model, "rwkv_vocab_v20230424", f)
+    
+    np.random.seed(42)
+    snapshot.assert_match(pipeline.formatter.grammar_str)
+    snapshot.assert_match(
+        pipeline.generate("Here's some text followed by an integer: ", token_count=256, args=formatron.integrations.RWKV.PIPELINE_ARGS(top_p=0.5)))
+    snapshot.assert_match(pipeline.formatter.captures)
+
+    # Test with manual input
+    formatter = pipeline.formatter
+    formatter.reset()
+    
+    input_text = "Text: Hello, world! Number: 42\n"
+    for char in input_text:
+        formatter.accept_bytes(char.encode('utf-8'))
+    
+    snapshot.assert_match(formatter.captures)
+

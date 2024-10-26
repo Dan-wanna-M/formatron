@@ -41,3 +41,32 @@ class RegexExtractor(NonterminalExtractor):
     @property
     def kbnf_definition(self) -> str:
         return f"{self.nonterminal} ::= #{repr(self._regex.pattern)};"
+    
+
+class RegexComplementExtractor(NonterminalExtractor):
+    """
+    An extractor that extracts data by matching a regex complement.
+    """
+
+    def __init__(self, regex: str, capture_name: str, nonterminal: str):
+        """
+        Initialize the regex complement extractor.
+        """
+        super().__init__(nonterminal, capture_name)
+        self._regex = re.compile(regex)
+
+    def extract(self, input_str: str) -> typing.Optional[tuple[str, str]]:
+        """
+        Extract the data by matching a regex complement.
+
+        Specifically, the string until the first character in the first match of the regex is extracted if there is a match,
+        or the entire string is extracted if there is no match.
+        """
+        matched = self._regex.search(input_str)
+        if not matched:
+            return "", input_str
+        return input_str[matched.span()[0]:], input_str[:matched.span()[0]]
+
+    @property
+    def kbnf_definition(self) -> str:
+        return f"{self.nonterminal} ::= #ex{repr(self._regex.pattern)};"

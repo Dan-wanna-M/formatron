@@ -200,3 +200,5 @@ class SubstringExtractor(NonterminalExtractor):
     @property
     def kbnf_definition(self) -> str:
         return f"{self.nonterminal} ::= #substrs{repr(self._string)};"
+
+
