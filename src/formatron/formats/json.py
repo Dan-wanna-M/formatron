@@ -442,6 +442,9 @@ class JsonExtractor(extractor.NonterminalExtractor):
             - pattern currently is automatically anchored at both ends
             - the generated json could be invalid if the pattern allows invalid content between the json string's quotes.
               - for example, `pattern=".*"` will allow '\"' to appear in the json string which is forbidden by JSON standard.
+          - also supports substring_of constraint which constrains the string to be a substring of a given string
+            - the generated json could be invalid if the given string contains invalid content when put into the json string's quotes.
+              - for example, `substring_of="abc\""` will allow '\"' to appear in the json string which is forbidden by JSON standard.
         - NoneType
         - typing.Any
         - Subclasses of collections.abc.Mapping[str,T] and typing.Mapping[str,T] where T is a supported type,
