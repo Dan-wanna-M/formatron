@@ -14,7 +14,7 @@ def get_original_characters(vocab: typing.Dict[str, int],
     assert len(set(vocab.values())) == len(vocab), "Vocabulary contains duplicate token IDs!"
     if processors is None:
         processors = autodetect_processors(vocab)
-    for processor, update_vocab in processors:
+    for update_vocab in processors:
         update_vocab(old_char_to_new_char)
     # Create a regular expression from the dictionary keys with longest keys first to avoid conflicts
     regex = re.compile(b"(%s)" % b"|".join(sorted(list(map(re.escape, old_char_to_new_char.keys())), key=lambda x: len(x), reverse=True)))
