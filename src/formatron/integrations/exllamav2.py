@@ -13,7 +13,8 @@ from formatron.integrations._utils import get_original_characters
 from functools import lru_cache
 
 
-def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer) -> kbnf.Vocabulary:
+def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer,
+                             vocab_processors: typing.Optional[list[typing.Callable]] = None) -> kbnf.Vocabulary:
     """
     Create a vocabulary for the KBNF engine.
     """
@@ -22,18 +23,19 @@ def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer) -> kbnf.Vocabulary:
                                                          f" does not have vocab attribute!")
     vocab = {tokenizer.tokenizer_model.id_to_piece(
         i): i for i in range(tokenizer.tokenizer_model.vocab_size())}
-    new_vocab = get_original_characters(vocab)
+    new_vocab = get_original_characters(vocab, vocab_processors)
     return kbnf.Vocabulary({k: kbnf.Token(v) for k, v in new_vocab.items()},
                            {v: k for k, v in vocab.items()})
 
 
 def create_formatter_filter(model: ExLlamaV2, tokenizer: ExLlamaV2Tokenizer,
                             formatter_builder: FormatterBuilder,
-                            engine_config: EngineGenerationConfig = None) -> ExLlamaV2Filter:
+                            engine_config: EngineGenerationConfig = None,
+                            vocab_processors: typing.Optional[list[typing.Callable]] = None) -> ExLlamaV2Filter:
     """
     Create a formatter filter for the ExLlamaV2 engine.
     """
-    vocab = create_engine_vocabulary(tokenizer)
+    vocab = create_engine_vocabulary(tokenizer, vocab_processors)
     f = formatter_builder.build(
         vocab, lambda tokens: tokenizer.decode(torch.tensor(tokens)))
     return FormatterFilter(model, tokenizer, f, engine_config)

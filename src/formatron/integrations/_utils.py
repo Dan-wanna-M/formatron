@@ -8,7 +8,8 @@ def _multiple_replace(replacements: typing.Dict[bytes, bytes], regex: re.Pattern
     return regex.sub(lambda mo: replacements[mo.group()], text)
 
 
-def get_original_characters(vocab: typing.Dict[str, int], processors: typing.Optional[list[typing.Callable]] = None) -> typing.Dict[int, bytes]:
+def get_original_characters(vocab: typing.Dict[str, int],
+                            processors: typing.Optional[list[typing.Callable]] = None) -> typing.Dict[int, bytes]:
     old_char_to_new_char = {}
     assert len(set(vocab.values())) == len(vocab), "Vocabulary contains duplicate token IDs!"
     if processors is None:

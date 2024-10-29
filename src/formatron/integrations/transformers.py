@@ -12,7 +12,8 @@ from formatron.formatter import FormatterBuilder, FormatterBase
 from formatron.integrations._utils import get_original_characters
 
 
-def create_engine_vocabulary(tokenizer: PreTrainedTokenizerBase, vocab_processors: typing.Optional[list[typing.Callable]] = None) -> kbnf.Vocabulary:
+def create_engine_vocabulary(tokenizer: PreTrainedTokenizerBase,
+                             vocab_processors: typing.Optional[list[typing.Callable]] = None) -> kbnf.Vocabulary:
     """
     Create a vocabulary for the KBNF engine.
     """

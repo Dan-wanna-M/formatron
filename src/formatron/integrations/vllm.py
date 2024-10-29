@@ -10,6 +10,7 @@ from vllm import LLM
 from formatron.config import EngineGenerationConfig
 from formatron.formatter import FormatterBase, FormatterBuilder
 from formatron.integrations._utils import get_original_characters
+from vllm.transformers_utils.tokenizer import AnyTokenizer
 
 
 class FormattersLogitsProcessor:
@@ -97,26 +98,27 @@ class FormattersLogitsProcessor:
         return logits
 
 
-def create_engine_vocabulary(llm: LLM) -> kbnf.Vocabulary:
+def create_engine_vocabulary(tokenizer: AnyTokenizer,
+                             vocab_processors: typing.Optional[list[typing.Callable]] = None) -> kbnf.Vocabulary:
     """
     Create a vocabulary for the KBNF engine.
     """
-    tokenizer = llm.get_tokenizer()
     vocab = tokenizer.get_vocab()
-    new_vocab = get_original_characters(vocab)
+    new_vocab = get_original_characters(vocab, vocab_processors)
     return kbnf.Vocabulary({k: kbnf.Token(v) for k, v in new_vocab.items()}, {
         v: k for k, v in vocab.items()})
 
 
 def create_formatters_logits_processor(llm: LLM,
                                        formatter_builders: typing.Sequence[FormatterBuilder | None] | FormatterBuilder,
-                                       configs: typing.Sequence[EngineGenerationConfig] = None) \
+                                       configs: typing.Sequence[EngineGenerationConfig] = None,
+                                       vocab_processors: typing.Optional[list[typing.Callable]] = None) \
         -> FormattersLogitsProcessor:
     """
     Create a formatter logits processor.
     """
     tokenizer = llm.get_tokenizer()
-    vocab = create_engine_vocabulary(llm)
+    vocab = create_engine_vocabulary(tokenizer, vocab_processors)
     if not isinstance(formatter_builders, collections.abc.Sequence):
         formatter_builders = [formatter_builders]
     formatters = [i.build(vocab, lambda tokens: tokenizer.decode(tokens)) if i is not None else None
