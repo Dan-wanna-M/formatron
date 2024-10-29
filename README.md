@@ -53,6 +53,7 @@ grammar generation, and post-generation processing (such as function calls).
 | LLM Controls JSON field whitespaces          | ✅                                  | ✅                                                                                             | ❌                                                   | ✅                                                                                       | ❌                                                                                               |
 | LLM Controls JSON field orderings            | ❌                                  | ✅                                                                                             | ❌                                                   | ❌                                                                                       | ❌                                                                                               |
 | JSON Schema with recursive classes           | ✅                                  | ✅                                                                                             | ❌                                                   | ❌                                                                                       | ❌                                                                                               |
+|Extractive generation(substringOf)           | ✅                                  | ❌                                                                                             | ✅                                                   | ❌                                                                                       | ❌                                                                                               |
 
 Feel free to open up an [issue](https://github.com/Dan-wanna-M/formatron/issues) if something is missing or incorrect!
 
@@ -293,7 +294,7 @@ print(logits_processor[0].formatters_captures)
 
 ### Json Schema
 
-Starting from `0.4.0`, Formatron supports some basic json schemas natively.
+Formatron supports a subset of json schemas that cover most useful features natively.
 
 ```python
 from formatron.schemas import json_schema
@@ -337,6 +338,121 @@ print(tokenizer.batch_decode(model.generate(**inputs, top_p=0.5, temperature=1,
 print(logits_processor[0].formatters_captures)
 # possible output:
 # [{'json': {'name': 'Genov', 'age': 28}}]
+```
+
+### Extractive generation
+
+Starting from `v0.4.7`, extractive generation is supported with suffix automata. This means that you can constrain the output to be a substring of a given input.
+
+```python
+from formatron.integrations.transformers import create_formatter_logits_processor_list
+from formatron.formatter import FormatterBuilder
+from transformers import AutoModelForCausalLM
+import transformers
+import torch
+
+torch.manual_seed(520)
+model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
+                                                device_map="cuda",
+                                                torch_dtype=torch.float16)
+tokenizer = transformers.AutoTokenizer.from_pretrained(
+    "microsoft/Phi-3-mini-128k-instruct")
+
+f = FormatterBuilder()
+f.append_line(f"{f.substr('The quick brown fox jumps over the lazy dog.', capture_name='animal')}")
+logits_processor = create_formatter_logits_processor_list(tokenizer, f)
+inputs = tokenizer(["""<|system|>
+You are a helpful assistant.<|end|>
+<|user|>What animal is mentioned in the phrase "The quick brown fox jumps over the lazy dog"?<|end|>
+<|assistant|>The animal mentioned in the phrase is the """], return_tensors="pt").to("cuda")
+output = tokenizer.batch_decode(model.generate(**inputs, top_p=0.5, temperature=1,
+                                                max_new_tokens=100, logits_processor=logits_processor))
+print(output)
+print(logits_processor[0].formatters_captures)
+# possible output:
+# [{'animal': 'fox'}]
+```
+
+What's more, you can embed fields that need extractive generation into pydantic models or json schemas.
+
+```python
+from formatron.schemas.pydantic import ClassSchema
+from formatron.integrations.transformers import create_formatter_logits_processor_list
+from formatron.schemas.schema import SubstringOf
+from formatron.formatter import FormatterBuilder
+from transformers import AutoModelForCausalLM
+import transformers
+import torch
+import typing
+from pydantic import Field
+
+class Person(ClassSchema):
+    name: typing.Annotated[str, Field(..., substring_of="Alice Bob Charlie David Eve"), SubstringOf("Alice Bob Charlie David Eve")]
+    age: int
+
+torch.manual_seed(520)
+model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
+                                                device_map="cuda",
+                                                torch_dtype=torch.float16)
+tokenizer = transformers.AutoTokenizer.from_pretrained(
+    "microsoft/Phi-3-mini-128k-instruct")
+
+f = FormatterBuilder()
+f.append_line(f"{f.json(Person, capture_name='json')}")
+logits_processor = create_formatter_logits_processor_list(tokenizer, f)
+inputs = tokenizer(["""<|system|>
+You are a helpful assistant.<|end|>
+<|user|>Extract information from this sentence into json: Bob is 32 years old.<|end|>
+<|assistant|>```"""], return_tensors="pt").to("cuda")
+print(tokenizer.batch_decode(model.generate(**inputs, top_p=0.5, temperature=1,
+                                            max_new_tokens=100, logits_processor=logits_processor)))
+print(logits_processor[0].formatters_captures)
+# possible output:
+# [{'json': {'name': 'Bob', 'age': 32}}]
+```
+
+```python
+from formatron.schemas import json_schema
+from formatron.integrations.transformers import create_formatter_logits_processor_list
+from formatron.formatter import FormatterBuilder
+from transformers import AutoModelForCausalLM
+import transformers
+import torch
+
+schema = {
+    "$id": "https://example.com/animal.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "animal": {
+            "type": "string",
+            "substring_of": "The quick brown fox jumps over the lazy dog."
+        }
+    },
+    "required": ["animal"]
+}
+schema = json_schema.create_schema(schema)
+
+torch.manual_seed(520)
+model = AutoModelForCausalLM.from_pretrained("microsoft/Phi-3-mini-128k-instruct",
+                                                device_map="cuda",
+                                                torch_dtype=torch.float16)
+tokenizer = transformers.AutoTokenizer.from_pretrained(
+    "microsoft/Phi-3-mini-128k-instruct")
+
+f = FormatterBuilder()
+f.append_line(f"{f.json(schema, capture_name='json')}")
+logits_processor = create_formatter_logits_processor_list(tokenizer, f)
+inputs = tokenizer(["""<|system|>
+You are a helpful assistant.<|end|>
+<|user|>What animal is mentioned in the phrase "The quick brown fox jumps over the lazy dog"?<|end|>
+<|assistant|>The animal mentioned in the phrase is the """], return_tensors="pt").to("cuda")
+output = tokenizer.batch_decode(model.generate(**inputs, top_p=0.5, temperature=1,
+                                                max_new_tokens=100, logits_processor=logits_processor))
+print(output)
+print(logits_processor[0].formatters_captures)
+# possible output:
+# [{'json': {'animal': 'fox'}}]
 ```
 
 ### Integrations
