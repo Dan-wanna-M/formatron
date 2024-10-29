@@ -41,15 +41,24 @@ def autodetect_processors(vocab: typing.Dict[str, int]) -> typing.List[typing.Ca
 
 
 def update_vocab_0xHH(old_char_to_new_char: typing.Dict[bytes, bytes]):
+    """
+    Vocabulary processor for <0xHH> tokens (used in llama tokenizers)
+    """
     for j in range(256):
         old_char_to_new_char[("<0x" + f"{j:02x}".upper() + ">").encode("UTF-8")] = bytes([j])
 
 
 def update_vocab_sentencepiece(old_char_to_new_char: typing.Dict[bytes, bytes]):
+    """
+    Vocabulary processor for ▁ token (used in sentencepiece tokenizers)
+    """
     old_char_to_new_char["\u2581".encode("UTF-8")] = b" "
 
 
 def update_vocab_dot_G(old_char_to_new_char: typing.Dict[bytes, bytes]):
+    """
+    Vocabulary processor for Ġ token (used in GPT-2 tokenizers)
+    """
     old_char_to_new_char.update(huggingface_bytelevel_decoder())
 
 
