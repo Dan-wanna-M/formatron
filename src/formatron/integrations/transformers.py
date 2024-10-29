@@ -16,6 +16,10 @@ def create_engine_vocabulary(tokenizer: PreTrainedTokenizerBase,
                              vocab_processors: typing.Optional[list[typing.Callable]] = None) -> kbnf.Vocabulary:
     """
     Create a vocabulary for the KBNF engine.
+    Args:
+        tokenizer: The tokenizer.
+        vocab_processors: List of callables with signature (token_to_char: typing.Dict[bytes, bytes])->None.
+            Callables can be used to map special tokens to original characters. If None, processors will be auto-detected.
     """
     vocab = tokenizer.get_vocab()
     new_vocab = get_original_characters(vocab, vocab_processors)

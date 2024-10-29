@@ -10,13 +10,16 @@ from exllamav2.generator.base import ExLlamaV2Filter
 from formatron.config import EngineGenerationConfig
 from formatron.formatter import FormatterBase, FormatterBuilder
 from formatron.integrations._utils import get_original_characters
-from functools import lru_cache
 
 
 def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer,
                              vocab_processors: typing.Optional[list[typing.Callable]] = None) -> kbnf.Vocabulary:
     """
     Create a vocabulary for the KBNF engine.
+    Args:
+        tokenizer: The tokenizer.
+        vocab_processors: List of callables with signature (token_to_char: typing.Dict[bytes, bytes])->None.
+            Callables can be used to map special tokens to original characters. If None, processors will be auto-detected.
     """
     assert hasattr(tokenizer.tokenizer_model, "vocab"), (f"tokenizer({tokenizer})"
                                                          f" with tokenizer_model({tokenizer.tokenizer_model})"

@@ -2,10 +2,8 @@
 This module integrates the vllm library by providing convenience utilities.
 """
 import collections.abc
-import time
 import typing
 import kbnf
-import torch
 from vllm import LLM
 from formatron.config import EngineGenerationConfig
 from formatron.formatter import FormatterBase, FormatterBuilder
@@ -102,6 +100,10 @@ def create_engine_vocabulary(tokenizer: AnyTokenizer,
                              vocab_processors: typing.Optional[list[typing.Callable]] = None) -> kbnf.Vocabulary:
     """
     Create a vocabulary for the KBNF engine.
+    Args:
+        tokenizer: The tokenizer.
+        vocab_processors: List of callables with signature (token_to_char: typing.Dict[bytes, bytes])->None.
+            Callables can be used to map special tokens to original characters. If None, processors will be auto-detected.
     """
     vocab = tokenizer.get_vocab()
     new_vocab = get_original_characters(vocab, vocab_processors)
