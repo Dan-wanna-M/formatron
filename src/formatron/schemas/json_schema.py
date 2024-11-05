@@ -59,6 +59,7 @@ def create_schema(schema: dict[str, typing.Any], registry=Registry()) -> schemas
       - optionally with `minItems`, `maxItems`, `prefixItems` constraints
     - `properties` keyword
       - Due to implementation limitations, we always assume `additionalProperties` is false.
+      - Note that `properties` is optional for object type.
     - `enum` and `const` keyword
       - This includes advanced enum types such as array and object.
       - Note that if both `enum`(or `const`) and `type` are present, `type` will be ignored.
