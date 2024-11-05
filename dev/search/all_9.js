@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['infer_5fmapping_0',['infer_mapping',['../namespaceformatron_1_1schemas_1_1dict__inference.html#a850490b4a317260a236333130d36a5d8',1,'formatron::schemas::dict_inference']]],
-  ['is_5fcompleted_1',['is_completed',['../classformatron_1_1formatter_1_1FormatterBase.html#ac9af60077533ed0f3c9f42ee3a132899',1,'formatron.formatter.FormatterBase.is_completed()'],['../classformatron_1_1formatter_1_1Formatter.html#ac15aeec180daa5c78ad3c9bd93bd2b5b',1,'formatron.formatter.Formatter.is_completed()'],['../classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#adadb3652b5250cf08dfe7cc8824e2ec0',1,'formatron.integrations.exllamav2.FormatterFilter.is_completed()'],['../classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor.html#a0bf8e8613df954fcad9fb5368d0f7025',1,'formatron.integrations.transformers.FormattersLogitsProcessor.is_completed()'],['../classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html#ad6930fba60b378039db9698d811cb82a',1,'formatron.integrations.vllm.FormattersLogitsProcessor.is_completed()']]]
+  ['json_0',['json',['../classformatron_1_1formatter_1_1FormatterBuilder.html#ad2a182c94ddec53d22aefe64f57d6514',1,'formatron::formatter::FormatterBuilder']]],
+  ['json_2epy_1',['json.py',['../json_8py.html',1,'']]],
+  ['json_5fschema_2epy_2',['json_schema.py',['../json__schema_8py.html',1,'']]],
+  ['jsonextractor_3',['JsonExtractor',['../classformatron_1_1formats_1_1json_1_1JsonExtractor.html',1,'formatron::formats::json']]]
 ];

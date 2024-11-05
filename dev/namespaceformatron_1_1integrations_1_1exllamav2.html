@@ -138,18 +138,18 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab73e373da3d117082bfcb5e4020e0358" id="r_ab73e373da3d117082bfcb5e4020e0358"><td class="memItemLeft" align="right" valign="top">kbnf.Vocabulary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab73e373da3d117082bfcb5e4020e0358">create_engine_vocabulary</a> (ExLlamaV2Tokenizer tokenizer)</td></tr>
-<tr class="memdesc:ab73e373da3d117082bfcb5e4020e0358"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a vocabulary for the KBNF engine.  <br /></td></tr>
-<tr class="separator:ab73e373da3d117082bfcb5e4020e0358"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fb6a829f6fb28c956693fb2e4b39b63" id="r_a8fb6a829f6fb28c956693fb2e4b39b63"><td class="memItemLeft" align="right" valign="top">ExLlamaV2Filter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8fb6a829f6fb28c956693fb2e4b39b63">create_formatter_filter</a> (ExLlamaV2 model, ExLlamaV2Tokenizer tokenizer, <a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a> formatter_builder, <a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a> engine_config=None)</td></tr>
-<tr class="memdesc:a8fb6a829f6fb28c956693fb2e4b39b63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a formatter filter for the ExLlamaV2 engine.  <br /></td></tr>
-<tr class="separator:a8fb6a829f6fb28c956693fb2e4b39b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80db020f2fd854399834ca7581281a34" id="r_a80db020f2fd854399834ca7581281a34"><td class="memItemLeft" align="right" valign="top">kbnf.Vocabulary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80db020f2fd854399834ca7581281a34">create_engine_vocabulary</a> (ExLlamaV2Tokenizer tokenizer, typing.Optional[list[typing.Callable]] vocab_processors=None)</td></tr>
+<tr class="memdesc:a80db020f2fd854399834ca7581281a34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a vocabulary for the KBNF engine.  <br /></td></tr>
+<tr class="separator:a80db020f2fd854399834ca7581281a34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51e71b1e5ca66beba85e26e8cc322206" id="r_a51e71b1e5ca66beba85e26e8cc322206"><td class="memItemLeft" align="right" valign="top">ExLlamaV2Filter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51e71b1e5ca66beba85e26e8cc322206">create_formatter_filter</a> (ExLlamaV2 model, ExLlamaV2Tokenizer tokenizer, <a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a> formatter_builder, <a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a> engine_config=None, typing.Optional[list[typing.Callable]] vocab_processors=None)</td></tr>
+<tr class="memdesc:a51e71b1e5ca66beba85e26e8cc322206"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a formatter filter for the ExLlamaV2 engine.  <br /></td></tr>
+<tr class="separator:a51e71b1e5ca66beba85e26e8cc322206"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This module integrates the ExLlamaV2 library by providing convenience utilities. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="ab73e373da3d117082bfcb5e4020e0358" name="ab73e373da3d117082bfcb5e4020e0358"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab73e373da3d117082bfcb5e4020e0358">&#9670;&#160;</a></span>create_engine_vocabulary()</h2>
+<a id="a80db020f2fd854399834ca7581281a34" name="a80db020f2fd854399834ca7581281a34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80db020f2fd854399834ca7581281a34">&#9670;&#160;</a></span>create_engine_vocabulary()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,20 +157,31 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"> kbnf.Vocabulary formatron.integrations.exllamav2.create_engine_vocabulary </td>
           <td>(</td>
-          <td class="paramtype">ExLlamaV2Tokenizer</td>          <td class="paramname"><span class="paramname"><em>tokenizer</em></span></td><td>)</td>
+          <td class="paramtype">ExLlamaV2Tokenizer</td>          <td class="paramname"><span class="paramname"><em>tokenizer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">typing.Optional[list[typing.Callable]] </td>          <td class="paramname"><span class="paramname"><em>vocab_processors</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Create a vocabulary for the KBNF engine. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tokenizer</td><td>The tokenizer. </td></tr>
+    <tr><td class="paramname">vocab_processors</td><td>List of callables with signature (token_to_char: typing.Dict[bytes, bytes])-&gt;None. Callables can be used to "unmangle" encoded characters to original characters. If None, processors will be auto-detected. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00020">20</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00024">24</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>
-<a id="a8fb6a829f6fb28c956693fb2e4b39b63" name="a8fb6a829f6fb28c956693fb2e4b39b63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8fb6a829f6fb28c956693fb2e4b39b63">&#9670;&#160;</a></span>create_formatter_filter()</h2>
+<a id="a51e71b1e5ca66beba85e26e8cc322206" name="a51e71b1e5ca66beba85e26e8cc322206"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51e71b1e5ca66beba85e26e8cc322206">&#9670;&#160;</a></span>create_formatter_filter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -193,14 +204,29 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a> </td>          <td class="paramname"><span class="paramname"><em>engine_config</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a> </td>          <td class="paramname"><span class="paramname"><em>engine_config</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">typing.Optional[list[typing.Callable]] </td>          <td class="paramname"><span class="paramname"><em>vocab_processors</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Create a formatter filter for the ExLlamaV2 engine. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model</td><td>The ExLlamaV2 model. </td></tr>
+    <tr><td class="paramname">tokenizer</td><td>The ExLlamaV2 tokenizer. </td></tr>
+    <tr><td class="paramname">formatter_builder</td><td>The formatter builder. </td></tr>
+    <tr><td class="paramname">engine_config</td><td>The engine generation configuration. </td></tr>
+    <tr><td class="paramname">vocab_processors</td><td>List of callables with signature (token_to_char: typing.Dict[bytes, bytes])-&gt;None. Callables can be used to "unmangle" encoded characters to original characters. If None, processors will be auto-detected. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00034">34</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="exllamav2_8py_source.html#l00046">46</a> of file <a class="el" href="exllamav2_8py_source.html">exllamav2.py</a>.</p>
 
 </div>
 </div>

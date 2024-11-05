@@ -138,18 +138,18 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:acec47a067c2396265f1d7a941b0a7ab3" id="r_acec47a067c2396265f1d7a941b0a7ab3"><td class="memItemLeft" align="right" valign="top">kbnf.Vocabulary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acec47a067c2396265f1d7a941b0a7ab3">create_engine_vocabulary</a> (LLM llm)</td></tr>
-<tr class="memdesc:acec47a067c2396265f1d7a941b0a7ab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a vocabulary for the KBNF engine.  <br /></td></tr>
-<tr class="separator:acec47a067c2396265f1d7a941b0a7ab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a995ec0f6519cf5b67bcc52d411653a26" id="r_a995ec0f6519cf5b67bcc52d411653a26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html">FormattersLogitsProcessor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a995ec0f6519cf5b67bcc52d411653a26">create_formatters_logits_processor</a> (LLM llm, typing.Sequence[<a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a>|None]|<a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a> formatter_builders, typing.Sequence[<a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a>] configs=None)</td></tr>
-<tr class="memdesc:a995ec0f6519cf5b67bcc52d411653a26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a formatter logits processor.  <br /></td></tr>
-<tr class="separator:a995ec0f6519cf5b67bcc52d411653a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16d6196bbdb008cc80ca59b860ccfc80" id="r_a16d6196bbdb008cc80ca59b860ccfc80"><td class="memItemLeft" align="right" valign="top">kbnf.Vocabulary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16d6196bbdb008cc80ca59b860ccfc80">create_engine_vocabulary</a> (AnyTokenizer tokenizer, typing.Optional[list[typing.Callable]] vocab_processors=None)</td></tr>
+<tr class="memdesc:a16d6196bbdb008cc80ca59b860ccfc80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a vocabulary for the KBNF engine.  <br /></td></tr>
+<tr class="separator:a16d6196bbdb008cc80ca59b860ccfc80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae67ec5e8c8a65188f4720a0c921723b6" id="r_ae67ec5e8c8a65188f4720a0c921723b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classformatron_1_1integrations_1_1vllm_1_1FormattersLogitsProcessor.html">FormattersLogitsProcessor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae67ec5e8c8a65188f4720a0c921723b6">create_formatters_logits_processor</a> (LLM llm, typing.Sequence[<a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a>|None]|<a class="el" href="classformatron_1_1formatter_1_1FormatterBuilder.html">FormatterBuilder</a> formatter_builders, typing.Sequence[<a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a>] configs=None, typing.Optional[list[typing.Callable]] vocab_processors=None)</td></tr>
+<tr class="memdesc:ae67ec5e8c8a65188f4720a0c921723b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a formatter logits processor.  <br /></td></tr>
+<tr class="separator:ae67ec5e8c8a65188f4720a0c921723b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This module integrates the vllm library by providing convenience utilities. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="acec47a067c2396265f1d7a941b0a7ab3" name="acec47a067c2396265f1d7a941b0a7ab3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acec47a067c2396265f1d7a941b0a7ab3">&#9670;&#160;</a></span>create_engine_vocabulary()</h2>
+<a id="a16d6196bbdb008cc80ca59b860ccfc80" name="a16d6196bbdb008cc80ca59b860ccfc80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16d6196bbdb008cc80ca59b860ccfc80">&#9670;&#160;</a></span>create_engine_vocabulary()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,20 +157,31 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"> kbnf.Vocabulary formatron.integrations.vllm.create_engine_vocabulary </td>
           <td>(</td>
-          <td class="paramtype">LLM</td>          <td class="paramname"><span class="paramname"><em>llm</em></span></td><td>)</td>
+          <td class="paramtype">AnyTokenizer</td>          <td class="paramname"><span class="paramname"><em>tokenizer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">typing.Optional[list[typing.Callable]] </td>          <td class="paramname"><span class="paramname"><em>vocab_processors</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Create a vocabulary for the KBNF engine. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tokenizer</td><td>The tokenizer. </td></tr>
+    <tr><td class="paramname">vocab_processors</td><td>List of callables with signature (token_to_char: typing.Dict[bytes, bytes])-&gt;None. Callables can be used to "unmangle" encoded characters to original characters. If None, processors will be auto-detected. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="vllm_8py_source.html#l00113">113</a> of file <a class="el" href="vllm_8py_source.html">vllm.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vllm_8py_source.html#l00116">116</a> of file <a class="el" href="vllm_8py_source.html">vllm.py</a>.</p>
 
 </div>
 </div>
-<a id="a995ec0f6519cf5b67bcc52d411653a26" name="a995ec0f6519cf5b67bcc52d411653a26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a995ec0f6519cf5b67bcc52d411653a26">&#9670;&#160;</a></span>create_formatters_logits_processor()</h2>
+<a id="ae67ec5e8c8a65188f4720a0c921723b6" name="ae67ec5e8c8a65188f4720a0c921723b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae67ec5e8c8a65188f4720a0c921723b6">&#9670;&#160;</a></span>create_formatters_logits_processor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -188,14 +199,28 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">typing.Sequence[<a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a>] </td>          <td class="paramname"><span class="paramname"><em>configs</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
+          <td class="paramtype">typing.Sequence[<a class="el" href="classformatron_1_1config_1_1EngineGenerationConfig.html">EngineGenerationConfig</a>] </td>          <td class="paramname"><span class="paramname"><em>configs</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">typing.Optional[list[typing.Callable]] </td>          <td class="paramname"><span class="paramname"><em>vocab_processors</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Create a formatter logits processor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>The LLM. </td></tr>
+    <tr><td class="paramname">formatter_builders</td><td>The formatter builders. </td></tr>
+    <tr><td class="paramname">configs</td><td>The engine generation configurations. </td></tr>
+    <tr><td class="paramname">vocab_processors</td><td>List of callables with signature (token_to_char: typing.Dict[bytes, bytes])-&gt;None. Callables can be used to "unmangle" encoded characters to original characters. If None, processors will be auto-detected. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="vllm_8py_source.html#l00124">124</a> of file <a class="el" href="vllm_8py_source.html">vllm.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vllm_8py_source.html#l00133">133</a> of file <a class="el" href="vllm_8py_source.html">vllm.py</a>.</p>
 
 </div>
 </div>
