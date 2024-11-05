@@ -226,3 +226,22 @@ def test_formatter_regex_complement(snapshot):
     
     snapshot.assert_match(formatter.captures)
 
+def test_formatter_json_no_properties(snapshot):
+    import typing
+    FormatterBuilder._formatter_builder_counter = 0
+    f = FormatterBuilder()
+    f.append_str(f"{f.json(typing.Dict[str, typing.Any], capture_name='data')}")
+
+    model = RWKV(
+        "assets/RWKV-5-World-0.4B-v2-20231113-ctx4096.pth", 'cuda fp16')
+    pipeline = formatron.integrations.RWKV.PIPELINE(model, "rwkv_vocab_v20230424", f)
+    
+    formatter = pipeline.formatter
+    
+    # Test with manual input
+    input_text = '{"key": "value", "number": 42}'
+    for char in input_text:
+        formatter.accept_bytes(char.encode('utf-8'))
+    
+    snapshot.assert_match(formatter.captures)
+

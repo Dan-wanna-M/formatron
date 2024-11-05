@@ -41,17 +41,17 @@ __json_4_0_json_name ::= string;
 start ::= \'Today, I want to eat \' __choice_0_0_food \'\\n\' "My food\'s ID is " __choice_3_0_ID \'.\\n\' "\\nWhat\'s more, indentations\\nare handled\\nappropriately." \'My weight is 14.4kg and my color is pink. This is my personal info json: \' __json_4_0_json \'\\n\';'''
 
 snapshots['test_formatter 2'] = '''Today, I want to eat orange
-My food's ID is soo.
+My food's ID is orange.
 
 What's more, indentations
 are handled
-appropriately.My weight is 14.4kg and my color is pink. This is my personal info json: {  "name" : "Van" ,"weight" : 1.4, "color" : "pink"}
+appropriately.My weight is 14.4kg and my color is pink. This is my personal info json: { \t"name": "Van",\t"weight": 1,\t"color": "pink"}
 '''
 
 snapshots['test_formatter 3'] = {
-    'ID': GenericRepr("<re.Match object; span=(0, 3), match='soo'>"),
+    'ID': GenericRepr("<re.Match object; span=(0, 6), match='orange'>"),
     'food': 'orange',
-    'json': GenericRepr("Test(name='Van', weight=1.4, color='pink')")
+    'json': GenericRepr("Test(name='Van', weight=1.0, color='pink')")
 }
 
 snapshots['test_formatter_alternate_accept 1'] = {
@@ -123,23 +123,25 @@ __json_0_0_json_name ::= string;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_dict_inference 2'] = '''{"name":"Tom","gender":"male"}
-'''
+snapshots['test_formatter_dict_inference 2'] = '{"name":"这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字'
 
 snapshots['test_formatter_dict_inference 3'] = {
-    'json': {
-        'gender': 'male',
-        'name': 'Tom'
+}
+
+snapshots['test_formatter_json_no_properties 1'] = {
+    'data': {
+        'key': 'value',
+        'number': 42
     }
 }
 
-snapshots['test_formatter_json_schema 1'] = '''{"name":"value","age":0}
+snapshots['test_formatter_json_schema 1'] = '''{"name":"calibur","age":120}
 '''
 
 snapshots['test_formatter_json_schema 2'] = {
     'json': {
-        'age': 0,
-        'name': 'value'
+        'age': 120,
+        'name': 'calibur'
     }
 }
 
@@ -175,20 +177,11 @@ snapshots['test_formatter_regex_complement 1'] = '''__regex_complement_0_0_non_n
 __regex_1_0_numeric ::= #'[0-9]+';
 start ::= 'Text: ' __regex_complement_0_0_non_numeric 'Number: ' __regex_1_0_numeric '\\n';'''
 
-snapshots['test_formatter_regex_complement 2'] = '''Text: I got $l worth of money from $b.
-A: $l worth of money from $b is $l worth of money from $b.
-$l worth of money from $b is $l worth of money from $b.
-$l worth of money from $b is $l worth of money from $b.
-$l worth of money from $b is $l worth of money from $b.
-$l worth of money from $b is $l worth of money from $b.
-$l worth of money from $b is $l worth of money from $b.
-$l worth of money from $b is $l worth of money from $b.
-$l worth of money from $b is $l worth of money from $b.
-$l worth of money from $b is $l worth of money from $b.
-$l worth of money from $b is $l worth of money from $b.
-$l worth of money from $b is $l worth of money from $b.
-$l worth of money from $b is $l worth of money from $b.
-$l worth of money from $b is $l worth'''
+snapshots['test_formatter_regex_complement 2'] = '''Text: THERE IS A BIG SCREEN OF THE LIFE AND DEATH OF JEAN GILLETTE
+
+Assistant: There is a big screen of the life and death of Jean Gillette.
+Jean Gillette was a French actor, director, and producer who died at the age of eighty-one. He was best known for his role as Louis XIV in the musical comedy The Life and Death of Jeanne D'Arc. Gillette was born on June\xa0I,\xa0in\xa0Paris, France. He started his career as a stage actor in the late nineteenth century, but his popularity skyrocketed when he appeared in films such as The Life and Death of Jack the Ripper and The Life and Death of Count Dracula. Gillette's performances were praised by critics and audiences alike, and he became a household name.
+The life and death of Jean Gillette is a tragic tale that has inspired countless films, plays, and novels over the years. The story follows the life of Jean Gillette, a French actor who was famous for his role as Louis XIV in the musical comedy The Life and Death of Jack the Ripper. The story revolves around a young woman named Jeanne D'Arc, who is accused of murder'''
 
 snapshots['test_formatter_regex_complement 3'] = {
     'non_numeric': 'Hello, world! Number: ',
@@ -203,7 +196,7 @@ snapshots['test_formatter_regex_complement 4'] = {
 snapshots['test_formatter_str 1'] = '''__str_0_0 ::= #'.*?(?:\\\\.)';
 start ::= __str_0_0 '\\n';'''
 
-snapshots['test_formatter_str 2'] = '请将上述英文翻译成中文，并且返回正确的翻译方式为英文，因为它不在这个问题中。Answer: 我的名字是Van。请问你想问什么？（我不知道你想问什么，所以我只能回答你）。这是一个简单的问题，你可以告诉我你想问什么。（我不知道你想问什么，所以我只能回答你）。请告诉我你想要了解的是什么？（我不知道你想要了解的是什么，所以我只能回答你）。这是一个有趣的问题，可以让我们聊天。（我不知道你想要聊什么，所以我只能回答你）。请告诉我你想要聊什么？（我不知道你想要聊什么，所以我只能回答你）。这是一个有趣的问题，可以让我们聊天。（我不知道你'
+snapshots['test_formatter_str 2'] = '\uf06eI\'m the prince of ice. I was once a king, but my father was killed by my brother. I\'m the son of the Frost King, who took me from my mother and forced me to marry his daughter. I\'m now a prince, but my mother was murdered by my father. I\'m the king\'s son, but I\'m a prince too. I want to be the best at everything. I want to be a king. But I don\'t know how to fight. I don\'t know how to kill people. I don\'t know how to speak the language of ice." Van said. He looked at each of them with his eyes filled with pain and fear. He was scared, but he also knew that he had to be brave. "Van, you can do this," Prince Hal said. "I\'ll help you," Van said, and he stood up and walked towards Hal and the others. "Hal, you\'re going to be my best friend," Van said as he smiled. Hal smiled back and hugged Van. "You\'ll be my best friend too," Hal said. "And I\'m not just talking about your magic," Van added. "I know that you\'re not just talking about magic," Hal said, and'
 
 snapshots['test_formatter_str 3'] = {
 }
@@ -248,21 +241,21 @@ __json_0_0_json_item ::= json_value;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_top_level_array_json_schema 2'] = '''[{"id": 1, "name": "John"}, {"id": 2, "name": "Jane"}, {"id": 3, "name": "Mary"}]
+snapshots['test_formatter_top_level_array_json_schema 2'] = '''[{"name": "John", "age": 30}, {"name": "Jane", "age": 30}, {"name": "Mary", "age": 40}]
 '''
 
 snapshots['test_formatter_top_level_array_json_schema 3'] = {
     'json': [
         {
-            'id': 1,
+            'age': 30,
             'name': 'John'
         },
         {
-            'id': 2,
+            'age': 30,
             'name': 'Jane'
         },
         {
-            'id': 3,
+            'age': 40,
             'name': 'Mary'
         }
     ]
