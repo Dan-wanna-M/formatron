@@ -2,7 +2,7 @@ import re
 import typing
 from functools import lru_cache
 
-__all__ = ["get_original_characters", "update_vocab_0xHH", "update_vocab_sentencepiece", "update_vocab_dot_G", "huggingface_bytelevel_decoder"]
+__all__ = ["get_original_characters", "update_vocab_0xHH", "update_vocab_sentencepiece", "update_vocab_dot_G"]
 
 def _multiple_replace(replacements: typing.Dict[bytes, bytes], regex: re.Pattern[bytes], text: bytes) -> bytes:
     # For each match, look-up corresponding value in dictionary
