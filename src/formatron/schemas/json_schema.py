@@ -164,7 +164,10 @@ def _infer_type(schema: dict[str, typing.Any], json_schema_id_to_schema: dict[in
     obtained_type = _obtain_type(schema, json_schema_id_to_schema)
     if obtained_type is None:
         obtained_type = typing.Union[str, float, int, bool, None, list[typing.Any]]
-    args = typing.get_args(obtained_type)
+    args = None
+    origin = typing.get_origin(obtained_type)
+    if origin is typing.Union or origin is typing.Literal or origin is list:
+        args = typing.get_args(obtained_type)
     if not args:
         args = [obtained_type]
     else:
@@ -173,7 +176,7 @@ def _infer_type(schema: dict[str, typing.Any], json_schema_id_to_schema: dict[in
         if arg is object:
             args[i] = _create_custom_type(schema, json_schema_id_to_schema)
         elif arg is list:
-            args[i] = _handle_list_metadata(obtained_type, schema, json_schema_id_to_schema)
+            args[i] = _handle_list_metadata(schema, json_schema_id_to_schema)
         elif arg is str:
             args[i] = _handle_str_with_metadata(schema)
         elif arg is int or arg is float:
@@ -249,7 +252,7 @@ def _create_custom_type(schema: dict[str, typing.Any], json_schema_id_to_schema:
     json_schema_id_to_schema[id(schema)] = new_type
     return new_type
 
-def _handle_list_metadata(obtained_type: typing.Type, schema: dict[str, typing.Any], json_schema_id_to_schema: dict[int, typing.Type]) -> typing.Type:
+def _handle_list_metadata(schema: dict[str, typing.Any], json_schema_id_to_schema: dict[int, typing.Type]) -> typing.Type:
     """
     Handle cases where the obtained type is a list
     """
@@ -296,7 +299,10 @@ def _obtain_type(schema: dict[str, typing.Any], json_schema_id_to_schema:dict[in
         elif json_type == "array":
             obtained_type = list
         elif json_type == "object":
-            obtained_type = object
+            if "properties" in schema:
+                obtained_type = object
+            else:
+                obtained_type = dict[str, typing.Any]
         elif isinstance(json_type, collections.abc.Sequence):
             new_list = []
             for item in json_type:
@@ -310,9 +316,6 @@ def _obtain_type(schema: dict[str, typing.Any], json_schema_id_to_schema:dict[in
     if literal is not None:
         return _handle_literal(literal, obtained_type, schema, json_schema_id_to_schema)
     return obtained_type
-
-
-
 
 
 def _merge_referenced_schema(schema: dict[str, typing.Any], memo: set[int]):

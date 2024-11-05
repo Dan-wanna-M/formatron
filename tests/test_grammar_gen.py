@@ -53,6 +53,17 @@ def test_json_schema_substring_constraint(snapshot):
     result = JsonExtractor("start", None, SubstringSchema, lambda x: x).kbnf_definition
     snapshot.assert_match(result)
 
+def test_json_schema_object_without_properties(snapshot):
+    schema = {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://example.com/object-schema",
+        "type": "object"
+    }
+
+    ObjectSchema = json_schema.create_schema(schema)
+    print(ObjectSchema)
+    result = JsonExtractor("start", None, ObjectSchema, lambda x: x).kbnf_definition
+    snapshot.assert_match(result)
 
 
 def test_pydantic_class(snapshot):
