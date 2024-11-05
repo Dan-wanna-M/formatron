@@ -9,31 +9,44 @@ from exllamav2 import ExLlamaV2Tokenizer, ExLlamaV2
 from exllamav2.generator.base import ExLlamaV2Filter
 from formatron.config import EngineGenerationConfig
 from formatron.formatter import FormatterBase, FormatterBuilder
-from formatron.integrations._utils import get_original_characters
-from functools import lru_cache
+from formatron.integrations.utils import get_original_characters
 
 
-def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer) -> kbnf.Vocabulary:
+__all__ = ["create_engine_vocabulary", "create_formatter_filter", "FormatterFilter"]
+def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer,
+                             vocab_processors: typing.Optional[list[typing.Callable]] = None) -> kbnf.Vocabulary:
     """
     Create a vocabulary for the KBNF engine.
+    Args:
+        tokenizer: The tokenizer.
+        vocab_processors: List of callables with signature (token_to_char: typing.Dict[bytes, bytes])->None.
+            Callables can be used to "unmangle" encoded characters to original characters. If None, processors will be auto-detected.
     """
     assert hasattr(tokenizer.tokenizer_model, "vocab"), (f"tokenizer({tokenizer})"
                                                          f" with tokenizer_model({tokenizer.tokenizer_model})"
                                                          f" does not have vocab attribute!")
     vocab = {tokenizer.tokenizer_model.id_to_piece(
         i): i for i in range(tokenizer.tokenizer_model.vocab_size())}
-    new_vocab = get_original_characters(vocab)
+    new_vocab = get_original_characters(vocab, vocab_processors)
     return kbnf.Vocabulary({k: kbnf.Token(v) for k, v in new_vocab.items()},
                            {v: k for k, v in vocab.items()})
 
 
 def create_formatter_filter(model: ExLlamaV2, tokenizer: ExLlamaV2Tokenizer,
                             formatter_builder: FormatterBuilder,
-                            engine_config: EngineGenerationConfig = None) -> ExLlamaV2Filter:
+                            engine_config: EngineGenerationConfig = None,
+                            vocab_processors: typing.Optional[list[typing.Callable]] = None) -> ExLlamaV2Filter:
     """
     Create a formatter filter for the ExLlamaV2 engine.
+    Args:
+        model: The ExLlamaV2 model.
+        tokenizer: The ExLlamaV2 tokenizer.
+        formatter_builder: The formatter builder.
+        engine_config: The engine generation configuration.
+        vocab_processors: List of callables with signature (token_to_char: typing.Dict[bytes, bytes])->None.
+            Callables can be used to "unmangle" encoded characters to original characters. If None, processors will be auto-detected.
     """
-    vocab = create_engine_vocabulary(tokenizer)
+    vocab = create_engine_vocabulary(tokenizer, vocab_processors)
     f = formatter_builder.build(
         vocab, lambda tokens: tokenizer.decode(torch.tensor(tokens)))
     return FormatterFilter(model, tokenizer, f, engine_config)
