@@ -9,9 +9,10 @@ from exllamav2 import ExLlamaV2Tokenizer, ExLlamaV2
 from exllamav2.generator.base import ExLlamaV2Filter
 from formatron.config import EngineGenerationConfig
 from formatron.formatter import FormatterBase, FormatterBuilder
-from formatron.integrations._utils import get_original_characters
+from formatron.integrations.utils import get_original_characters
 
 
+__all__ = ["create_engine_vocabulary", "create_formatter_filter", "FormatterFilter"]
 def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer,
                              vocab_processors: typing.Optional[list[typing.Callable]] = None) -> kbnf.Vocabulary:
     """
@@ -19,7 +20,7 @@ def create_engine_vocabulary(tokenizer: ExLlamaV2Tokenizer,
     Args:
         tokenizer: The tokenizer.
         vocab_processors: List of callables with signature (token_to_char: typing.Dict[bytes, bytes])->None.
-            Callables can be used to map special tokens to original characters. If None, processors will be auto-detected.
+            Callables can be used to "unmangle" encoded characters to original characters. If None, processors will be auto-detected.
     """
     assert hasattr(tokenizer.tokenizer_model, "vocab"), (f"tokenizer({tokenizer})"
                                                          f" with tokenizer_model({tokenizer.tokenizer_model})"
@@ -37,6 +38,13 @@ def create_formatter_filter(model: ExLlamaV2, tokenizer: ExLlamaV2Tokenizer,
                             vocab_processors: typing.Optional[list[typing.Callable]] = None) -> ExLlamaV2Filter:
     """
     Create a formatter filter for the ExLlamaV2 engine.
+    Args:
+        model: The ExLlamaV2 model.
+        tokenizer: The ExLlamaV2 tokenizer.
+        formatter_builder: The formatter builder.
+        engine_config: The engine generation configuration.
+        vocab_processors: List of callables with signature (token_to_char: typing.Dict[bytes, bytes])->None.
+            Callables can be used to "unmangle" encoded characters to original characters. If None, processors will be auto-detected.
     """
     vocab = create_engine_vocabulary(tokenizer, vocab_processors)
     f = formatter_builder.build(

@@ -7,7 +7,7 @@ import kbnf
 from vllm import LLM
 from formatron.config import EngineGenerationConfig
 from formatron.formatter import FormatterBase, FormatterBuilder
-from formatron.integrations._utils import get_original_characters
+from formatron.integrations.utils import get_original_characters
 from vllm.transformers_utils.tokenizer import AnyTokenizer
 
 
@@ -103,7 +103,7 @@ def create_engine_vocabulary(tokenizer: AnyTokenizer,
     Args:
         tokenizer: The tokenizer.
         vocab_processors: List of callables with signature (token_to_char: typing.Dict[bytes, bytes])->None.
-            Callables can be used to map special tokens to original characters. If None, processors will be auto-detected.
+            Callables can be used to "unmangle" encoded characters to original characters. If None, processors will be auto-detected.
     """
     vocab = tokenizer.get_vocab()
     new_vocab = get_original_characters(vocab, vocab_processors)
@@ -118,6 +118,12 @@ def create_formatters_logits_processor(llm: LLM,
         -> FormattersLogitsProcessor:
     """
     Create a formatter logits processor.
+    Args:
+        llm: The LLM.
+        formatter_builders: The formatter builders.
+        configs: The engine generation configurations.
+        vocab_processors: List of callables with signature (token_to_char: typing.Dict[bytes, bytes])->None.
+            Callables can be used to "unmangle" encoded characters to original characters. If None, processors will be auto-detected.
     """
     tokenizer = llm.get_tokenizer()
     vocab = create_engine_vocabulary(tokenizer, vocab_processors)
