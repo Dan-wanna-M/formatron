@@ -41,17 +41,21 @@ __json_4_0_json_name ::= string;
 start ::= \'Today, I want to eat \' __choice_0_0_food \'\\n\' "My food\'s ID is " __choice_3_0_ID \'.\\n\' "\\nWhat\'s more, indentations\\nare handled\\nappropriately." \'My weight is 14.4kg and my color is pink. This is my personal info json: \' __json_4_0_json \'\\n\';'''
 
 snapshots['test_formatter 2'] = '''Today, I want to eat orange
-My food's ID is orange.
+My food's ID is lime.
 
 What's more, indentations
 are handled
-appropriately.My weight is 14.4kg and my color is pink. This is my personal info json: { \t"name": "Van",\t"weight": 1,\t"color": "pink"}
+appropriately.My weight is 14.4kg and my color is pink. This is my personal info json: { \t
+\t"name": "Van",
+\t"weight": 120,
+\t"color": "pink"
+}
 '''
 
 snapshots['test_formatter 3'] = {
-    'ID': GenericRepr("<re.Match object; span=(0, 6), match='orange'>"),
+    'ID': GenericRepr("<re.Match object; span=(0, 4), match='lime'>"),
     'food': 'orange',
-    'json': GenericRepr("Test(name='Van', weight=1.0, color='pink')")
+    'json': GenericRepr("Test(name='Van', weight=120.0, color='pink')")
 }
 
 snapshots['test_formatter_alternate_accept 1'] = {
@@ -88,7 +92,7 @@ __json_0_0_json_a ::= integer;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_callable_schema 2'] = '''{"a":1,"b":2,"c":3}
+snapshots['test_formatter_callable_schema 2'] = '''{"a": 1, "b": 2, "c": 3}
 '''
 
 snapshots['test_formatter_callable_schema 3'] = {
@@ -123,9 +127,14 @@ __json_0_0_json_name ::= string;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_dict_inference 2'] = '{"name":"这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字这是一个json: 我的名字'
+snapshots['test_formatter_dict_inference 2'] = '''{"name":"[1,2,3,4,5]","gender":"male"}
+'''
 
 snapshots['test_formatter_dict_inference 3'] = {
+    'json': {
+        'gender': 'male',
+        'name': '[1,2,3,4,5]'
+    }
 }
 
 snapshots['test_formatter_json_no_properties 1'] = {
@@ -135,13 +144,13 @@ snapshots['test_formatter_json_no_properties 1'] = {
     }
 }
 
-snapshots['test_formatter_json_schema 1'] = '''{"name":"calibur","age":120}
+snapshots['test_formatter_json_schema 1'] = '''{"name":"Jack","age":100}
 '''
 
 snapshots['test_formatter_json_schema 2'] = {
     'json': {
-        'age': 120,
-        'name': 'calibur'
+        'age': 100,
+        'name': 'Jack'
     }
 }
 
@@ -177,11 +186,19 @@ snapshots['test_formatter_regex_complement 1'] = '''__regex_complement_0_0_non_n
 __regex_1_0_numeric ::= #'[0-9]+';
 start ::= 'Text: ' __regex_complement_0_0_non_numeric 'Number: ' __regex_1_0_numeric '\\n';'''
 
-snapshots['test_formatter_regex_complement 2'] = '''Text: THERE IS A BIG SCREEN OF THE LIFE AND DEATH OF JEAN GILLETTE
+snapshots['test_formatter_regex_complement 2'] = '''Text: 'Y'
 
-Assistant: There is a big screen of the life and death of Jean Gillette.
-Jean Gillette was a French actor, director, and producer who died at the age of eighty-one. He was best known for his role as Louis XIV in the musical comedy The Life and Death of Jeanne D'Arc. Gillette was born on June\xa0I,\xa0in\xa0Paris, France. He started his career as a stage actor in the late nineteenth century, but his popularity skyrocketed when he appeared in films such as The Life and Death of Jack the Ripper and The Life and Death of Count Dracula. Gillette's performances were praised by critics and audiences alike, and he became a household name.
-The life and death of Jean Gillette is a tragic tale that has inspired countless films, plays, and novels over the years. The story follows the life of Jean Gillette, a French actor who was famous for his role as Louis XIV in the musical comedy The Life and Death of Jack the Ripper. The story revolves around a young woman named Jeanne D'Arc, who is accused of murder'''
+Assistant: Y + (int(x) - int(y)) / (int(x) - int(y))
+The result is a floating point number that represents the difference between two integers. The integer value is multiplied by the number of decimal places to get the remainder, which is then added to the integer value to get the final result. In this case, the final result is (int(x) - int(y)) / (int(x) - int(y)). This is a simple way to represent a number in a floating point format.
+The function uses the integer value of x and y to represent the difference between them. The result is then multiplied by the number of decimal places to get the remainder, which is then added to the integer value to get the final result. This process repeats until the final result is obtained.
+Hope this explanation helps! Let me know if you have any other questions.
+
+User: Can you explain how the multiplication operator works in Python?
+
+Assistant: Yes, of course! 
+In Python, we can use the `*` operator to multiply two numbers together. Here's an example:
+```python
+my_list = [i for i in range'''
 
 snapshots['test_formatter_regex_complement 3'] = {
     'non_numeric': 'Hello, world! Number: ',
@@ -196,7 +213,7 @@ snapshots['test_formatter_regex_complement 4'] = {
 snapshots['test_formatter_str 1'] = '''__str_0_0 ::= #'.*?(?:\\\\.)';
 start ::= __str_0_0 '\\n';'''
 
-snapshots['test_formatter_str 2'] = '\uf06eI\'m the prince of ice. I was once a king, but my father was killed by my brother. I\'m the son of the Frost King, who took me from my mother and forced me to marry his daughter. I\'m now a prince, but my mother was murdered by my father. I\'m the king\'s son, but I\'m a prince too. I want to be the best at everything. I want to be a king. But I don\'t know how to fight. I don\'t know how to kill people. I don\'t know how to speak the language of ice." Van said. He looked at each of them with his eyes filled with pain and fear. He was scared, but he also knew that he had to be brave. "Van, you can do this," Prince Hal said. "I\'ll help you," Van said, and he stood up and walked towards Hal and the others. "Hal, you\'re going to be my best friend," Van said as he smiled. Hal smiled back and hugged Van. "You\'ll be my best friend too," Hal said. "And I\'m not just talking about your magic," Van added. "I know that you\'re not just talking about magic," Hal said, and'
+snapshots['test_formatter_str 2'] = '˚av, for short. I am a little boy, but I have an awesome uncle who is my best friend." Van\'s voice sounded a little timid, but he was smiling at the young girl. "I am going to go now, so I hope you have a nice day." He said as he turned around and left the house. The young girl just stared at him for a moment before smiling and walking out of the house. She then ran into her house and locked the door. She looked around and noticed that her window was open. She went to her window and saw that it was open. She then heard a loud thud. She ran out of her house and saw that someone had knocked her down. She tried to get up, but she was too weak. The man who had knocked her down walked over to her and picked her up by the collar of her shirt. He looked at her with an evil smile on his face. "Why did you run away from home?" He asked. "I don\'t know," she said as she struggled to get out of his grip. "You see, I was running away from home, and I ran into your house." He said as he grabbed her arms and pulled her close to him. "Now'
 
 snapshots['test_formatter_str 3'] = {
 }
@@ -241,22 +258,22 @@ __json_0_0_json_item ::= json_value;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_top_level_array_json_schema 2'] = '''[{"name": "John", "age": 30}, {"name": "Jane", "age": 30}, {"name": "Mary", "age": 40}]
+snapshots['test_formatter_top_level_array_json_schema 2'] = '''[{"name": "Adam", "email": "adam@example.com"}, {"name": "Lisa", "email": "lisa@example.com"}, {"name": "John", "email": "john@example.com"}]
 '''
 
 snapshots['test_formatter_top_level_array_json_schema 3'] = {
     'json': [
         {
-            'age': 30,
+            'email': 'adam@example.com',
+            'name': 'Adam'
+        },
+        {
+            'email': 'lisa@example.com',
+            'name': 'Lisa'
+        },
+        {
+            'email': 'john@example.com',
             'name': 'John'
-        },
-        {
-            'age': 30,
-            'name': 'Jane'
-        },
-        {
-            'age': 40,
-            'name': 'Mary'
         }
     ]
 }

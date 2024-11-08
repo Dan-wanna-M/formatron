@@ -142,4 +142,7 @@ class FormatterFilter(ExLlamaV2Filter):
 
     @property
     def formatter_captures(self) -> dict[str, typing.Any]:
+        """
+        Get the captures of the formatter.
+        """
         return self._formatter.captures
