@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formatron: src/formatron/integrations/utils.py File Reference</title>
+<title>Formatron: src/formatron/formats/utils.py File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -96,7 +96,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('utils_8py.html',''); initResizable(true); });
+$(function(){initNavTree('formats_2utils_8py.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -124,52 +124,44 @@ $(function(){initNavTree('utils_8py.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">utils.py File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><a href="utils_8py_source.html">Go to the source code of this file.</a></p>
+<p><a href="formats_2utils_8py_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron.html">formatron</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron_1_1integrations.html">formatron.integrations</a></td></tr>
-<tr class="memdesc:namespaceformatron_1_1integrations"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subpackage contains integrations with other frameworks and libraries. <br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron_1_1formats.html">formatron.formats</a></td></tr>
+<tr class="memdesc:namespaceformatron_1_1formats"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subpackage contains modules that operate with concrete formats, like json. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron_1_1integrations_1_1utils.html">formatron.integrations.utils</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron_1_1formats_1_1utils.html">formatron.formats.utils</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a49fe0eaafb8d1f9909e2d2520c2ea657" id="r_a49fe0eaafb8d1f9909e2d2520c2ea657"><td class="memItemLeft" align="right" valign="top">bytes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron_1_1integrations_1_1utils.html#a49fe0eaafb8d1f9909e2d2520c2ea657">formatron.integrations.utils._multiple_replace</a> (typing.Dict[bytes, bytes] replacements, re.Pattern[bytes] regex, bytes text)</td></tr>
-<tr class="separator:a49fe0eaafb8d1f9909e2d2520c2ea657"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a744e97099675a1aac1c24fd6a1398efd" id="r_a744e97099675a1aac1c24fd6a1398efd"><td class="memItemLeft" align="right" valign="top">typing.Dict[int, bytes]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron_1_1integrations_1_1utils.html#a744e97099675a1aac1c24fd6a1398efd">formatron.integrations.utils.get_original_characters</a> (typing.Dict[str, int] vocab, typing.Optional[list[typing.Callable]] processors=None)</td></tr>
-<tr class="memdesc:a744e97099675a1aac1c24fd6a1398efd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a vocabulary of original characters unmangled to raw UTF-8 bytes by the provided processors.  <br /></td></tr>
-<tr class="separator:a744e97099675a1aac1c24fd6a1398efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2a9a65fa02be2e0d6d41b24e276cbf4" id="r_ae2a9a65fa02be2e0d6d41b24e276cbf4"><td class="memItemLeft" align="right" valign="top">typing.List[typing.Callable]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron_1_1integrations_1_1utils.html#ae2a9a65fa02be2e0d6d41b24e276cbf4">formatron.integrations.utils.autodetect_processors</a> (typing.Dict[str, int] vocab)</td></tr>
-<tr class="memdesc:ae2a9a65fa02be2e0d6d41b24e276cbf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Autodetect vocabulary processors.  <br /></td></tr>
-<tr class="separator:ae2a9a65fa02be2e0d6d41b24e276cbf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27f1dbe46fdc2c2cf911fdb026972045" id="r_a27f1dbe46fdc2c2cf911fdb026972045"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron_1_1integrations_1_1utils.html#a27f1dbe46fdc2c2cf911fdb026972045">formatron.integrations.utils.update_vocab_0xHH</a> (typing.Dict[bytes, bytes] token_to_char)</td></tr>
-<tr class="memdesc:a27f1dbe46fdc2c2cf911fdb026972045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vocabulary processor for &lt;0xHH&gt; tokens (used in llama tokenizers)  <br /></td></tr>
-<tr class="separator:a27f1dbe46fdc2c2cf911fdb026972045"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac064c70217efb9b48e440985aee10918" id="r_ac064c70217efb9b48e440985aee10918"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron_1_1integrations_1_1utils.html#ac064c70217efb9b48e440985aee10918">formatron.integrations.utils.update_vocab_sentencepiece</a> (typing.Dict[bytes, bytes] token_to_char)</td></tr>
-<tr class="memdesc:ac064c70217efb9b48e440985aee10918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vocabulary processor for ▁ token (used in sentencepiece tokenizers)  <br /></td></tr>
-<tr class="separator:ac064c70217efb9b48e440985aee10918"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f8874cc6515daae855acc1dbc2b94aa" id="r_a5f8874cc6515daae855acc1dbc2b94aa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron_1_1integrations_1_1utils.html#a5f8874cc6515daae855acc1dbc2b94aa">formatron.integrations.utils.update_vocab_dot_G</a> (typing.Dict[bytes, bytes] token_to_char)</td></tr>
-<tr class="memdesc:a5f8874cc6515daae855acc1dbc2b94aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vocabulary processor for GPT2 style token mangling, like from \n to Ġ(used in huggingface bytelevel preprocessors)  <br /></td></tr>
-<tr class="separator:a5f8874cc6515daae855acc1dbc2b94aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e53f8f5754530f8fa7d627504c98f6a" id="r_a4e53f8f5754530f8fa7d627504c98f6a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron_1_1integrations_1_1utils.html#a4e53f8f5754530f8fa7d627504c98f6a">formatron.integrations.utils._huggingface_bytelevel_decoder</a> ()</td></tr>
-<tr class="memdesc:a4e53f8f5754530f8fa7d627504c98f6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">I hate legacy code.  <br /></td></tr>
-<tr class="separator:a4e53f8f5754530f8fa7d627504c98f6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf6694a980e1e4b0ac9a8447d1f1072f" id="r_adf6694a980e1e4b0ac9a8447d1f1072f"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron_1_1formats_1_1utils.html#adf6694a980e1e4b0ac9a8447d1f1072f">formatron.formats.utils.escape_identifier</a> (str s)</td></tr>
+<tr class="memdesc:adf6694a980e1e4b0ac9a8447d1f1072f"><td class="mdescLeft">&#160;</td><td class="mdescRight">For each character in the string, if it is a valid kbnf identifier character, add it to the result.  <br /></td></tr>
+<tr class="separator:adf6694a980e1e4b0ac9a8447d1f1072f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92c6ab4985e80868e134f36303f55a18" id="r_a92c6ab4985e80868e134f36303f55a18"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron_1_1formats_1_1utils.html#a92c6ab4985e80868e134f36303f55a18">formatron.formats.utils.from_str_to_kbnf_str</a> (str s)</td></tr>
+<tr class="memdesc:a92c6ab4985e80868e134f36303f55a18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a string to a kbnf string.  <br /></td></tr>
+<tr class="separator:a92c6ab4985e80868e134f36303f55a18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a5e6d7765f81a6bb5216ef75ad0f2002f" id="r_a5e6d7765f81a6bb5216ef75ad0f2002f"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceformatron_1_1formats_1_1utils.html#a5e6d7765f81a6bb5216ef75ad0f2002f">formatron.formats.utils.VALID_IDENTIFIER_CHARACTERS</a> = &quot;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_&quot;</td></tr>
+<tr class="separator:a5e6d7765f81a6bb5216ef75ad0f2002f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fcf8421df2b1fac2914241030b544a7c.html">formatron</a></li><li class="navelem"><a class="el" href="dir_86ec2f274a7c7757cb321bd1b4c1dbf4.html">integrations</a></li><li class="navelem"><a class="el" href="utils_8py.html">utils.py</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fcf8421df2b1fac2914241030b544a7c.html">formatron</a></li><li class="navelem"><a class="el" href="dir_07d5411bfb9a2f8bc3eb64bb16ab190f.html">formats</a></li><li class="navelem"><a class="el" href="formats_2utils_8py.html">utils.py</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
