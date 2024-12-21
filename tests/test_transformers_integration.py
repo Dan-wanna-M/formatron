@@ -3,7 +3,6 @@ from formatron.formatter import FormatterBuilder
 from transformers import GPT2LMHeadModel
 import transformers
 
-
 def test_transformers_integration(snapshot):
     f = FormatterBuilder()
     f.append_line("Hello, Huggingface!")

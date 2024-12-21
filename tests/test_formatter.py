@@ -245,3 +245,26 @@ def test_formatter_json_no_properties(snapshot):
     
     snapshot.assert_match(formatter.captures)
 
+def test_utf8_json_key(snapshot):
+    FormatterBuilder._formatter_builder_counter = 0
+    f = FormatterBuilder()
+    schema = json_schema.create_schema({
+        "$id": "https://example.com/array.json",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+            "土豆": {"type": "string"},
+            "\(@^0^@)/": {"type": "string"},
+            "🍎": {"type": "string"},
+        }
+    })
+    f.append_line(f"{f.json(schema, capture_name='json')}")
+    model = RWKV(
+        "assets/RWKV-5-World-0.4B-v2-20231113-ctx4096.pth", 'cuda fp16')
+    pipeline = formatron.integrations.RWKV.PIPELINE(model, "rwkv_vocab_v20230424", f)
+    np.random.seed(42)
+    snapshot.assert_match(pipeline.formatter.grammar_str)
+    snapshot.assert_match(
+        pipeline.generate("This is a random json: ", token_count=256, args=formatron.integrations.RWKV.PIPELINE_ARGS(top_p=0.5)))
+    snapshot.assert_match(pipeline.formatter.captures)
+

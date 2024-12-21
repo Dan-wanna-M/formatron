@@ -144,6 +144,7 @@ def _convert_json_schema_to_our_schema(schema: dict[str, typing.Any], json_schem
 def _extract_fields_from_object_type(object_type:typing.Type):
     args = typing.get_args(object_type)
     for arg in args:
+        arg = typing.get_origin(arg) or arg
         if isinstance(arg, type) and issubclass(arg, schemas.schema.Schema):
             return arg.fields()
     return object_type.fields()

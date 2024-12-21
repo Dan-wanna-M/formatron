@@ -9,6 +9,7 @@ import typing
 from frozendict import frozendict
 
 from formatron import extractor, schemas
+from formatron.formats.utils import escape_identifier, from_str_to_kbnf_str
 
 __all__ = ["JsonExtractor"]
 
@@ -29,7 +30,9 @@ object_end ::= #"{SPACE_NONTERMINAL}\\}}";
 array_begin ::= #"\\[{SPACE_NONTERMINAL}";
 array_end ::= #"{SPACE_NONTERMINAL}\\]";
 """
+
 _type_to_nonterminals = []
+
 
 
 def register_generate_nonterminal_def(
@@ -59,7 +62,9 @@ def _register_all_predefined_types():
             fields = []
             for field, _field_info in current.fields().items():
                 field_name = f"{nonterminal}_{field}"
-                fields.append(f"'\"{field}\"' colon {field_name}")
+                field_name = escape_identifier(field_name)
+                key = from_str_to_kbnf_str(field)
+                fields.append(f"{key} colon {field_name}")
                 result.append((_field_info, field_name))
             line.append(" comma ".join(fields))
             line.append(" object_end;\n")
@@ -308,7 +313,7 @@ def _register_all_predefined_types():
             result = []
             for i, arg in enumerate(args):
                 if isinstance(arg, str):
-                    new_items.append(f'"\\"{repr(arg)[1:-1]}\\""')
+                    new_items.append(from_str_to_kbnf_str(arg))
                 elif isinstance(arg, bool):
                     new_items.append(f'"{str(arg).lower()}"')
                 elif isinstance(arg, int):

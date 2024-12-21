@@ -41,21 +41,13 @@ __json_4_0_json_name ::= string;
 start ::= \'Today, I want to eat \' __choice_0_0_food \'\\n\' "My food\'s ID is " __choice_3_0_ID \'.\\n\' "\\nWhat\'s more, indentations\\nare handled\\nappropriately." \'My weight is 14.4kg and my color is pink. This is my personal info json: \' __json_4_0_json \'\\n\';'''
 
 snapshots['test_formatter 2'] = '''Today, I want to eat orange
-My food's ID is lime.
+My food's ID is red.
 
 What's more, indentations
 are handled
-appropriately.My weight is 14.4kg and my color is pink. This is my personal info json: { \t
-\t"name": "Van",
-\t"weight": 120,
-\t"color": "pink"
-}
-'''
+appropriately.My weight is 14.4kg and my color is pink. This is my personal info json: {                                                                                                                                                                  '''
 
 snapshots['test_formatter 3'] = {
-    'ID': GenericRepr("<re.Match object; span=(0, 4), match='lime'>"),
-    'food': 'orange',
-    'json': GenericRepr("Test(name='Van', weight=120.0, color='pink')")
 }
 
 snapshots['test_formatter_alternate_accept 1'] = {
@@ -92,7 +84,7 @@ __json_0_0_json_a ::= integer;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_callable_schema 2'] = '''{"a": 1, "b": 2, "c": 3}
+snapshots['test_formatter_callable_schema 2'] = '''{"a":1,"b":2,"c":3}
 '''
 
 snapshots['test_formatter_callable_schema 3'] = {
@@ -127,13 +119,13 @@ __json_0_0_json_name ::= string;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_dict_inference 2'] = '''{"name":"[1,2,3,4,5]","gender":"male"}
+snapshots['test_formatter_dict_inference 2'] = '''{"name":"A","gender":"male"}
 '''
 
 snapshots['test_formatter_dict_inference 3'] = {
     'json': {
         'gender': 'male',
-        'name': '[1,2,3,4,5]'
+        'name': 'A'
     }
 }
 
@@ -144,13 +136,13 @@ snapshots['test_formatter_json_no_properties 1'] = {
     }
 }
 
-snapshots['test_formatter_json_schema 1'] = '''{"name":"Jack","age":100}
+snapshots['test_formatter_json_schema 1'] = '''{"name":"A","age":30}
 '''
 
 snapshots['test_formatter_json_schema 2'] = {
     'json': {
-        'age': 100,
-        'name': 'Jack'
+        'age': 30,
+        'name': 'A'
     }
 }
 
@@ -186,19 +178,25 @@ snapshots['test_formatter_regex_complement 1'] = '''__regex_complement_0_0_non_n
 __regex_1_0_numeric ::= #'[0-9]+';
 start ::= 'Text: ' __regex_complement_0_0_non_numeric 'Number: ' __regex_1_0_numeric '\\n';'''
 
-snapshots['test_formatter_regex_complement 2'] = '''Text: 'Y'
+snapshots['test_formatter_regex_complement 2'] = '''Text: The two of them went to the zoo.
 
-Assistant: Y + (int(x) - int(y)) / (int(x) - int(y))
-The result is a floating point number that represents the difference between two integers. The integer value is multiplied by the number of decimal places to get the remainder, which is then added to the integer value to get the final result. In this case, the final result is (int(x) - int(y)) / (int(x) - int(y)). This is a simple way to represent a number in a floating point format.
-The function uses the integer value of x and y to represent the difference between them. The result is then multiplied by the number of decimal places to get the remainder, which is then added to the integer value to get the final result. This process repeats until the final result is obtained.
-Hope this explanation helps! Let me know if you have any other questions.
-
-User: Can you explain how the multiplication operator works in Python?
-
-Assistant: Yes, of course! 
-In Python, we can use the `*` operator to multiply two numbers together. Here's an example:
-```python
-my_list = [i for i in range'''
+Assistant: The zoo was on the second floor.
+So, the answer is "The zoo was on the second floor". So, let\'s think of the answer as a group of two integers, and we can break it down into two groups of two integers.
+Group #A:
+The first group of two integers is (int x, int y) where x and y are integers.
+Group #B:
+The second group of two integers is (int x, int y) where x and y are integers.
+Group #C:
+The third group of two integers is (int x, int y) where x and y are integers.
+Group #D:
+The fourth group of two integers is (int x, int y) where x and y are integers.
+Group #E:
+The fifth group of two integers is (int x, int y) where x and y are integers.
+Group #F:
+The sixth group of two integers is (int x, int y) where x and y are integers.
+Group #G:
+The seventh group of two integers is (int x, int y) where x and y are integers.
+'''
 
 snapshots['test_formatter_regex_complement 3'] = {
     'non_numeric': 'Hello, world! Number: ',
@@ -213,7 +211,7 @@ snapshots['test_formatter_regex_complement 4'] = {
 snapshots['test_formatter_str 1'] = '''__str_0_0 ::= #'.*?(?:\\\\.)';
 start ::= __str_0_0 '\\n';'''
 
-snapshots['test_formatter_str 2'] = '˚av, for short. I am a little boy, but I have an awesome uncle who is my best friend." Van\'s voice sounded a little timid, but he was smiling at the young girl. "I am going to go now, so I hope you have a nice day." He said as he turned around and left the house. The young girl just stared at him for a moment before smiling and walking out of the house. She then ran into her house and locked the door. She looked around and noticed that her window was open. She went to her window and saw that it was open. She then heard a loud thud. She ran out of her house and saw that someone had knocked her down. She tried to get up, but she was too weak. The man who had knocked her down walked over to her and picked her up by the collar of her shirt. He looked at her with an evil smile on his face. "Why did you run away from home?" He asked. "I don\'t know," she said as she struggled to get out of his grip. "You see, I was running away from home, and I ran into your house." He said as he grabbed her arms and pulled her close to him. "Now'
+snapshots['test_formatter_str 2'] = '这是我的名字。 我在这里住着。 我有一个朋友。 我想知道， 你们知道什么叫做爱吗？ 它是什么？ 它是什么样子的？ 我想知道。 你们知道什么叫做爱吗？ 它是什么样子的？ 它是什么样子的？ 它是什么样子的？ 这是我的朋友， 他正在跟我说话。 我很喜欢他。 他说： “我想知道， 你们知道什么叫做爱吗？” 我想回答， “不，” 但是他问： “那就好了。” 于是我们就这样谈论了。 你们知道， 当然， 这也是我们的关系。 他和我一起住在这里。 我们都很好， 而且我很喜欢他。 你们知道， 我喜欢他， 但是他也很喜欢我。 因为他想'
 
 snapshots['test_formatter_str 3'] = {
 }
@@ -258,22 +256,26 @@ __json_0_0_json_item ::= json_value;
 
 start ::= __json_0_0_json '\\n';'''
 
-snapshots['test_formatter_top_level_array_json_schema 2'] = '''[{"name": "Adam", "email": "adam@example.com"}, {"name": "Lisa", "email": "lisa@example.com"}, {"name": "John", "email": "john@example.com"}]
+snapshots['test_formatter_top_level_array_json_schema 2'] = '''[{"id": 1, "name": "John"}, {"id": 2, "name": "Mary"}, {"id": 3, "name": "Jane"}, {"id": 4, "name": "Joe"}]
 '''
 
 snapshots['test_formatter_top_level_array_json_schema 3'] = {
     'json': [
         {
-            'email': 'adam@example.com',
-            'name': 'Adam'
-        },
-        {
-            'email': 'lisa@example.com',
-            'name': 'Lisa'
-        },
-        {
-            'email': 'john@example.com',
+            'id': 1,
             'name': 'John'
+        },
+        {
+            'id': 2,
+            'name': 'Mary'
+        },
+        {
+            'id': 3,
+            'name': 'Jane'
+        },
+        {
+            'id': 4,
+            'name': 'Joe'
         }
     ]
 }
@@ -301,7 +303,7 @@ array_begin ::= #"\\\\[[ \t
 array_end ::= #"[ \t
 \r]*\\\\]";
 __json_0_0_json ::= object_begin \'"a"\' colon __json_0_0_json_a object_end;
-__json_0_0_json_a ::= "\\"114\\"" | "\\"514\\"";
+__json_0_0_json_a ::= \'"114"\' | \'"514"\';
 
 start ::= __json_0_0_json '\\n';'''
 
@@ -310,4 +312,49 @@ snapshots['test_grammar_literal 2'] = '''{"a":"114"}
 
 snapshots['test_grammar_literal 3'] = {
     'json': GenericRepr("A(a='114')")
+}
+
+snapshots['test_utf8_json_key 1'] = '''integer ::= #"-?(0|[1-9][0-9]*)";
+number ::= #"-?(0|[1-9][0-9]*)(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?";
+string ::= #\'"([^\\\\\\\\"\\u0000-\\u001f]|\\\\\\\\["\\\\\\\\bfnrt/]|\\\\\\\\u[0-9A-Fa-f]{4})*"\';
+boolean ::= "true"|"false";
+null ::= "null";
+array ::= array_begin (json_value (comma json_value)*)? array_end;
+object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
+json_value ::= number|string|boolean|null|array|object;
+comma ::= #"[ \t
+\r]*,[ \t
+\r]*";
+colon ::= #"[ \t
+\r]*:[ \t
+\r]*";
+object_begin ::= #"\\\\{[ \t
+\r]*";
+object_end ::= #"[ \t
+\r]*\\\\}";
+array_begin ::= #"\\\\[[ \t
+\r]*";
+array_end ::= #"[ \t
+\r]*\\\\]";
+__json_0_0_json ::= object_begin \'"土豆"\' colon __json_0_0_json_u571fu8c46 comma \'"\\\\(@^0^@)/"\' colon __json_0_0_json_u5cu28u40u5e0u5eu40u29u2f comma \'"🍎"\' colon __json_0_0_json_u1f34e object_end;
+__json_0_0_json_u1f34e ::= __json_0_0_json_u1f34e_required?;
+__json_0_0_json_u1f34e_required ::= string;
+__json_0_0_json_u5cu28u40u5e0u5eu40u29u2f ::= __json_0_0_json_u5cu28u40u5e0u5eu40u29u2f_required?;
+__json_0_0_json_u5cu28u40u5e0u5eu40u29u2f_required ::= string;
+__json_0_0_json_u571fu8c46 ::= __json_0_0_json_u571fu8c46_required?;
+__json_0_0_json_u571fu8c46_required ::= string;
+
+start ::= __json_0_0_json '\\n';'''
+
+snapshots['test_utf8_json_key 2'] = '''{"土豆": "是一种特殊的食品,有机和天然的配方,是一种含有淀粉、果糖、蛋白质和多种维生素的水果。"
+
+,  "\\(@^0^@)/"
+
+:  "\\"土豆\\""
+
+,  "🍎"
+
+:  "\\"大家好,我是 🍎 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎\\n\\n[#上面](https://www.zhihu.com/search?q=土豆) **这个文章** 的标题是: 土豆: 一种特殊的食品,有机和天然的配方,是一种含有淀粉、果糖、蛋白质和多种维生素的水果'''
+
+snapshots['test_utf8_json_key 3'] = {
 }
