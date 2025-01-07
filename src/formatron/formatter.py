@@ -385,9 +385,13 @@ class FormatterBuilder:
             The JSON extractor.
         """
         def to_json(_json: str):
-            if isinstance(schema, type) and issubclass(schema, Schema):
+            local_schema = schema
+            origin = typing.get_origin(local_schema)
+            if origin is not None:
+                local_schema = origin
+            if isinstance(local_schema, type) and issubclass(local_schema, Schema):
                 try:
-                    return schema.from_json(_json)
+                    return local_schema.from_json(_json)
                 except JSONDecodeError:  # make ChoiceExtractor work appropriately
                     return None
             else:
