@@ -491,6 +491,7 @@ class FormatterBuilder:
         rules = copy(self._rules)
         rules.append(f"start ::= {' '.join(self._main_rule)};")
         grammar_str = "\n".join(rules)
+        # print(grammar_str)
         engine = kbnf.Engine(grammar_str, vocabulary, engine_config)
         extractors = copy(self._extractors)
         f = Formatter(extractors, engine, decode, grammar_str)

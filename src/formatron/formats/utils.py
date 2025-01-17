@@ -26,15 +26,3 @@ def escape_identifier(s: str) -> str:
         else:
             result.append(f"u{ord(c):x}")
     return "".join(result)
-
-def from_str_to_kbnf_str(s: str) -> str:
-    """
-    Convert a string to a kbnf string.
-
-    Args:
-        s: The string to convert.
-
-    Returns:
-        The kbnf string.
-    """
-    return repr(f"\"{s}\"")
