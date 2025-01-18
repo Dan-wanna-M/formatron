@@ -23,7 +23,7 @@ If set to False, heuristics will be used to construct the grammar that may not f
 """
 strict_schema = True
 
-SPACE_NONTERMINAL = "[ \t\n\r]*"
+SPACE_NONTERMINAL = "[ \t\n]*"
 
 GRAMMAR_HEADER = rf"""integer ::= #"{SPACE_NONTERMINAL}-?(0|[1-9][0-9]*)";
 number ::= #"{SPACE_NONTERMINAL}-?(0|[1-9][0-9]*)(\\.[0-9]+)?([eE][+-]?[0-9]+)?";
