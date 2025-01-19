@@ -328,6 +328,8 @@ def _register_all_predefined_types():
                 assert issubclass(
                     args[0], str), f"{args[0]} is not string!"
                 value = args[1]
+            if value is typing.Any:
+                return f"{nonterminal} ::= object;\n", []
             return f"{nonterminal} ::=" \
                 f" object_begin (string colon {new_nonterminal} (comma string colon {new_nonterminal})*)?" \
                 f" object_end;\n", \
