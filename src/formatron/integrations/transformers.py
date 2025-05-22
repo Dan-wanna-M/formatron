@@ -84,8 +84,6 @@ class FormattersLogitsProcessor(LogitsProcessor):
         assert len(configs) == len(formatters), \
             f"Number of formatters({len(formatters)}) must match number of configs({len(configs)})"
         self.configs = configs
-        self._total_duration = 0
-        self._tokens = 0
 
     def reset(self) -> None:
         self._last_input_id_length = None
@@ -136,18 +134,7 @@ class FormattersLogitsProcessor(LogitsProcessor):
             if formatter.is_completed():
                 scores[i, :] = float("-inf")
                 scores[i, self._eos_token_id] = 0.0
-                print(f"Formatter {i} is completed with duration {self._total_duration * 1000 / self._tokens} ms")
-                self._total_duration = 0
-                self._tokens = 0
                 continue
-            torch.cuda.synchronize()
-            start = time.time()
             formatter.compute_allowed_tokens()
-            torch.cuda.synchronize()
-            end = time.time()
-            if end - start > 0.1/1000:
-                print(f"Formatter {i} is slow with duration {(end - start)*1000} ms: f{repr(formatter._decode_callback(input_ids[i]))}")
-            self._total_duration += end - start
-            self._tokens += 1
             scores[i, :] = formatter.mask_logits(scores[i, :])
         return scores
