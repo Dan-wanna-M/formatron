@@ -27,7 +27,7 @@ SPACE_NONTERMINAL = "[ \t\n]*"
 
 GRAMMAR_HEADER = rf"""integer ::= #"{SPACE_NONTERMINAL}-?(0|[1-9][0-9]*)";
 number ::= #"{SPACE_NONTERMINAL}-?(0|[1-9][0-9]*)(\\.[0-9]+)?([eE][+-]?[0-9]+)?";
-string ::= #'{SPACE_NONTERMINAL}"([^\\\\"\u0000-\u001f]|\\\\["\\\\bfnrt/]|\\\\u[0-9A-Fa-f]{{4}})*"';
+string ::= #'{SPACE_NONTERMINAL}"([^\\\\"\u0000-\u001f]|\\\\["\\\\bfnrt]|\\\\u[0-9A-Fa-f]{{4}})*"';
 boolean ::= #"{SPACE_NONTERMINAL}(true|false)";
 null ::= #"{SPACE_NONTERMINAL}null";
 array ::= array_begin (json_value (comma json_value)*)? array_end;
