@@ -8,6 +8,21 @@ def _multiple_replace(replacements: typing.Dict[bytes, bytes], regex: re.Pattern
     # For each match, look-up corresponding value in dictionary
     return regex.sub(lambda mo: replacements[mo.group()], text)
 
+def get_fastest_compatible_logits_mask_fn():
+    def default_mask_logits_fn(bit_mask, formatter, logits):
+        return formatter.mask_logits(logits)
+    try:
+        from kbnf.triton_logits_mask import mask_logits_inplace
+        def fast_mask_logits_fn(bit_mask, formatter, logits):
+            mask_logits_inplace(logits, bit_mask, [formatter._engine])
+            return logits
+        return fast_mask_logits_fn
+    except ImportError:
+        return default_mask_logits_fn
+
+def get_bit_mask(logits):
+    import torch
+    return torch.empty(((logits.shape[-1]+31)//32), dtype=torch.int32, device='cpu', pin_memory=True)
 
 def get_original_characters(vocab: typing.Dict[str, int],
                             processors: typing.Optional[list[typing.Callable]] = None) -> typing.Dict[int, bytes]:

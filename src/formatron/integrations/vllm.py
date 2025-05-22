@@ -4,10 +4,11 @@ This module integrates the vllm library by providing convenience utilities.
 import collections.abc
 import typing
 import kbnf
+import torch
 from vllm import LLM
 from formatron.config import EngineGenerationConfig
 from formatron.formatter import FormatterBase, FormatterBuilder
-from formatron.integrations.utils import get_original_characters
+from formatron.integrations.utils import get_original_characters, get_fastest_compatible_logits_mask_fn,get_bit_mask
 from vllm.transformers_utils.tokenizer import AnyTokenizer
 
 
@@ -28,6 +29,8 @@ class FormattersLogitsProcessor:
         self._configs = configs
         self._iter = zip(self._formatters, self._configs)
         self._debug_counter = 0
+        self._mask_logits_fn = get_fastest_compatible_logits_mask_fn()
+        self._bit_masks = []
 
     @property
     def formatters_captures(self) -> list[dict[str, typing.Any] | None]:
@@ -46,9 +49,11 @@ class FormattersLogitsProcessor:
                 f.reset()
         self._to_next_batch_step()
         self._last_input_id_length = 0
+        self._bit_masks.clear()
 
     def _to_next_batch_step(self):
         self._iter = zip(self._formatters, self._configs)
+        self._bit_mask_iter = iter(self._bit_masks)
         self._debug_counter = 0
 
     def __call__(self, prompt, generated_tokens, logits):
@@ -57,6 +62,7 @@ class FormattersLogitsProcessor:
             # We exhausted all formatters but still have sequences to process in this batch
             raise ValueError(f"Batch size {self._debug_counter} "
                              f"is greater than number of formatters({len(self._formatters)})!")
+        bit_mask = None
         if len(generated_tokens) == 0:  # First iteration
             self._debug_counter += 1
             formatter, config = result
@@ -67,12 +73,16 @@ class FormattersLogitsProcessor:
             if config.read_prompt:
                 for token in prompt:
                     formatter.accept_token(token)
+            self._bit_masks.append(get_bit_mask(logits))
+            bit_mask = self._bit_masks[-1]
         elif len(generated_tokens) == self._last_input_id_length + 1:  # to next batch step
             assert result is None, (f"Batch size {self._debug_counter} "
                                     f"is less than number of formatters({len(self._formatters)})!")
             self._to_next_batch_step()
             result = next(self._iter)
             self._last_input_id_length += 1
+        if bit_mask is None:
+            bit_mask = next(self._bit_mask_iter)
         formatter, _ = result
         if formatter is None:
             return logits
@@ -86,13 +96,12 @@ class FormattersLogitsProcessor:
             input_id = generated_tokens[-1]
             if not formatter.is_completed():
                 formatter.accept_token(input_id)
-
         if formatter.is_completed():
             logits[:] = float("-inf")
             logits[self._eos_token_id] = 1000
             return logits
         formatter.compute_allowed_tokens()
-        logits = formatter.mask_logits(logits)
+        logits = self._mask_logits_fn(bit_mask, formatter, logits)
         return logits
 
 
