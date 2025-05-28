@@ -62,10 +62,11 @@ class FormattersLogitsProcessor:
             # We exhausted all formatters but still have sequences to process in this batch
             raise ValueError(f"Batch size {self._debug_counter} "
                              f"is greater than number of formatters({len(self._formatters)})!")
-        bit_mask = None
+        bit_mask = False
         if len(generated_tokens) == 0:  # First iteration
             self._debug_counter += 1
             formatter, config = result
+            self._bit_masks.append(get_bit_mask(logits))
             if formatter is None:
                 return logits
             if config.reset_at_beginning and formatter.is_completed():
@@ -73,7 +74,6 @@ class FormattersLogitsProcessor:
             if config.read_prompt:
                 for token in prompt:
                     formatter.accept_token(token)
-            self._bit_masks.append(get_bit_mask(logits))
             bit_mask = self._bit_masks[-1]
         elif len(generated_tokens) == self._last_input_id_length + 1:  # to next batch step
             assert result is None, (f"Batch size {self._debug_counter} "
@@ -81,7 +81,7 @@ class FormattersLogitsProcessor:
             self._to_next_batch_step()
             result = next(self._iter)
             self._last_input_id_length += 1
-        if bit_mask is None:
+        if bit_mask is False:
             bit_mask = next(self._bit_mask_iter)
         formatter, _ = result
         if formatter is None:

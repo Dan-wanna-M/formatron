@@ -7,10 +7,9 @@ __all__ = ["get_original_characters", "update_vocab_0xHH", "update_vocab_sentenc
 def _multiple_replace(replacements: typing.Dict[bytes, bytes], regex: re.Pattern[bytes], text: bytes) -> bytes:
     # For each match, look-up corresponding value in dictionary
     return regex.sub(lambda mo: replacements[mo.group()], text)
-
-def get_fastest_compatible_logits_mask_fn():
-    def default_mask_logits_fn(bit_mask, formatter, logits):
+def default_mask_logits_fn(bit_mask, formatter, logits):
         return formatter.mask_logits(logits)
+def get_fastest_compatible_logits_mask_fn():
     try:
         from kbnf.triton_logits_mask import mask_logits_inplace
         def fast_mask_logits_fn(bit_mask, formatter, logits):

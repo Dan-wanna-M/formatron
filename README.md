@@ -13,6 +13,10 @@ and seamlessly integrates into existing codebases and frameworks.
 
 `pip install formatron`
 
+## Integration-specific pitfalls
+### Vllm
+Due to [Vllm's update](https://github.com/vllm-project/vllm/issues/15636), `VLLM_USE_V1=0` environmental variable must be set when using formatron.
+
 ## Features
 
 - **🔗 Popular Library Integrations**: Supports transformers, exllamav2, vllm and RWKV.

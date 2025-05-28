@@ -9,7 +9,7 @@ from exllamav2 import ExLlamaV2Tokenizer, ExLlamaV2
 from exllamav2.generator.base import ExLlamaV2Filter
 from formatron.config import EngineGenerationConfig
 from formatron.formatter import FormatterBase, FormatterBuilder
-from formatron.integrations.utils import get_original_characters, get_fastest_compatible_logits_mask_fn, get_bit_mask
+from formatron.integrations.utils import get_original_characters, default_mask_logits_fn, get_bit_mask
 
 
 __all__ = ["create_engine_vocabulary", "create_formatter_filter", "FormatterFilter"]
@@ -66,7 +66,7 @@ class FormatterFilter(ExLlamaV2Filter):
         self._config = config
         self._pass_tokens = set()
         self.eos_logits = None
-        self._mask_logits_fn = get_fastest_compatible_logits_mask_fn()
+        self._mask_logits_fn = default_mask_logits_fn
         self._bit_mask = None
 
     def is_completed(self) -> bool:
