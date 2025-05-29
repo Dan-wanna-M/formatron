@@ -5,6 +5,8 @@
 [![PyPI](https://img.shields.io/pypi/v/formatron.svg)](https://pypi.python.org/pypi/formatron)
 ![PyPI Downloads](https://static.pepy.tech/badge/formatron)
 
+[Technical Report](https://icml.cc/virtual/2025/poster/46365)
+
 Formatron allows users to control the output format of language models
 with minimal overhead. It is lightweight, user-friendly,
 and seamlessly integrates into existing codebases and frameworks.
