@@ -3,7 +3,7 @@ This module integrates the transformers library by providing convenience utiliti
 """
 import collections
 import typing
-
+import torch
 import kbnf
 from transformers import LogitsProcessor, PreTrainedTokenizerBase, LogitsProcessorList
 
@@ -82,6 +82,19 @@ class FormattersLogitsProcessor(LogitsProcessor):
         assert len(configs) == len(formatters), \
             f"Number of formatters({len(formatters)}) must match number of configs({len(configs)})"
         self.configs = configs
+        self._mask_logits_fn = FormattersLogitsProcessor._get_fastest_compatible_logits_mask_fn()
+    
+    @staticmethod
+    def _get_fastest_compatible_logits_mask_fn():
+        def default_mask_logits_fn(bit_masks, formatter, scores, i):
+            scores[i, :] = formatter.mask_logits(scores[i, :])
+        try:
+            from kbnf.triton_logits_mask import mask_logits_inplace
+            def fast_mask_logits_fn(bit_masks, formatter, scores, i):
+                mask_logits_inplace(scores[i, :], bit_masks[i, :], [formatter._engine])
+            return fast_mask_logits_fn
+        except ImportError:
+            return default_mask_logits_fn
 
     def reset(self) -> None:
         self._last_input_id_length = None
@@ -119,6 +132,8 @@ class FormattersLogitsProcessor(LogitsProcessor):
                 if config.read_prompt:
                     for token in prompt:
                         formatter.accept_token(token)
+            self._bit_masks = torch.empty((scores.shape[0],
+                                            (scores.shape[1]+31)//32), dtype=torch.int32, device='cpu', pin_memory=True)
         else:
             assert input_ids.shape[1] == self._last_input_id_length + 1, ("One iteration in generation loop"
                                                                           " must add exactly one token.")
@@ -134,5 +149,5 @@ class FormattersLogitsProcessor(LogitsProcessor):
                 scores[i, self._eos_token_id] = 0.0
                 continue
             formatter.compute_allowed_tokens()
-            scores[i, :] = formatter.mask_logits(scores[i, :])
+            self._mask_logits_fn(self._bit_masks, formatter, scores, i)
         return scores

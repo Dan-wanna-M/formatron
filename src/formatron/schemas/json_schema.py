@@ -91,7 +91,6 @@ def create_schema(schema: dict[str, typing.Any], registry=Registry()) -> schemas
         jsonschema.exceptions.ValidationError: If the input schema is not a valid JSON Schema.
         ValueError: If there are issues with schema references, constraints or requirements.
     """
-    registry = copy.deepcopy(registry)
     schema = copy.deepcopy(schema)
     _validate_json_schema(schema)
     registry = Resource.from_contents(schema) @ registry

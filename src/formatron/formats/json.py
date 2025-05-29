@@ -9,27 +9,50 @@ import typing
 from frozendict import frozendict
 
 from formatron import extractor, schemas
-from formatron.formats.utils import escape_identifier, from_str_to_kbnf_str
+from formatron.formats.utils import escape_identifier
 
-__all__ = ["JsonExtractor"]
 
-SPACE_NONTERMINAL = "[ \t\n\r]*"
+__all__ = ["JsonExtractor", "strict_schema"]
 
-GRAMMAR_HEADER = rf"""integer ::= #"-?(0|[1-9][0-9]*)";
-number ::= #"-?(0|[1-9][0-9]*)(\\.[0-9]+)?([eE][+-]?[0-9]+)?";
-string ::= #'"([^\\\\"\u0000-\u001f]|\\\\["\\\\bfnrt/]|\\\\u[0-9A-Fa-f]{{4}})*"';
-boolean ::= "true"|"false";
-null ::= "null";
+
+"""
+Whether to raise an error if the grammar cannot be precisely constructed from the schema.
+True by default. 
+
+If set to False, heuristics will be used to construct the grammar that may not fully describe the schema's constraints.
+"""
+strict_schema = True
+
+SPACE_NONTERMINAL = "[ \t\n]*"
+
+GRAMMAR_HEADER = rf"""integer ::= #"{SPACE_NONTERMINAL}-?(0|[1-9][0-9]*)";
+number ::= #"{SPACE_NONTERMINAL}-?(0|[1-9][0-9]*)(\\.[0-9]+)?([eE][+-]?[0-9]+)?";
+string ::= #'{SPACE_NONTERMINAL}"([^\\\\"\u0000-\u001f]|\\\\["\\\\bfnrt]|\\\\u[0-9A-Fa-f]{{4}})*"';
+boolean ::= #"{SPACE_NONTERMINAL}(true|false)";
+null ::= #"{SPACE_NONTERMINAL}null";
 array ::= array_begin (json_value (comma json_value)*)? array_end;
 object ::= object_begin (string colon json_value (comma string colon json_value)*)? object_end;
 json_value ::= number|string|boolean|null|array|object;
-comma ::= #"{SPACE_NONTERMINAL},{SPACE_NONTERMINAL}";
-colon ::= #"{SPACE_NONTERMINAL}:{SPACE_NONTERMINAL}";
-object_begin ::= #"\\{{{SPACE_NONTERMINAL}";
+comma ::= #"{SPACE_NONTERMINAL},";
+colon ::= #"{SPACE_NONTERMINAL}:";
+object_begin ::= #"{SPACE_NONTERMINAL}\\{{";
 object_end ::= #"{SPACE_NONTERMINAL}\\}}";
-array_begin ::= #"\\[{SPACE_NONTERMINAL}";
+array_begin ::= #"{SPACE_NONTERMINAL}\\[";
 array_end ::= #"{SPACE_NONTERMINAL}\\]";
 """
+
+def from_str_to_kbnf_str(s: str) -> str:
+    """
+    Convert a string to a kbnf string.
+
+    Args:
+        s: The string to convert.
+
+    Returns:
+        The kbnf string.
+    """
+    s = f"\"{repr(s)[1:-1]}\""
+    return f"#'{SPACE_NONTERMINAL}{s}'"
 
 _type_to_nonterminals = []
 
@@ -86,9 +109,34 @@ def _register_all_predefined_types():
         pattern = current.metadata.get("pattern")
         substring_of = current.metadata.get("substring_of")
         if pattern:
-            assert not (min_length or max_length or substring_of), "pattern is mutually exclusive with min_length, max_length and substring_of"
+            # Check if pattern contains unescaped anchors (^ or $)
+            # First replace escaped anchors with placeholders
+            temp_pattern = pattern.replace(r'\^', '').replace(r'\$', '').replace(r'\\A', '').replace(r'\\z', '')
+            # Check for unescaped anchors
+            if '^' in temp_pattern or '$' in temp_pattern or '\A' in temp_pattern or '\z' in temp_pattern:
+                if strict_schema:
+                    raise ValueError(f"Pattern '{pattern}' contains unescaped anchors (^, $, \\A, \\z) which are not allowed")
+                else:
+                    print(f"Warning: pattern '{pattern}' contains unescaped anchors (^, $, \\A, \\z) which are not allowed in schema {current} from {nonterminal}")
+                    pattern = pattern.strip('^$')
+            pattern = repr(pattern)[1:-1]
+            if strict_schema:
+                assert not (min_length or max_length or substring_of), "pattern is mutually exclusive with min_length, max_length and substring_of"
+            else:
+                if min_length or max_length or substring_of:
+                    print(f"Warning: pattern is mutually exclusive with min_length, max_length and substring_of in schema {current} from {nonterminal}")
+                    min_length = None
+                    max_length = None
+                    substring_of = None
         if substring_of:
-            assert not (min_length or max_length or pattern), "substring_of is mutually exclusive with min_length, max_length and pattern"
+            if strict_schema:
+                assert not (min_length or max_length or pattern), "substring_of is mutually exclusive with min_length, max_length and pattern"
+            else:
+                if min_length or max_length or pattern:
+                    print(f"Warning: substring_of is mutually exclusive with min_length, max_length and pattern in schema {current} from {nonterminal}")
+                    min_length = None
+                    max_length = None
+                    pattern = None
         repetition_map = {
             (True, False): f"{{{min_length},}}",
             (False, True): f"{{0,{max_length}}}",
@@ -96,13 +144,13 @@ def _register_all_predefined_types():
         }
         repetition = repetition_map.get((min_length is not None, max_length is not None))
         if repetition is not None:
-            return fr"""{nonterminal} ::= #'"([^\\\\"\u0000-\u001f]|\\\\["\\\\bfnrt/]|\\\\u[0-9A-Fa-f]{{4}}){repetition}"';
+            return fr"""{nonterminal} ::= #'{SPACE_NONTERMINAL}"([^\\\\"\u0000-\u001f]|\\\\["\\\\bfnrt/]|\\\\u[0-9A-Fa-f]{{4}}){repetition}"';
 """, []
         if pattern is not None:
             pattern = pattern.replace("'", "\\'")
-            return f"""{nonterminal} ::= #'"{pattern}"';\n""", []
+            return f"""{nonterminal} ::= #'{SPACE_NONTERMINAL}"{pattern}"';\n""", []
         if substring_of is not None:
-            return f"""{nonterminal} ::= '"' #substrs{repr(substring_of)} '"';\n""", []
+            return f"""{nonterminal} ::= #'{SPACE_NONTERMINAL}' '"' #substrs{repr(substring_of)} '"';\n""", []
     
     def number_metadata(current: typing.Type, nonterminal: str):
         gt = current.metadata.get("gt")
@@ -120,11 +168,14 @@ def _register_all_predefined_types():
         for (condition, value), prefix in prefix_map.items():
             if condition is not None and condition == value:
                 if issubclass(current.type, int):
-                    return f"""{nonterminal} ::= #'{prefix}[1-9][0-9]*';\n""", []
+                    return f"""{nonterminal} ::= #'{SPACE_NONTERMINAL}{prefix}[1-9][0-9]*';\n""", []
                 elif issubclass(current.type, float):
-                    return f"""{nonterminal} ::= #'{prefix}[1-9][0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?';\n""", []
-        
-        raise ValueError(f"{current.type.__name__} metadata {current.metadata} is not supported in json_generators!")
+                    return f"""{nonterminal} ::= #'{SPACE_NONTERMINAL}{prefix}[1-9][0-9]*(\\\\.[0-9]+)?([eE][+-]?[0-9]+)?';\n""", []
+        if strict_schema:
+            raise ValueError(f"{current.type.__name__} metadata {current.metadata} is not supported in json_generators!")
+        else:
+            print(f"Warning: {current.type.__name__} metadata {current.metadata} is not supported in json_generators!")
+            return "", [(current.type, nonterminal)]
     
     def sequence_metadata(current: typing.Type, nonterminal: str):
         min_items = current.metadata.get("min_length")
@@ -277,6 +328,8 @@ def _register_all_predefined_types():
                 assert issubclass(
                     args[0], str), f"{args[0]} is not string!"
                 value = args[1]
+            if value is typing.Any:
+                return f"{nonterminal} ::= object;\n", []
             return f"{nonterminal} ::=" \
                 f" object_begin (string colon {new_nonterminal} (comma string colon {new_nonterminal})*)?" \
                 f" object_end;\n", \
@@ -315,11 +368,11 @@ def _register_all_predefined_types():
                 if isinstance(arg, str):
                     new_items.append(from_str_to_kbnf_str(arg))
                 elif isinstance(arg, bool):
-                    new_items.append(f'"{str(arg).lower()}"')
+                    new_items.append(f'#"{SPACE_NONTERMINAL}{str(arg).lower()}"')
                 elif isinstance(arg, int):
-                    new_items.append(f'"{str(arg)}"')
+                    new_items.append(f'#"{SPACE_NONTERMINAL}{str(arg)}"')
                 elif isinstance(arg, float):
-                    new_items.append(f'"{str(arg)}"')
+                    new_items.append(f'#"{SPACE_NONTERMINAL}{str(arg)}"')
                 elif arg is None:
                     new_items.append("null")
                 elif isinstance(arg, tuple):

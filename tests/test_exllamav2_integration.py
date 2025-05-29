@@ -6,6 +6,7 @@ from formatron.integrations.exllamav2 import create_formatter_filter
 from exllamav2.generator import ExLlamaV2Sampler
 import kbnf
 import torch
+import gc
 from formatron.integrations.exllamav2 import create_engine_vocabulary, FormatterFilter
 
 def test_exllamav2_integration(snapshot):
@@ -30,6 +31,12 @@ def test_exllamav2_integration(snapshot):
         filters=[exllama_filter]
     )
     snapshot.assert_match(output)
+    del model
+    del generator
+    del cache
+    del exllama_filter
+    torch.cuda.empty_cache()
+    gc.collect()
 
 def test_exllamav2_json_schema(snapshot):
     model_dir = "local_assets/Meta-Llama-3-8B-Instruct-32k/"
@@ -91,9 +98,16 @@ def test_exllamav2_json_schema(snapshot):
         gen_settings=settings
     )
     snapshot.assert_match(output)
+    del model
+    del generator
+    del cache
+    del exllama_filter
+    torch.cuda.empty_cache()
+    gc.collect()
 
 
 def test_exllamav2_utf_8(snapshot):
+    gc.collect()
     model_dir = "local_assets/Meta-Llama-3-8B-Instruct-32k/"
     config = ExLlamaV2Config(model_dir)
     model = ExLlamaV2(config)
@@ -116,6 +130,12 @@ def test_exllamav2_utf_8(snapshot):
         filters=[exllama_filter]
     )
     snapshot.assert_match(output)
+    del model
+    del generator
+    del cache
+    del exllama_filter
+    torch.cuda.empty_cache()
+    gc.collect()
 
 
 def test_exllamav2_batched_inference(snapshot):
@@ -141,3 +161,9 @@ def test_exllamav2_batched_inference(snapshot):
         filters=[[exllama_filter], [exllama_filter2]]
     )
     snapshot.assert_match(output)
+    del model
+    del generator
+    del cache
+    del exllama_filter
+    torch.cuda.empty_cache()
+    gc.collect()

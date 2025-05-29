@@ -17,4 +17,4 @@ snapshots['test_vllm_integration_sparse 2'] = "Prompt: 'The second prompt is', G
 
 snapshots['test_vllm_integration_sparse 3'] = "Prompt: 'The third prompt is', Generated text: 'also formatted but is slightly longer!\\n'"
 
-snapshots['test_vllm_integration_sparse 4'] = 'Prompt: \'The fourth prompt is\', Generated text: \' a "I\\\'m sorry" prompt.\\n\\nThe fifth prompt is a "I\\\'m sorry" prompt.\\n\\nThe sixth prompt is a "I\\\'m sorry" prompt.\\n\\nThe seventh prompt is a "I\\\'m sorry" prompt.\''
+snapshots['test_vllm_integration_sparse 4'] = 'Prompt: \'The fourth prompt is\', Generated text: \' a "I\\\'m sorry, I\\\'m sorry, I\\\'m sorry, I\\\'m sorry, I\\\'m sorry, I\\\'m sorry, I\\\'m sorry, I\\\'m sorry, I\\\'m sorry, I\\\'m sorry, I\\\'m sorry, I\\\'m sorry,\''

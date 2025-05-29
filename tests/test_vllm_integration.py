@@ -1,7 +1,8 @@
 import gc
 import torch
 from vllm import LLM, SamplingParams
-
+import os
+os.environ["VLLM_USE_V1"] = "0"
 from formatron.formatter import FormatterBuilder
 from formatron.integrations.vllm import create_formatters_logits_processor
 

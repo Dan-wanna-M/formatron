@@ -9,7 +9,7 @@ from exllamav2 import ExLlamaV2Tokenizer, ExLlamaV2
 from exllamav2.generator.base import ExLlamaV2Filter
 from formatron.config import EngineGenerationConfig
 from formatron.formatter import FormatterBase, FormatterBuilder
-from formatron.integrations.utils import get_original_characters
+from formatron.integrations.utils import get_original_characters, default_mask_logits_fn, get_bit_mask
 
 
 __all__ = ["create_engine_vocabulary", "create_formatter_filter", "FormatterFilter"]
@@ -66,6 +66,8 @@ class FormatterFilter(ExLlamaV2Filter):
         self._config = config
         self._pass_tokens = set()
         self.eos_logits = None
+        self._mask_logits_fn = default_mask_logits_fn
+        self._bit_mask = None
 
     def is_completed(self) -> bool:
         """
@@ -133,12 +135,14 @@ class FormatterFilter(ExLlamaV2Filter):
         return True
 
     def mask_logits(self, logits: torch.Tensor) -> torch.Tensor:
+        if self._bit_mask is None:
+            self._bit_mask = get_bit_mask(logits)
         if self._formatter.is_completed():
             if self.eos_logits is None:
                 self.eos_logits = torch.full_like(logits, float("-inf"))
                 self.eos_logits[self.tokenizer.eos_token_id] = 0
             return self.eos_logits
-        return self._formatter.mask_logits(logits)
+        return self._mask_logits_fn(self._bit_mask, self._formatter, logits)
 
     @property
     def formatter_captures(self) -> dict[str, typing.Any]:
