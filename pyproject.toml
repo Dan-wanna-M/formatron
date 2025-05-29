@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "formatron"
-version = "0.4.12"
+version = "0.5.0"
 authors = [
   {name = "Xintong Sun", email = "xs28@rice.edu"},
 ]
@@ -25,8 +25,8 @@ classifiers = [
 [project.optional-dependencies]
 rwkv = ["rwkv>=0.7.4,<0.9.0"]
 transformers = ["transformers>=4,<5"]
-exllamav2 = ["exllamav2>=0.0.17,<0.3.0"]
-vllm = ["vllm>=0.2.2,<0.7.0"]
+exllamav2 = ["exllamav2>=0.0.17,<0.4.0"]
+vllm = ["vllm>=0.2.2,<0.9.0"]
 [project.urls]
 Repository = "https://github.com/Dan-wanna-M/formatron"
 [tool.pytest.ini_options]
