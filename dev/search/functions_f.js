@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['type_0',['type',['../classformatron_1_1schemas_1_1schema_1_1TypeWithMetadata.html#ada7a24496aad9979411523441c53a6cf',1,'formatron::schemas::schema::TypeWithMetadata']]]
+  ['str_0',['str',['../classformatron_1_1formatter_1_1FormatterBuilder.html#ad467a40f82a47dff9bb2b95d1300ace0',1,'formatron::formatter::FormatterBuilder']]],
+  ['substr_1',['substr',['../classformatron_1_1formatter_1_1FormatterBuilder.html#ab98ad2c47fcb7be56521d3eadb4e643b',1,'formatron::formatter::FormatterBuilder']]]
 ];

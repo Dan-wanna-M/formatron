@@ -32,7 +32,8 @@
    <div id="projectname">Formatron<span id="projectnumber">&#160;dev</span>
      <!-- Version Selector -->
      <select id="versionSelector" onchange="location = this.value;">
-       <option value="../v0.4.10/index.html" >v0.4.10</option>
+       <option value="../v0.4.11/index.html" >v0.4.11</option>
+<option value="../v0.4.10/index.html" >v0.4.10</option>
 <option value="../v0.4.9/index.html" >v0.4.9</option>
 <option value="../v0.4.8/index.html" >v0.4.8</option>
 <option value="../v0.4.7/index.html" >v0.4.7</option>
@@ -136,110 +137,133 @@ $(function(){initNavTree('integrations_2utils_8py_source.html',''); initResizabl
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#a49fe0eaafb8d1f9909e2d2520c2ea657">    7</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#a49fe0eaafb8d1f9909e2d2520c2ea657">_multiple_replace</a>(replacements: typing.Dict[bytes, bytes], regex: re.Pattern[bytes], text: bytes) -&gt; bytes:</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="comment"># For each match, look-up corresponding value in dictionary</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keywordflow">return</span> regex.sub(<span class="keyword">lambda</span> mo: replacements[mo.group()], text)</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#a744e97099675a1aac1c24fd6a1398efd">get_original_characters</a>(vocab: typing.Dict[str, int],</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>                            processors: typing.Optional[list[typing.Callable]] = <span class="keywordtype">None</span>) -&gt; typing.Dict[int, bytes]:</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="stringliteral">    Get a vocabulary of original characters unmangled to raw UTF-8 bytes by the provided processors.</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="stringliteral">        vocab: The mangled vocabulary.</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="stringliteral">        processors: List of callables with signature (token_to_char: typing.Dict[bytes, bytes])-&gt;None.</span></div>
-<div class="foldopen" id="foldopen00020" data-start="" data-end="">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#a744e97099675a1aac1c24fd6a1398efd">   20</a></span><span class="stringliteral">            Callables can be used to &quot;unmangle&quot; encoded characters to original characters. If None, processors will be auto-detected.</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    old_char_to_new_char = {}</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">assert</span> len(set(vocab.values())) == len(vocab), <span class="stringliteral">&quot;Vocabulary contains duplicate token IDs!&quot;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">if</span> processors <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        processors = <a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#ae2a9a65fa02be2e0d6d41b24e276cbf4">autodetect_processors</a>(vocab)</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">for</span> update_vocab <span class="keywordflow">in</span> processors:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        update_vocab(old_char_to_new_char)</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="comment"># Create a regular expression from the dictionary keys with longest keys first to avoid conflicts</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    regex = re.compile(b<span class="stringliteral">&quot;(%s)&quot;</span> % b<span class="stringliteral">&quot;|&quot;</span>.join(sorted(list(map(re.escape, old_char_to_new_char.keys())), key=<span class="keyword">lambda</span> x: len(x), reverse=<span class="keyword">True</span>)))</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    new_vocab = {}</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">for</span> k <span class="keywordflow">in</span> vocab:</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        token_id = vocab[k]</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        new_k = <a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#a49fe0eaafb8d1f9909e2d2520c2ea657">_multiple_replace</a>(old_char_to_new_char, regex, k.encode(<span class="stringliteral">&quot;UTF-8&quot;</span>))</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        new_vocab[token_id] = new_k</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">return</span> new_vocab</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="foldopen" id="foldopen00010" data-start="" data-end="">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#a7124683bef90160c3c02f21e02fe28c6">   10</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#a7124683bef90160c3c02f21e02fe28c6">default_mask_logits_fn</a>(bit_mask, formatter, logits):</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <span class="keywordflow">return</span> formatter.mask_logits(logits)</div>
 </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#ae2a9a65fa02be2e0d6d41b24e276cbf4">autodetect_processors</a>(vocab: typing.Dict[str, int]) -&gt; typing.List[typing.Callable]:</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="stringliteral">    Autodetect vocabulary processors.</span></div>
-<div class="foldopen" id="foldopen00041" data-start="" data-end="">
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#ae2a9a65fa02be2e0d6d41b24e276cbf4">   41</a></span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    result = []</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    llama_present = any(i.find(<span class="stringliteral">&#39;&lt;0xF0&gt;&#39;</span>) != -1 <span class="keywordflow">for</span> i <span class="keywordflow">in</span> vocab.keys())</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    underscore_present = (len([1 <span class="keywordflow">for</span> i <span class="keywordflow">in</span> vocab.keys() <span class="keywordflow">if</span> i.find(<span class="stringliteral">&#39;\u2581&#39;</span>) != -1]) / len(vocab)) &gt; 0.2</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    g_present = (len([1 <span class="keywordflow">for</span> i <span class="keywordflow">in</span> vocab.keys() <span class="keywordflow">if</span> i.find(<span class="stringliteral">&#39;\u0120&#39;</span>) != -1]) / len(vocab)) &gt; 0.2</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">if</span> llama_present:</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        result.append(update_vocab_0xHH)</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">if</span> underscore_present:</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        result.append(update_vocab_sentencepiece)</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">elif</span> g_present:</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        result.append(update_vocab_dot_G)</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">return</span> result</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="" data-end="">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#ad4e4df3a61d764b1b819c0c372fdfc5b">   12</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#ad4e4df3a61d764b1b819c0c372fdfc5b">get_fastest_compatible_logits_mask_fn</a>():</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keyword">from</span> kbnf.triton_logits_mask <span class="keyword">import</span> mask_logits_inplace</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keyword">def </span>fast_mask_logits_fn(bit_mask, formatter, logits):</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            mask_logits_inplace(logits, bit_mask, [formatter._engine])</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            <span class="keywordflow">return</span> logits</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">return</span> fast_mask_logits_fn</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">except</span> ImportError:</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordflow">return</span> default_mask_logits_fn</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#a27f1dbe46fdc2c2cf911fdb026972045">update_vocab_0xHH</a>(token_to_char: typing.Dict[bytes, bytes]):</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="stringliteral">    Vocabulary processor for &lt;0xHH&gt; tokens (used in llama tokenizers)</span></div>
-<div class="foldopen" id="foldopen00058" data-start="" data-end="">
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#a27f1dbe46fdc2c2cf911fdb026972045">   58</a></span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">for</span> j <span class="keywordflow">in</span> range(256):</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        token_to_char[(<span class="stringliteral">&quot;&lt;0x&quot;</span> + f<span class="stringliteral">&quot;{j:02x}&quot;</span>.upper() + <span class="stringliteral">&quot;&gt;&quot;</span>).encode(<span class="stringliteral">&quot;UTF-8&quot;</span>)] = bytes([j])</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="foldopen" id="foldopen00022" data-start="" data-end="">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#ae63065075fb830db9e108fcab4748b95">   22</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#ae63065075fb830db9e108fcab4748b95">get_bit_mask</a>(logits):</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">import</span> torch</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">return</span> torch.empty(((logits.shape[-1]+31)//32), dtype=torch.int32, device=<span class="stringliteral">&#39;cpu&#39;</span>, pin_memory=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#ac064c70217efb9b48e440985aee10918">update_vocab_sentencepiece</a>(token_to_char: typing.Dict[bytes, bytes]):</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="stringliteral">    Vocabulary processor for ▁ token (used in sentencepiece tokenizers)</span></div>
-<div class="foldopen" id="foldopen00066" data-start="" data-end="">
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#ac064c70217efb9b48e440985aee10918">   66</a></span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    token_to_char[<span class="stringliteral">&quot;\u2581&quot;</span>.encode(<span class="stringliteral">&quot;UTF-8&quot;</span>)] = b<span class="stringliteral">&quot; &quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#a744e97099675a1aac1c24fd6a1398efd">get_original_characters</a>(vocab: typing.Dict[str, int],</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                            processors: typing.Optional[list[typing.Callable]] = <span class="keywordtype">None</span>) -&gt; typing.Dict[int, bytes]:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="stringliteral">    Get a vocabulary of original characters unmangled to raw UTF-8 bytes by the provided processors.</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="stringliteral">        vocab: The mangled vocabulary.</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="stringliteral">        processors: List of callables with signature (token_to_char: typing.Dict[bytes, bytes])-&gt;None.</span></div>
+<div class="foldopen" id="foldopen00034" data-start="" data-end="">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#a744e97099675a1aac1c24fd6a1398efd">   34</a></span><span class="stringliteral">            Callables can be used to &quot;unmangle&quot; encoded characters to original characters. If None, processors will be auto-detected.</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    old_char_to_new_char = {}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">assert</span> len(set(vocab.values())) == len(vocab), <span class="stringliteral">&quot;Vocabulary contains duplicate token IDs!&quot;</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">if</span> processors <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        processors = <a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#ae2a9a65fa02be2e0d6d41b24e276cbf4">autodetect_processors</a>(vocab)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">for</span> update_vocab <span class="keywordflow">in</span> processors:</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        update_vocab(old_char_to_new_char)</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="comment"># Create a regular expression from the dictionary keys with longest keys first to avoid conflicts</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    regex = re.compile(b<span class="stringliteral">&quot;(%s)&quot;</span> % b<span class="stringliteral">&quot;|&quot;</span>.join(sorted(list(map(re.escape, old_char_to_new_char.keys())), key=<span class="keyword">lambda</span> x: len(x), reverse=<span class="keyword">True</span>)))</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    new_vocab = {}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">for</span> k <span class="keywordflow">in</span> vocab:</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        token_id = vocab[k]</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        new_k = <a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#a49fe0eaafb8d1f9909e2d2520c2ea657">_multiple_replace</a>(old_char_to_new_char, regex, k.encode(<span class="stringliteral">&quot;UTF-8&quot;</span>))</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        new_vocab[token_id] = new_k</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> new_vocab</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#ae2a9a65fa02be2e0d6d41b24e276cbf4">autodetect_processors</a>(vocab: typing.Dict[str, int]) -&gt; typing.List[typing.Callable]:</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="stringliteral">    Autodetect vocabulary processors.</span></div>
+<div class="foldopen" id="foldopen00055" data-start="" data-end="">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#ae2a9a65fa02be2e0d6d41b24e276cbf4">   55</a></span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    result = []</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    llama_present = any(i.find(<span class="stringliteral">&#39;&lt;0xF0&gt;&#39;</span>) != -1 <span class="keywordflow">for</span> i <span class="keywordflow">in</span> vocab.keys())</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    underscore_present = (len([1 <span class="keywordflow">for</span> i <span class="keywordflow">in</span> vocab.keys() <span class="keywordflow">if</span> i.find(<span class="stringliteral">&#39;\u2581&#39;</span>) != -1]) / len(vocab)) &gt; 0.2</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    g_present = (len([1 <span class="keywordflow">for</span> i <span class="keywordflow">in</span> vocab.keys() <span class="keywordflow">if</span> i.find(<span class="stringliteral">&#39;\u0120&#39;</span>) != -1]) / len(vocab)) &gt; 0.2</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">if</span> llama_present:</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        result.append(update_vocab_0xHH)</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">if</span> underscore_present:</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        result.append(update_vocab_sentencepiece)</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">elif</span> g_present:</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        result.append(update_vocab_dot_G)</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">return</span> result</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
 </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#a5f8874cc6515daae855acc1dbc2b94aa">update_vocab_dot_G</a>(token_to_char: typing.Dict[bytes, bytes]):</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="stringliteral">    Vocabulary processor for GPT2 style token mangling, like from \\n to Ġ(used in huggingface bytelevel preprocessors)</span></div>
-<div class="foldopen" id="foldopen00073" data-start="" data-end="">
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#a5f8874cc6515daae855acc1dbc2b94aa">   73</a></span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    token_to_char.update(<a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#a4e53f8f5754530f8fa7d627504c98f6a">_huggingface_bytelevel_decoder</a>())</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#a27f1dbe46fdc2c2cf911fdb026972045">update_vocab_0xHH</a>(token_to_char: typing.Dict[bytes, bytes]):</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="stringliteral">    Vocabulary processor for &lt;0xHH&gt; tokens (used in llama tokenizers)</span></div>
+<div class="foldopen" id="foldopen00072" data-start="" data-end="">
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#a27f1dbe46fdc2c2cf911fdb026972045">   72</a></span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">for</span> j <span class="keywordflow">in</span> range(256):</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        token_to_char[(<span class="stringliteral">&quot;&lt;0x&quot;</span> + f<span class="stringliteral">&quot;{j:02x}&quot;</span>.upper() + <span class="stringliteral">&quot;&gt;&quot;</span>).encode(<span class="stringliteral">&quot;UTF-8&quot;</span>)] = bytes([j])</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">@lru_cache()</span></div>
 </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#a4e53f8f5754530f8fa7d627504c98f6a">_huggingface_bytelevel_decoder</a>():</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="stringliteral">    I hate legacy code.</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    bs = list(range(ord(<span class="stringliteral">&quot;!&quot;</span>), ord(<span class="stringliteral">&quot;~&quot;</span>)+1))+list(range(ord(<span class="stringliteral">&quot;¡&quot;</span>), ord(<span class="stringliteral">&quot;¬&quot;</span>)+1))+list(range(ord(<span class="stringliteral">&quot;®&quot;</span>), ord(<span class="stringliteral">&quot;ÿ&quot;</span>)+1))</div>
-<div class="foldopen" id="foldopen00083" data-start="" data-end="">
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#a4e53f8f5754530f8fa7d627504c98f6a">   83</a></span>    cs = bs[:]</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    n = 0</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">for</span> b <span class="keywordflow">in</span> range(2**8):</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordflow">if</span> b <span class="keywordflow">not</span> <span class="keywordflow">in</span> bs:</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            bs.append(b)</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            cs.append(2**8+n)</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            n += 1</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    cs = [chr(n).encode(<span class="stringliteral">&quot;UTF-8&quot;</span>) <span class="keywordflow">for</span> n <span class="keywordflow">in</span> cs]</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(len(bs)):</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        bs[i] = bytes([bs[i]])</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordflow">return</span> dict(zip(cs, bs))</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#ac064c70217efb9b48e440985aee10918">update_vocab_sentencepiece</a>(token_to_char: typing.Dict[bytes, bytes]):</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="stringliteral">    Vocabulary processor for ▁ token (used in sentencepiece tokenizers)</span></div>
+<div class="foldopen" id="foldopen00080" data-start="" data-end="">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#ac064c70217efb9b48e440985aee10918">   80</a></span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    token_to_char[<span class="stringliteral">&quot;\u2581&quot;</span>.encode(<span class="stringliteral">&quot;UTF-8&quot;</span>)] = b<span class="stringliteral">&quot; &quot;</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
 </div>
-<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_a27f1dbe46fdc2c2cf911fdb026972045"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#a27f1dbe46fdc2c2cf911fdb026972045">formatron.integrations.utils.update_vocab_0xHH</a></div><div class="ttdeci">update_vocab_0xHH(typing.Dict[bytes, bytes] token_to_char)</div><div class="ttdoc">Vocabulary processor for &lt;0xHH&gt; tokens (used in llama tokenizers)</div><div class="ttdef"><b>Definition</b> <a href="#l00058">utils.py:58</a></div></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#a5f8874cc6515daae855acc1dbc2b94aa">update_vocab_dot_G</a>(token_to_char: typing.Dict[bytes, bytes]):</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="stringliteral">    Vocabulary processor for GPT2 style token mangling, like from \\n to Ġ(used in huggingface bytelevel preprocessors)</span></div>
+<div class="foldopen" id="foldopen00087" data-start="" data-end="">
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#a5f8874cc6515daae855acc1dbc2b94aa">   87</a></span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    token_to_char.update(<a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#a4e53f8f5754530f8fa7d627504c98f6a">_huggingface_bytelevel_decoder</a>())</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">@lru_cache()</span></div>
+</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keyword">def </span><a class="code hl_function" href="namespaceformatron_1_1integrations_1_1utils.html#a4e53f8f5754530f8fa7d627504c98f6a">_huggingface_bytelevel_decoder</a>():</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="stringliteral">    I hate legacy code.</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    bs = list(range(ord(<span class="stringliteral">&quot;!&quot;</span>), ord(<span class="stringliteral">&quot;~&quot;</span>)+1))+list(range(ord(<span class="stringliteral">&quot;¡&quot;</span>), ord(<span class="stringliteral">&quot;¬&quot;</span>)+1))+list(range(ord(<span class="stringliteral">&quot;®&quot;</span>), ord(<span class="stringliteral">&quot;ÿ&quot;</span>)+1))</div>
+<div class="foldopen" id="foldopen00097" data-start="" data-end="">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="namespaceformatron_1_1integrations_1_1utils.html#a4e53f8f5754530f8fa7d627504c98f6a">   97</a></span>    cs = bs[:]</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    n = 0</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">for</span> b <span class="keywordflow">in</span> range(2**8):</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">if</span> b <span class="keywordflow">not</span> <span class="keywordflow">in</span> bs:</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            bs.append(b)</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            cs.append(2**8+n)</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            n += 1</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    cs = [chr(n).encode(<span class="stringliteral">&quot;UTF-8&quot;</span>) <span class="keywordflow">for</span> n <span class="keywordflow">in</span> cs]</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(len(bs)):</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        bs[i] = bytes([bs[i]])</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordflow">return</span> dict(zip(cs, bs))</div>
+</div>
+<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_a27f1dbe46fdc2c2cf911fdb026972045"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#a27f1dbe46fdc2c2cf911fdb026972045">formatron.integrations.utils.update_vocab_0xHH</a></div><div class="ttdeci">update_vocab_0xHH(typing.Dict[bytes, bytes] token_to_char)</div><div class="ttdoc">Vocabulary processor for &lt;0xHH&gt; tokens (used in llama tokenizers)</div><div class="ttdef"><b>Definition</b> <a href="#l00072">utils.py:72</a></div></div>
 <div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_a49fe0eaafb8d1f9909e2d2520c2ea657"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#a49fe0eaafb8d1f9909e2d2520c2ea657">formatron.integrations.utils._multiple_replace</a></div><div class="ttdeci">bytes _multiple_replace(typing.Dict[bytes, bytes] replacements, re.Pattern[bytes] regex, bytes text)</div><div class="ttdef"><b>Definition</b> <a href="#l00007">utils.py:7</a></div></div>
-<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_a4e53f8f5754530f8fa7d627504c98f6a"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#a4e53f8f5754530f8fa7d627504c98f6a">formatron.integrations.utils._huggingface_bytelevel_decoder</a></div><div class="ttdeci">_huggingface_bytelevel_decoder()</div><div class="ttdoc">I hate legacy code.</div><div class="ttdef"><b>Definition</b> <a href="#l00083">utils.py:83</a></div></div>
-<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_a5f8874cc6515daae855acc1dbc2b94aa"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#a5f8874cc6515daae855acc1dbc2b94aa">formatron.integrations.utils.update_vocab_dot_G</a></div><div class="ttdeci">update_vocab_dot_G(typing.Dict[bytes, bytes] token_to_char)</div><div class="ttdoc">Vocabulary processor for GPT2 style token mangling, like from \n to Ġ(used in huggingface bytelevel p...</div><div class="ttdef"><b>Definition</b> <a href="#l00073">utils.py:73</a></div></div>
-<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_a744e97099675a1aac1c24fd6a1398efd"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#a744e97099675a1aac1c24fd6a1398efd">formatron.integrations.utils.get_original_characters</a></div><div class="ttdeci">typing.Dict[int, bytes] get_original_characters(typing.Dict[str, int] vocab, typing.Optional[list[typing.Callable]] processors=None)</div><div class="ttdoc">Get a vocabulary of original characters unmangled to raw UTF-8 bytes by the provided processors.</div><div class="ttdef"><b>Definition</b> <a href="#l00020">utils.py:21</a></div></div>
-<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_ac064c70217efb9b48e440985aee10918"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#ac064c70217efb9b48e440985aee10918">formatron.integrations.utils.update_vocab_sentencepiece</a></div><div class="ttdeci">update_vocab_sentencepiece(typing.Dict[bytes, bytes] token_to_char)</div><div class="ttdoc">Vocabulary processor for ▁ token (used in sentencepiece tokenizers)</div><div class="ttdef"><b>Definition</b> <a href="#l00066">utils.py:66</a></div></div>
-<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_ae2a9a65fa02be2e0d6d41b24e276cbf4"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#ae2a9a65fa02be2e0d6d41b24e276cbf4">formatron.integrations.utils.autodetect_processors</a></div><div class="ttdeci">typing.List[typing.Callable] autodetect_processors(typing.Dict[str, int] vocab)</div><div class="ttdoc">Autodetect vocabulary processors.</div><div class="ttdef"><b>Definition</b> <a href="#l00041">utils.py:41</a></div></div>
+<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_a4e53f8f5754530f8fa7d627504c98f6a"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#a4e53f8f5754530f8fa7d627504c98f6a">formatron.integrations.utils._huggingface_bytelevel_decoder</a></div><div class="ttdeci">_huggingface_bytelevel_decoder()</div><div class="ttdoc">I hate legacy code.</div><div class="ttdef"><b>Definition</b> <a href="#l00097">utils.py:97</a></div></div>
+<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_a5f8874cc6515daae855acc1dbc2b94aa"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#a5f8874cc6515daae855acc1dbc2b94aa">formatron.integrations.utils.update_vocab_dot_G</a></div><div class="ttdeci">update_vocab_dot_G(typing.Dict[bytes, bytes] token_to_char)</div><div class="ttdoc">Vocabulary processor for GPT2 style token mangling, like from \n to Ġ(used in huggingface bytelevel p...</div><div class="ttdef"><b>Definition</b> <a href="#l00087">utils.py:87</a></div></div>
+<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_a7124683bef90160c3c02f21e02fe28c6"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#a7124683bef90160c3c02f21e02fe28c6">formatron.integrations.utils.default_mask_logits_fn</a></div><div class="ttdeci">default_mask_logits_fn(bit_mask, formatter, logits)</div><div class="ttdef"><b>Definition</b> <a href="#l00010">utils.py:10</a></div></div>
+<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_a744e97099675a1aac1c24fd6a1398efd"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#a744e97099675a1aac1c24fd6a1398efd">formatron.integrations.utils.get_original_characters</a></div><div class="ttdeci">typing.Dict[int, bytes] get_original_characters(typing.Dict[str, int] vocab, typing.Optional[list[typing.Callable]] processors=None)</div><div class="ttdoc">Get a vocabulary of original characters unmangled to raw UTF-8 bytes by the provided processors.</div><div class="ttdef"><b>Definition</b> <a href="#l00034">utils.py:35</a></div></div>
+<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_ac064c70217efb9b48e440985aee10918"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#ac064c70217efb9b48e440985aee10918">formatron.integrations.utils.update_vocab_sentencepiece</a></div><div class="ttdeci">update_vocab_sentencepiece(typing.Dict[bytes, bytes] token_to_char)</div><div class="ttdoc">Vocabulary processor for ▁ token (used in sentencepiece tokenizers)</div><div class="ttdef"><b>Definition</b> <a href="#l00080">utils.py:80</a></div></div>
+<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_ad4e4df3a61d764b1b819c0c372fdfc5b"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#ad4e4df3a61d764b1b819c0c372fdfc5b">formatron.integrations.utils.get_fastest_compatible_logits_mask_fn</a></div><div class="ttdeci">get_fastest_compatible_logits_mask_fn()</div><div class="ttdef"><b>Definition</b> <a href="#l00012">utils.py:12</a></div></div>
+<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_ae2a9a65fa02be2e0d6d41b24e276cbf4"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#ae2a9a65fa02be2e0d6d41b24e276cbf4">formatron.integrations.utils.autodetect_processors</a></div><div class="ttdeci">typing.List[typing.Callable] autodetect_processors(typing.Dict[str, int] vocab)</div><div class="ttdoc">Autodetect vocabulary processors.</div><div class="ttdef"><b>Definition</b> <a href="#l00055">utils.py:55</a></div></div>
+<div class="ttc" id="anamespaceformatron_1_1integrations_1_1utils_html_ae63065075fb830db9e108fcab4748b95"><div class="ttname"><a href="namespaceformatron_1_1integrations_1_1utils.html#ae63065075fb830db9e108fcab4748b95">formatron.integrations.utils.get_bit_mask</a></div><div class="ttdeci">get_bit_mask(logits)</div><div class="ttdef"><b>Definition</b> <a href="#l00022">utils.py:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

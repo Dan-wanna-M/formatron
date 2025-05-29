@@ -32,7 +32,8 @@
    <div id="projectname">Formatron<span id="projectnumber">&#160;dev</span>
      <!-- Version Selector -->
      <select id="versionSelector" onchange="location = this.value;">
-       <option value="../v0.4.10/index.html" >v0.4.10</option>
+       <option value="../v0.4.11/index.html" >v0.4.11</option>
+<option value="../v0.4.10/index.html" >v0.4.10</option>
 <option value="../v0.4.9/index.html" >v0.4.9</option>
 <option value="../v0.4.8/index.html" >v0.4.8</option>
 <option value="../v0.4.7/index.html" >v0.4.7</option>
@@ -126,6 +127,7 @@ $(function(){initNavTree('classformatron_1_1integrations_1_1transformers_1_1Form
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classformatron_1_1integrations_1_1transformers_1_1FormattersLogitsProcessor-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">formatron.integrations.transformers.FormattersLogitsProcessor Class Reference</div></div>
@@ -158,6 +160,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a598fc8c32fb2670796d4ae2186f8a134" id="r_a598fc8c32fb2670796d4ae2186f8a134"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a598fc8c32fb2670796d4ae2186f8a134">configs</a></td></tr>
 <tr class="separator:a598fc8c32fb2670796d4ae2186f8a134"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
+Static Protected Member Functions</h2></td></tr>
+<tr class="memitem:ac735b141b9c62d5ab5250a6c1ebffa5e" id="r_ac735b141b9c62d5ab5250a6c1ebffa5e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac735b141b9c62d5ab5250a6c1ebffa5e">_get_fastest_compatible_logits_mask_fn</a> ()</td></tr>
+<tr class="separator:ac735b141b9c62d5ab5250a6c1ebffa5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a50a0787df5f246965db8481f0700d0b4" id="r_a50a0787df5f246965db8481f0700d0b4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50a0787df5f246965db8481f0700d0b4">_formatters</a></td></tr>
@@ -166,6 +173,10 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a7731ed1ab6807c0de6c29ebfefd6975f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24c02e28fdbae4450af7527f93400fa7" id="r_a24c02e28fdbae4450af7527f93400fa7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24c02e28fdbae4450af7527f93400fa7">_last_input_id_length</a></td></tr>
 <tr class="separator:a24c02e28fdbae4450af7527f93400fa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55e543a35e604e61751bee0c92e8a0ad" id="r_a55e543a35e604e61751bee0c92e8a0ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55e543a35e604e61751bee0c92e8a0ad">_mask_logits_fn</a></td></tr>
+<tr class="separator:a55e543a35e604e61751bee0c92e8a0ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada0f3725772c4ff38453af73d05d5cfd" id="r_ada0f3725772c4ff38453af73d05d5cfd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada0f3725772c4ff38453af73d05d5cfd">_bit_masks</a></td></tr>
+<tr class="separator:ada0f3725772c4ff38453af73d05d5cfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Properties</h2></td></tr>
 <tr class="memitem:a148e8818c8d198d37e167d7030fa5746" id="r_a148e8818c8d198d37e167d7030fa5746"><td class="memItemLeft" align="right" valign="top">list[dict[str, typing.Any]|None]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a148e8818c8d198d37e167d7030fa5746">formatters_captures</a> (self)</td></tr>
@@ -235,7 +246,34 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00119">119</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00132">132</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
+
+</div>
+</div>
+<a id="ac735b141b9c62d5ab5250a6c1ebffa5e" name="ac735b141b9c62d5ab5250a6c1ebffa5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac735b141b9c62d5ab5250a6c1ebffa5e">&#9670;&#160;</a></span>_get_fastest_compatible_logits_mask_fn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">formatron.integrations.transformers.FormattersLogitsProcessor._get_fastest_compatible_logits_mask_fn </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00089">89</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
 
 </div>
 </div>
@@ -257,7 +295,7 @@ Protected Attributes</h2></td></tr>
 <p>Get the captures of the formatters. </p>
 <p>Each element in the list corresponds to the captures of the formatter at the same index. If the formatter is None, the element is None. </p>
 
-<p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00106">106</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00119">119</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
 
 </div>
 </div>
@@ -279,7 +317,7 @@ Protected Attributes</h2></td></tr>
 <p>Check if the formatters are completed. </p>
 <p>Each boolean in the list corresponds to the completion status of the formatter at the same index. If the formatter is None, the element is None. </p>
 
-<p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00116">116</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00129">129</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
 
 </div>
 </div>
@@ -298,11 +336,35 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00087">87</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00100">100</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="ada0f3725772c4ff38453af73d05d5cfd" name="ada0f3725772c4ff38453af73d05d5cfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada0f3725772c4ff38453af73d05d5cfd">&#9670;&#160;</a></span>_bit_masks</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">formatron.integrations.transformers.FormattersLogitsProcessor._bit_masks</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00145">145</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
+
+</div>
+</div>
 <a id="a7731ed1ab6807c0de6c29ebfefd6975f" name="a7731ed1ab6807c0de6c29ebfefd6975f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7731ed1ab6807c0de6c29ebfefd6975f">&#9670;&#160;</a></span>_eos_token_id</h2>
 
@@ -372,6 +434,30 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00080">80</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
+
+</div>
+</div>
+<a id="a55e543a35e604e61751bee0c92e8a0ad" name="a55e543a35e604e61751bee0c92e8a0ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55e543a35e604e61751bee0c92e8a0ad">&#9670;&#160;</a></span>_mask_logits_fn</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">formatron.integrations.transformers.FormattersLogitsProcessor._mask_logits_fn</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="transformers_8py_source.html#l00086">86</a> of file <a class="el" href="transformers_8py_source.html">transformers.py</a>.</p>
 
 </div>
 </div>

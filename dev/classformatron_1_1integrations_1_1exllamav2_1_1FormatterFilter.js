@@ -13,8 +13,10 @@ var classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter =
     [ "prepare_logit_mask", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#aeb7f169a9c36b793867682069f00e928", null ],
     [ "reset", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a984bc61ef20d16e88ffb40aa2f5afcc3", null ],
     [ "use_background_worker", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a9aa83a5922cefce88197d2cc3822a0c6", null ],
+    [ "_bit_mask", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#af3cd80143595619b342e70cf8e6e21a7", null ],
     [ "_config", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#ae43a79de8cc0fb018df02e7edab028ee", null ],
     [ "_formatter", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a568277b00bef848b3fccbfa7030c435f", null ],
+    [ "_mask_logits_fn", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#ae46da0c52d3be732aaeef4302b9f97d5", null ],
     [ "_pass_tokens", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a370eaf641dd803b2759b4e5fc7f74a1c", null ],
     [ "eos_logits", "classformatron_1_1integrations_1_1exllamav2_1_1FormatterFilter.html#a16819bffd3e4b1bb48e05ac7f696592a", null ]
 ];
